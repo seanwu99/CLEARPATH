@@ -1,0 +1,29 @@
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+<script type="text/javascript">
+	function Div(id, ud) {
+		var div = document.getElementById(id);
+		var h = parseInt(div.style.height) + ud;
+		if (h >= 20) {
+			div.style.height = h + "px";
+		}
+	}
+</script>
+
+</head>
+<body>
+
+	<div>
+		<input type="button" value="+" onclick="Div('my_div',20);">&nbsp;&nbsp;
+		<input type="button" value="-" onclick="Div('my_div',-20);">
+	</div>
+
+
+	<div id="my_div"
+		style="height: 300px; width: 500px; overflow: auto; background-color: #FFFFFF; border: 1px solid #555555;"></div>
+
+</body>
+</html>

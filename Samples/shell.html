@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+<title>Simple sap.ui.ux3.Shell</title>
+<script src="resources/sap-ui-core.js" type="text/javascript"
+	id="sap-ui-bootstrap" data-sap-ui-libs="sap.ui.ux3,sap.ui.commons"
+	data-sap-ui-theme="sap_bluecrystal">
+	
+</script>
+
+<script>
+	//var c = sap.ui.commons; /* shorthand */
+
+	//CREATE SHELL COMPONENT
+	//Defines application icon and title
+	//Defines behaviour for logout, search and create feed functions
+	var oShell = new sap.ui.ux3.Shell("myShell", {
+		appIcon : "/demokit/test-resources/sap/ui/ux3/img/sap_18.png",
+		appIconTooltip : "Bouvet, an SAP Partner",
+		appTitle : "Pingvinen - Bouvet intranet mockup med SAPUI5",
+		logout : function() {
+			alert("Logout Button has been clicked.\nThe application can now do whatever is required.\nThis example page will just clear the screen.");
+			oShell.forceInvalidation();
+			oShell.destroy();
+			sap.ui.getCore().applyChanges();
+			jQuery(document.body).html("<span>Logout had been pressed, screen has been cleared.</span>");
+		},
+		search : function(oEvent) {
+			alert("Search triggered: " + oEvent.getParameter("text"));
+		},
+		feedSubmit : function(oEvent) {
+			alert("Feed entry submitted: " + oEvent.getParameter("text"));
+		}
+	});
+
+	//Shell is now created, but is not active before it is bound to an HTML element.
+	//This will be done in the end with function oShell.placeAt
+
+	//HEADER ITEM
+	//Add a simple header item (header items can be much more complex, for example may contain sub-menus)
+	oShell.addHeaderItem(new sap.ui.commons.TextView({
+		text : "Dagfinn Parnas",
+		tooltip : "dapa"
+	}));
+
+	//NAVIGATION
+	//Create the navigation structure through Workset items. The key is used later to refer to the
+	oShell.addWorksetItem(new sap.ui.ux3.NavigationItem("wi_news", {
+		key : "wi_news",
+		text : "Nyheter",
+		subItems : [ new sap.ui.ux3.NavigationItem("wi_news_enhet", {
+			key : "wi_news_enhet",
+			text : "Enhet"
+		}), new sap.ui.ux3.NavigationItem("wi_news_region", {
+			key : "wi_news_region",
+			text : "Region"
+		}), new sap.ui.ux3.NavigationItem("wi_news_company", {
+			key : "wi_news_company",
+			text : "Selskap"
+		})
+
+		]
+	}));
+	oShell.addWorksetItem(new sap.ui.ux3.NavigationItem({
+		key : "wi_me",
+		text : "Me"
+	}));
+
+	//When a navigation item is selected, this function is called.
+	//it will retrieve the content based on the selected navigation item
+	oShell.attachWorksetItemSelected(function(oEvent) {
+		var itemKey = oEvent.getParameter("key");
+		oShell.setContent(getContent(itemKey));
+	});
+
+	//TOOL POPUPS
+	//Created through new sap.ui.ux3.ToolPopup and oShell.addToolPopup();
+	//Skipped here in order to keep it simple
+
+	//PANE BAR
+	oShell.addPaneBarItem(new sap.ui.core.Item("pane_feed", {
+		text : "Feed"
+	}));
+	oShell.addPaneBarItem(new sap.ui.core.Item("pane_people", {
+		text : "People"
+	}));
+
+	//When a pane is clicked on, this method is called in order to retrieve the content
+	oShell.attachPaneBarItemSelected(function(oEvent) {
+		var paneId = oEvent.mParameters.id;
+		oShell.setPaneContent(getPaneContent(paneId));
+	});
+
+	//CONTENT
+	//This section is used for defining the content based on selected navigation item
+	//Note that normally the content for each navigation item(workset item) would be defined in a separate file
+
+	var aContent = {};//we cache the content in this object
+
+	//Return content based on the id of the navigation item(workset item)
+	//This method is called for the event handler of the navigation (set up from oShell.attachWorksetItemSelected)
+	function getContent(id) {
+		//check if the content is already created
+		if (!aContent[id]) {
+			//if not cached, define content based on id of navigation item (workset item)
+			if (id == "wi_news_company") {
+				aContent[id] = new sap.ui.commons.TextView({
+					text : "This is the content for company news"
+				});
+			} else if (id == "wi_news_region") {
+				aContent[id] = new sap.ui.commons.TextView({
+					text : "This is the content for regional news"
+				});
+			} else if (id == "wi_news_enhet") {
+				aContent[id] = new sap.ui.commons.TextView({
+					text : "This is the content for news for your enhet"
+				});
+			} else if (id == "wi_me") {
+				aContent[id] = new sap.ui.commons.TextView({
+					text : "This is the content of the me section"
+				});
+			} else {
+				aContent[id] = null;
+			}
+		}
+		return aContent[id];
+	}
+
+	//Return content for pane based on the id of it
+	function getPaneContent(id) {
+		if (!aContent[id]) {
+			if (id == "pane_feed") {
+				aContent[id] = new sap.ui.commons.TextView({
+					text : "This is the content of pange with id " + id
+				});
+			} else if (id == "pane_people") {
+				aContent[id] = new sap.ui.commons.TextView({
+					text : "This is the content of pange with id " + id
+				});
+			}
+		}
+		return aContent[id];
+	}
+
+	//Initialize the default content
+	oShell.setContent(getContent("wi_news_enhet"));
+
+	//Make the shell visible by binding it to a DIV in the HTML code
+	oShell.placeAt("shellArea");
+</script>
+
+</head>
+<body class="sapUiBody" role="application">
+
+	<!-- THIS IS THE DIV FOR WHICH WE BIND OUR SHELL COMPONENT-->
+	<div id="shellArea"></div>
+
+</body>
+</html>
