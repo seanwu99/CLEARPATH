@@ -13,119 +13,149 @@
     </script>
 
     <script>
-        //        var features;
-
+        var features;
+        var mJson;
+        var highchartsMap;
         $(function () {
+//            document.getElementById('files').addEventListener('change', handleFileSelect, false);
+            features = {
+                title: "features",
+                features: [
+//                    {
+//                        type: "Feature",
+//                        properties: {"hc-key": "Feature1", "name": "Feature1"},
+//                        geometry: {
+//                            type: "Polygon",
+//                            coordinates: [[[0, 0]]]
+//                        }
+//                    },
+//                    {
+//                        type: "Feature",
+//                        properties: {"hc-key": "Feature2", "name": "Feature2"},
+//                        geometry: {
+//                            type: "Polygon",
+//                            coordinates: [[[0, 0]]]
+//                        }
+//                    }
+                ]
+            };
+            mJson = Highcharts.geojson(features);
 
+            $.each(mJson, function (i) {
+                this.value = 60 + Math.round((Math.random() * 40)); // random bogus data
+            });
+
+            // Instanciate the map
+            mapInit(mJson);
 
         });
 
-        //        function mapInit(_myJson) {
-        //            var highchartMap = new Highcharts.Map('container', {
-        //                credits: {
-        //                    enabled: false,
-        //                    href: 'http://www.rtsperfectplant.com/',
-        //                    position: {
-        //                        align: 'right',
-        //                        x: -10,
-        //                        verticalAlign: 'bottom',
-        //                        y: -5
-        //                    },
-        //
-        //                    style: {
-        //                        cursor: 'pointer',
-        //                        color: '#999999',
-        //                        fontSize: '9px'
-        //                    },
-        //
-        //                    text: 'RTS Consulting Inc.'
-        //                },
-        //                chart: {
-        //
-        //
-        //                    events: {
-        //                        drilldown: function () {
-        //                        },
-        //                        drillup: function () {
-        //                        }
-        //                    }
-        //                },
-        //
-        //                title: {
-        //                    text: ''
-        //                },
-        //
-        ////                subtitle: {
-        ////                    text: 'subtitle',
-        ////                    floating: true,
-        ////                    align: 'right',
-        ////                    y: 50,
-        ////                    style: {
-        ////                        fontSize: '16px'
-        ////                    }
-        ////                },
-        //
-        ////                legend: small ? {} : {
-        ////                    layout: 'vertical',
-        ////                    align: 'right',
-        ////                    verticalAlign: 'middle'
-        ////                },
-        //
-        //                colorAxis: {
-        //                    showInLegend: false,
-        //                    min: 0,
-        //                    minColor: '#E6E7E8',
-        //                    maxColor: '#005645'
-        //                },
-        //
-        //                mapNavigation: {
-        //                    enabled: true,
-        //                    buttonOptions: {
-        //                        verticalAlign: 'top'
-        //                    }
-        //                },
-        //
-        ////                plotOptions: {
-        ////                    map: {
-        ////                        states: {
-        ////                            hover: {
-        ////                                color: '#EEDD66'
-        ////                            }
-        ////                        }
-        ////                    }
-        ////                },
-        //
-        //                series: [
-        //                    {
-        //                        borderWidth: 0,
-        //                        data: _myJson,
-        //                        name: 'mapSeries',
-        //                        dataLabels: {
-        //                            enabled: true,
-        //                            align: 'center',
-        //                            verticalAlign: 'middle',
-        //                            format: '{point.properties.name}'
-        //                        }
-        //                    }
-        //                ],
-        //
-        //                drilldown: {
-        ////                    //series: drilldownSeries,
-        //                    activeDataLabelStyle: {
-        //                        color: '#FFFFFF',
-        //                        textDecoration: 'none',
-        //                        textShadow: '0 0 3px #000000'
-        //                    }
-        ////                    drillUpButton: {
-        ////                        relativeTo: 'spacingBox',
-        ////                        position: {
-        ////                            x: 0,
-        ////                            y: 60
-        ////                        }
-        ////                    }
-        //                }
-        //            });
-        //        }
+        function mapInit(_myJson) {
+            highchartsMap = new Highcharts.Map('container', {
+                credits: {
+                    enabled: false,
+                    href: 'http://www.rtsperfectplant.com/',
+                    position: {
+                        align: 'right',
+                        x: -10,
+                        verticalAlign: 'bottom',
+                        y: -5
+                    },
+
+                    style: {
+                        cursor: 'pointer',
+                        color: '#999999',
+                        fontSize: '9px'
+                    },
+
+                    text: 'RTS Consulting Inc.'
+                },
+                chart: {
+
+
+                    events: {
+                        drilldown: function (e) {
+                        },
+                        drillup: function () {
+                        }
+                    }
+                },
+
+                title: {
+                    text: ''
+                },
+
+//                subtitle: {
+//                    text: 'subtitle',
+//                    floating: true,
+//                    align: 'right',
+//                    y: 50,
+//                    style: {
+//                        fontSize: '16px'
+//                    }
+//                },
+
+//                legend: small ? {} : {
+//                    layout: 'vertical',
+//                    align: 'right',
+//                    verticalAlign: 'middle'
+//                },
+
+                colorAxis: {
+                    showInLegend: false,
+                    min: 0,
+                    minColor: '#E6E7E8',
+                    maxColor: '#005645'
+                },
+
+                mapNavigation: {
+                    enabled: false,
+                    buttonOptions: {
+                        verticalAlign: 'top'
+                    }
+                },
+
+                plotOptions: {
+                    map: {
+                        states: {
+                            hover: {
+                                color: '#EEDD66'
+                            }
+                        }
+                    }
+                },
+
+                series: [
+                    {
+                        borderWidth: 0,
+                        data: mJson,
+                        name: 'mapSeries',
+                        dataLabels: {
+                            enabled: true,
+                            align: 'center',
+                            verticalAlign: 'middle',
+                            format: '{point.properties.name}',
+                        }
+                    }
+                ],
+
+                drilldown: {
+//                    //series: drilldownSeries,
+                    activeDataLabelStyle: {
+                        color: '#FFFFFF',
+                        textDecoration: 'none',
+                        textShadow: '0 0 3px #000000'
+                    },
+//                    drillUpButton: {
+//                        relativeTo: 'spacingBox',
+//                        position: {
+//                            x: 0,
+//                            y: 60
+//                        }
+//                    }
+                }
+            });
+        }
     </script>
 </head>
 <body>
@@ -136,7 +166,7 @@
 
 
 </script>
-<div id="container" style="display: none;"></div>
+
 <button id="Rect">Rec</button>
 <button id="Circle">Cir</button>
 <button id="Triangle">Tri</button>
@@ -148,14 +178,10 @@
 <!--<input type="file" id="input" onchange="handleFiles(this.files)" color="#fff">-->
 id: <input type="text" id="idText" name="idText" onchange="textInput(this.value)">
 
-<canvas id="hCanvas" width="500" height="100" class="lower-canvas"
-        style="position: absolute; width: 500px; height: 100px; left: 0px; top: 0px; -webkit-user-select: none;"></canvas>
-<!--<canvas id="hCanvas" ></canvas>-->
-
 
 <!--<canvas id="hCanvas" width="500" height="200" style="border: 1px solid #aaa"></canvas>-->
-
-
+<canvas id="hCanvas" width="500" height="100" class="lower-canvas"
+        style="position: absolute; width: 500px; height: 100px; left: 0px; top: 0px; -webkit-user-select: none;"></canvas>
 <script id="main">
     // 		(function() {
     //    input[type="file"]{
@@ -188,31 +214,15 @@ id: <input type="text" id="idText" name="idText" onchange="textInput(this.value)
     function bgImageLoad(files) {
 //        var ctx = document.getElementById('c').getContext('2d');
 //        var oldCanvas = canvas.toDataURL("image/png");
-
+        var fileList = this.files;
 //        cc(files[0]);
         var image = new Image();
         image.src = window.URL.createObjectURL(files[0]);
-
-
-//        1) time
-//          createObjectURL is synchronously executed
-//          filereader.readasdataurl is asynchronously executed (works with callback)
-
-//        2) memory usage
-//          createObjectURL return url with hash, and store object in memory until document triggers unload event (document close) or execute revokeObjectURL
-//          filereader.readasdataurl return base64, that contains many characters, and use more memory than blob url, but removes from memory when you don't use it (by garbage collector)
-
-//        3) support
-//          createObjectURL from 10 ie and all modern browsers
-//          filereader.readasdataurl from 10 ie and all modern browsers
-
-//          is better to use blob url's (via createObjectURL), it is more efficient and faster, but if you use many object urls, you need to release this urls by revokeObjectURL (for free memmory)
-
         image.onload = function () {
             fabricCanvas.setDimensions({width: image.width, height: image.height}, {backstoreOnly: true});
             fabricCanvas.setDimensions({width: image.width + 'px', height: image.height + 'px'}, {cssOnly: true});
             fabricCanvas.setBackgroundImage(image.src, fabricCanvas.renderAll.bind(fabricCanvas));
-        };
+        }
 
 //        function resizeElementHeight(element) {
         var element = document.getElementById('container');
@@ -225,12 +235,8 @@ id: <input type="text" id="idText" name="idText" onchange="textInput(this.value)
 //            } else if (body && body.clientHeight) {
 //                height = body.clientHeight;
 //            }
-        document.getElementById("container").height = image.height + "px";
-        document.getElementById("container").width = image.width + "px";
-//        element.style.height = image.height + "px";
-//        element.style.width = image.width + "px";
-//        element.height = image.height + "px";
-//        element.width = image.width + "px";
+        element.style.height = image.height + "px";
+        element.style.width = image.width + "px";
 //        }
 
 
@@ -311,7 +317,6 @@ id: <input type="text" id="idText" name="idText" onchange="textInput(this.value)
         document.getElementById("idText").value = id;
         fabricID.push({"id": id, "type": 'triangle'});
     });
-
     function featureExist(obj, coordinates) {
         var vv = false;
         $.each(coordinates, function (i, _coordinates) {
@@ -403,7 +408,7 @@ id: <input type="text" id="idText" name="idText" onchange="textInput(this.value)
                 properties: {"hc-key": _coordinates['id'], "name": _coordinates['id']},
                 geometry: {
                     type: "Polygon",
-                    coordinates: _coordinates['d0']
+                    coordinates: _coordinates['d0'],
                 }
             });
         });
@@ -412,132 +417,12 @@ id: <input type="text" id="idText" name="idText" onchange="textInput(this.value)
             "name": 'features',
             "features": features
         };
-        var mJson = Highcharts.geojson(features);
-        $.each(mJson, function () {
-            this.value = 60 + Math.round((Math.random() * 40)); // Non-random bogus data
-        });
-//        cc(features);
-//        mapInit(mJson);
-
-//        mJson = Highcharts.geojson(geojson);
+        mJson = Highcharts.geojson(features);
         $.each(mJson, function (i) {
             this.value = 60 + Math.round((Math.random() * 40)); // Non-random bogus data
         });
-        if ($('#container').is(":hidden")) {
-//            $( "div" ).show( "slow" );
-            $('#container').slideDown("slow", function () {
-//            alert('slideDown');
-            }).highcharts('Map', {
-                credits: {
-                    enabled: false,
-                    href: 'http://www.rtsperfectplant.com/',
-                    position: {
-                        align: 'right',
-                        x: -10,
-                        verticalAlign: 'bottom',
-                        y: -5
-                    },
-
-                    style: {
-                        cursor: 'pointer',
-                        color: '#999999',
-                        fontSize: '9px'
-                    },
-
-                    text: 'RTS Consulting Inc.'
-                },
-                chart: {
-
-
-                    events: {
-                        drilldown: function (e) {
-                        },
-                        drillup: function () {
-                        }
-                    }
-                },
-
-                title: {
-                    text: ''
-                },
-
-//                subtitle: {
-//                    text: 'subtitle',
-//                    floating: true,
-//                    align: 'right',
-//                    y: 50,
-//                    style: {
-//                        fontSize: '16px'
-//                    }
-//                },
-
-//                legend: small ? {} : {
-//                    layout: 'vertical',
-//                    align: 'right',
-//                    verticalAlign: 'middle'
-//                },
-
-                colorAxis: {
-                    showInLegend: false,
-                    min: 0,
-                    minColor: '#E6E7E8',
-                    maxColor: '#005645'
-                },
-
-                mapNavigation: {
-                    enabled: true,
-                    buttonOptions: {
-                        verticalAlign: 'top'
-                    }
-                },
-
-//                plotOptions: {
-//                    map: {
-//                        states: {
-//                            hover: {
-//                                color: '#EEDD66'
-//                            }
-//                        }
-//                    }
-//                },
-
-                series: [
-                    {
-                        borderWidth: 0,
-                        data: mJson,
-                        name: '',
-                        dataLabels: {
-                            enabled: true,
-                            align: 'center',
-                            verticalAlign: 'middle',
-                            format: '{point.properties.name}',
-                        }
-                    }
-                ],
-
-                drilldown: {
-//                    //series: drilldownSeries,
-//                activeDataLabelStyle: {
-//                    color: '#FFFFFF',
-//                    textDecoration: 'none',
-//                    textShadow: '0 0 3px #000000'
-//                },
-//                    drillUpButton: {
-//                        relativeTo: 'spacingBox',
-//                        position: {
-//                            x: 0,
-//                            y: 60
-//                        }
-//                    }
-                }
-
-            });
-
-        } else {
-            $('#container').slideUp();
-        }
-
-
+        cc(features);
+        mapInit(mJson);
 //        cc(canvas);
     });
     $('#remove').click(function () {
@@ -568,6 +453,16 @@ id: <input type="text" id="idText" name="idText" onchange="textInput(this.value)
     function cc(_object) {
         console.log(_object);
     }
+    function existedFeature(obj, coordinates) {
+        var v = false;
+        $.each(coordinates, function (i, _coordinates) {
+            if (_coordinates['id'] == fabricID[fabricCanvas.getObjects().indexOf(obj)]['id']) {
+                v = true;
+                return false;
+            }
+        });
+        return v;
+    }
     // 		})();
 </script>
 <script src="https://code.highcharts.com/maps/highmaps.js"></script>
@@ -575,5 +470,6 @@ id: <input type="text" id="idText" name="idText" onchange="textInput(this.value)
 <script src="https://code.highcharts.com/maps/modules/drilldown.js"></script>
 
 
+<div id="container" style="height: 100px; width: 100px;"></div>
 </body>
 </html>
