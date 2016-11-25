@@ -142,12 +142,13 @@
 <button id="Circle">Cir</button>
 <button id="Triangle">Tri</button>
 <button id="remove">Del</button>
-<button id="Map">Map..</button>
+<button id="Map">Map</button>
 <!--<button id="BG">tt</button>-->
 <input id="file" type="file" style="display: none;" onchange="bgImageLoad(this.files)">
 <button id="button">BG</button>
 <!--<input type="file" id="input" onchange="handleFiles(this.files)" color="#fff">-->
 id: <input type="text" id="idText" name="idText" onchange="textInput(this.value)">
+<button id="copy">copy</button>
 
 <canvas id="hCanvas" width="500" height="100" class="lower-canvas"
         style="position: absolute; width: 500px; height: 100px; left: 0px; top: 0px; -webkit-user-select: none;"></canvas>
@@ -323,7 +324,14 @@ id: <input type="text" id="idText" name="idText" onchange="textInput(this.value)
         });
         return vv;
     }
-    $('#Map').click(function () {
+    document.querySelector("#copy").onclick = function () {
+        var result = copyToClipboard(new Date().toString());
+        console.log("copied?", result);
+    };
+
+
+    //    $('#Map').click(function () {
+    document.querySelector('#Map').onclick = function () {
         var coordinates = [];
         var features = [];
         $.each(fabricCanvas.getObjects(), function (i, obj) {
@@ -417,7 +425,9 @@ id: <input type="text" id="idText" name="idText" onchange="textInput(this.value)
         $.each(mJson, function () {
             this.value = 60 + Math.round((Math.random() * 40)); // Non-random bogus data
         });
-//        cc(features);
+        cc(JSON.stringify(features));
+//        window.prompt("Copy to clipboard: Ctrl+C, Enter", JSON.stringify(features));
+        cc(JSON.stringify(mJson));
 //        mapInit(mJson);
 
 //        mJson = Highcharts.geojson(geojson);
@@ -538,9 +548,11 @@ id: <input type="text" id="idText" name="idText" onchange="textInput(this.value)
             $('#container').slideUp();
         }
 
+        var result = copyToClipboard(JSON.stringify(features));
+        console.log("copied?", result);
 
 //        cc(canvas);
-    });
+    };
     $('#remove').click(function () {
         cc('remove');
         cc(fabricCanvas.getActiveGroup());
@@ -558,11 +570,31 @@ id: <input type="text" id="idText" name="idText" onchange="textInput(this.value)
             fabricCanvas.remove(o);
         }
     });
-    $('#BG').click(function () {
-        cc('BG');
-//        setBackground('http://fabricjs.com/assets/jail_cell_bars.png');
+    document.querySelector("#copy").onclick = function () {
+        var result = copyToClipboard(new Date().toString());
+        console.log("copied?", result);
+    };
+    function copyToClipboard(text) {
+        if (window.clipboardData && window.clipboardData.setData) {
+            // IE specific code path to prevent textarea being shown while dialog is visible.
+            return clipboardData.setData("Text", text);
 
-    });
+        } else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+            var textarea = document.createElement("textarea");
+            textarea.textContent = text;
+            textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                return document.execCommand("copy");  // Security exception may be thrown by some browsers.
+            } catch (ex) {
+                console.warn("Copy to clipboard failed.", ex);
+                return false;
+            } finally {
+                document.body.removeChild(textarea);
+            }
+        }
+    }
     function ss(_string) {
         alert(_string);
     }
