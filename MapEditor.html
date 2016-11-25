@@ -13,26 +13,33 @@
     </script>
 
     <script>
-        var mData;
+        var features;
         var mJson;
-        var mMap;
+        var highchartsMap;
         $(function () {
 //            document.getElementById('files').addEventListener('change', handleFileSelect, false);
-            mData = {
-                title: "mName",
+            features = {
+                title: "features",
                 features: [
-                    {
-                        type: "Feature",
-                        properties: {unitName: "ABCD", unitID: "1234"},
-                        geometry: {
-                            type: "Polygon",
-                            coordinates: [[[0, 0]]]
-                        }
-                    },
-
+//                    {
+//                        type: "Feature",
+//                        properties: {"hc-key": "Feature1", "name": "Feature1"},
+//                        geometry: {
+//                            type: "Polygon",
+//                            coordinates: [[[0, 0]]]
+//                        }
+//                    },
+//                    {
+//                        type: "Feature",
+//                        properties: {"hc-key": "Feature2", "name": "Feature2"},
+//                        geometry: {
+//                            type: "Polygon",
+//                            coordinates: [[[0, 0]]]
+//                        }
+//                    }
                 ]
             };
-            mJson = Highcharts.geojson(mData);
+            mJson = Highcharts.geojson(features);
 
             $.each(mJson, function (i) {
                 this.value = 60 + Math.round((Math.random() * 40)); // random bogus data
@@ -44,7 +51,25 @@
         });
 
         function mapInit(_myJson) {
-            mMap = new Highcharts.Map('container', {
+            highchartsMap = new Highcharts.Map('container', {
+                credits: {
+                    enabled: false,
+                    href: 'http://www.rtsperfectplant.com/',
+                    position: {
+                        align: 'right',
+                        x: -10,
+                        verticalAlign: 'bottom',
+                        y: -5
+                    },
+
+                    style: {
+                        cursor: 'pointer',
+                        color: '#999999',
+                        fontSize: '9px'
+                    },
+
+                    text: 'RTS Consulting Inc.'
+                },
                 chart: {
 
 
@@ -57,7 +82,7 @@
                 },
 
                 title: {
-                    text: 'mMap'
+                    text: ''
                 },
 
 //                subtitle: {
@@ -84,7 +109,7 @@
                 },
 
                 mapNavigation: {
-                    enabled: true,
+                    enabled: false,
                     buttonOptions: {
                         verticalAlign: 'top'
                     }
@@ -100,15 +125,19 @@
                     }
                 },
 
-                series: [{
-                    borderWidth: 0,
-                    data: mJson,
-                    name: 'mSeries',
-                    dataLabels: {
-                        enabled: true,
-//                        format: '{point.properties.postal-code}'
+                series: [
+                    {
+                        borderWidth: 0,
+                        data: mJson,
+                        name: 'mapSeries',
+                        dataLabels: {
+                            enabled: true,
+                            align: 'center',
+                            verticalAlign: 'middle',
+                            format: '{point.properties.name}',
+                        }
                     }
-                }],
+                ],
 
                 drilldown: {
 //                    //series: drilldownSeries,
@@ -142,12 +171,12 @@
 <button id="Circle">Cir</button>
 <button id="Triangle">Tri</button>
 <button id="remove">Del</button>
-<button id="Map">Map</button>
+<button id="Map">Map..</button>
 <!--<button id="BG">tt</button>-->
-<input id="file" type="file" style="display: none;" onchange="handleFiles(this.files)">
+<input id="file" type="file" style="display: none;" onchange="bgImageLoad(this.files)">
 <button id="button">BG</button>
 <!--<input type="file" id="input" onchange="handleFiles(this.files)" color="#fff">-->
-ID: <input type="text" id='Units' name="ID" value="">
+id: <input type="text" id="idText" name="idText" onchange="textInput(this.value)">
 
 
 <!--<canvas id="hCanvas" width="500" height="200" style="border: 1px solid #aaa"></canvas>-->
@@ -155,34 +184,38 @@ ID: <input type="text" id='Units' name="ID" value="">
         style="position: absolute; width: 500px; height: 100px; left: 0px; top: 0px; -webkit-user-select: none;"></canvas>
 <script id="main">
     // 		(function() {
-//    input[type="file"]{
-//        color:#fff;
-//    }
-    $('#button').click(function(){
+    //    input[type="file"]{
+    //        color:#fff;
+    //    }
+    $('#button').click(function () {
         $('#file').click();
     });
     var fabricCanvas = new fabric.Canvas('hCanvas');
+    var fabricID = [];
+
     fabricCanvas.on('mouse:down', function (options) {
         console.log('canvas event');
         console.log(options);
-        var hasSelect = false;
         if (fabricCanvas.getActiveObject() == null) {
             cc('null');
-            document.getElementById("Units").value = '';
-            document.getElementById('Units').disabled = true;
+            document.getElementById("idText").value = '';
+            document.getElementById('idText').disabled = true;
         } else {
-            document.getElementById('Units').disabled = false;
+            document.getElementById('idText').disabled = false;
         }
-
     });
 
-    var Units = [];
+    function textInput(text) {
+        var o = fabricCanvas.getActiveObject();
+        var i = fabricCanvas.getObjects().indexOf(o);
+        fabricID[i]['id'] = text;
+    }
 
-    function handleFiles(files) {
+    function bgImageLoad(files) {
 //        var ctx = document.getElementById('c').getContext('2d');
 //        var oldCanvas = canvas.toDataURL("image/png");
         var fileList = this.files;
-        cc(files[0]);
+//        cc(files[0]);
         var image = new Image();
         image.src = window.URL.createObjectURL(files[0]);
         image.onload = function () {
@@ -190,18 +223,35 @@ ID: <input type="text" id='Units' name="ID" value="">
             fabricCanvas.setDimensions({width: image.width + 'px', height: image.height + 'px'}, {cssOnly: true});
             fabricCanvas.setBackgroundImage(image.src, fabricCanvas.renderAll.bind(fabricCanvas));
         }
+
+//        function resizeElementHeight(element) {
+        var element = document.getElementById('container');
+//            var height = 0;
+//            var body = window.document.body;
+//            if (window.innerHeight) {
+//                height = window.innerHeight;
+//            } else if (body.parentElement.clientHeight) {
+//                height = body.parentElement.clientHeight;
+//            } else if (body && body.clientHeight) {
+//                height = body.clientHeight;
+//            }
+        element.style.height = image.height + "px";
+        element.style.width = image.width + "px";
+//        }
+
+
     }
-    function setBackground(URL) {
-        var image = new Image();
-        image.src = URL;
-        image.onload = function () {
-//            var ctx = document.getElementById('c').getContext('2d');
-//            var oldCanvas = canvas.toDataURL("image/png");
-            fabricCanvas.setDimensions({width: image.width, height: image.height}, {backstoreOnly: true});
-            fabricCanvas.setDimensions({width: image.width + 'px', height: image.height + 'px'}, {cssOnly: true});
-            fabricCanvas.setBackgroundImage(image.src, fabricCanvas.renderAll.bind(fabricCanvas));
-        }
-    }
+    //    function setBackground(URL) {
+    //        var image = new Image();
+    //        image.src = URL;
+    //        image.onload = function () {
+    ////            var ctx = document.getElementById('c').getContext('2d');
+    ////            var oldCanvas = canvas.toDataURL("image/png");
+    //            fabricCanvas.setDimensions({width: image.width, height: image.height}, {backstoreOnly: true});
+    //            fabricCanvas.setDimensions({width: image.width + 'px', height: image.height + 'px'}, {cssOnly: true});
+    //            fabricCanvas.setBackgroundImage(image.src, fabricCanvas.renderAll.bind(fabricCanvas));
+    //        }
+    //    }
     $('#Rect').click(function () {
         fabricCanvas.add(new fabric.Rect({
             width: 100,
@@ -216,12 +266,12 @@ ID: <input type="text" id='Units' name="ID" value="">
             console.log(e);
             console.log(this);
             console.log(fabricCanvas.getObjects().indexOf(this));
-            document.getElementById("Units").value = Units[fabricCanvas.getObjects().indexOf(this)]['id'];
+            document.getElementById("idText").value = fabricID[fabricCanvas.getObjects().indexOf(this)]['id'];
         }));
-        cc('addRec')
+//        cc('addRec')
         var id = 'Unit_' + (fabricCanvas.getObjects().length - 1);
-        document.getElementById("Units").value = id;
-        Units.push({"id": id, "type": 'rect'});
+        document.getElementById("idText").value = id;
+        fabricID.push({"id": id, "type": 'rect'});
     });
 
     $('#Circle').click(function () {
@@ -240,11 +290,11 @@ ID: <input type="text" id='Units' name="ID" value="">
             console.log(e);
             console.log(this);
             console.log(fabricCanvas.getObjects().indexOf(this));
-            document.getElementById("Units").value = Units[fabricCanvas.getObjects().indexOf(this)]['id'];
+            document.getElementById("idText").value = fabricID[fabricCanvas.getObjects().indexOf(this)]['id'];
         }));
         var id = 'Unit_' + (fabricCanvas.getObjects().length - 1);
-        document.getElementById("Units").value = id;
-        Units.push({"id": id, "type": 'circle'});
+        document.getElementById("idText").value = id;
+        fabricID.push({"id": id, "type": 'circle'});
     });
 
     $('#Triangle').click(function () {
@@ -261,19 +311,27 @@ ID: <input type="text" id='Units' name="ID" value="">
             console.log(e);
             console.log(this);
             console.log(fabricCanvas.getObjects().indexOf(this));
-            document.getElementById("Units").value = Units[fabricCanvas.getObjects().indexOf(this)]['id'];
+            document.getElementById("idText").value = fabricID[fabricCanvas.getObjects().indexOf(this)]['id'];
         }));
         var id = 'Unit_' + (fabricCanvas.getObjects().length - 1);
-        document.getElementById("Units").value = id;
-        Units.push({"id": id, "type": 'triangle'});
+        document.getElementById("idText").value = id;
+        fabricID.push({"id": id, "type": 'triangle'});
     });
+    function featureExist(obj, coordinates) {
+        var vv = false;
+        $.each(coordinates, function (i, _coordinates) {
+            if (_coordinates['id'] == fabricID[fabricCanvas.getObjects().indexOf(obj)]['id']) {
+                vv = true;
+                return false;
+            }
+        });
+        return vv;
+    }
     $('#Map').click(function () {
         var coordinates = [];
         var features = [];
-        $.each(fabricCanvas._objects, function (i, obj) {
-            cc('obj');
-            cc(obj);
-            if (obj.__proto__.type == 'rect') {
+        $.each(fabricCanvas.getObjects(), function (i, obj) {
+            if (obj.get('type') == 'rect') {
                 var x0 = obj.oCoords.bl.x, y0 = obj.oCoords.bl.y;
                 var x1 = obj.oCoords.br.x, y1 = obj.oCoords.br.y;
                 var x2 = obj.oCoords.tr.x, y2 = obj.oCoords.tr.y;
@@ -284,17 +342,17 @@ ID: <input type="text" id='Units' name="ID" value="">
                 d0.push([x2, -y2]);
                 d0.push([x3, -y3]);
                 d0.push([x0, -y0]);
-                coordinates.push(d0);
-                features.push({
-                    type: "Feature",
-                    properties: {unitName: "unit x", unitID: "5555"},
-                    geometry: {
-                        type: "Polygon",
-                        coordinates: coordinates
+                if (!featureExist(obj, coordinates)) {
+                    coordinates.push({'id': fabricID[fabricCanvas.getObjects().indexOf(obj)]['id'], 'd0': []});
+                }
+                $.each(coordinates, function (i, _coordinates) {
+                    if (_coordinates['id'] == fabricID[fabricCanvas.getObjects().indexOf(obj)]['id']) {
+                        _coordinates['d0'].push(d0);
+                        return false;
                     }
                 });
             }
-            if (obj.__proto__.type == 'circle') {
+            if (obj.get('type') == 'circle') {
                 var r = obj.radius;
                 var a0 = obj.angle;
                 var x0 = obj.left;
@@ -303,7 +361,7 @@ ID: <input type="text" id='Units' name="ID" value="">
                 var scaleY = obj.scaleY;
                 var d0 = [];
                 var x1, y1;
-                for (var i = 0; i < 360; i += 10) {
+                for (var i = 0; i < 360; i += 5) {
                     var xx, yy;
                     xx = scaleX * r * Math.cos(i * Math.PI / 180);
                     yy = scaleY * r * Math.sin(i * Math.PI / 180);
@@ -311,17 +369,17 @@ ID: <input type="text" id='Units' name="ID" value="">
                     y1 = xx * Math.sin(a0 * Math.PI / 180) + yy * Math.cos(a0 * Math.PI / 180);
                     d0.push([x0 + x1, -(y0 + y1)]);
                 }
-                coordinates.push(d0);
-                features.push({
-                    type: "Feature",
-                    properties: {unitName: "unit x", unitID: "xxxx"},
-                    geometry: {
-                        type: "Polygon",
-                        coordinates: coordinates
+                if (!featureExist(obj, coordinates)) {
+                    coordinates.push({'id': fabricID[fabricCanvas.getObjects().indexOf(obj)]['id'], 'd0': []});
+                }
+                $.each(coordinates, function (i, _coordinates) {
+                    if (_coordinates['id'] == fabricID[fabricCanvas.getObjects().indexOf(obj)]['id']) {
+                        _coordinates['d0'].push(d0);
+                        return false;
                     }
                 });
             }
-            if (obj.__proto__.type == 'triangle') {
+            if (obj.get('type') == 'triangle') {
                 var x0 = obj.oCoords.bl.x, y0 = obj.oCoords.bl.y;
                 var x1 = obj.oCoords.br.x, y1 = obj.oCoords.br.y;
                 var x2 = obj.oCoords.mt.x, y2 = obj.oCoords.mt.y;
@@ -330,26 +388,40 @@ ID: <input type="text" id='Units' name="ID" value="">
                 d0.push([x1, -y1]);
                 d0.push([x2, -y2]);
                 d0.push([x0, -y0]);
-                coordinates.push(d0);
-                features.push({
-                    type: "Feature",
-                    properties: {unitName: "ABCD", unitID: "1234"},
-                    geometry: {
-                        type: "Polygon",
-                        coordinates: coordinates
+                if (!featureExist(obj, coordinates)) {
+                    coordinates.push({'id': fabricID[fabricCanvas.getObjects().indexOf(obj)]['id'], 'd0': []});
+                }
+                $.each(coordinates, function (i, _coordinates) {
+                    if (_coordinates['id'] == fabricID[fabricCanvas.getObjects().indexOf(obj)]['id']) {
+                        _coordinates['d0'].push(d0);
+                        return false;
                     }
                 });
             }
         });
-        mData = {
-            "title": 'myName',
+
+        $.each(coordinates, function (i, _coordinates) {
+            cc(_coordinates['id']);
+            cc(_coordinates['d0'].length);
+            features.push({
+                type: "Feature",
+                properties: {"hc-key": _coordinates['id'], "name": _coordinates['id']},
+                geometry: {
+                    type: "Polygon",
+                    coordinates: _coordinates['d0'],
+                }
+            });
+        });
+
+        features = {
+            "name": 'features',
             "features": features
         };
-        mJson = Highcharts.geojson(mData);
+        mJson = Highcharts.geojson(features);
         $.each(mJson, function (i) {
             this.value = 60 + Math.round((Math.random() * 40)); // Non-random bogus data
         });
-        cc(mData);
+        cc(features);
         mapInit(mJson);
 //        cc(canvas);
     });
@@ -358,16 +430,21 @@ ID: <input type="text" id='Units' name="ID" value="">
         cc(fabricCanvas.getActiveGroup());
         if (fabricCanvas.getActiveGroup()) {
             fabricCanvas.getActiveGroup().forEachObject(function (o) {
+                var i = fabricCanvas.getObjects().indexOf(o);
+                fabricID.splice(i, 1);
                 fabricCanvas.remove(o)
             });
             fabricCanvas.discardActiveGroup().renderAll();
         } else {
-            fabricCanvas.remove(fabricCanvas.getActiveObject());
+            var o = fabricCanvas.getActiveObject();
+            var i = fabricCanvas.getObjects().indexOf(o);
+            fabricID.splice(i, 1);
+            fabricCanvas.remove(o);
         }
     });
     $('#BG').click(function () {
         cc('BG');
-        setBackground('http://fabricjs.com/assets/jail_cell_bars.png');
+//        setBackground('http://fabricjs.com/assets/jail_cell_bars.png');
 
     });
     function ss(_string) {
@@ -376,7 +453,16 @@ ID: <input type="text" id='Units' name="ID" value="">
     function cc(_object) {
         console.log(_object);
     }
-
+    function existedFeature(obj, coordinates) {
+        var v = false;
+        $.each(coordinates, function (i, _coordinates) {
+            if (_coordinates['id'] == fabricID[fabricCanvas.getObjects().indexOf(obj)]['id']) {
+                v = true;
+                return false;
+            }
+        });
+        return v;
+    }
     // 		})();
 </script>
 <script src="https://code.highcharts.com/maps/highmaps.js"></script>
@@ -384,6 +470,6 @@ ID: <input type="text" id='Units' name="ID" value="">
 <script src="https://code.highcharts.com/maps/modules/drilldown.js"></script>
 
 
-<div id="container" style="height: 500px; width: 1100px;"></div>
+<div id="container" style="height: 100px; width: 100px;"></div>
 </body>
 </html>
