@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    
     <meta charset="utf-8">
     <script src="lib/fabric.js"></script>
     <title>MapEditor Demo</title>
@@ -420,7 +421,7 @@ id: <input type="text" id="idText" name="idText" onchange="textInput(this.value)
 //        mapInit(mJson);
 
 //        mJson = Highcharts.geojson(geojson);
-        $.each(mJson, function (i) {
+        $.each(mJson, function () {
             this.value = 60 + Math.round((Math.random() * 40)); // Non-random bogus data
         });
         if ($('#container').is(":hidden")) {
@@ -450,7 +451,7 @@ id: <input type="text" id="idText" name="idText" onchange="textInput(this.value)
 
 
                     events: {
-                        drilldown: function (e) {
+                        drilldown: function () {
                         },
                         drillup: function () {
                         }
@@ -510,7 +511,7 @@ id: <input type="text" id="idText" name="idText" onchange="textInput(this.value)
                             enabled: true,
                             align: 'center',
                             verticalAlign: 'middle',
-                            format: '{point.properties.name}',
+                            format: '{point.properties.name}'
                         }
                     }
                 ],
