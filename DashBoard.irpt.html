@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<title>OEE Dashborad</title>
+
+<script id="sap-ui-bootstrap" src="/sapui5/resources/sap-ui-core.js"
+	data-sap-ui-theme="sap_bluecrystal"
+	data-sap-ui-libs="sap.m,sap.ui.commons,sap.ui.table,sap.ui.core"
+	data-sap-ui-language="en">
+	
+</script>
+<script src="highstock.js"></script>
+<script type="text/javascript" src="Common/js/default.js"></script>
+
+<script>
+	// ******************************************************************************************************************************************************************
+
+	var menuSelect = function(oEvent) {
+		itemid = oEvent.getParameter("item").getId();
+		//alert(itemid);
+		appID = "";
+		switch (itemid) {
+		// Menu home
+		case "Home_Home":
+			setTimeout("location.href = '" + "OEEM.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			// Menu Settings 1
+			break;
+		case "OEE_Dashboard":
+			setTimeout("location.href = '" + "DashBoard.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+		case "OEE_Report":
+			setTimeout("location.href = '" + "Reports.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+		case "Equipment_Management":
+			appID = "MgtHierarchy.irpt?ROLE=" + document.getElementById("user_role").value;
+			//setTimeout("location.href = '" + "MgtHierarchy.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+		case "Hierarchy_Levels_Setup":
+			appID = "LvlHierarchy.irpt?ROLE=" + document.getElementById("user_role").value;
+			//setTimeout("location.href = '" + "LvlHierarchy.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+
+		// Menu Settings 2
+		case "item1-4-1":
+			appID = "MemMapTags.irpt?ROLE=" + document.getElementById("user_role").value;
+			//setTimeout("location.href = '" + "MemMapTags.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item1-4-5":
+			appID = "MemMapTrxs.irpt?ROLE=" + document.getElementById("user_role").value;
+			//setTimeout("location.href = '" + "MemMapTrxs.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item1-4-4":
+			appID = "TagCommGroups.irpt?ROLE=" + document.getElementById("user_role").value;
+			//setTimeout("location.href = '" + "TagCommGroups.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item1-4-2":
+			appID = "TagTypes.irpt?ROLE=" + document.getElementById("user_role").value;
+			//setTimeout("location.href = '" + "TagTypes.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item1-4-3":
+			appID = "TagFunctions.irpt?ROLE=" + document.getElementById("user_role").value;
+			//setTimeout("location.href = '" + "TagFunctions.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+
+		// Menu Settings 3
+		case "item1-5-6":
+			appID = "Operators.irpt?ROLE=" + document.getElementById("user_role").value;
+			//setTimeout("location.href = '" + "Operators.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item1-5-1":
+			appID = "Stations.irpt?ROLE=" + document.getElementById("user_role").value;
+			//setTimeout("location.href = '" + "Stations.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item1-5-2":
+			appID = "Printers.irpt?ROLE=" + document.getElementById("user_role").value;
+			//setTimeout("location.href = '" + "Printers.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item1-5-3":
+			appID = "PCoServers.irpt?ROLE=" + document.getElementById("user_role").value;
+			//setTimeout("location.href = '" + "PCoServers.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item1-5-4":
+			appID = "PCoAgents.irpt?ROLE=" + document.getElementById("user_role").value;
+			//setTimeout("location.href = '" + "PCoAgents.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item1-5-5":
+			appID = "SqlServers.irpt?ROLE=" + document.getElementById("user_role").value;
+			//setTimeout("location.href = '" + "SqlServers.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+
+		// Menu Settings 4
+		case "item1-7-1":
+			appID = "UnitsOfMeasure.irpt?ROLE=" + document.getElementById("user_role").value;
+			//setTimeout("location.href = '" + "UnitsOfMeasure.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item1-7-2":
+			appID = "ProductsMgmt.irpt?ROLE=" + document.getElementById("user_role").value;
+			//setTimeout("location.href = '" + "ProductsMgmt.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item1-7-3":
+			appID = "BomMgmt.irpt?ROLE=" + document.getElementById("user_role").value;
+			//setTimeout("location.href = '" + "BomMgmt.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item1-7-4":
+			appID = "RoutingMgmt.irpt?ROLE=" + document.getElementById("user_role").value;
+			//setTimeout("location.href = '" + "RoutingMgmt.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+
+		// Menu Default
+		default:
+			// alert("Items \"" + oEvent.getParameter("itemId") + "\" was selected.");
+			break;
+		}
+		if (appID == "") {
+			return false;
+		}
+		//alert(appID);
+
+		//sap.ui.getCore().getUIArea("article").removeContent(xPage);
+
+		// 		if (!locked) {
+		// 			locked = true;
+		// 			xPage.setContent("<iframe src=\"" + appID + "\" style=\"border:none;\" height=\"1000px\" width=\"100%\"></iframe>");
+		// 			xPage.placeAt("article");
+		// 		}
+
+	}
+	// ******************************************************************************************************************************************************************
+
+	function menuDefine() {
+
+		var oMenuBar = new sap.ui.commons.MenuBar("menuBar", {
+		// 			enabled : true,
+		// 			width : "100%",
+		// 			design : sap.ui.commons.MenuBarDesign.Header,
+		});
+
+		var oMenuBarItem0 = new sap.ui.commons.MenuItem("Home", {
+			text : "Home",
+			enabled : true,
+		});
+		oMenuBar.addItem(oMenuBarItem0);
+		var oMenuButton0 = new sap.ui.commons.Menu("oMenuButton0");
+		oMenuBarItem0.setSubmenu(oMenuButton0);
+		var oMenuItem01 = new sap.ui.commons.MenuItem("Home_Home", {
+			text : "Home",
+			enabled : true
+		});
+		oMenuButton0.addItem(oMenuItem01);
+		oMenuItem01.attachSelect(menuSelect);
+
+		var oMenuBarItem1 = new sap.ui.commons.MenuItem({
+			text : "Settings",
+			enabled : true,
+		});
+		oMenuBar.addItem(oMenuBarItem1);
+		var oMenuBarItem2 = new sap.ui.commons.MenuItem({
+			text : "Dashboards",
+			enabled : true,
+		});
+		oMenuBar.addItem(oMenuBarItem2);
+		var oMenuBarItem3 = new sap.ui.commons.MenuItem({
+			text : "Reports",
+			enabled : true,
+		});
+		oMenuBar.addItem(oMenuBarItem3);
+
+		var oMenuButton1 = new sap.ui.commons.Menu("oMenuButton1");
+		oMenuBarItem1.setSubmenu(oMenuButton1);
+		var oMenuItem1 = new sap.ui.commons.MenuItem("Enterprise_Hierarchy", {
+			text : "Enterprise Hierarchy",
+			enabled : true
+		});
+		oMenuButton1.addItem(oMenuItem1);
+		oMenuItem1.attachSelect(menuSelect);
+		var oMenuItem2 = new sap.ui.commons.MenuItem("Plant_Connectivity", {
+			text : "Plant Connectivity",
+			enabled : true
+		});
+		oMenuButton1.addItem(oMenuItem2);
+		oMenuItem2.attachSelect(menuSelect);
+		var oMenuItem3 = new sap.ui.commons.MenuItem("Master_Data_Setup", {
+			text : "Master Data Setup",
+			enabled : true
+		});
+		oMenuButton1.addItem(oMenuItem3);
+
+		var oMenuButton2 = new sap.ui.commons.Menu("oMenuButton2");
+		oMenuBarItem2.setSubmenu(oMenuButton2);
+		var oMenuItem21 = new sap.ui.commons.MenuItem("OEE_Dashboard", {
+			text : "OEE Dashboard",
+			enabled : true
+		});
+		oMenuButton2.addItem(oMenuItem21);
+		oMenuItem21.attachSelect(menuSelect);
+		var oMenuItem22 = new sap.ui.commons.MenuItem("Availability_Dashboard", {
+			text : "Availability Dashboard",
+			enabled : true
+		});
+		oMenuButton2.addItem(oMenuItem22);
+		oMenuItem22.attachSelect(menuSelect);
+		var oMenuItem23 = new sap.ui.commons.MenuItem("Performance_Dashboard", {
+			text : "Performance Dashboard",
+			enabled : true
+		});
+		oMenuButton2.addItem(oMenuItem23);
+		oMenuItem23.attachSelect(menuSelect);
+
+		var oMenuItem24 = new sap.ui.commons.MenuItem("Quality_Dashboardy", {
+			text : "Quality Dashboardy",
+			enabled : true
+		});
+		oMenuButton2.addItem(oMenuItem24);
+		oMenuItem24.attachSelect(menuSelect);
+		var oMenuItem25 = new sap.ui.commons.MenuItem("Alerts_Dashboard", {
+			text : "Alerts Dashboard",
+			enabled : true
+		});
+		oMenuButton2.addItem(oMenuItem25);
+		oMenuItem25.attachSelect(menuSelect);
+
+		var oMenuButton3 = new sap.ui.commons.Menu("oMenuButton3");
+		oMenuBarItem3.setSubmenu(oMenuButton3);
+		var oMenuItem31 = new sap.ui.commons.MenuItem("OEE_Report", {
+			text : "OEE Report",
+			enabled : true
+		});
+		oMenuButton3.addItem(oMenuItem31);
+		oMenuItem31.attachSelect(menuSelect);
+		var oMenuItem32 = new sap.ui.commons.MenuItem("Availability_Report", {
+			text : "Availability Report",
+			enabled : true
+		});
+		oMenuButton3.addItem(oMenuItem32);
+		oMenuItem32.attachSelect(menuSelect);
+		var oMenuItem33 = new sap.ui.commons.MenuItem("Performance_Report", {
+			text : "Performance Report",
+			enabled : true
+		});
+		oMenuButton3.addItem(oMenuItem33);
+		oMenuItem33.attachSelect(menuSelect);
+		var oMenuItem34 = new sap.ui.commons.MenuItem("Quality_Report", {
+			text : "Quality Report",
+			enabled : true
+		});
+		oMenuButton3.addItem(oMenuItem34);
+		oMenuItem34.attachSelect(menuSelect);
+		var oMenuItem35 = new sap.ui.commons.MenuItem("Alerts_Report", {
+			text : "Alerts Report",
+			enabled : true
+		});
+		oMenuButton3.addItem(oMenuItem35);
+		oMenuItem35.attachSelect(menuSelect);
+		var oMenuItem36 = new sap.ui.commons.MenuItem("Connection_Diagnostics", {
+			text : "Connection Diagnostics",
+			enabled : true
+		});
+		oMenuButton3.addItem(oMenuItem36);
+		oMenuItem36.attachSelect(menuSelect);
+
+		var oMenu6 = new sap.ui.commons.Menu("menu6");
+		oMenuItem1.setSubmenu(oMenu6);
+		var oMenuItem61 = new sap.ui.commons.MenuItem("Equipment_Management", {
+			text : "Equipment Management"
+		});
+		oMenu6.addItem(oMenuItem61);
+		oMenuItem61.attachSelect(menuSelect);
+		var oMenuItem62 = new sap.ui.commons.MenuItem("Plant_Work_Force", {
+			text : "Plant Work Force"
+		});
+		oMenu6.addItem(oMenuItem62);
+		oMenuItem62.attachSelect(menuSelect);
+		var oMenuItem63 = new sap.ui.commons.MenuItem("Plant_Shifts_and_Breaks", {
+			text : "Plant Shifts & Breaks"
+		});
+		oMenu6.addItem(oMenuItem63);
+		oMenuItem63.attachSelect(menuSelect);
+		var oMenuItem64 = new sap.ui.commons.MenuItem("Hierarchy_Levels_Setup", {
+			text : "Hierarchy Levels Setup"
+		});
+		oMenu6.addItem(oMenuItem64);
+		oMenuItem64.attachSelect(menuSelect);
+
+		var oMenu5 = new sap.ui.commons.Menu("oMenu5");
+		oMenuItem2.setSubmenu(oMenu5);
+		var oMenuItem51 = new sap.ui.commons.MenuItem("Plant_Connectivity_Servers", {
+			text : "Plant Connectivity Servers"
+		});
+		oMenu5.addItem(oMenuItem51);
+		oMenuItem51.attachSelect(menuSelect);
+		var oMenuItem52 = new sap.ui.commons.MenuItem("Plant_Connectivity_Agents", {
+			text : "Plant Connectivity Agents"
+		});
+		oMenu5.addItem(oMenuItem52);
+		oMenuItem52.attachSelect(menuSelect);
+		var oMenuItem53 = new sap.ui.commons.MenuItem("Line_Side_SQL_Servers", {
+			text : "Line Side SQL Servers"
+		});
+		oMenu5.addItem(oMenuItem53);
+		oMenuItem53.attachSelect(menuSelect);
+		var oMenuItem54 = new sap.ui.commons.MenuItem("PLC_Tag_List", {
+			text : "PLC Tag List"
+		});
+		oMenu5.addItem(oMenuItem54);
+		oMenuItem54.attachSelect(menuSelect);
+		var oMenuItem55 = new sap.ui.commons.MenuItem("PLC_Tag_Groups", {
+			text : "PLC Tag Groups"
+		});
+		oMenu5.addItem(oMenuItem55);
+		oMenuItem55.attachSelect(menuSelect);
+		var oMenuItem56 = new sap.ui.commons.MenuItem("PLC_Tag_Types", {
+			text : "PLC Tag Types"
+		});
+		oMenu5.addItem(oMenuItem56);
+		oMenuItem56.attachSelect(menuSelect);
+		var oMenuItem57 = new sap.ui.commons.MenuItem("PLC_Tag_Functions", {
+			text : "PLC Tag Functions"
+		});
+		oMenu5.addItem(oMenuItem57);
+		oMenuItem57.attachSelect(menuSelect);
+
+		var oMenu7 = new sap.ui.commons.Menu("Menu7");
+		oMenuItem3.setSubmenu(oMenu7);
+		var oMenuItem71 = new sap.ui.commons.MenuItem("Products_Management", {
+			text : "Products Management"
+		});
+		oMenu7.addItem(oMenuItem71);
+		oMenuItem71.attachSelect(menuSelect);
+		var oMenuItem72 = new sap.ui.commons.MenuItem("Work_Order_Management", {
+			text : "Work Order Management"
+		});
+		oMenu7.addItem(oMenuItem72);
+		oMenuItem72.attachSelect(menuSelect);
+		var oMenuItem73 = new sap.ui.commons.MenuItem("Alerts_Management", {
+			text : "Alerts Management"
+		});
+		oMenu7.addItem(oMenuItem73);
+		oMenuItem73.attachSelect(menuSelect);
+
+		oMenuBar.placeAt("menu");
+
+	}
+
+	// 	function st(p) {
+	// 		alert(p.getText());
+	// 		if (p.getNodes().length == 0) {
+	// 			return;
+	// 		} else {
+	// 			$.each(p.getNodes(), function(i, q) {
+	// 				st(q);
+
+	// 			});
+	// 		}
+	// 	}
+
+	function dataAdd2Table(_Timestamp, _Unit_Name, _UnitID, _Operator, _OEE_Availability, _OEE_Performance, _OEE_Quality, _OEE_OEE) {
+		var P1 = _Timestamp;
+		var P2 = _Unit_Name;
+		var P3 = _UnitID;
+		var P4 = _Operator;
+		var P5 = _OEE_Availability;
+		var P6 = _OEE_Performance;
+		var P7 = _OEE_Quality;
+		var P8 = _OEE_OEE;
+
+		var oReqData;
+		if (window.XMLHttpRequest) {
+			oReqData = new XMLHttpRequest();
+		}
+		//alert();
+		if (oReqData != null) {
+			var timestamp = new Date().getTime();
+			var paramStr = "Param.1=" + encodeURIComponent(P1) + "&Param.2=" + encodeURIComponent(P2) + "&Param.3=" + encodeURIComponent(P3) + "&Param.4=" + encodeURIComponent(P4) + "&Param.5=" + encodeURIComponent(P5) + "&Param.6="
+					+ encodeURIComponent(P6) + "&Param.7=" + encodeURIComponent(P7) + "&Param.8=" + encodeURIComponent(P8);
+			// alert(paramStr);
+			var queryStr = "/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/OEEM_Data_Collection_ADD&" + paramStr + "&ts=" + timestamp + "&Content-Type=text/xml";
+			//alert(queryStr);
+			oReqData.open("GET", queryStr, true);
+			oReqData.onreadystatechange = function() {
+				if (oReqData.readyState == 4)
+					if (oReqData.status == 200) {
+						//alert("doAddMission");
+						tableRefresh();
+					} else {
+						// Not Successful -- alert the user
+						alert("unSuccessful Error: " + oReqData.statusText);
+					}
+			}
+			oReqData.send();
+		} else {
+			window.alert("Error creating XmlHttpRequest object.");
+		}
+
+	}
+
+	function tableRefresh() {
+
+		if (treeArray[treeIndex]['oeeStatus'] == 1) {
+
+			var P1 = "SELECT *";
+			var P2 = "FROM OEEM_Data_Collection";
+			var P3 = "WHERE UnitID=" + treeArray[treeIndex]['recordID'];
+			var P4 = "ORDER BY Timestamp DESC";
+			var url = "/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/get_Table&Param.1=" + P1 + "&Param.2=" + P2 + "&Param.3=" + P3 + "&Param.4=" + P4 + "&Content-Type=text/xml";
+
+			oeeXmModel.loadData(url);
+
+			oeeTable.setModel(oeeXmModel);
+		}
+	}
+
+	// ******************************************************************************************************************************************************************
+
+	var treeIndex = 0;
+	var treeArray;
+	var treeNodes;
+	var floorTree = new sap.ui.commons.Tree("tree", {
+		title : "FloorMaps",
+		width : "100%",
+		// 		height : "400px",
+		showHeaderIcons : true,
+		showHorizontalScrollbar : true,
+		showHeader : true,
+		select : function(oControlEvent) {
+			//ss(treeNodes.length);
+			ss((oControlEvent.getParameters().node).indexOfNode(floorTree.getNodes()));
+			treeIndex = parseInt(oControlEvent.getParameters().node.getId().substring(oControlEvent.getParameters().node.getId().indexOf("_") + 1));
+			var name = treeArray[treeIndex]['unitName'];
+			var id = treeArray[treeIndex]['recordID'];
+			sap.ui.getCore().byId("mTableLabel").setText(name + " (ID: " + id + " )");
+			tableRefresh(id, name);
+			chartLoad(oControlEvent.getParameters().node);
+
+		}
+	});
+
+	// ******************************************************************************************************************************************************************
+
+	function floorTreeLoading() {
+		var P1 = "SELECT *";
+		var P2 = "FROM MESM_FloorMaps";
+		var P3 = "ORDER BY idUnitParent";
+		var P4 = "";
+		var url = "/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/get_Table&Param.1=" + P1 + "&Param.2=" + P2 + "&Param.3=" + P3 + "&Param.4=" + P4 + "&Content-Type=text/xml";
+		getData(url, parseJsonParent);
+
+		function parseJsonParent(jsondata) {
+			treeArray = [];
+			treeNodes = new Array(jsondata.length);
+			for (var i = 0; i < jsondata.length; i++) {
+				treeArray.push({
+					unitName : jsondata[i]['unitName'],
+					recordID : jsondata[i]['recordID'],
+					unitType : jsondata[i]['unitType'],
+					idUnitParent : jsondata[i]['idUnitParent'],
+					oeeStatus : jsondata[i]['oeeStatus'],
+				});
+				var _icon = "";
+				// 				if (FloorMaps_Data[i]['unitType'] == "4") {
+				// 					_icon = "sap-icon://world";
+				// 				}
+				// 				if (FloorMaps_Data[i]['unitType'] == "6") {
+				// 					_icon = "sap-icon://line-chart";
+				// 				}
+				treeNodes[i] = new sap.ui.commons.TreeNode("floorTree_" + i, {
+					text : jsondata[i]['unitName'],
+					icon : _icon,
+					expanded : true
+				});
+				floorTree.addNode(treeNodes[i]);
+			}
+
+			for (var i = 0; i < jsondata.length - 1; i++) {
+				for (var j = i + 1; j < jsondata.length; j++) {
+					if (treeArray[j]['idUnitParent'] == treeArray[i]['recordID']) {
+						treeNodes[i].addNode(treeNodes[j]);
+					}
+				}
+			}
+			//ns=floorTree.getNodes();
+
+			var chartCategories = [];
+			//alert(_categories.length);
+			getTreeNodes(floorTree.getNodes()[0], chartCategories);
+			//alert(_categories.length);
+			chartSeries = [];
+			dOEE = [];
+			dAvailability = [];
+			dPerformance = [];
+			dQuality = [];
+			dAverage = [];
+			dAvailability = rmData(1, chartCategories.length);
+			dPerformance = rmData(1, chartCategories.length);
+			dQuality = rmData(1, chartCategories.length);
+			// 		_Average = _random(m);
+			for (var i = 0; i < chartCategories.length; i++) {
+				//alert(_categories[i] + "/" + oeeStatus(_categories[i]));
+				if (oeeStatus(chartCategories[i]) == 0) {
+					dAvailability[i] = 0;
+					dPerformance[i] = 0;
+					dQuality[i] = 0;
+					dOEE.push(100);
+				} else {
+					dOEE.push((dAvailability[i] * dPerformance[i] * dQuality[i] / 10000) | 0);
+					dAverage.push((dAvailability[i] + dPerformance[i] + dQuality[i] + dOEE[i]) / 4);
+				}
+
+			}
+			chartSeries.push({
+				// 			type : 'column',
+				name : 'OEE',
+				data : dOEE,
+			// 			stack : 's0'
+			});
+			chartSeries.push({
+				// 			type : 'column',
+				name : 'Availability',
+				data : dAvailability,
+			// 			stack : 's1'
+			});
+			chartSeries.push({
+				// 			type : 'column',
+				name : 'Performance',
+				data : dPerformance,
+			// 			stack : 's1'
+			});
+			chartSeries.push({
+				// 			type : 'column',
+				name : 'Quality',
+				data : dQuality,
+			// 			stack : 's1'
+			});
+			creatAreaChart(chartCategories, chartSeries);
+			//alert(mTree.getNodes().length);
+		}
+	}
+
+	function oeeStatus(s) {
+		$.each(treeArray, function(i, ta) {
+			if (ta['unitName'] == s) {
+				//alert(ff['oeeStatus']);
+				return ta['oeeStatus'];
+			}
+
+		});
+		// 		for (var i = 0; i < treeArray.length; i++) {
+		// 			// 			ss(i + "/" + FloorMapsArray[i]['unitName']);
+		// 			if (treeArray[i]['unitName'] == s) {
+		// 				return treeArray[i]['oeeStatus'];
+		// 			}
+		// 		}
+	}
+	function getTreeNodes(o, _stk) {
+
+		_stk.push(o.getText());
+		//alert(o.getText());
+		if (o.getNodes().length == 0) {
+			return;
+		} else {
+			$.each(o.getNodes(), function(i, p) {
+				getTreeNodes(p, _stk);
+
+			});
+		}
+	}
+	// ******************************************************************************************************************************************************************
+	var oeeXmModel = new sap.ui.model.xml.XMLModel();
+	var oeeTable = new sap.ui.table.Table({
+		//visibleRowCount : 12,
+		//firstVisibleRow : 3,
+		//visibleRowCountMode : sap.ui.table.VisibleRowCountMode.Interactive,
+		firstVisibleRow : 0,
+		selectionBehavior : sap.ui.table.SelectionBehavior.Row,
+		selectionMode : sap.ui.table.SelectionMode.Single,
+		editable : false,
+		enableColumnFreeze : false,
+		width : "100%",
+		columnHeaderVisible : true,
+		enableCustomFilter : false,
+	//navigationMode : sap.ui.table.NavigationMode.Paginator
+	});
+
+	var oeemArray;
+
+	function creatOeeTable() { // Bind the table rows to this model
+		//load table's data
+		// 		P1 = "SELECT *";
+		// 		P2 = "FROM MESM_FloorMaps";
+		// 		P3 = "ORDER BY idUnitParent";
+		// 		P4 = "";
+		// 		url = "/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/get_Table&Param.1=" + P1 + "&Param.2=" + P2 + "&Param.3=" + P3 + "&Param.4="
+		// 				+ P4 + "&Content-Type=text/xml";
+		//getData(url, parseJsonParent);
+
+		P1 = "SELECT *";
+		P2 = "FROM OEEM_Data_Collection";
+		P3 = "ORDER BY Timestamp DESC";
+		P4 = "";
+		url = "/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/get_Table&Param.1=" + P1 + "&Param.2=" + P2 + "&Param.3=" + P3 + "&Param.4=" + P4 + "&ts=" + new Date().getTime() + "&Content-Type=text/xml";
+
+		getData(url, parseJsonParent);
+		function parseJsonParent(jsondata) {
+			oeemArray = [];
+			for (var i = 0; i < jsondata.length; i++) {
+				oeemArray.push({
+					recordID : jsondata[i]['recordID'],
+					Timestamp : jsondata[i]['Timestamp'],
+					Description : jsondata[i]['Description'],
+					OEE_Availability : jsondata[i]['OEE_Availability'],
+					OEE_Performance : jsondata[i]['OEE_Performance'],
+					OEE_Quality : jsondata[i]['OEE_Quality'],
+					OEE_OEE : jsondata[i]['OEE_OEE'],
+
+				});
+			}
+		}
+		//var timestamp = new Date().getTime();
+		// 		url = "/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/StopReasons_get&ts=" + (new Date().getTime())
+		// 				+ "&Content-Type=text/xml";
+		//alert(url);
+		//url = "mock/Get_Missions.xml"; //Mock request
+
+		oeeXmModel.loadData(url);
+		//alert(oeeXmModel.getXML());
+		//		createColumns
+		oeeTable.setModel(oeeXmModel);
+		oeeTable.bindRows("/Rowset/Row");
+		oeeTable.setVisibleRowCount(8);
+		oeeTable.addColumn(new sap.ui.table.Column({
+			width : "200px",
+			label : new sap.ui.commons.Label({
+				text : "Product Name",
+				textAlign : sap.ui.core.TextAlign.Center,
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text", "Product_Name"),
+			// 			sortProperty : "Timestamp",
+			// 			filterProperty : "Timestamp",
+			resizable : false,
+			hAlign : "Center",
+		}));
+		oeeTable.addColumn(new sap.ui.table.Column({
+			width : "160px",
+			label : new sap.ui.commons.Label({
+				text : " Timestamp",
+				textAlign : sap.ui.core.TextAlign.Center,
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text", "Timestamp", function(ts) {
+				return (new Date(parseInt(ts))).toLocaleString();
+			}),
+			// 			sortProperty : "Timestamp",
+			// 			filterProperty : "Timestamp",
+			resizable : false,
+		}));
+		oeeTable.addColumn(new sap.ui.table.Column({
+			width : "105px",
+			// 			hAlign : 'Right',
+			label : new sap.ui.commons.Label({
+				text : " OEE",
+				textAlign : sap.ui.core.TextAlign.Center,
+			}),
+			template : new sap.ui.commons.TextView({
+				textAlign : sap.ui.core.TextAlign.Right,
+			}).bindProperty("text", "OEE_OEE", function(s) {
+				return s + "%";
+			}),
+			// 			sortProperty : "OEE_OEE",
+			// 			filterProperty : "OEE_OEE",
+			resizable : false,
+		// 			hAlign : "Center",
+		}));
+		oeeTable.addColumn(new sap.ui.table.Column({
+			width : "105px",
+			label : new sap.ui.commons.Label({
+				text : "Availability",
+				textAlign : sap.ui.core.TextAlign.Center,
+			}),
+			template : new sap.ui.commons.TextView({
+				textAlign : sap.ui.core.TextAlign.Right,
+			}).bindProperty("text", "OEE_Availability", function(s) {
+				return s + "%";
+			}),
+			// 			sortProperty : "OEE_Availability",
+			// 			filterProperty : "OEE_Availability",
+			resizable : true,
+		}));
+		oeeTable.addColumn(new sap.ui.table.Column({
+			width : "105px",
+			label : new sap.ui.commons.Label({
+				text : "Performance",
+				textAlign : sap.ui.core.TextAlign.Center,
+			}),
+			template : new sap.ui.commons.TextView({
+				textAlign : sap.ui.core.TextAlign.Right,
+			}).bindProperty("text", "OEE_Performance", function(s) {
+				return s + "%";
+			}),
+			// 			sortProperty : "OEE_Performance",
+			// 			filterProperty : "OEE_Performance",
+			resizable : false,
+		}));
+		oeeTable.addColumn(new sap.ui.table.Column({
+			width : "105px",
+			label : new sap.ui.commons.Label({
+				text : "Quality",
+				textAlign : sap.ui.core.TextAlign.Center,
+			}),
+			template : new sap.ui.commons.TextView({
+				textAlign : sap.ui.core.TextAlign.Right,
+			}).bindProperty("text", "OEE_Quality", function(s) {
+				return s + "%";
+			}),
+			// 			sortProperty : "OEE_Quality",
+			// 			filterProperty : "OEE_Quality",
+			resizable : false,
+		}));
+		// 		oeeTable.addColumn(new sap.ui.table.Column({
+		// 			width : "150px",
+		// 			label : new sap.ui.commons.Label({
+		// 				text : "Operator"
+		// 			}),
+		// 			template : new sap.ui.commons.TextView().bindProperty("text", "Operator"),
+		// 			// 			sortProperty : "Operator",
+		// 			// 			filterProperty : "Operator",
+		// 			resizable : true,
+		// 		}));
+		oeeTable.addColumn(new sap.ui.table.Column({
+			width : "auto",
+			label : new sap.ui.commons.Label({
+				text : "Description",
+				textAlign : sap.ui.core.TextAlign.Center,
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text", "Description"),
+			// 			sortProperty : "Description",
+			// 			filterProperty : "Description",
+			resizable : false,
+		}));
+
+		// 		oeeTable.addColumn(new sap.ui.table.Column({
+		// 			width : "80px",
+		// 			label : new sap.ui.commons.Label({
+		// 				text : "ModifiedBy"
+		// 			}),
+		// 			template : new sap.ui.commons.TextView().bindProperty("text", "ModifiedBy"),
+		// 			sortProperty : "ModifiedBy",
+		// 			filterProperty : "ModifiedBy",
+		// 			resizable : true,
+		// 		}));
+		// 		oeeTable.addColumn(new sap.ui.table.Column({
+		// 			width : "150px",
+		// 			label : new sap.ui.commons.Label({
+		// 				text : "ModifiedOn"
+		// 			}),
+		// 			template : new sap.ui.commons.TextView().bindProperty("text", "ModifiedOn"),
+		// 			sortProperty : "ModifiedOn",
+		// 			filterProperty : "ModifiedOn",
+		// 			resizable : true,
+		// 		}));
+		// 		oeeTable.addColumn(new sap.ui.table.Column({
+		// 			width : "80px",
+		// 			label : new sap.ui.commons.Label({
+		// 				text : " CreatedBy"
+		// 			}),
+		// 			template : new sap.ui.commons.TextView().bindProperty("text", "CreatedBy"),
+		// 			sortProperty : "CreatedBy",
+		// 			filterProperty : "CreatedBy",
+		// 			resizable : true,
+		// 		}));
+
+		// 		oeeTable.addColumn(new sap.ui.table.Column({
+		// 			width : "150px",
+		// 			label : new sap.ui.commons.Label({
+		// 				text : "CreatedOn"
+		// 			}),
+		// 			template : new sap.ui.commons.TextView().bindProperty("text", "CreatedOn"),
+		// 			sortProperty : "CreatedOn",
+		// 			filterProperty : "CreatedOn",
+		// 			resizable : true,
+		// 		}));
+		// 		oeeTable.addColumn(new sap.ui.table.Column({
+		// 			width : "60px",
+		// 			label : new sap.ui.commons.Label({
+		// 				text : "Active"
+		// 			}),
+		// 			template : new sap.ui.commons.CheckBox().bindProperty("checked", "reasonActive", function(s) {
+		// 				return s == "1";
+		// 			}),
+		// 			resizable : true,
+		// 			hAlign : "Center",
+		// 		}));
+
+		//		sp = document.getElementById("OEEM_content").clientWidth - 200 - 190;
+		oeeTable.setToolbar(new sap.ui.commons.Toolbar({
+			height : "50px",
+			items : [ new sap.m.Label("mTableLabel", {
+				desig : sap.m.LabelDesign.Bold,
+				textAlign : sap.ui.core.TextAlign.Center,
+				text : "",
+				// 				width : "" + (document.getElementById("OEEM_content").clientWidth - 200 - 400) + "px",
+				height : "30px",
+			}) ],
+			rightItems : [
+			// 			    new sap.ui.commons.Button("btn_tbOperations_add", {
+			// 				text : "Add",
+			// 				width : "80px",
+			// 				height : "30px",
+			// 				style : "Default",
+			// 				icon : "sap-icon://add",
+			// 				lite : true,
+			// 				press : function() {
+			// 					StopReasons_add("", "add a StopReason");
+			// 				}
+			// 			}).setEnabled(true), new sap.ui.commons.Button("btn_tbOperations_edit", {
+			// 				text : "Edit",
+			// 				width : "80px",
+			// 				height : "30px",
+			// 				style : "Default",
+			// 				icon : "sap-icon://edit",
+			// 				lite : true,
+			// 				press : function() {
+			// 					StopReasons_edit("", "edit an operation", true);
+			// 				}
+			// 			}), new sap.ui.commons.Button("btn_tbOperations_delete", {
+			// 				text : "Delete",
+			// 				width : "80px",
+			// 				height : "30px",
+			// 				style : "Default",
+			// 				icon : "sap-icon://delete",
+			// 				lite : true,
+			// 				press : function() {
+			// 					StopReasons_edit("", "delete a StopReason", false);
+			// 				}
+			// 			})
+
+			// 			, new sap.ui.commons.MenuButton({
+			// 				height : "30px",
+			// 				width : "40px",
+			// 				//text : "",
+			// 				icon : "sap-icon://menu",
+			// 				lite : true,
+			// 				menu : new sap.ui.unified.Menu({
+			// 					title : "Operation",
+			// 					enabled : true,
+			// 					items : [ new sap.ui.commons.MenuItem("menu_tbOperations_add", {
+			// 						text : "Add",
+			// 						enabled : true,
+			// 					}), new sap.ui.commons.MenuItem("menu_tbOperations_edit", {
+			// 						text : "Edit",
+			// 						enabled : true,
+			// 					}), new sap.ui.commons.MenuItem("menu_tbOperations_delete", {
+			// 						text : "Delete",
+			// 						enabled : true,
+			// 					}) ]
+			// 				}),
+			// 				itemSelected : function(oEvent) {
+			// 					alert("menuOperationMissionitemSelected");
+			// 				}
+			// 			})
+			]
+		}));
+		// 		var str = location.href;
+		// 		oeeTable.filter(oeeTable.getColumns()[3], location.href.substring(location.href.indexOf("FloorMaps_Index=") + 16));
+	}
+
+	function ss(s1) {
+		alert(s1);
+	}
+	// ******************************************************************************************************************************************************************
+	function chartLoad(_node) {
+		if (treeArray[treeIndex]['oeeStatus'] == 0) {
+			var chartCategories = [];
+
+			var chartSeries = [];
+			var dOEE = [];
+			getTreeNodes(_node, chartCategories);
+			//_Average = [];
+			var dAvailability = rmData(1, chartCategories.length);
+			var dPerformance = rmData(1, chartCategories.length);
+			var dQuality = rmData(1, chartCategories.length);
+
+			// 		_Average = _random(m);
+			for (var i = 0; i < chartCategories.length; i++) {
+
+				if (oeeStatus(chartCategories[i]) == 0) {
+					dAvailability[i] = 0;
+					dPerformance[i] = 0;
+					dQuality[i] = 0;
+					dOEE.push(0);
+				} else {
+					dOEE.push(dAvailability[i] * dPerformance[i] * dQuality[i] / 10000);
+					//_Average.push((dAvailability[i] + dPerformance[i] + dQuality[i] + dOEE[i]) / 4);
+				}
+
+			}
+
+			chartSeries.push({
+				// 			type : 'column',
+				name : 'OEE',
+				data : dOEE,
+			// 			stack : 's0'
+			});
+			chartSeries.push({
+				// 			type : 'column',
+				name : 'Availability',
+				data : dAvailability,
+			// 			stack : 's1'
+			});
+			chartSeries.push({
+				// 			type : 'column',
+				name : 'Performance',
+				data : dPerformance,
+			// 			stack : 's1'
+			});
+			chartSeries.push({
+				// 			type : 'column',
+				name : 'Quality',
+				data : dQuality,
+			// 			stack : 's1'
+			});
+			creatBarChart(chartCategories, chartSeries);
+		} else if (treeArray[treeIndex]['oeeStatus'] == 1) {
+			P1 = "SELECT *";
+			P2 = "FROM OEEM_Data_Collection";
+			P3 = "WHERE UnitID=" + treeArray[treeIndex]['recordID'];
+			P4 = "ORDER BY Timestamp ASC";
+			url = "/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/get_Table&Param.1=" + P1 + "&Param.2=" + P2 + "&Param.3=" + P3 + "&Param.4=" + P4 + "&ts=" + new Date().getTime() + "&Content-Type=text/xml";
+			getData(url, parseJsonParent);
+			function parseJsonParent(jsondata) {
+				oeemArray = [];
+				dOEE = [];
+				dAvailability = [];
+				dPerformance = [];
+				dQuality = [];
+				for (var i = 0; i < jsondata.length; i++) {
+
+					var tm = parseInt(jsondata[i]['Timestamp']);
+					availability = parseInt(jsondata[i]['OEE_Availability']);
+					performance = parseInt(jsondata[i]['OEE_Performance']);
+					quality = parseInt(jsondata[i]['OEE_Quality']);
+					oee = parseInt(jsondata[i]['OEE_OEE']);
+					dAvailability.push([ tm, availability ]);
+					dPerformance.push([ tm, performance ]);
+					dQuality.push([ tm, quality ]);
+					dOEE.push([ tm, oee ]);
+				}
+
+				chartSeries = [];
+
+				chartSeries.push({
+					name : 'OEE',
+					data : dOEE
+				});
+				chartSeries.push({
+					name : 'Availability',
+					data : dAvailability
+				});
+				chartSeries.push({
+					name : 'Performance',
+					data : dPerformance
+				});
+
+				chartSeries.push({
+					name : 'Quality',
+					data : dQuality
+				});
+
+				creatLineChart(chartSeries);
+
+			}
+		}
+	}
+
+	var mChart;//
+
+	function creatAreaChart(_categories, _series) {
+
+		Highcharts.chart('p1', {
+			chart : {
+				type : 'area'
+			},
+
+			title : {
+				text : 'Overall Equipment Effectiveness Dashboard'
+			},
+			xAxis : {
+				categories : _categories
+			},
+			exporting : {
+				enabled : false
+			},
+			// 			plotOptions : {
+			// 				column : {
+			// 					stacking : 'normal'
+			// 				}
+			// 			},
+			plotOptions : {
+				area : {
+					stacking : 'percent',
+					lineColor : '#ffffff',
+					lineWidth : 1,
+					marker : {
+						lineWidth : 1,
+						lineColor : '#ffffff'
+					}
+				}
+			},
+			// 			labels : {
+			// 				items : [ {
+			// 					html : 'O E E M',
+			// 					style : {
+			// 						left : '50px',
+			// 						top : '18px',
+			// 						color : (Highcharts.theme && Highcharts.theme.textColor) || 'black'
+			// 					}
+			// 				} ]
+			// 			},
+			series : _series,
+			legend : {
+				align : "right",
+				// 					backgroundColor: undefined
+				// 					borderColor: "#999999"
+				// 					borderRadius: 0
+				// 					borderWidth: 0
+				enabled : false,
+				// 					floating: false
+				// 					itemDistance: 20
+				// 					itemHiddenStyle: { "color": "#cccccc" }
+				// 					itemHoverStyle: { "color": "#000000" }
+				// 					itemMarginBottom: 0
+				// 					itemMarginTop: 0
+				// 					itemStyle: { "color": "#333333", "cursor": "pointer", "fontSize": "12px", "fontWeight": "bold" }
+				// 					itemWidth: undefined
+				// 					labelFormat: "{name}"
+				// 					labelFormatter: undefined
+				// 					layout: "horizontal"
+				// 					lineHeight: 16
+				// 					margin: 12
+				// 					maxHeight: undefined
+				// 					navigation: {…}
+				// 					padding: 8
+				// 					reversed: false
+				// 					rtl: false
+				// 					shadow: false
+				// 					squareSymbol: true
+				// 					style: undefined
+				// 					symbolHeight: undefined
+				// 					symbolPadding: 5
+				// 					symbolRadius: undefined
+				// 					symbolWidth: undefined
+				// 					title: {…}
+				// 					useHTML: false
+				verticalAlign : "center",
+			// 					width: undefined
+			// 					x: 0
+			// 					y: 0
+			}
+		});
+
+	}
+	function creatBarChart(_categories, _series) {
+
+		Highcharts.chart('p1', {
+			chart : {
+				type : 'column'
+			},
+
+			title : {
+				text : 'Overall Equipment Effectiveness Dashboard'
+			},
+			xAxis : {
+				categories : _categories
+			},
+			exporting : {
+				enabled : false
+			},
+			// 			plotOptions : {
+			// 				column : {
+			// 					stacking : 'normal'
+			// 				}
+			// 			},
+			plotOptions : {
+				column : {
+					pointPadding : 0,
+					borderWidth : 0
+				}
+			},
+			// 			labels : {
+			// 				items : [ {
+			// 					html : 'O E E M',
+			// 					style : {
+			// 						left : '50px',
+			// 						top : '18px',
+			// 						color : (Highcharts.theme && Highcharts.theme.textColor) || 'black'
+			// 					}
+			// 				} ]
+			// 			},
+			series : _series,
+			legend : {
+				align : "right",
+				// 					backgroundColor: undefined
+				// 					borderColor: "#999999"
+				// 					borderRadius: 0
+				// 					borderWidth: 0
+				enabled : false,
+				// 					floating: false
+				// 					itemDistance: 20
+				// 					itemHiddenStyle: { "color": "#cccccc" }
+				// 					itemHoverStyle: { "color": "#000000" }
+				// 					itemMarginBottom: 0
+				// 					itemMarginTop: 0
+				// 					itemStyle: { "color": "#333333", "cursor": "pointer", "fontSize": "12px", "fontWeight": "bold" }
+				// 					itemWidth: undefined
+				// 					labelFormat: "{name}"
+				// 					labelFormatter: undefined
+				// 					layout: "horizontal"
+				// 					lineHeight: 16
+				// 					margin: 12
+				// 					maxHeight: undefined
+				// 					navigation: {…}
+				// 					padding: 8
+				// 					reversed: false
+				// 					rtl: false
+				// 					shadow: false
+				// 					squareSymbol: true
+				// 					style: undefined
+				// 					symbolHeight: undefined
+				// 					symbolPadding: 5
+				// 					symbolRadius: undefined
+				// 					symbolWidth: undefined
+				// 					title: {…}
+				// 					useHTML: false
+				verticalAlign : "center",
+			// 					width: undefined
+			// 					x: 0
+			// 					y: 0
+			}
+		});
+
+	}
+
+	function creatLineChart(_series) {
+		mChart = new Highcharts.stockChart('p1', {
+			title : {
+				text : 'OEE%'
+			},
+			subtitle : {
+				text : 'Availability%Performance%Quality%',
+				floating : false,
+				align : 'center',
+				y : 40,
+				style : {
+					fontSize : '14px'
+				}
+			},
+
+			chart : {
+
+				type : 'spline',
+				height : "500",
+				events : {
+					load : function() {
+						// 					alert('load');
+
+					}
+				}
+			},
+			colors : [ '#90ed7d', '#7cb5ec', '#f7a35c', '#888888' ],
+			legend : {
+				enabled : true,
+				align : "center",
+				verticalAlign : "bottom",
+				shadow : false,
+			},
+			rangeSelector : {
+				buttons : [ {
+					type : 'minute',
+					count : 1,
+					text : 'm.'
+				}, {
+					type : 'hour',
+					count : 1,
+					text : 'H'
+				}, {
+					type : 'hour',
+					count : 8,
+					text : 'S'
+				}, {
+					type : 'day',
+					count : 1,
+					text : 'D'
+				}, {
+					type : 'week',
+					count : 1,
+					text : 'W'
+				}, {
+					type : 'month',
+					count : 1,
+					text : 'M'
+				}, {
+					type : 'month',
+					count : 3,
+					text : 'Q'
+				}, {
+					type : 'year',
+					count : 12,
+					text : 'Y'
+				}, {
+					type : 'all',
+					text : 'All'
+				} ],
+				selected : 7
+			},
+
+			yAxis : {
+				labels : {
+					formatter : function() {
+						return (this.value > 0 ? ' + ' : '') + this.value + '%';
+					}
+				},
+				plotLines : [ {
+					value : 0,
+					width : 2,
+					color : 'silver'
+				} ]
+			},
+			tooltip : {
+				pointFormat : '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> (%)<br/>',
+				valueDecimals : 2,
+				split : false
+			},
+			navigator : {
+				enabled : true
+			},
+			series : _series
+		});
+	}
+	// ******************************************************************************************************************************************************************
+
+	function rmSeries(n) {
+		var aSeries = [];
+		var dOEE = [];
+		var dAvailability = rmData(2, n);
+		var dPerformance = rmData(2, n);
+		var dQuality = rmData(2, n);
+
+		for (i = 0; i < dAvailability.length; i++) {
+			dOEE.push([ dAvailability[i][0], (dAvailability[i][1] * dPerformance[i][1] * dQuality[i][1] / 10000) | 0 ]);
+		}
+
+		aSeries.push({
+			name : 'OEE',
+			data : dOEE
+		});
+		aSeries.push({
+			name : 'Availability',
+			data : dAvailability
+		});
+		aSeries.push({
+			name : 'Performance',
+			data : dPerformance
+		});
+
+		aSeries.push({
+			name : 'Quality',
+			data : dQuality
+		});
+		return aSeries;
+	}
+
+	function rmData(n, m) {
+		var aData = [];
+		if (n == 1) {
+			for (var i = 0; i < m; i++) {
+				aData.push(60 + Math.round((Math.random() * 40)));
+			}
+		} else if (n == 2) {
+			var ts = Math.round((new Date().getTime() - n * 1000) / 1000) * 1000;
+			for (var i = 0; i < m; i++) {
+				aData.push([ ts + i * 60 * 1000, 45 + Math.round((Math.random() * 55)) ]);
+			}
+		}
+		return aData;
+	}
+
+	// ******************************************************************************************************************************************************************
+
+	var userName = "unknow";
+
+	// ******************************************************************************************************************************************************************
+
+	$(function() {
+
+		userName = document.getElementById("user_name").value;
+		var myRoles = document.getElementById("user_roles").value;
+		var role2Access = "OEEM_" + document.getElementById("user_role").value;
+		// alert(role2Access);
+		if (myRoles.indexOf(role2Access) < 0) {
+			window.location.assign("security.irpt");
+			return true;
+		}
+
+		var roleString = document.getElementById("user_role").value;
+		var roleArray = roleString.split("_");
+		var level2Access = roleArray[0];
+		var plant2Access = roleArray[1];
+		new sap.ui.commons.ApplicationHeader({
+			logoSrc : "RTS.png",
+			logoText : " Overall Equipment Effectiveness Module on SAP MII",
+			displayLogoff : true,
+			userName : userName,
+			displayWelcome : true,
+		}).placeAt("header");
+		menuDefine();
+		floorTreeLoading();
+		floorTree.placeAt("nav");
+		creatOeeTable();
+		oeeTable.placeAt("p2");
+
+		setInterval(function() {
+
+			if (treeArray[treeIndex]['oeeStatus'] == 1) {
+
+				if (mChart.series.length == 5) {
+					var ts, oee, availability, performance, quality, len;
+					ts = Math.round(new Date().getTime() / 1000) * 1000;
+					len = mChart.series[0]['data'].length;
+					if (len == 0) {
+						availability = (50 + 50 * Math.random()) | 0;
+						performance = (50 + 50 * Math.random()) | 0;
+						quality = (50 + 50 * Math.random()) | 0;
+					} else {
+						if (ts == mChart.series[0]['data'][len - 1].x) {
+							return;
+						}
+
+						availability = mChart.series[1]['data'][len - 1].y + ((20 * Math.random()) | 0) - 10;
+						performance = mChart.series[2]['data'][len - 1].y + ((20 * Math.random()) | 0) - 10;
+						quality = mChart.series[3]['data'][len - 1].y + ((20 * Math.random()) | 0) - 10;
+						if (availability > 100)
+							availability = 100;
+						if (performance > 100)
+							performance = 100;
+						if (quality > 100)
+							quality = 100;
+						if (availability < 60)
+							availability = 60;
+						if (performance < 60)
+							performance = 60;
+						if (quality < 60)
+							quality = 60;
+					}
+					oee = (availability * performance * quality / 10000) | 0;
+
+					mChart.setTitle({
+						text : 'OEE: ' + oee + '%'
+					});
+
+					mChart.subtitle.update({
+						text : 'Availability: ' + availability + '%    Performance: ' + performance + '%    Quality: ' + quality + '%'
+					});
+
+					mChart.series[1].addPoint([ ts, availability ], false, false);
+					mChart.series[2].addPoint([ ts, performance ], false, false);
+					mChart.series[3].addPoint([ ts, quality ], false, false);
+					mChart.series[0].addPoint([ ts, oee ], true, false);
+					dataAdd2Table(ts, treeArray[treeIndex]['unitName'], treeArray[treeIndex]['recordID'], "Dr.Oper", availability, performance, quality, oee);
+
+				}
+			}
+
+		}, 1000);
+
+	});
+</script>
+
+
+<body>
+
+	<input id="user_roles" type="hidden" value="{IllumLoginRoles}"
+		style="display: block; width: 1000px;" readonly />
+	<input id="user_role" type="hidden" value="{ROLE}"
+		style="display: block; width: 1000px;" readonly />
+	<input id="user_name" type="hidden" value="{IllumLoginName}"
+		style="display: block; width: 1000px;" readonly />
+	<input id="user_height" type="hidden" value="{HEIGHT}"
+		style="display: block; width: 100px;" readonly />
+	<input id="user_address" type="hidden" value="{Machine}"
+		style="display: block; width: 1000px;" readonly />
+
+	<div id="container" class="container">
+		<header id="header"></header>
+		<menu id="menu"></menu>
+		<nav id="nav"></nav>
+		<article id="article">
+			<div id="p1"></div>
+			<div id="p2"></div>
+		</article>
+		<footer id="footer"></footer>
+	</div>
+</body>
+
+
+
+<style>
+div.container {
+	/* 	border: 1px solid gray; */
+	/* 	margin: 0 auto; */
+	margin: 0em auto;
+	min-width: 1000px;
+	width: 100%;
+	/* 	margin-top: 100px; */
+	/* 	margin-bottom: 100px; */
+	/* 	margin-right: 100px; */
+	/* 	margin-left: 100px; */
+	position: relative;
+}
+
+header {
+	width: 100%;
+}
+
+nav {
+	float: left;
+	/* 	min-width: 100px; */
+	width: 20%;
+	margin: 0px 0px 0px 10%;
+	/* 	padding: 1em; */
+}
+
+nav ul {
+	list-style-type: none;
+	padding: 0;
+}
+
+nav ul a {
+	text-decoration: none;
+}
+
+article {
+	margin-left: 35%;
+	width: 55%;
+	height: 650px;
+	/* 	border-left: 1px solid gray; */
+	/* 	padding: 0em; */
+	/* 	margin: 0px 10%; */
+	/* 	overflow: hidden; */
+}
+
+footer {
+	/* 	margin-left: 30%; */
+	/* 	border-left: 1px solid gray; */
+	padding: 1em;
+	/* 	overflow: hidden; */
+}
+</style>
+
+
+</html>
+
