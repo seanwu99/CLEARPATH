@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <script src="lib/fabric.js"></script>
+    <script src="http://fabricjs.com/lib/fabric.js"></script>
     <title>MapEditor Demo</title>
 
     <script id="sap-ui-bootstrap"
@@ -147,11 +147,11 @@
 <input id="file" type="file" style="display: none;" onchange="bgImageLoad(this.files)">
 <button id="button">BG</button>
 <!--<input type="file" id="input" onchange="handleFiles(this.files)" color="#fff">-->
-id: <input type="text" id="idText" name="idText" onchange="textInput(this.value)">
+id: <label for="idText"></label><input type="text" id="idText" name="idText" onchange="textInput(this.value)">
 <button id="copy">copy</button>
 
 <canvas id="hCanvas" width="500" height="100" class="lower-canvas"
-        style="position: absolute; width: 500px; height: 100px; left: 0px; top: 0px; -webkit-user-select: none;"></canvas>
+        style="position: absolute; width: 500px; height: 100px; left: 0; top: 0; -webkit-user-select: none;"></canvas>
 <!--<canvas id="hCanvas" ></canvas>-->
 
 
@@ -190,8 +190,6 @@ id: <input type="text" id="idText" name="idText" onchange="textInput(this.value)
     function bgImageLoad(files) {
 //        var ctx = document.getElementById('c').getContext('2d');
 //        var oldCanvas = canvas.toDataURL("image/png");
-
-//        cc(files[0]);
         var image = new Image();
         image.src = window.URL.createObjectURL(files[0]);
 
@@ -217,7 +215,7 @@ id: <input type="text" id="idText" name="idText" onchange="textInput(this.value)
         };
 
 //        function resizeElementHeight(element) {
-        var element = document.getElementById('container');
+
 //            var height = 0;
 //            var body = window.document.body;
 //            if (window.innerHeight) {
