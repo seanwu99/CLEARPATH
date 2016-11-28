@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <script src="http://fabricjs.com/lib/fabric.js"></script>
+    <script src="lib/fabric.js"></script>
     <title>MapEditor Demo</title>
 
     <script id="sap-ui-bootstrap"
@@ -144,14 +144,15 @@
 <button id="remove">Del</button>
 <button id="Map">Map</button>
 <!--<button id="BG">tt</button>-->
-<input id="file" type="file" style="display: none;" onchange="bgImageLoad(this.files)">
-<button id="button">BG</button>
-<!--<input type="file" id="input" onchange="handleFiles(this.files)" color="#fff">-->
-id: <label for="idText"></label><input type="text" id="idText" name="idText" onchange="textInput(this.value)">
-<button id="copy">copy</button>
+<input id="loadBackgroud" type="file" style="display: none;" onchange="loadBackgroud(this.files)">
+<button id="btnLoadBackgroud">BG</button>
+id: <input type="text" id="idText" name="idText" onchange="textInput(this.value)">
+<button id="save" onclick="saveTextAsFile()">save</button>
+<input id="loadMaps" type="file" style="display: none;" onchange="loadMaps(this.files)">
+<button id="btnLoadMaps">load</button>
 
 <canvas id="hCanvas" width="500" height="100" class="lower-canvas"
-        style="position: absolute; width: 500px; height: 100px; left: 0; top: 0; -webkit-user-select: none;"></canvas>
+        style="position: absolute; width: 500px; height: 100px; left: 0px; top: 0px; -webkit-user-select: none;"></canvas>
 <!--<canvas id="hCanvas" ></canvas>-->
 
 
@@ -163,8 +164,11 @@ id: <label for="idText"></label><input type="text" id="idText" name="idText" onc
     //    input[type="file"]{
     //        color:#fff;
     //    }
-    $('#button').click(function () {
-        $('#file').click();
+    $('#btnLoadBackgroud').click(function () {
+        $('#loadBackgroud').click();
+    });
+    $('#btnLoadMaps').click(function () {
+        $('#loadMaps').click();
     });
     var fabricCanvas = new fabric.Canvas('hCanvas');
     var fabricID = [];
@@ -173,7 +177,7 @@ id: <label for="idText"></label><input type="text" id="idText" name="idText" onc
         console.log('canvas event');
         console.log(options);
         if (fabricCanvas.getActiveObject() == null) {
-            cc('null');
+//            cc('null');
             document.getElementById("idText").value = '';
             document.getElementById('idText').disabled = true;
         } else {
@@ -186,10 +190,25 @@ id: <label for="idText"></label><input type="text" id="idText" name="idText" onc
         var i = fabricCanvas.getObjects().indexOf(o);
         fabricID[i]['id'] = text;
     }
+//    loadMaps
+    function loadMaps(files) {
+        var fileToLoad = document.getElementById("fileToLoad").files[0];
 
-    function bgImageLoad(files) {
+        var fileReader = new FileReader();
+        fileReader.onload = function(fileLoadedEvent)
+        {
+            var textFromFileLoaded = fileLoadedEvent.target.result;
+            ss(textFromFileLoaded);
+//            document.getElementById("inputTextToSave").value = textFromFileLoaded;
+        };
+        fileReader.readAsText(fileToLoad, "UTF-8");
+    }
+
+    function loadBackgroud(files) {
 //        var ctx = document.getElementById('c').getContext('2d');
 //        var oldCanvas = canvas.toDataURL("image/png");
+
+//        cc(files[0]);
         var image = new Image();
         image.src = window.URL.createObjectURL(files[0]);
 
@@ -215,7 +234,7 @@ id: <label for="idText"></label><input type="text" id="idText" name="idText" onc
         };
 
 //        function resizeElementHeight(element) {
-
+        var element = document.getElementById('container');
 //            var height = 0;
 //            var body = window.document.body;
 //            if (window.innerHeight) {
@@ -265,7 +284,7 @@ id: <label for="idText"></label><input type="text" id="idText" name="idText" onc
 //        cc('addRec')
         var id = 'Unit_' + (fabricCanvas.getObjects().length - 1);
         document.getElementById("idText").value = id;
-        fabricID.push({"id": id, "type": 'rect'});
+        fabricID.push({"id": id, "type": 'rect', 'width': 100, 'height': 100, 'left': 0, 'top': 0, 'angle': 0,});
     });
 
     $('#Circle').click(function () {
@@ -276,6 +295,8 @@ id: <label for="idText"></label><input type="text" id="idText" name="idText" onc
             angle: 0,
             originX: 'center',
             originY: 'center',
+            scaleX: 1,
+            scaleY: 1,
 //            fill: '#aac'
             fill: 'rgba(0,200,0,0.80)',
             transparentCorners: false
@@ -288,7 +309,18 @@ id: <label for="idText"></label><input type="text" id="idText" name="idText" onc
         }));
         var id = 'Unit_' + (fabricCanvas.getObjects().length - 1);
         document.getElementById("idText").value = id;
-        fabricID.push({"id": id, "type": 'circle'});
+        fabricID.push({
+            "id": id,
+            "type": 'circle',
+            'radius': 50,
+            'left': 0,
+            'top': 0,
+            'angle': 0,
+            'originY': 'center',
+            'originY': 'center',
+            'scaleX': 1,
+            'scaleY': 1,
+        });
     });
 
     $('#Triangle').click(function () {
@@ -309,7 +341,7 @@ id: <label for="idText"></label><input type="text" id="idText" name="idText" onc
         }));
         var id = 'Unit_' + (fabricCanvas.getObjects().length - 1);
         document.getElementById("idText").value = id;
-        fabricID.push({"id": id, "type": 'triangle'});
+        fabricID.push({"id": id, "type": 'triangle', 'angle': 0, 'width': 100, 'height': 100, 'left': 200, 'top': 0});
     });
 
     function featureExist(obj, coordinates) {
@@ -322,9 +354,9 @@ id: <label for="idText"></label><input type="text" id="idText" name="idText" onc
         });
         return vv;
     }
-    document.querySelector("#copy").onclick = function () {
-        var result = copyToClipboard(new Date().toString());
-        console.log("copied?", result);
+    document.querySelector("#load").onclick = function () {
+//        var result = copyToClipboard(new Date().toString());
+        console.log("load", 'file');
     };
 
 
@@ -334,10 +366,11 @@ id: <label for="idText"></label><input type="text" id="idText" name="idText" onc
         var features = [];
         $.each(fabricCanvas.getObjects(), function (i, obj) {
             if (obj.get('type') == 'rect') {
+                var a0 = obj.angle;
                 var x0 = obj.oCoords.bl.x, y0 = obj.oCoords.bl.y;
                 var x1 = obj.oCoords.br.x, y1 = obj.oCoords.br.y;
                 var x2 = obj.oCoords.tr.x, y2 = obj.oCoords.tr.y;
-                var x3 = obj.oCoords.tl.x, y3 = obj.oCoords.tl.y;
+                var x3 = obj.oCoords.tl.x, y3 = obj.oCoords.tl.y
                 var d0 = [];
                 d0.push([x0, -y0]);
                 d0.push([x1, -y1]);
@@ -345,7 +378,10 @@ id: <label for="idText"></label><input type="text" id="idText" name="idText" onc
                 d0.push([x3, -y3]);
                 d0.push([x0, -y0]);
                 if (!featureExist(obj, coordinates)) {
-                    coordinates.push({'id': fabricID[fabricCanvas.getObjects().indexOf(obj)]['id'], 'd0': []});
+                    coordinates.push({
+                        "id": fabricID[fabricCanvas.getObjects().indexOf(obj)]['id'], "d0": [], "type": 'rect',
+                        "width": obj.width, "height": obj.height, "left": obj.left, "top": obj.top, "angle": obj.angle
+                    });
                 }
                 $.each(coordinates, function (i, _coordinates) {
                     if (_coordinates['id'] == fabricID[fabricCanvas.getObjects().indexOf(obj)]['id']) {
@@ -372,7 +408,19 @@ id: <label for="idText"></label><input type="text" id="idText" name="idText" onc
                     d0.push([x0 + x1, -(y0 + y1)]);
                 }
                 if (!featureExist(obj, coordinates)) {
-                    coordinates.push({'id': fabricID[fabricCanvas.getObjects().indexOf(obj)]['id'], 'd0': []});
+                    coordinates.push({
+                        "id": fabricID[fabricCanvas.getObjects().indexOf(obj)]['id'],
+                        "d0": [],
+                        "type": 'circle',
+                        "radius": obj.radius,
+                        "left": obj.left,
+                        "top": obj.top,
+                        "originX": obj.originX,
+                        "originY": obj.originY,
+                        "scaleX": obj.scaleX,
+                        "scaleY": obj.scaleY,
+                        "angle": obj.angle
+                    });
                 }
                 $.each(coordinates, function (i, _coordinates) {
                     if (_coordinates['id'] == fabricID[fabricCanvas.getObjects().indexOf(obj)]['id']) {
@@ -391,7 +439,10 @@ id: <label for="idText"></label><input type="text" id="idText" name="idText" onc
                 d0.push([x2, -y2]);
                 d0.push([x0, -y0]);
                 if (!featureExist(obj, coordinates)) {
-                    coordinates.push({'id': fabricID[fabricCanvas.getObjects().indexOf(obj)]['id'], 'd0': []});
+                    coordinates.push({
+                        "id": fabricID[fabricCanvas.getObjects().indexOf(obj)]['id'], "d0": [], "type": 'triangle',
+                        "width'": obj.width, "height": obj.height, "left": obj.left, "top": obj.top, "angle": obj.angle
+                    });
                 }
                 $.each(coordinates, function (i, _coordinates) {
                     if (_coordinates['id'] == fabricID[fabricCanvas.getObjects().indexOf(obj)]['id']) {
@@ -403,29 +454,79 @@ id: <label for="idText"></label><input type="text" id="idText" name="idText" onc
         });
 
         $.each(coordinates, function (i, _coordinates) {
-            cc(_coordinates['id']);
-            cc(_coordinates['d0'].length);
-            features.push({
-                type: "Feature",
-                properties: {"hc-key": _coordinates['id'], "name": _coordinates['id']},
-                geometry: {
-                    type: "Polygon",
-                    coordinates: _coordinates['d0']
-                }
-            });
+//            cc(_coordinates['id']);
+//            cc(_coordinates['d0'].length);
+            if (_coordinates['type'] == 'rect') {
+                features.push({
+                    type: "Feature",
+                    properties: {
+                        "hc-key": _coordinates['id'],
+                        "name": _coordinates['id'],
+                        "type": 'rect',
+                        "width": _coordinates['width'],
+                        "height": _coordinates['height'],
+                        "left": _coordinates['left'],
+                        "top": _coordinates['top'],
+                        "angle": _coordinates['angle']
+                    },
+                    geometry: {
+                        type: "Polygon",
+                        coordinates: _coordinates['d0']
+                    }
+                });
+            }
+            if (_coordinates['type'] == 'triangle') {
+                features.push({
+                    type: "Feature",
+                    properties: {
+                        "hc-key": _coordinates['id'], "name": _coordinates['id'], "type": 'triangle',
+                        "width": _coordinates['width'],
+                        "height": _coordinates['height'],
+                        "left": _coordinates['left'],
+                        "top": _coordinates['top'],
+                        "angle": _coordinates['angle']
+                    },
+                    geometry: {
+                        type: "Polygon",
+                        coordinates: _coordinates['d0']
+                    }
+                });
+            }
+            if (_coordinates['type'] == 'circle') {
+                features.push({
+                    type: "Feature",
+                    properties: {
+                        "hc-key": _coordinates['id'], "name": _coordinates['id'], "type": 'circle',
+                        "radius": _coordinates['radius'],
+                        "left": _coordinates['left'],
+                        "top": _coordinates['top'],
+                        "angle": _coordinates['angle'],
+                        "originX": _coordinates['originX'],
+                        "originY": _coordinates['originY'],
+                        "scaleX": _coordinates['scaleX'],
+                        "scaleY": _coordinates['scaleY']
+                    },
+                    geometry: {
+                        type: "Polygon",
+                        coordinates: _coordinates['d0']
+                    }
+                });
+            }
         });
 
         features = {
-            "name": 'features',
+            "type": 'FeatureCollection',
             "features": features
         };
+        cc('features');
+        cc(features);
         var mJson = Highcharts.geojson(features);
         $.each(mJson, function () {
             this.value = 60 + Math.round((Math.random() * 40)); // Non-random bogus data
         });
-        cc(JSON.stringify(features));
+//        cc(JSON.stringify(features));
 //        window.prompt("Copy to clipboard: Ctrl+C, Enter", JSON.stringify(features));
-        cc(JSON.stringify(mJson));
+//        cc(JSON.stringify(mJson));
 //        mapInit(mJson);
 
 //        mJson = Highcharts.geojson(geojson);
@@ -547,13 +648,14 @@ id: <label for="idText"></label><input type="text" id="idText" name="idText" onc
         }
 
         var result = copyToClipboard(JSON.stringify(features));
-        console.log("copied?", result);
-
+        console.log("copied", result);
+        JSON_features = JSON.stringify(features);
 //        cc(canvas);
     };
+    var JSON_features = '';
     $('#remove').click(function () {
-        cc('remove');
-        cc(fabricCanvas.getActiveGroup());
+//        cc('remove');
+//        cc(fabricCanvas.getActiveGroup());
         if (fabricCanvas.getActiveGroup()) {
             fabricCanvas.getActiveGroup().forEachObject(function (o) {
                 var i = fabricCanvas.getObjects().indexOf(o);
@@ -568,10 +670,11 @@ id: <label for="idText"></label><input type="text" id="idText" name="idText" onc
             fabricCanvas.remove(o);
         }
     });
-    document.querySelector("#copy").onclick = function () {
-        var result = copyToClipboard(new Date().toString());
-        console.log("copied?", result);
-    };
+
+    //    document.querySelector("#copy").onclick = function () {
+    //        var result = copyToClipboard(new Date().toString());
+    //        console.log("copied?", result);
+    //    };
     function copyToClipboard(text) {
         if (window.clipboardData && window.clipboardData.setData) {
             // IE specific code path to prevent textarea being shown while dialog is visible.
@@ -593,6 +696,27 @@ id: <label for="idText"></label><input type="text" id="idText" name="idText" onc
             }
         }
     }
+
+    function saveTextAsFile() {
+        var textToSave = JSON_features;
+        var textToSaveAsBlob = new Blob([textToSave], {type: "text/plain"});
+        var textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);
+        var fileNameToSaveAs = 'maps.json'
+
+        var downloadLink = document.createElement("a");
+        downloadLink.download = fileNameToSaveAs;
+        downloadLink.innerHTML = "Download File";
+        downloadLink.href = textToSaveAsURL;
+        downloadLink.onclick = destroyClickedElement;
+        downloadLink.style.display = "none";
+        document.body.appendChild(downloadLink);
+
+        downloadLink.click();
+    }
+    function destroyClickedElement(event) {
+        document.body.removeChild(event.target);
+    }
+
     function ss(_string) {
         alert(_string);
     }
