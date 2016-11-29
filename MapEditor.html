@@ -138,17 +138,19 @@
 
 </script>
 <div id="container" style="display: none;"></div>
-
+id: <input type="text" id="textID" name="textID" onchange="textInput(this.value)">
+<input id="loadBackgroud" type="file" style="display: none;" onchange="loadBackgroud(this.files)">
+<button id="btnLoadBackgroud">backgroud</button>
 <button id="newRect" onClick="newRect()">Rect</button>
 <button id="newCircle" onClick="newCircle()">Circle</button>
 <button id="newTriangle" onClick="newTriangle()">Triangle</button>
 <button id="remove" onClick="remove()">remove</button>
-<button id="Map">Map</button>
-<!--<button id="BG">tt</button>-->
-<input id="loadBackgroud" type="file" style="display: none;" onchange="loadBackgroud(this.files)">
-<button id="btnLoadBackgroud">BG</button>
-id: <input type="text" id="textID" name="textID" onchange="textInput(this.value)">
-<button id="save" onclick="saveTextAsFile()">save</button>
+
+<button id="maps" onClick="creatMaps()">maps</button>
+
+
+<button id="saveMaps" onclick="saveMaps()">save</button>
+
 <input id="loadMaps" type="file" style="display: none;" onchange="loadMaps(this.files)">
 <button id="btnLoadMaps">load</button>
 
@@ -161,10 +163,7 @@ id: <input type="text" id="textID" name="textID" onchange="textInput(this.value)
 
 
 <script id="main">
-    // 		(function() {
-    //    input[type="file"]{
-    //        color:#fff;
-    //    }
+    var mapsJSONforSave = '';
     $('#btnLoadBackgroud').click(function () {
         $('#loadBackgroud').click();
     });
@@ -193,15 +192,80 @@ id: <input type="text" id="textID" name="textID" onchange="textInput(this.value)
     }
     //    loadMaps
     function loadMaps(files) {
-        var fileToLoad = document.getElementById("fileToLoad").files[0];
-
+//        var fileToLoad = document.getElementById("fileToLoad").files[0];
+//        cc('loadMaps');
+//        cc(files[0]);
         var fileReader = new FileReader();
+        fileReader.readAsText(files[0], "UTF-8");
         fileReader.onload = function (fileLoadedEvent) {
             var textFromFileLoaded = fileLoadedEvent.target.result;
-            ss(textFromFileLoaded);
+//            cc(fabricCanvas.getObjects().length);
+//            function removeAll() {
+
+            var o = fabricCanvas.getObjects();
+            $.each(fabricCanvas.getObjects(), function (i, object) {
+                fabricCanvas.remove(object);
+            });
+//            o._objects.forEach(function (object, key) {
+//                fabricCanvas.remove(object);
+//                o.removeWithUpdate(object);
+//            });
+//            fabricCanvas.discardActiveGroup();
+            fabricCanvas.renderAll();
+            $.each(fabricID, function (i, _fabricID) {
+                fabricID.pop();
+            });
+//            fabricID.forEach(function (object, key) {
+//                fabricID
+//            });
+//            }
+//            cc(fabricCanvas.getObjects().length);
+            var jj = JSON.parse(textFromFileLoaded);
+            cc(jj['features'].length);
+            $.each(jj['features'], function (i, _j) {
+                console.log(_j['properties']['name'], _j['properties']['type']);
+                if (_j['properties']['type'] == 'rect') {
+                    var id = _j['properties']['name'];
+                    document.getElementById("textID").value = id;
+                    fabricID.push({
+                        "id": id,
+                        "type": 'rect',
+                        'width': _j['properties']['width'],
+                        'height': _j['properties']['height'],
+                        'angle': _j['properties']['angle'],
+                        'left': _j['properties']['left'],
+                        'top': _j['properties']['top']
+                    });
+//                    var width = _j['properties']['width'];
+//                    var height = _j['properties']['height'];
+//                    var left = _j['properties']['left'];
+//                    var top = _j['properties']['top'];
+//                    var angle = _j['properties']['angle'];
+//                    var id = _j['properties']['id'];
+                    fabricCanvas.add(new fabric.Rect({
+                        width: _j['properties']['width'],
+                        height: _j['properties']['height'],
+                        left: _j['properties']['left'],
+                        top: _j['properties']['top'],
+                        angle: _j['properties']['angle'],
+                        fill: 'rgba(0,200,0,0.80)',
+                        transparentCorners: false
+                    }).on('selected', function (e) {
+//                        console.log('selected a rectangle');
+//                        console.log(e);
+//                        console.log(this);
+//                        console.log(fabricCanvas.getObjects().indexOf(this));
+                        document.getElementById("textID").value = fabricID[fabricCanvas.getObjects().indexOf(this)]['id'];
+                    }));
+//        cc('addRec')
+
+
+                } else if (_j['properties']['type'] == 'circle') {
+                } else if (_j['properties']['type'] == 'triangle') {
+                }
+            });
 //            document.getElementById("inputTextToSave").value = textFromFileLoaded;
         };
-        fileReader.readAsText(fileToLoad, "UTF-8");
     }
 
     function loadBackgroud(files) {
@@ -321,10 +385,10 @@ id: <input type="text" id="textID" name="textID" onchange="textInput(this.value)
             fill: 'rgba(0,200,0,0.80)',
             transparentCorners: false
         }).on('selected', function (e) {
-            console.log('selected a circle');
-            console.log(e);
-            console.log(this);
-            console.log(fabricCanvas.getObjects().indexOf(this));
+//            console.log('selected a circle');
+//            console.log(e);
+//            console.log(this);
+//            console.log(fabricCanvas.getObjects().indexOf(this));
             document.getElementById("textID").value = fabricID[fabricCanvas.getObjects().indexOf(this)]['id'];
         }));
         var id = 'id' + new Date().getTime();
@@ -353,10 +417,10 @@ id: <input type="text" id="textID" name="textID" onchange="textInput(this.value)
             fill: 'rgba(0,200,0,0.80)',
             transparentCorners: false
         }).on('selected', function (e) {
-            console.log('selected a triangle');
-            console.log(e);
-            console.log(this);
-            console.log(fabricCanvas.getObjects().indexOf(this));
+//            console.log('selected a triangle');
+//            console.log(e);
+//            console.log(this);
+//            console.log(fabricCanvas.getObjects().indexOf(this));
             document.getElementById("textID").value = fabricID[fabricCanvas.getObjects().indexOf(this)]['id'];
         }));
         var id = 'id' + new Date().getTime();
@@ -383,24 +447,26 @@ id: <input type="text" id="textID" name="textID" onchange="textInput(this.value)
     }
 
     function featureExist(obj, coordinates) {
-        var vv = false;
+        var _Exist = false;
         $.each(coordinates, function (i, _coordinates) {
             if (_coordinates['id'] == fabricID[fabricCanvas.getObjects().indexOf(obj)]['id']) {
-                vv = true;
+                _Exist = true;
                 return false;
             }
         });
-        return vv;
+        return _Exist;
     }
-    document.querySelector("#load").onclick = function () {
-//        var result = copyToClipboard(new Date().toString());
-        console.log("load", 'file');
-    };
+    //    document.querySelector("#load").onclick = function () {
+    ////        var result = copyToClipboard(new Date().toString());
+    //        console.log("load", 'file');
+    //    };
 
 
     //    $('#Map').click(function () {
-    document.querySelector('#Map').onclick = function () {
+    //    document.querySelector('#Map').onclick = function () {
+    function creatMaps() {
         var coordinates = [];
+        var pieces = [];
         var features = [];
         $.each(fabricCanvas.getObjects(), function (i, obj) {
             if (obj.get('type') == 'rect') {
@@ -556,8 +622,8 @@ id: <input type="text" id="textID" name="textID" onchange="textInput(this.value)
             "type": 'FeatureCollection',
             "features": features
         };
-        cc('features');
-        cc(features);
+//        cc('features');
+//        cc(features);
         var mJson = Highcharts.geojson(features);
         $.each(mJson, function () {
             this.value = 60 + Math.round((Math.random() * 40)); // Non-random bogus data
@@ -568,9 +634,9 @@ id: <input type="text" id="textID" name="textID" onchange="textInput(this.value)
 //        mapInit(mJson);
 
 //        mJson = Highcharts.geojson(geojson);
-        $.each(mJson, function () {
-            this.value = 60 + Math.round((Math.random() * 40)); // Non-random bogus data
-        });
+//        $.each(mJson, function () {
+//            this.value = 60 + Math.round((Math.random() * 40)); // Non-random bogus data
+//        });
         if ($('#container').is(":hidden")) {
 //            $( "div" ).show( "slow" );
             $('#container').slideDown("slow", function () {
@@ -684,14 +750,9 @@ id: <input type="text" id="textID" name="textID" onchange="textInput(this.value)
         } else {
             $('#container').slideUp();
         }
-
-        var result = copyToClipboard(JSON.stringify(features));
-        console.log("copied", result);
-        JSON_features = JSON.stringify(features);
-//        cc(canvas);
-    };
-    var JSON_features = '';
-
+        mapsJSONforSave = JSON.stringify(features);
+        console.log("copyToClipboard", copyToClipboard(mapsJSONforSave));
+    }
 
 
     //    document.querySelector("#copy").onclick = function () {
@@ -720,12 +781,60 @@ id: <input type="text" id="textID" name="textID" onchange="textInput(this.value)
         }
     }
 
-    function saveTextAsFile() {
-        var textToSave = JSON_features;
+    function saveMaps() {
+
+        var textToSave;// = mapsJSONforSave;
+        cc('maps.json');
+        var projs = [];
+        $.each(fabricCanvas.getObjects(), function (i, obj) {
+            if (obj.get('type') == 'rect') {
+                projs.push({
+                    "id": fabricID[i]['id'],
+                    "type": 'rect',
+                    "width": obj.width,
+                    "height": obj.height,
+                    "left": obj.left,
+                    "top": obj.top,
+                    "angle": obj.angle
+                });
+                console.log(fabricID[i]['id'], obj.width, obj.height, obj.left, obj.top, obj.angle);
+            } else if (obj.get('type') == 'circle') {
+                projs.push({
+                    "id": fabricID[i]['id'],
+                    "type": 'circle',
+                    "radius": obj.radius,
+                    "width": obj.width,
+                    "height": obj.height,
+                    "left": obj.left,
+                    "top": obj.top,
+                    "angle": obj.angle,
+                    "originX": obj.originX,
+                    "originY": obj.originY,
+                    "scaleX": obj.scaleX,
+                    "scaleY": obj.scaleY
+                });
+                console.log(fabricID[i]['id'], obj.width, obj.height, obj.left, obj.top, obj.angle, obj.originX, obj.originY, obj.scaleX, obj.scaleY);
+            } else if (obj.get('type') == 'triangle') {
+                projs.push({
+                    "id": fabricID[i]['id'],
+                    "type": 'triangle',
+                    "width": obj.width,
+                    "height": obj.height,
+                    "left": obj.left,
+                    "top": obj.top,
+                    "angle": obj.angle
+                });
+                console.log(fabricID[i]['id'], obj.width, obj.height, obj.left, obj.top, obj.angle);
+            }
+            cc(JSON.stringify(projs));
+            textToSave = JSON.stringify(projs);
+        });
+//        return;
+
+
         var textToSaveAsBlob = new Blob([textToSave], {type: "text/plain"});
         var textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);
-        var fileNameToSaveAs = 'maps.json'
-
+        var fileNameToSaveAs = 'maps.json';
         var downloadLink = document.createElement("a");
         downloadLink.download = fileNameToSaveAs;
         downloadLink.innerHTML = "Download File";
