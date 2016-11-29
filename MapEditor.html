@@ -138,15 +138,16 @@
 
 </script>
 <div id="container" style="display: none;"></div>
-<button id="Rect">Rec</button>
-<button id="Circle">Cir</button>
-<button id="Triangle">Tri</button>
-<button id="remove">Del</button>
+
+<button id="newRect" onClick="newRect()">Rect</button>
+<button id="newCircle" onClick="newCircle()">Circle</button>
+<button id="newTriangle" onClick="newTriangle()">Triangle</button>
+<button id="remove" onClick="remove()">remove</button>
 <button id="Map">Map</button>
 <!--<button id="BG">tt</button>-->
 <input id="loadBackgroud" type="file" style="display: none;" onchange="loadBackgroud(this.files)">
 <button id="btnLoadBackgroud">BG</button>
-id: <input type="text" id="idText" name="idText" onchange="textInput(this.value)">
+id: <input type="text" id="textID" name="textID" onchange="textInput(this.value)">
 <button id="save" onclick="saveTextAsFile()">save</button>
 <input id="loadMaps" type="file" style="display: none;" onchange="loadMaps(this.files)">
 <button id="btnLoadMaps">load</button>
@@ -178,10 +179,10 @@ id: <input type="text" id="idText" name="idText" onchange="textInput(this.value)
         console.log(options);
         if (fabricCanvas.getActiveObject() == null) {
 //            cc('null');
-            document.getElementById("idText").value = '';
-            document.getElementById('idText').disabled = true;
+            document.getElementById("textID").value = '';
+            document.getElementById('textID').disabled = true;
         } else {
-            document.getElementById('idText').disabled = false;
+            document.getElementById('textID').disabled = false;
         }
     });
 
@@ -190,13 +191,12 @@ id: <input type="text" id="idText" name="idText" onchange="textInput(this.value)
         var i = fabricCanvas.getObjects().indexOf(o);
         fabricID[i]['id'] = text;
     }
-//    loadMaps
+    //    loadMaps
     function loadMaps(files) {
         var fileToLoad = document.getElementById("fileToLoad").files[0];
 
         var fileReader = new FileReader();
-        fileReader.onload = function(fileLoadedEvent)
-        {
+        fileReader.onload = function (fileLoadedEvent) {
             var textFromFileLoaded = fileLoadedEvent.target.result;
             ss(textFromFileLoaded);
 //            document.getElementById("inputTextToSave").value = textFromFileLoaded;
@@ -251,8 +251,6 @@ id: <input type="text" id="idText" name="idText" onchange="textInput(this.value)
 //        element.height = image.height + "px";
 //        element.width = image.width + "px";
 //        }
-
-
     }
     //    function setBackground(URL) {
     //        var image = new Image();
@@ -265,7 +263,7 @@ id: <input type="text" id="idText" name="idText" onchange="textInput(this.value)
     //            fabricCanvas.setBackgroundImage(image.src, fabricCanvas.renderAll.bind(fabricCanvas));
     //        }
     //    }
-    $('#Rect').click(function () {
+    function newRect() {
         fabricCanvas.add(new fabric.Rect({
             width: 100,
             height: 100,
@@ -279,15 +277,37 @@ id: <input type="text" id="idText" name="idText" onchange="textInput(this.value)
             console.log(e);
             console.log(this);
             console.log(fabricCanvas.getObjects().indexOf(this));
-            document.getElementById("idText").value = fabricID[fabricCanvas.getObjects().indexOf(this)]['id'];
+            document.getElementById("textID").value = fabricID[fabricCanvas.getObjects().indexOf(this)]['id'];
         }));
 //        cc('addRec')
-        var id = 'Unit_' + (fabricCanvas.getObjects().length - 1);
-        document.getElementById("idText").value = id;
-        fabricID.push({"id": id, "type": 'rect', 'width': 100, 'height': 100, 'left': 0, 'top': 0, 'angle': 0,});
-    });
+        var id = 'id' + new Date().getTime();
+        document.getElementById("textID").value = id;
+        fabricID.push({"id": id, "type": 'rect', 'width': 100, 'height': 100, 'angle': 0, 'left': 0, 'top': 0});
 
-    $('#Circle').click(function () {
+    }
+    //    $('#Rect').click(function () {
+    //        fabricCanvas.add(new fabric.Rect({
+    //            width: 100,
+    //            height: 100,
+    //            left: 0,
+    //            top: 0,
+    //            angle: 0,
+    //            fill: 'rgba(0,200,0,0.80)',
+    //            transparentCorners: false
+    //        }).on('selected', function (e) {
+    //            console.log('selected a rectangle');
+    //            console.log(e);
+    //            console.log(this);
+    //            console.log(fabricCanvas.getObjects().indexOf(this));
+    //            document.getElementById("textID").value = fabricID[fabricCanvas.getObjects().indexOf(this)]['id'];
+    //        }));
+    ////        cc('addRec')
+    //        var id = 'Unit_' + (fabricCanvas.getObjects().length - 1);
+    //        document.getElementById("textID").value = id;
+    //        fabricID.push({"id": id, "type": 'rect', 'width': 100, 'height': 100, 'left': 0, 'top': 0, 'angle': 0,});
+    //    });
+
+    function newCircle() {
         fabricCanvas.add(new fabric.Circle({
             radius: 50,
             left: 150,
@@ -305,10 +325,10 @@ id: <input type="text" id="idText" name="idText" onchange="textInput(this.value)
             console.log(e);
             console.log(this);
             console.log(fabricCanvas.getObjects().indexOf(this));
-            document.getElementById("idText").value = fabricID[fabricCanvas.getObjects().indexOf(this)]['id'];
+            document.getElementById("textID").value = fabricID[fabricCanvas.getObjects().indexOf(this)]['id'];
         }));
-        var id = 'Unit_' + (fabricCanvas.getObjects().length - 1);
-        document.getElementById("idText").value = id;
+        var id = 'id' + new Date().getTime();
+        document.getElementById("textID").value = id;
         fabricID.push({
             "id": id,
             "type": 'circle',
@@ -321,9 +341,9 @@ id: <input type="text" id="idText" name="idText" onchange="textInput(this.value)
             'scaleX': 1,
             'scaleY': 1,
         });
-    });
+    }
 
-    $('#Triangle').click(function () {
+    function newTriangle() {
         fabricCanvas.add(new fabric.Triangle({
             width: 100,
             height: 100,
@@ -337,12 +357,30 @@ id: <input type="text" id="idText" name="idText" onchange="textInput(this.value)
             console.log(e);
             console.log(this);
             console.log(fabricCanvas.getObjects().indexOf(this));
-            document.getElementById("idText").value = fabricID[fabricCanvas.getObjects().indexOf(this)]['id'];
+            document.getElementById("textID").value = fabricID[fabricCanvas.getObjects().indexOf(this)]['id'];
         }));
-        var id = 'Unit_' + (fabricCanvas.getObjects().length - 1);
-        document.getElementById("idText").value = id;
+        var id = 'id' + new Date().getTime();
+        document.getElementById("textID").value = id;
         fabricID.push({"id": id, "type": 'triangle', 'angle': 0, 'width': 100, 'height': 100, 'left': 200, 'top': 0});
-    });
+    }
+
+    function remove() {
+//        cc('remove');
+//        cc(fabricCanvas.getActiveGroup());
+        if (fabricCanvas.getActiveGroup()) {
+            fabricCanvas.getActiveGroup().forEachObject(function (o) {
+                var i = fabricCanvas.getObjects().indexOf(o);
+                fabricID.splice(i, 1);
+                fabricCanvas.remove(o)
+            });
+            fabricCanvas.discardActiveGroup().renderAll();
+        } else {
+            var o = fabricCanvas.getActiveObject();
+            var i = fabricCanvas.getObjects().indexOf(o);
+            fabricID.splice(i, 1);
+            fabricCanvas.remove(o);
+        }
+    }
 
     function featureExist(obj, coordinates) {
         var vv = false;
@@ -653,23 +691,8 @@ id: <input type="text" id="idText" name="idText" onchange="textInput(this.value)
 //        cc(canvas);
     };
     var JSON_features = '';
-    $('#remove').click(function () {
-//        cc('remove');
-//        cc(fabricCanvas.getActiveGroup());
-        if (fabricCanvas.getActiveGroup()) {
-            fabricCanvas.getActiveGroup().forEachObject(function (o) {
-                var i = fabricCanvas.getObjects().indexOf(o);
-                fabricID.splice(i, 1);
-                fabricCanvas.remove(o)
-            });
-            fabricCanvas.discardActiveGroup().renderAll();
-        } else {
-            var o = fabricCanvas.getActiveObject();
-            var i = fabricCanvas.getObjects().indexOf(o);
-            fabricID.splice(i, 1);
-            fabricCanvas.remove(o);
-        }
-    });
+
+
 
     //    document.querySelector("#copy").onclick = function () {
     //        var result = copyToClipboard(new Date().toString());
