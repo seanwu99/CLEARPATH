@@ -134,9 +134,9 @@
 
 
             setInterval(function () {
-                if (floorTreeReady && mapChart == null) {
-                    mapInit();
-                }
+//                if (floorTreeReady && mapChart == null) {
+//                    mapInit();
+//                }
 
                 return;
 
@@ -414,21 +414,147 @@
                     return false;
                 }
             });
-            return re;
+            cc(re['geometry']['coordinates']);
+            return re['geometry']['coordinates'];
         }
 
         function mapInit() {
             var mapData = [];
+            var coordinates = [];
+            var pieces = [];
+            var features = [];
             $.get('map.json', function (data) {
                 mapJson = data;
-                // cc(mapJson);
+
                 var n = getNodeByText('2000 PREP');
                 //   cc(n.getNodes().length);
                 $.each(n.getNodes(), function (i, o) {
 //                    cc(o.getText());
-                    mapData.push(getPieceByName(o.getText()));
+                    pieces.push(getPieceByName(o.getText()));
                 });
-                cc(mapData);
+                cc(pieces);
+                features.push({
+                    type: "Feature",
+                    properties: {
+                        "hc-key": 'tt',
+                        "name": 'tt'
+                    },
+                    geometry: {
+                        type: "MultiPolygon",
+                        coordinates: pieces
+                    }
+                });
+                features = {
+                    "type": 'FeatureCollection',
+                    "features": features
+                };
+//                var hd = Highcharts.geojson(features);
+                cc('features');
+                cc(features);
+                var hd = Highcharts.geojson(features);
+                cc('hd');
+                cc(hd);
+                mapChart = new Highcharts.Map('p1', {
+                    chart: {
+                        height: ScreenSize()['y'] - 365,
+                        events: {
+                            drilldown: function (e) {
+
+                            },
+                            drillup: function () {
+
+
+                            },
+                            load: function () {
+                                // 			var chart = this;
+
+                            }
+                        }
+                    },
+
+                    title: {
+                        text: 'Total Effective Equipment Performance'
+                    },
+//                subtitle : {
+//                    text : 'Shop Floor',
+//                    floating : false,
+//                    align : 'center',
+//                    y : 50,
+//                    style : {
+//                        fontSize : '16px'
+//                    }
+//                },
+                    legend: {
+                        layout: 'vertical',
+                        align: 'right',
+                        verticalAlign: 'middle'
+                    },
+                    colorAxis: {
+                        showInLegend: false,
+                        min: 0,
+                        minColor: '#E6E7E8',
+                        maxColor: '#005645'
+                    },
+                    mapNavigation: {
+                        enabled: true,
+                        buttonOptions: {
+                            verticalAlign: 'bottom'
+                        }
+                    },
+                    plotOptions: {
+                        map: {
+                            states: {
+                                hover: {
+                                    color: '#EEDD66'
+                                }
+                            }
+                        },
+                        series: {
+                            point: {
+                                events: {
+                                    click: function () {
+//                                    mapLevel1Refresh = new Date().getTime();
+                                    },
+                                    mouseOver: function () {
+                                        //alert('mouseOver');
+//                                    mapLevel1Refresh = new Date().getTime();
+
+                                    },
+                                    mouseOut: function () {
+                                        //alert('mouseOut');
+//                                    mapLevel1Refresh = new Date().getTime();
+
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    series: [{
+                        data: hd,
+                        name: "series's name",
+                        dataLabels: {
+                            enabled: true,
+                            align: 'center',
+                            verticalAlign: 'middle',
+                            format: '{point.properties.name}'
+                        }
+                    }],
+                    drilldown: {
+                        //series: drilldownSeries,
+                        activeDataLabelStyle: {
+                            color: '#FFFFFF',
+                            textDecoration: 'none',
+                            textShadow: '0 0 0px #000000'
+                        },
+                        drillUpButton: {
+                            relativeTo: 'spacingBox',
+                            position: {
+                                x: 0,
+                                y: 60
+                            }
+                        }
+                    }
+                });
             });
 //            return;
 
@@ -444,107 +570,7 @@
 //                this.drilldown = this.properties['hc-key'];
 //                this.value = randomBogusData(20, 80); // random bogus data
 //            });
-            mapChart = new Highcharts.Map('p1', {
-                chart: {
-                    height: ScreenSize()['y'] - 365,
-                    events: {
-                        drilldown: function (e) {
 
-                        },
-                        drillup: function () {
-
-
-                        },
-                        load: function () {
-                            // 			var chart = this;
-
-                        }
-                    }
-                },
-
-                title: {
-                    text: 'Total Effective Equipment Performance'
-                },
-//                subtitle : {
-//                    text : 'Shop Floor',
-//                    floating : false,
-//                    align : 'center',
-//                    y : 50,
-//                    style : {
-//                        fontSize : '16px'
-//                    }
-//                },
-                legend: {
-                    layout: 'vertical',
-                    align: 'right',
-                    verticalAlign: 'middle'
-                },
-                colorAxis: {
-                    showInLegend: false,
-                    min: 0,
-                    minColor: '#E6E7E8',
-                    maxColor: '#005645'
-                },
-                mapNavigation: {
-                    enabled: true,
-                    buttonOptions: {
-                        verticalAlign: 'bottom'
-                    }
-                },
-                plotOptions: {
-                    map: {
-                        states: {
-                            hover: {
-                                color: '#EEDD66'
-                            }
-                        }
-                    },
-                    series: {
-                        point: {
-                            events: {
-                                click: function () {
-//                                    mapLevel1Refresh = new Date().getTime();
-                                },
-                                mouseOver: function () {
-                                    //alert('mouseOver');
-//                                    mapLevel1Refresh = new Date().getTime();
-
-                                },
-                                mouseOut: function () {
-                                    //alert('mouseOut');
-//                                    mapLevel1Refresh = new Date().getTime();
-
-                                }
-                            }
-                        }
-                    }
-                },
-                series: [{
-                    data: Highcharts.geojson(mapJson),
-                    name: "series's name",
-                    dataLabels: {
-                        enabled: true,
-                        align: 'center',
-                        verticalAlign: 'middle',
-                        format: '{point.properties.name}'
-                    }
-                }],
-                drilldown: {
-                    //series: drilldownSeries,
-                    activeDataLabelStyle: {
-                        color: '#FFFFFF',
-                        textDecoration: 'none',
-                        textShadow: '0 0 0px #000000'
-                    },
-                    drillUpButton: {
-                        relativeTo: 'spacingBox',
-                        position: {
-                            x: 0,
-                            y: 60
-                        }
-                    }
-                }
-            });
 
         }
         function randomBogusData(a, b) {
