@@ -129,13 +129,14 @@
 //            alert(((windowHeigth - 100) * .6) | 0);
 
 
-            mapInit();
             StopReasons_Table();
             mTable.placeAt("p2");
 
 
-
             setInterval(function () {
+                if (floorTreeReady && mapChart == null) {
+                    mapInit();
+                }
 
                 return;
 
@@ -400,8 +401,37 @@
             // 		var str = location.href;
             // 		mTable.filter(mTable.getColumns()[3], location.href.substring(location.href.indexOf("FloorMaps_Index=") + 16));
         }
+        var mapJson = [];
+
+        function getPieceByName(name) {
+            cc(name);
+            var re = null;
+//            cc(mapJson);
+//            return;
+            $.each(mapJson['features'], function (i, mj) {
+                if (mj['properties']['name'] == name) {
+                    re = mj;
+                    return false;
+                }
+            });
+            return re;
+        }
 
         function mapInit() {
+            var mapData = [];
+            $.get('map.json', function (data) {
+                mapJson = data;
+                // cc(mapJson);
+                var n = getNodeByText('2000 PREP');
+                //   cc(n.getNodes().length);
+                $.each(n.getNodes(), function (i, o) {
+//                    cc(o.getText());
+                    mapData.push(getPieceByName(o.getText()));
+                });
+                cc(mapData);
+            });
+//            return;
+
             nWorkCenters = 5;
             var mapLevel1 = new Array(nWorkCenters + 1);
             var mapLevel1Refresh = new Date().getTime(), mapLevel1Cycle = 5 * 1000, mapLeve11Detail = false, mapLeve11DetailRefresh = new Date().getTime(), mapLevel1DetailCycle = 2 * 1000;
@@ -410,10 +440,10 @@
             mapLevel1[0] = Highcharts.geojson(Highcharts.maps['ShopFloor']);
             // Some responsiveness
 
-            $.each(mapLevel1[0], function (i) {
-                this.drilldown = this.properties['hc-key'];
-                this.value = randomBogusData(20, 80); // random bogus data
-            });
+//            $.each(mapLevel1[0], function (i) {
+//                this.drilldown = this.properties['hc-key'];
+//                this.value = randomBogusData(20, 80); // random bogus data
+//            });
             mapChart = new Highcharts.Map('p1', {
                 chart: {
                     height: ScreenSize()['y'] - 365,
@@ -490,7 +520,7 @@
                     }
                 },
                 series: [{
-                    data: mapLevel1[0],
+                    data: Highcharts.geojson(mapJson),
                     name: "series's name",
                     dataLabels: {
                         enabled: true,
@@ -679,7 +709,7 @@
                 floorTreeReady = true;
                 // 			nn = getNodeByText('2110 SCR 1');
                 // 			ss(findParent(nn).getText());
-                cc(floorTree);
+                //cc(floorTree);
             }
 
         }
@@ -1266,8 +1296,8 @@
                             if (!e.seriesOptions) {
                                 var chart = this;
 
-                                cc('e');
-                                cc(e);
+                                //cc('e');
+                                // cc(e);
                                 // 							ss(e.point.name)
                                 pn = e.point.name;
                                 // 							lastTitle.push(BarChart.options.title['text']);
@@ -1380,7 +1410,7 @@
                         },
                         drillup: function (e) {
 
-                            cc(e);
+                            //cc(e);
                             // 						lastTitle = oeeChart.options.title['text'];
                             var chart = this;
                             // 						cc('drillup');
