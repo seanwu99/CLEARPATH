@@ -586,43 +586,43 @@ id: <input type="text" id="textID" name="textID" onchange="textInput(this.value)
         $.each(coordinates, function (i, _coordinates) {
 //            cc(_coordinates['id']);
 //            cc(_coordinates['d0'].length);
-            if (_coordinates['type'] == 'rect') {
-                features.push({
-                    type: "Feature",
-                    properties: {
-                        "hc-key": _coordinates['id'],
-                        "name": _coordinates['id']
-                    },
-                    geometry: {
-                        type: "Polygon",
-                        coordinates: _coordinates['d0']
-                    }
-                });
-            }
-            if (_coordinates['type'] == 'triangle') {
-                features.push({
-                    type: "Feature",
-                    properties: {
-                        "hc-key": _coordinates['id'], "name": _coordinates['id']
-                    },
-                    geometry: {
-                        type: "Polygon",
-                        coordinates: _coordinates['d0']
-                    }
-                });
-            }
-            if (_coordinates['type'] == 'circle') {
-                features.push({
-                    type: "Feature",
-                    properties: {
-                        "hc-key": _coordinates['id'], "name": _coordinates['id']
-                    },
-                    geometry: {
-                        type: "Polygon",
-                        coordinates: _coordinates['d0']
-                    }
-                });
-            }
+//            if (_coordinates['type'] == 'rect') {
+            features.push({
+                type: "Feature",
+                properties: {
+                    "hc-key": _coordinates['id'],
+                    "name": _coordinates['id']
+                },
+                geometry: {
+                    type: "Polygon",
+                    coordinates: _coordinates['d0']
+                }
+            });
+//            }
+//            if (_coordinates['type'] == 'triangle') {
+//                features.push({
+//                    type: "Feature",
+//                    properties: {
+//                        "hc-key": _coordinates['id'], "name": _coordinates['id']
+//                    },
+//                    geometry: {
+//                        type: "Polygon",
+//                        coordinates: _coordinates['d0']
+//                    }
+//                });
+//            }
+//            if (_coordinates['type'] == 'circle') {
+//                features.push({
+//                    type: "Feature",
+//                    properties: {
+//                        "hc-key": _coordinates['id'], "name": _coordinates['id']
+//                    },
+//                    geometry: {
+//                        type: "Polygon",
+//                        coordinates: _coordinates['d0']
+//                    }
+//                });
+//            }
         });
 
         features = {
@@ -829,7 +829,7 @@ id: <input type="text" id="textID" name="textID" onchange="textInput(this.value)
                     "top": obj.top,
                     "angle": obj.angle
                 });
-             }
+            }
             cc(JSON.stringify(projs));
             textToSave = JSON.stringify(projs);
         });
