@@ -1,0 +1,2011 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "2220 Finals 2",
+        "name": "2220 Finals 2"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1129,
+              -559
+            ],
+            [
+              1333,
+              -559
+            ],
+            [
+              1333,
+              -484
+            ],
+            [
+              1129,
+              -484
+            ],
+            [
+              1129,
+              -559
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "2210 Finals 1",
+        "name": "2210 Finals 1"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              884.9760765550238,
+              -559
+            ],
+            [
+              1116,
+              -559
+            ],
+            [
+              1116,
+              -485.7058823529412
+            ],
+            [
+              884.9760765550238,
+              -485.7058823529412
+            ],
+            [
+              884.9760765550238,
+              -559
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "Gantry 703207",
+        "name": "Gantry 703207"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1132,
+              -474
+            ],
+            [
+              1229,
+              -474
+            ],
+            [
+              1229,
+              -412
+            ],
+            [
+              1132,
+              -412
+            ],
+            [
+              1132,
+              -474
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "V Cell 703438",
+        "name": "V Cell 703438"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1038,
+              -394
+            ],
+            [
+              1178,
+              -394
+            ],
+            [
+              1178,
+              -331
+            ],
+            [
+              1038,
+              -331
+            ],
+            [
+              1038,
+              -394
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "Robot 703565",
+        "name": "Robot 703565"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1015,
+              -474
+            ],
+            [
+              1120,
+              -474
+            ],
+            [
+              1120,
+              -411
+            ],
+            [
+              1015,
+              -411
+            ],
+            [
+              1015,
+              -474
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "V Cell 703190",
+        "name": "V Cell 703190"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1195,
+              -393
+            ],
+            [
+              1335,
+              -393
+            ],
+            [
+              1335,
+              -330
+            ],
+            [
+              1195,
+              -330
+            ],
+            [
+              1195,
+              -393
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "Inspection 703501",
+        "name": "Inspection 703501"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1038,
+              -315
+            ],
+            [
+              1178,
+              -315
+            ],
+            [
+              1178,
+              -252
+            ],
+            [
+              1038,
+              -252
+            ],
+            [
+              1038,
+              -315
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "Leak Tester 703474",
+        "name": "Leak Tester 703474"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              884,
+              -396
+            ],
+            [
+              1024,
+              -396
+            ],
+            [
+              1024,
+              -333
+            ],
+            [
+              884,
+              -333
+            ],
+            [
+              884,
+              -396
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "Robot 703566",
+        "name": "Robot 703566"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1240,
+              -475
+            ],
+            [
+              1335,
+              -475
+            ],
+            [
+              1335,
+              -412
+            ],
+            [
+              1240,
+              -412
+            ],
+            [
+              1240,
+              -475
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "Tig Repair 703542",
+        "name": "Tig Repair 703542"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              886,
+              -475
+            ],
+            [
+              1002,
+              -475
+            ],
+            [
+              1002,
+              -412
+            ],
+            [
+              886,
+              -412
+            ],
+            [
+              886,
+              -475
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "V Cell 703439",
+        "name": "V Cell 703439"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1194,
+              -315
+            ],
+            [
+              1334,
+              -315
+            ],
+            [
+              1334,
+              -252
+            ],
+            [
+              1194,
+              -252
+            ],
+            [
+              1194,
+              -315
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "Tig Repair 703512",
+        "name": "Tig Repair 703512"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              885,
+              -315
+            ],
+            [
+              1025,
+              -315
+            ],
+            [
+              1025,
+              -252
+            ],
+            [
+              885,
+              -252
+            ],
+            [
+              885,
+              -315
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "Tig Repair 703543",
+        "name": "Tig Repair 703543"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1035,
+              -163
+            ],
+            [
+              1175,
+              -163
+            ],
+            [
+              1175,
+              -100
+            ],
+            [
+              1035,
+              -100
+            ],
+            [
+              1035,
+              -163
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "Gantry 703522",
+        "name": "Gantry 703522"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1035,
+              -240
+            ],
+            [
+              1175,
+              -240
+            ],
+            [
+              1175,
+              -177
+            ],
+            [
+              1035,
+              -177
+            ],
+            [
+              1035,
+              -240
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "V Cell 703193",
+        "name": "V Cell 703193"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1190,
+              -161
+            ],
+            [
+              1330,
+              -161
+            ],
+            [
+              1330,
+              -98
+            ],
+            [
+              1190,
+              -98
+            ],
+            [
+              1190,
+              -161
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "V Cell 703441",
+        "name": "V Cell 703441"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              883,
+              -162
+            ],
+            [
+              1023,
+              -162
+            ],
+            [
+              1023,
+              -99
+            ],
+            [
+              883,
+              -99
+            ],
+            [
+              883,
+              -162
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "Leak Tester 703475",
+        "name": "Leak Tester 703475"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1035,
+              -84
+            ],
+            [
+              1175,
+              -84
+            ],
+            [
+              1175,
+              -21
+            ],
+            [
+              1035,
+              -21
+            ],
+            [
+              1035,
+              -84
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "Robot 703568",
+        "name": "Robot 703568"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1190,
+              -242
+            ],
+            [
+              1330,
+              -242
+            ],
+            [
+              1330,
+              -179
+            ],
+            [
+              1190,
+              -179
+            ],
+            [
+              1190,
+              -242
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "V Cell 703440",
+        "name": "V Cell 703440"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1189,
+              -84
+            ],
+            [
+              1329,
+              -84
+            ],
+            [
+              1329,
+              -21
+            ],
+            [
+              1189,
+              -21
+            ],
+            [
+              1189,
+              -84
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "Robot 703567",
+        "name": "Robot 703567"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              882,
+              -241
+            ],
+            [
+              1022,
+              -241
+            ],
+            [
+              1022,
+              -178
+            ],
+            [
+              882,
+              -178
+            ],
+            [
+              882,
+              -241
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "Inspection 703502",
+        "name": "Inspection 703502"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              882,
+              -83
+            ],
+            [
+              1022,
+              -83
+            ],
+            [
+              1022,
+              -20
+            ],
+            [
+              882,
+              -20
+            ],
+            [
+              882,
+              -83
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "V Cell 703436",
+        "name": "V Cell 703436"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              577,
+              -382
+            ],
+            [
+              717,
+              -382
+            ],
+            [
+              717,
+              -319
+            ],
+            [
+              577,
+              -319
+            ],
+            [
+              577,
+              -382
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "Robot 703575",
+        "name": "Robot 703575"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              574,
+              -459
+            ],
+            [
+              714,
+              -459
+            ],
+            [
+              714,
+              -396
+            ],
+            [
+              574,
+              -396
+            ],
+            [
+              574,
+              -459
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "V Cell 703197",
+        "name": "V Cell 703197"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              729.1563344014451,
+              -379.3451311154033
+            ],
+            [
+              869.1546289552687,
+              -378.6541014338173
+            ],
+            [
+              868.8436655985549,
+              -315.65486888459657
+            ],
+            [
+              728.8453710447313,
+              -316.3458985661827
+            ],
+            [
+              729.1563344014451,
+              -379.3451311154033
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "Leak Tester 703214",
+        "name": "Leak Tester 703214"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              417,
+              -380
+            ],
+            [
+              557,
+              -380
+            ],
+            [
+              557,
+              -317
+            ],
+            [
+              417,
+              -317
+            ],
+            [
+              417,
+              -380
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "Inspection 703486",
+        "name": "Inspection 703486"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              574,
+              -307
+            ],
+            [
+              714,
+              -307
+            ],
+            [
+              714,
+              -244
+            ],
+            [
+              574,
+              -244
+            ],
+            [
+              574,
+              -307
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "Gantry 703529",
+        "name": "Gantry 703529"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              728,
+              -460
+            ],
+            [
+              868,
+              -460
+            ],
+            [
+              868,
+              -397
+            ],
+            [
+              728,
+              -397
+            ],
+            [
+              728,
+              -460
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "V Cell 703437",
+        "name": "V Cell 703437"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              726,
+              -305
+            ],
+            [
+              866,
+              -305
+            ],
+            [
+              866,
+              -242
+            ],
+            [
+              726,
+              -242
+            ],
+            [
+              726,
+              -305
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "Tig Repair 703541",
+        "name": "Tig Repair 703541"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              416,
+              -457
+            ],
+            [
+              556,
+              -457
+            ],
+            [
+              556,
+              -394
+            ],
+            [
+              416,
+              -394
+            ],
+            [
+              416,
+              -457
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "Tig Repair 703402",
+        "name": "Tig Repair 703402"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              419,
+              -304
+            ],
+            [
+              559,
+              -304
+            ],
+            [
+              559,
+              -241
+            ],
+            [
+              419,
+              -241
+            ],
+            [
+              419,
+              -304
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "2110 SCR 1",
+        "name": "2110 SCR 1"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              412,
+              -560
+            ],
+            [
+              561,
+              -560
+            ],
+            [
+              561,
+              -475
+            ],
+            [
+              412,
+              -475
+            ],
+            [
+              412,
+              -560
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "2120 SCR 2",
+        "name": "2120 SCR 2"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              571,
+              -561
+            ],
+            [
+              720,
+              -561
+            ],
+            [
+              720,
+              -476
+            ],
+            [
+              571,
+              -476
+            ],
+            [
+              571,
+              -561
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "2130 SCR 3",
+        "name": "2130 SCR 3"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              728,
+              -560
+            ],
+            [
+              873,
+              -560
+            ],
+            [
+              873,
+              -475
+            ],
+            [
+              728,
+              -475
+            ],
+            [
+              728,
+              -560
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "2070 Inner Body",
+        "name": "2070 Inner Body"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              647,
+              -229
+            ],
+            [
+              757,
+              -229
+            ],
+            [
+              757,
+              -132
+            ],
+            [
+              647,
+              -132
+            ],
+            [
+              647,
+              -229
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "2060 Outer Body",
+        "name": "2060 Outer Body"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              530,
+              -229
+            ],
+            [
+              640,
+              -229
+            ],
+            [
+              640,
+              -132
+            ],
+            [
+              530,
+              -132
+            ],
+            [
+              530,
+              -229
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "2030 DPF Canning",
+        "name": "2030 DPF Canning"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              646,
+              -119
+            ],
+            [
+              756,
+              -119
+            ],
+            [
+              756,
+              -21.999999999999993
+            ],
+            [
+              646,
+              -21.999999999999993
+            ],
+            [
+              646,
+              -119
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "2020 HD Mixer 2",
+        "name": "2020 HD Mixer 2"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              531,
+              -119
+            ],
+            [
+              641,
+              -119
+            ],
+            [
+              641,
+              -21.999999999999993
+            ],
+            [
+              531,
+              -21.999999999999993
+            ],
+            [
+              531,
+              -119
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "2080 Assembly",
+        "name": "2080 Assembly"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              762,
+              -229
+            ],
+            [
+              872,
+              -229
+            ],
+            [
+              872,
+              -132
+            ],
+            [
+              762,
+              -132
+            ],
+            [
+              762,
+              -229
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "2040 SCR Canning",
+        "name": "2040 SCR Canning"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              762,
+              -118
+            ],
+            [
+              872,
+              -118
+            ],
+            [
+              872,
+              -20.999999999999993
+            ],
+            [
+              762,
+              -20.999999999999993
+            ],
+            [
+              762,
+              -118
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "2050 GWS",
+        "name": "2050 GWS"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              411,
+              -227
+            ],
+            [
+              521,
+              -227
+            ],
+            [
+              521,
+              -130
+            ],
+            [
+              411,
+              -130
+            ],
+            [
+              411,
+              -227
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "2010 HD Mixer 1",
+        "name": "2010 HD Mixer 1"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              413,
+              -118
+            ],
+            [
+              523,
+              -118
+            ],
+            [
+              523,
+              -20.999999999999993
+            ],
+            [
+              413,
+              -20.999999999999993
+            ],
+            [
+              413,
+              -118
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "Robot 703520",
+        "name": "Robot 703520"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              132,
+              -559
+            ],
+            [
+              267,
+              -559
+            ],
+            [
+              267,
+              -477
+            ],
+            [
+              132,
+              -477
+            ],
+            [
+              132,
+              -559
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "Inspection 703507",
+        "name": "Inspection 703507"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              133,
+              -471
+            ],
+            [
+              270,
+              -471
+            ],
+            [
+              270,
+              -389
+            ],
+            [
+              133,
+              -389
+            ],
+            [
+              133,
+              -471
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "Gantry 703528",
+        "name": "Gantry 703528"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              276,
+              -558
+            ],
+            [
+              397,
+              -558
+            ],
+            [
+              397,
+              -476
+            ],
+            [
+              276,
+              -476
+            ],
+            [
+              276,
+              -558
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "V Cell 703454",
+        "name": "V Cell 703454"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1,
+              -559
+            ],
+            [
+              122,
+              -559
+            ],
+            [
+              122,
+              -477
+            ],
+            [
+              1,
+              -477
+            ],
+            [
+              1,
+              -559
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "Leak Tester 703480",
+        "name": "Leak Tester 703480"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              278,
+              -469
+            ],
+            [
+              399,
+              -469
+            ],
+            [
+              399,
+              -387
+            ],
+            [
+              278,
+              -387
+            ],
+            [
+              278,
+              -469
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "Tig Repair 703520",
+        "name": "Tig Repair 703520"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1,
+              -469
+            ],
+            [
+              124,
+              -469
+            ],
+            [
+              124,
+              -386
+            ],
+            [
+              1,
+              -386
+            ],
+            [
+              1,
+              -469
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "Robot 703574",
+        "name": "Robot 703574"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              133,
+              -369
+            ],
+            [
+              261,
+              -369
+            ],
+            [
+              261,
+              -293
+            ],
+            [
+              133,
+              -293
+            ],
+            [
+              133,
+              -369
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "Inspection 703506",
+        "name": "Inspection 703506"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              132,
+              -278
+            ],
+            [
+              260,
+              -278
+            ],
+            [
+              260,
+              -202
+            ],
+            [
+              132,
+              -202
+            ],
+            [
+              132,
+              -278
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "Gantry 703527",
+        "name": "Gantry 703527"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              269,
+              -369
+            ],
+            [
+              397,
+              -369
+            ],
+            [
+              397,
+              -293
+            ],
+            [
+              269,
+              -293
+            ],
+            [
+              269,
+              -369
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "Leak Tester 703479",
+        "name": "Leak Tester 703479"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              271,
+              -278
+            ],
+            [
+              399,
+              -278
+            ],
+            [
+              399,
+              -202
+            ],
+            [
+              271,
+              -202
+            ],
+            [
+              271,
+              -278
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "V Cell 703455",
+        "name": "V Cell 703455"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -4,
+              -368
+            ],
+            [
+              124,
+              -368
+            ],
+            [
+              124,
+              -292
+            ],
+            [
+              -4,
+              -292
+            ],
+            [
+              -4,
+              -368
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "Tig Repair 703519",
+        "name": "Tig Repair 703519"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -4,
+              -277
+            ],
+            [
+              124,
+              -277
+            ],
+            [
+              124,
+              -201
+            ],
+            [
+              -4,
+              -201
+            ],
+            [
+              -4,
+              -277
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "Tig Repair 703518",
+        "name": "Tig Repair 703518"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.000000000000007,
+              -92
+            ],
+            [
+              126,
+              -91.99999999999999
+            ],
+            [
+              126,
+              -19
+            ],
+            [
+              1.000000000000007,
+              -19
+            ],
+            [
+              1.000000000000007,
+              -92
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "Inspection 703505",
+        "name": "Inspection 703505"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              137,
+              -95
+            ],
+            [
+              262,
+              -94.99999999999999
+            ],
+            [
+              262,
+              -22
+            ],
+            [
+              137,
+              -22
+            ],
+            [
+              137,
+              -95
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "Gantry 703526",
+        "name": "Gantry 703526"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              269,
+              -186
+            ],
+            [
+              394,
+              -186
+            ],
+            [
+              394,
+              -113
+            ],
+            [
+              269,
+              -113
+            ],
+            [
+              269,
+              -186
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "Robot 703573",
+        "name": "Robot 703573"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              137,
+              -184
+            ],
+            [
+              262,
+              -184
+            ],
+            [
+              262,
+              -111
+            ],
+            [
+              137,
+              -111
+            ],
+            [
+              137,
+              -184
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "V Cell 703453",
+        "name": "V Cell 703453"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.000000000000007,
+              -182
+            ],
+            [
+              126,
+              -182
+            ],
+            [
+              126,
+              -109
+            ],
+            [
+              1.000000000000007,
+              -109
+            ],
+            [
+              1.000000000000007,
+              -182
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "hc-key": "Leak Tester 703478",
+        "name": "Leak Tester 703478"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              272,
+              -93
+            ],
+            [
+              397,
+              -92.99999999999999
+            ],
+            [
+              397,
+              -20
+            ],
+            [
+              272,
+              -20
+            ],
+            [
+              272,
+              -93
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}
