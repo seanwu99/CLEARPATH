@@ -798,8 +798,8 @@ id: <input type="text" id="textID" name="textID" onchange="textInput(this.value)
                 projs.push({
                     "id": fabricID[i]['id'],
                     "type": 'rect',
-                    "width": obj.width,
-                    "height": obj.height,
+                    "width": obj.getWidth(),
+                    "height": obj.getHeight(),
                     "left": obj.left,
                     "top": obj.top,
                     "angle": obj.angle
@@ -809,8 +809,8 @@ id: <input type="text" id="textID" name="textID" onchange="textInput(this.value)
                     "id": fabricID[i]['id'],
                     "type": 'circle',
                     "radius": obj.radius,
-                    "width": obj.width,
-                    "height": obj.height,
+                    "width": obj.getWidth(),
+                    "height": obj.getHeight(),
                     "left": obj.left,
                     "top": obj.top,
                     "angle": obj.angle,
@@ -823,8 +823,8 @@ id: <input type="text" id="textID" name="textID" onchange="textInput(this.value)
                 projs.push({
                     "id": fabricID[i]['id'],
                     "type": 'triangle',
-                    "width": obj.width,
-                    "height": obj.height,
+                    "width": obj.getWidth(),
+                    "height": obj.getHeight(),
                     "left": obj.left,
                     "top": obj.top,
                     "angle": obj.angle
