@@ -132,8 +132,8 @@
                 if (!floorTreeReady) {
                     return;
                 }
-                cc('BarChart:');
-                cc(BarChart);
+//                cc('BarChart:');
+//                cc(BarChart);
                 if (ChartType == 'BAR') {
                     if (!chartReady) {
                         barChartInit(floorTree.getNodes()[0]);
@@ -398,7 +398,7 @@
             if (oReqData != null) {
                 var timestamp = new Date().getTime();
                 var paramStr = "Param.1=" + encodeURIComponent(P1) + "&Param.2=" + encodeURIComponent(P2) + "&Param.3=" + encodeURIComponent(P3) + "&Param.4=" + encodeURIComponent(P4) + "&Param.5=" + encodeURIComponent(P5) + "&Param.6="
-                        + encodeURIComponent(P6) + "&Param.7=" + encodeURIComponent(P7) + "&Param.8=" + encodeURIComponent(P8);
+                    + encodeURIComponent(P6) + "&Param.7=" + encodeURIComponent(P7) + "&Param.8=" + encodeURIComponent(P8);
                 // alert(paramStr);
                 var queryStr = "/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/OEEM_Data_Collection_ADD&" + paramStr + "&ts=" + timestamp + "&Content-Type=text/xml";
                 //alert(queryStr);
@@ -1095,6 +1095,7 @@
 
         // ******************************************************************************************************************************************************************
         function barChartInit(chartRoot) {
+            cc('barChartInit');
             // 		chartRoot = chartRoot;
             var _title = chartRoot.getText();
             var _subtitle = '';
@@ -1109,19 +1110,10 @@
                     type: 'column',
                     events: {
                         redraw: function () {
-                            // 						if (lastTitle != oeeChart.options.title['text']) {
-
-                            // 							oeeChartDataLoad(getNodeByText(oeeChart.options.title['text']));
-                            // 						}
-
                         },
                         drilldown: function (e) {
-                            // 						lastTitle = oeeChart.options.title['text'];
-                            // 						oeeChart.setTitle({
-                            // 							text : e.seriesOptions.name
-                            // 						});
+                            cc('drilldown');
                             isDrilldown = true;
-
                             if (!e.seriesOptions) {
                                 var chart = this;
 

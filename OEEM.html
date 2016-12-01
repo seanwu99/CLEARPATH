@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-
+<meta charset="utf-8"/>
 <head>
 
     <style>
@@ -90,7 +90,8 @@
         var chartReady = false;
         // 	var lastTitle = [];
         //        var isDrilldown = false;
-
+        var isDrilldown = false;
+        var mapJson = null;
         // ******************************************************************************************************************************************************************
 
         $(function () {
@@ -123,6 +124,10 @@
                 elm: 'menu'
             });
 
+            $.get('map.json', function (data) {
+                mapJson = data;
+            });
+
             floorTreeInit();
 
 //            windowHeigth = $(window).height();
@@ -137,14 +142,16 @@
 //                if (floorTreeReady && mapChart == null) {
 //                    mapInit();
 //                }
+//                cc('main routine');
+                if (mapChart == null && floorTreeReady && mapJson != null) {
+                    mapInit(floorTree.getNodes()[0]);
+                }
 
-                return;
-
-            }, 3000);
+            }, 1000);
 
             var TESTS;
             $('#test1').click(function () {
-                mapInit();
+                mapInit('COLUMBUS SOUTH');
             });
 
             $('#test2').click(function () {
@@ -403,103 +410,356 @@
         }
 
         function getPieceByName(mapData, pieceName) {
-            cc(pieceName);
             var coor = null;
-//            cc(mapJson);
-//            return;
             $.each(mapData['features'], function (i, piece) {
                 if (piece['properties']['name'] == pieceName) {
                     coor = piece;
                     return false;
                 }
             });
-            if (coor == null) {
+            if (coor != null) {
+                return coor['geometry']['coordinates'];
+            } else {
                 return null;
             }
-            cc(coor['geometry']['coordinates']);
-            return coor['geometry']['coordinates'];
+//            cc(coor['geometry']['coordinates']);
+
         }
 
-        function mapInit() {
-            var mapData = [];
-            var coordinates = [];
+        function mapInit(rootNode) {
 
+//            rootNode = getNodeByText(nodeName);
+            if (rootNode.getNodes().length == 0) {
+                return;
+            }
             var features = [];
-            $.get('map.json', function (map) {
-
-                var rootNode = getNodeByText('COLUMBUS SOUTH');
-                if (rootNode.getNodes().length == 0) {
-                    return;
-                }
-                //   cc(n.getNodes().length);
-                $.each(rootNode.getNodes(), function (i, branchNode) {
-                    var branch = [];
-                    getBranch(branchNode, branch);
-                    //get Branch nodes, push to features
-                    var pieces = [];
-                    if (branch.length > 0) {
-                        $.each(branch, function (i, _branch) {
-                            var coor = getPieceByName(map, _branch.getText());
-                            if (coor != null) {
-                                pieces.push(coor);
-                            }
-                        });
-                        features.push({
-                            type: "Feature",
-                            properties: {
-                                "hc-key": branchNode.getText(),
-                                "name": branchNode.getText()
-                            },
-                            geometry: {
-                                type: "MultiPolygon",
-                                coordinates: pieces
-                            }
-                        });
-                    }
-                });
-//                cc(pieces);
-//                features.push({
-//                    type: "Feature",
-//                    properties: {
-//                        "hc-key": rootNode.getText(),
-//                        "name": rootNode.getText()
-//                    },
-//                    geometry: {
-//                        type: "MultiPolygon",
-//                        coordinates: pieces
-//                    }
-//                });
-                features = {
-                    "type": 'FeatureCollection',
-                    "features": features
-                };
-//                var hd = Highcharts.geojson(features);
-                cc('features');
-                cc(features);
-                var hd = Highcharts.geojson(features);
-                cc('hd');
-                cc(hd);
-                mapChart = new Highcharts.Map('p1', {
-                    chart: {
-                        height: ScreenSize()['y'] - 365,
-                        events: {
-                            drilldown: function (e) {
-
-                            },
-                            drillup: function () {
-
-
-                            },
-                            load: function () {
-                                // 			var chart = this;
-
-                            }
+            $.each(rootNode.getNodes(), function (i, branchNode) {
+                var branch = [];
+                getBranch(branchNode, branch);
+                //get Branch nodes, push to features
+                var pieces = [];
+                if (branch.length > 0) {
+                    $.each(branch, function (i, _branch) {
+                        var coor = getPieceByName(mapJson, _branch.getText());
+                        if (coor != null) {
+                            pieces.push(coor);
                         }
+                    });
+                    features.push({
+                        type: "Feature",
+                        properties: {
+                            "hc-key": branchNode.getText(),
+                            "name": branchNode.getText()
+                        },
+                        geometry: {
+                            type: "MultiPolygon",
+                            coordinates: pieces
+                        },
+//                            drilldown: true
+                    });
+                }
+            });
+
+            features = {
+                "type": 'FeatureCollection',
+                "features": features
+            };
+//                var hd = Highcharts.geojson(features);
+//            cc('features');
+//            cc(features);
+            var mapTop = Highcharts.geojson(features);
+
+            $.each(mapTop, function (i) {
+                this.drilldown = this.properties['name'];
+                this.value = 50 + Math.round((Math.random() * 50));
+            })
+            mapChart = new Highcharts.Map('p1', {
+                chart: {
+                    height: ScreenSize()['y'] - 365,
+                    events: {
+                        redraw: function () {
+//                                cc('redraw');
+                        },
+                        drilldown: function (e) {
+                            cc('drilldown');
+                            var mapDrilldown;
+
+                            isDrilldown = true;
+                            if (!e.seriesOptions) {
+//                                var chart = this;
+
+//                                cc('drilldown');
+//                                cc(e);
+                                // 							ss(e.point.name)
+//                                var ePointName = e.point.name;
+                                // 							lastTitle.push(BarChart.options.title['text']);
+                                this.title.update({
+                                    text: e.point.name
+                                });
+
+                                var ePoint = getNodeByText(e.point.name);
+//                                cc('ePoint');
+//                                cc(ePoint.getText());
+                                if (ePoint.getNodes().length == 0) {
+                                    cc('(ePoint.getNodes().length');
+                                    cc(ePoint.getNodes().length);
+                                    // 								ss('lineChartTest ?!');
+//                                        lineChartTest(pn);
+                                    cc('ePoint.getNodes().length == 0');
+                                    isDrilldown = false;
+                                    return;
+                                }
+
+                                // 							tts = getChildren(node);
+//                                    var oeeData = [];
+//                                    var availabilityData = [];
+//                                    var performanceData = [];
+//                                    var qualityData = [];
+//                                    $.each(node.getNodes(), function (i, child) {
+//                                        oeeData.push({
+//                                            name: child.getText(),
+//                                            y: 60 + Math.round((Math.random() * 40)),
+//                                            drilldown: true
+//                                        });
+//                                        availabilityData.push({
+//                                            name: child.getText(),
+//                                            y: 60 + Math.round((Math.random() * 40)),
+//                                            drilldown: true
+//                                        });
+//                                        performanceData.push({
+//                                            name: child.getText(),
+//                                            y: 60 + Math.round((Math.random() * 40)),
+//                                            drilldown: true
+//                                        });
+//                                        qualityData.push({
+//                                            name: child.getText(),
+//                                            y: 60 + Math.round((Math.random() * 40)),
+//                                            drilldown: true
+//                                        });
+//                                    });
+
+                                if (ePoint.getNodes()[0].getNodes().length == 0) {
+                                    var features = [];
+                                    $.each(ePoint.getNodes(), function (i, branchNode) {
+                                        var branch = [];
+                                        getBranch(branchNode, branch);
+
+//                                        cc(branchNode.getText());
+//                                        if (branch.length > 0) {
+                                        var pieces = [];
+                                        $.each(branch, function (i, _branch) {
+                                            var coor = getPieceByName(mapJson, _branch.getText());
+                                            if (coor != null) {
+                                                pieces.push(coor);
+                                            }
+                                        });
+                                        features.push({
+                                            type: "Feature",
+                                            properties: {
+                                                "hc-key": branchNode.getText(),
+                                                "name": branchNode.getText()
+                                            },
+                                            geometry: {
+                                                type: "MultiPolygon",
+                                                coordinates: pieces
+                                            }
+                                        });
+//                                        }
+                                    });
+                                    features = {
+                                        "type": 'FeatureCollection',
+                                        "features": features
+                                    };
+//                                    cc('features');
+//                                    cc(features);
+                                    mapDrilldown = Highcharts.geojson(features);
+                                    $.each(mapDrilldown, function (i) {
+//                                        this.drilldown = this.properties['name'];
+                                        this.value = 50 + Math.round((Math.random() * 50));
+                                    });
+//                                    cc(mapDrilldown);
+//                                        var OEE = {
+//                                            name: 'OEE',
+//                                            colorByPoint: true,
+//                                            data: oeeData,
+//                                        };
+                                    // 								var Availability = {
+                                    // 									name : 'Availability',
+                                    // 									colorByPoint : true,
+                                    // 									data : availabilityData,
+                                    // 								};
+                                    // 								var Performance = {
+                                    // 									name : 'Performance',
+                                    // 									colorByPoint : true,
+                                    // 									data : performanceData,
+                                    // 								};
+                                    // 								var Quality = {
+                                    // 									name : 'Quality',
+                                    // 									colorByPoint : true,
+                                    // 									data : qualityData,
+                                    // 								};
+                                    // 									setTimeout(function() {
+                                    // 										chart.hideLoading();
+                                    this.addSeriesAsDrilldown(e.point, {
+                                        name: e.point.name,
+                                        data: mapDrilldown,
+                                        dataLabels: {
+                                            enabled: true,
+                                            format: '{point.name}'
+                                        }
+                                    });
+
+                                    // 			colors: [ '#7cb5ec', '#434348', '#90ed7d', '#f7a35c', '#8085e9', '#f15c80', '#e4d354', '#2b908f', '#f45b5b', '#91e8e1' ]
+
+//                                        var OEE = {
+//                                            name: 'OEE',
+//                                            colorByPoint: false,
+//                                            color: '#7cb5ec',
+//                                            data: oeeData,
+//                                        };
+//                                        var Availability = {
+//                                            name: 'Availability',
+//                                            colorByPoint: false,
+//                                            color: '#434348',
+//                                            data: availabilityData,
+//                                        };
+//                                        var Performance = {
+//                                            name: 'Performance',
+//                                            colorByPoint: false,
+//                                            color: '#90ed7d',
+//                                            data: performanceData,
+//                                        };
+//                                        var Quality = {
+//                                            name: 'Quality',
+//                                            colorByPoint: false,
+//                                            color: '#f7a35c',
+//                                            data: qualityData,
+//                                        };
+//                                        // 									setTimeout(function() {
+//                                        // 										chart.hideLoading();
+//                                        chart.addSingleSeriesAsDrilldown(e.point, OEE);
+//                                        chart.addSingleSeriesAsDrilldown(e.point, Availability);
+//                                        chart.addSingleSeriesAsDrilldown(e.point, Performance);
+//                                        chart.addSingleSeriesAsDrilldown(e.point, Quality);
+//                                        chart.applyDrilldown();
+                                } else {
+                                    var features = [];
+                                    $.each(ePoint.getNodes(), function (i, branchNode) {
+                                        var branch = [];
+                                        getBranch(branchNode, branch);
+
+//                                        cc(branchNode.getText());
+//                                        if (branch.length > 0) {
+                                        var pieces = [];
+                                        $.each(branch, function (i, _branch) {
+                                            var coor = getPieceByName(mapJson, _branch.getText());
+                                            if (coor != null) {
+                                                pieces.push(coor);
+                                            }
+                                        });
+                                        features.push({
+                                            type: "Feature",
+                                            properties: {
+                                                "hc-key": branchNode.getText(),
+                                                "name": branchNode.getText()
+                                            },
+                                            geometry: {
+                                                type: "MultiPolygon",
+                                                coordinates: pieces
+                                            }
+                                        });
+//                                        }
+                                    });
+                                    features = {
+                                        "type": 'FeatureCollection',
+                                        "features": features
+                                    };
+//                                    cc('features');
+//                                    cc(features);
+                                    mapDrilldown = Highcharts.geojson(features);
+                                    $.each(mapDrilldown, function (i) {
+                                        this.drilldown = this.properties['name'];
+                                        this.value = 50 + Math.round((Math.random() * 50));
+                                    });
+//                                    cc(mapDrilldown);
+//                                        var OEE = {
+//                                            name: 'OEE',
+//                                            colorByPoint: true,
+//                                            data: oeeData,
+//                                        };
+                                    // 								var Availability = {
+                                    // 									name : 'Availability',
+                                    // 									colorByPoint : true,
+                                    // 									data : availabilityData,
+                                    // 								};
+                                    // 								var Performance = {
+                                    // 									name : 'Performance',
+                                    // 									colorByPoint : true,
+                                    // 									data : performanceData,
+                                    // 								};
+                                    // 								var Quality = {
+                                    // 									name : 'Quality',
+                                    // 									colorByPoint : true,
+                                    // 									data : qualityData,
+                                    // 								};
+                                    // 									setTimeout(function() {
+                                    // 										chart.hideLoading();
+                                    this.addSeriesAsDrilldown(e.point, {
+                                        name: e.point.name,
+                                        data: mapDrilldown,
+                                        dataLabels: {
+                                            enabled: true,
+                                            format: '{point.name}'
+                                        }
+                                    });
+
+//                                    chart.addSingleSeriesAsDrilldown(e.point, ePointDrilldown);
+                                    // 								chart.addSingleSeriesAsDrilldown(e.point, Availability);
+                                    // 								chart.addSingleSeriesAsDrilldown(e.point, Performance);
+                                    // 								chart.addSingleSeriesAsDrilldown(e.point, Quality);
+//                                    chart.applyDrilldown();
+
+                                }
+                            }
+                        },
+                        drillup: function (e) {
+                            this.setTitle({
+                                text: findParent(getNodeByText(e.seriesOptions.data[0].name)).getText()
+                            });
+                            isDrilldown = false;
+                        },
+                        load: function () {
+                        }
+                    }
+                },
+                lang: {
+//                    drillUpText: " << Back to {series.name}"
+                    drillUpText: " << Back"
+                },
+                exporting: {
+                    enabled: false
+                },
+                credits: {
+                    enabled: false,
+                    href: 'http://www.rtsperfectplant.com/',
+                    position: {
+                        align: 'right',
+                        x: -10,
+                        verticalAlign: 'bottom',
+                        y: -5
                     },
 
-                    title: {
-                        text: 'Total Effective Equipment Performance'
+                    style: {
+                        cursor: 'pointer',
+                        color: '#999999',
+                        fontSize: '9px'
                     },
+
+                    text: 'RTS Consulting Inc.'
+                },
+                title: {
+                    text: rootNode.getText()
+                },
 //                subtitle : {
 //                    text : 'Shop Floor',
 //                    floating : false,
@@ -509,78 +769,81 @@
 //                        fontSize : '16px'
 //                    }
 //                },
-                    legend: {
-                        layout: 'vertical',
-                        align: 'right',
-                        verticalAlign: 'middle'
-                    },
-                    colorAxis: {
-                        showInLegend: false,
-                        min: 0,
-                        minColor: '#E6E7E8',
-                        maxColor: '#005645'
-                    },
-                    mapNavigation: {
-                        enabled: true,
-                        buttonOptions: {
-                            verticalAlign: 'bottom'
-                        }
-                    },
-                    plotOptions: {
-                        map: {
-                            states: {
-                                hover: {
-                                    color: '#EEDD66'
-                                }
-                            }
-                        },
-                        series: {
-                            point: {
-                                events: {
-                                    click: function () {
-//                                    mapLevel1Refresh = new Date().getTime();
-                                    },
-                                    mouseOver: function () {
-                                        //alert('mouseOver');
-//                                    mapLevel1Refresh = new Date().getTime();
-
-                                    },
-                                    mouseOut: function () {
-                                        //alert('mouseOut');
-//                                    mapLevel1Refresh = new Date().getTime();
-
-                                    }
-                                }
+                legend: {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'middle'
+                },
+                colorAxis: {
+                    showInLegend: false,
+                    min: 0,
+                    minColor: '#E6E7E8',
+                    maxColor: '#005645'
+                },
+                mapNavigation: {
+                    enabled: true,
+                    buttonOptions: {
+                        verticalAlign: 'bottom'
+                    }
+                },
+                plotOptions: {
+                    map: {
+                        states: {
+                            hover: {
+                                color: '#EEDD66'
                             }
                         }
                     },
-                    series: [{
-                        data: hd,
-                        name: "series's name",
-                        dataLabels: {
-                            enabled: true,
-                            align: 'center',
-                            verticalAlign: 'middle',
-                            format: '{point.properties.name}'
-                        }
-                    }],
-                    drilldown: {
-                        //series: drilldownSeries,
-                        activeDataLabelStyle: {
-                            color: '#FFFFFF',
-                            textDecoration: 'none',
-                            textShadow: '0 0 0px #000000'
-                        },
-                        drillUpButton: {
-                            relativeTo: 'spacingBox',
-                            position: {
-                                x: 0,
-                                y: 60
+                    series: {
+                        point: {
+                            events: {
+                                click: function () {
+//                                    mapLevel1Refresh = new Date().getTime();
+                                },
+                                mouseOver: function () {
+                                    //alert('mouseOver');
+//                                    mapLevel1Refresh = new Date().getTime();
+
+                                },
+                                mouseOut: function () {
+                                    //alert('mouseOut');
+//                                    mapLevel1Refresh = new Date().getTime();
+
+                                }
                             }
                         }
                     }
-                });
+                },
+                series: [{
+                    animation: {
+                        duration: 1000
+                    },
+                    data: mapTop,
+                    name: "series's name",
+                    dataLabels: {
+                        enabled: true,
+                        align: 'center',
+                        verticalAlign: 'middle',
+                        format: '{point.properties.name}'
+                    }
+                }],
+                drilldown: {
+                    //series: drilldownSeries,
+                    activeDataLabelStyle: {
+                        color: '#FFFFFF',
+                        textDecoration: 'none',
+                        textShadow: '0 0 0px #000000'
+                    },
+                    drillUpButton: {
+                        relativeTo: 'spacingBox',
+                        position: {
+                            x: 0,
+                            y: 60
+                        }
+                    }
+                }
             });
+//            });
 //            return;
 
 //            nWorkCenters = 5;
@@ -690,12 +953,19 @@
                 // 			TableRef(id, name);
                 // 			ss(oControlEvent.getParameters().node.getText());
                 // 			ss(oeeStatus(oControlEvent.getParameters().node.getText()));
-                if (oeeStatus(oControlEvent.getParameters().node.getText()) == 0) {
-                    chartReady = false;
-                    barChartInit(oControlEvent.getParameters().node);
+                cc(oControlEvent.getParameters().node.getText());
+                var n = oControlEvent.getParameters().node;
+                if (n.getNodes().length == 0) {
+                    return;
                 } else {
-                    lineChartTest(oControlEvent.getParameters().node.getText());
+                    mapInit(n);
                 }
+//                if (oeeStatus(oControlEvent.getParameters().node.getText()) == 0) {
+//                    chartReady = false;
+//                    barChartInit(oControlEvent.getParameters().node);
+//                } else {
+//                    lineChartTest(oControlEvent.getParameters().node.getText());
+//                }
                 //
 
             },
@@ -2206,6 +2476,7 @@
             alert(_string);
         }
         function cc(_object) {
+
             console.log(_object);
         }
     </script>
@@ -2231,9 +2502,9 @@
     <header id="header"></header>
     <menu id="menu"></menu>
     <nav id="nav"></nav>
-    <button id="test1">1</button>
-    <button id="test2">2</button>
-    <button id="test3">3</button>
+    <!--<button id="test1">1</button>-->
+    <!--<button id="test2">2</button>-->
+    <!--<button id="test3">3</button>-->
     <article id="article">
         <div id="p1"></div>
         <div id="p2"></div>
