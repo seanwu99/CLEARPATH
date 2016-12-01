@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Rowsets CachedTime="" DateCreated="2016-11-22T17:02:58" EndDate="2016-11-22T17:02:58" StartDate="2016-11-22T16:02:58"
+<Rowsets CachedTime="" DateCreated="2016-12-01T11:25:23" EndDate="2016-12-01T11:25:23" StartDate="2016-12-01T10:25:23"
          Version="15.0 SP4 Patch 11 (Aug 28, 2015)">
     <Rowset>
         <Columns>
@@ -27,6 +27,8 @@
                     SourceColumn="CreatedBy"/>
             <Column Description="CreatedOn" MaxRange="1" MinRange="0" Name="CreatedOn" SQLDataType="93"
                     SourceColumn="CreatedOn"/>
+            <Column Description="oeeStatus" MaxRange="1" MinRange="0" Name="oeeStatus" SQLDataType="4"
+                    SourceColumn="oeeStatus"/>
         </Columns>
         <Row>
             <recordID>1</recordID>
@@ -41,6 +43,7 @@
             <ModifiedOn>TimeUnavailable</ModifiedOn>
             <CreatedBy>System</CreatedBy>
             <CreatedOn>TimeUnavailable</CreatedOn>
+            <oeeStatus>0</oeeStatus>
         </Row>
         <Row>
             <recordID>2</recordID>
@@ -55,6 +58,7 @@
             <ModifiedOn>2016-10-03T17:10:55</ModifiedOn>
             <CreatedBy>System</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>0</oeeStatus>
         </Row>
         <Row>
             <recordID>3</recordID>
@@ -69,6 +73,7 @@
             <ModifiedOn>2016-09-21T12:44:15</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>0</oeeStatus>
         </Row>
         <Row>
             <recordID>4</recordID>
@@ -83,6 +88,7 @@
             <ModifiedOn>2016-09-21T12:43:34</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>0</oeeStatus>
         </Row>
         <Row>
             <recordID>5</recordID>
@@ -97,6 +103,7 @@
             <ModifiedOn>2016-09-21T12:43:22</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>0</oeeStatus>
         </Row>
         <Row>
             <recordID>6</recordID>
@@ -111,6 +118,7 @@
             <ModifiedOn>2016-09-21T12:44:33</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>0</oeeStatus>
         </Row>
         <Row>
             <recordID>7</recordID>
@@ -125,6 +133,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>8</recordID>
@@ -139,6 +148,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>9</recordID>
@@ -153,6 +163,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>10</recordID>
@@ -167,6 +178,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>11</recordID>
@@ -181,6 +193,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>12</recordID>
@@ -195,6 +208,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>13</recordID>
@@ -209,6 +223,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>14</recordID>
@@ -223,6 +238,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>15</recordID>
@@ -237,6 +253,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>16</recordID>
@@ -251,6 +268,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>17</recordID>
@@ -265,6 +283,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>18</recordID>
@@ -279,6 +298,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>0</oeeStatus>
         </Row>
         <Row>
             <recordID>19</recordID>
@@ -293,6 +313,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>0</oeeStatus>
         </Row>
         <Row>
             <recordID>20</recordID>
@@ -307,6 +328,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>0</oeeStatus>
         </Row>
         <Row>
             <recordID>21</recordID>
@@ -321,6 +343,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>0</oeeStatus>
         </Row>
         <Row>
             <recordID>22</recordID>
@@ -335,6 +358,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>0</oeeStatus>
         </Row>
         <Row>
             <recordID>23</recordID>
@@ -349,6 +373,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>0</oeeStatus>
         </Row>
         <Row>
             <recordID>24</recordID>
@@ -363,6 +388,7 @@
             <ModifiedOn>2016-09-30T12:15:29</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>25</recordID>
@@ -377,6 +403,7 @@
             <ModifiedOn>2016-09-21T15:27:21</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>26</recordID>
@@ -391,6 +418,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>27</recordID>
@@ -405,6 +433,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>28</recordID>
@@ -419,6 +448,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>29</recordID>
@@ -433,6 +463,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>30</recordID>
@@ -447,6 +478,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>31</recordID>
@@ -461,6 +493,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>32</recordID>
@@ -475,6 +508,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>33</recordID>
@@ -489,6 +523,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>34</recordID>
@@ -503,12 +538,13 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>35</recordID>
             <unitType>6</unitType>
-            <unitName>V Cell 703453</unitName>
-            <unitDescr>V Cell 703453</unitDescr>
+            <unitName>V Cell 703455</unitName>
+            <unitDescr>V Cell 703455/703453</unitDescr>
             <idUnitParent>19</idUnitParent>
             <unitActive>1</unitActive>
             <unitSqlServer>MESM</unitSqlServer>
@@ -517,6 +553,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>36</recordID>
@@ -531,6 +568,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>37</recordID>
@@ -545,6 +583,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>38</recordID>
@@ -559,6 +598,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>39</recordID>
@@ -573,6 +613,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>40</recordID>
@@ -587,6 +628,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>41</recordID>
@@ -601,6 +643,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>42</recordID>
@@ -615,6 +658,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>43</recordID>
@@ -629,6 +673,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>44</recordID>
@@ -643,6 +688,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>45</recordID>
@@ -657,6 +703,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>46</recordID>
@@ -671,6 +718,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>47</recordID>
@@ -685,6 +733,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>48</recordID>
@@ -699,6 +748,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>49</recordID>
@@ -713,6 +763,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>50</recordID>
@@ -727,12 +778,13 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>51</recordID>
             <unitType>6</unitType>
-            <unitName>Robot 703573</unitName>
-            <unitDescr>Robot 703573</unitDescr>
+            <unitName>Robot 703575</unitName>
+            <unitDescr>Robot 703575/703573</unitDescr>
             <idUnitParent>21</idUnitParent>
             <unitActive>1</unitActive>
             <unitSqlServer>MESM</unitSqlServer>
@@ -741,12 +793,13 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>52</recordID>
             <unitType>6</unitType>
-            <unitName>Gantry 703526</unitName>
-            <unitDescr>Gantry 703526</unitDescr>
+            <unitName>Gantry 703529</unitName>
+            <unitDescr>Gantry 703529/703526</unitDescr>
             <idUnitParent>21</idUnitParent>
             <unitActive>1</unitActive>
             <unitSqlServer>MESM</unitSqlServer>
@@ -755,6 +808,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>53</recordID>
@@ -769,6 +823,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>54</recordID>
@@ -783,6 +838,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>55</recordID>
@@ -797,6 +853,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>56</recordID>
@@ -811,6 +868,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>57</recordID>
@@ -825,6 +883,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>58</recordID>
@@ -839,6 +898,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>59</recordID>
@@ -853,6 +913,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>60</recordID>
@@ -867,6 +928,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>61</recordID>
@@ -881,6 +943,7 @@
             <ModifiedOn>2016-11-17T13:13:34</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>62</recordID>
@@ -895,6 +958,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>64</recordID>
@@ -909,6 +973,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>65</recordID>
@@ -923,6 +988,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>66</recordID>
@@ -937,6 +1003,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>67</recordID>
@@ -951,6 +1018,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>68</recordID>
@@ -965,6 +1033,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>69</recordID>
@@ -979,6 +1048,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>70</recordID>
@@ -993,6 +1063,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>71</recordID>
@@ -1007,6 +1078,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
         <Row>
             <recordID>72</recordID>
@@ -1021,6 +1093,7 @@
             <ModifiedOn>2016-09-19T12:49:12</ModifiedOn>
             <CreatedBy>catalin</CreatedBy>
             <CreatedOn>2016-09-19T12:44:33</CreatedOn>
+            <oeeStatus>1</oeeStatus>
         </Row>
     </Rowset>
 </Rowsets>

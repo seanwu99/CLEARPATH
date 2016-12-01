@@ -401,49 +401,74 @@
             // 		var str = location.href;
             // 		mTable.filter(mTable.getColumns()[3], location.href.substring(location.href.indexOf("FloorMaps_Index=") + 16));
         }
-        var mapJson = [];
 
-        function getPieceByName(name) {
-            cc(name);
-            var re = null;
+        function getPieceByName(mapData, pieceName) {
+            cc(pieceName);
+            var coor = null;
 //            cc(mapJson);
 //            return;
-            $.each(mapJson['features'], function (i, mj) {
-                if (mj['properties']['name'] == name) {
-                    re = mj;
+            $.each(mapData['features'], function (i, piece) {
+                if (piece['properties']['name'] == pieceName) {
+                    coor = piece;
                     return false;
                 }
             });
-            cc(re['geometry']['coordinates']);
-            return re['geometry']['coordinates'];
+            if (coor == null) {
+                return null;
+            }
+            cc(coor['geometry']['coordinates']);
+            return coor['geometry']['coordinates'];
         }
 
         function mapInit() {
             var mapData = [];
             var coordinates = [];
-            var pieces = [];
-            var features = [];
-            $.get('map.json', function (data) {
-                mapJson = data;
 
-                var n = getNodeByText('2000 PREP');
+            var features = [];
+            $.get('map.json', function (map) {
+
+                var rootNode = getNodeByText('COLUMBUS SOUTH');
+                if (rootNode.getNodes().length == 0) {
+                    return;
+                }
                 //   cc(n.getNodes().length);
-                $.each(n.getNodes(), function (i, o) {
-//                    cc(o.getText());
-                    pieces.push(getPieceByName(o.getText()));
-                });
-                cc(pieces);
-                features.push({
-                    type: "Feature",
-                    properties: {
-                        "hc-key": 'tt',
-                        "name": 'tt'
-                    },
-                    geometry: {
-                        type: "MultiPolygon",
-                        coordinates: pieces
+                $.each(rootNode.getNodes(), function (i, branchNode) {
+                    var branch = [];
+                    getBranch(branchNode, branch);
+                    //get Branch nodes, push to features
+                    var pieces = [];
+                    if (branch.length > 0) {
+                        $.each(branch, function (i, _branch) {
+                            var coor = getPieceByName(map, _branch.getText());
+                            if (coor != null) {
+                                pieces.push(coor);
+                            }
+                        });
+                        features.push({
+                            type: "Feature",
+                            properties: {
+                                "hc-key": branchNode.getText(),
+                                "name": branchNode.getText()
+                            },
+                            geometry: {
+                                type: "MultiPolygon",
+                                coordinates: pieces
+                            }
+                        });
                     }
                 });
+//                cc(pieces);
+//                features.push({
+//                    type: "Feature",
+//                    properties: {
+//                        "hc-key": rootNode.getText(),
+//                        "name": rootNode.getText()
+//                    },
+//                    geometry: {
+//                        type: "MultiPolygon",
+//                        coordinates: pieces
+//                    }
+//                });
                 features = {
                     "type": 'FeatureCollection',
                     "features": features
@@ -687,7 +712,7 @@
             var P3 = "ORDER BY idUnitParent";
             var P4 = "";
             var url = "/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/get_Table&Param.1=" + P1 + "&Param.2=" + P2 + "&Param.3=" + P3 + "&Param.4=" + P4 + "&Content-Type=text/xml";
-
+//            ss(url);
             if (mockServer) {
                 url = 'mockServer/MESM_FloorMaps.xml';
             }
