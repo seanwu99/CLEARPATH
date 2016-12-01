@@ -202,7 +202,8 @@ function cc(_object) {
 }
 var _menuSelect = function (oEvent) {
     cc(oEvent);
-    reurn;
+    ss(oEvent);
+    // reurn;
     itemid = oEvent.getParameter("item").getId();
     // alert(itemid);
     appID = "";
