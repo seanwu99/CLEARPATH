@@ -7,7 +7,7 @@
         div.container {
             /* 	border: 1px solid gray; */
             /* 	margin: 0 auto; */
-            margin: 0em auto;
+            margin: 0 auto;
             min-width: 1000px;
             width: 100%;
             /* 	margin-top: 100px; */
@@ -25,7 +25,7 @@
             float: left;
             /* 	min-width: 100px; */
             width: 15%;
-            margin: 0px 0px 0px 10%;
+            margin: 0 0 0 10%;
             /* 	padding: 1em; */
         }
 
@@ -75,7 +75,7 @@
 
     <script>
         // ******************************************************************************************************************************************************************
-        var mockServer = false;
+        var mockServer = true;
         var USERNAME = 'unknown';
         var floorTreeReady = false;
         var treeIndex = 0;
@@ -180,7 +180,7 @@
             enableColumnFreeze: false,
             width: "100%",
             columnHeaderVisible: true,
-            enableCustomFilter: false,
+            enableCustomFilter: false
             //navigationMode : sap.ui.table.NavigationMode.Paginator
         });
 
@@ -215,7 +215,7 @@
                         recordID_FloorMaps: jsondata[i]['recordID_FloorMaps'],
                         unitName_FloorMaps: jsondata[i]['unitName_FloorMaps'],
                         CreatedBy: jsondata[i]['CreatedBy'],
-                        CreatedOn: jsondata[i]['CreatedOn'],
+                        CreatedOn: jsondata[i]['CreatedOn']
                     });
                 }
                 //   alert(StopReasons_Data.length);
@@ -241,7 +241,7 @@
                 template: new sap.ui.commons.TextView().bindProperty("text", "reasonName"),
                 sortProperty: "reasonName",
                 filterProperty: "reasonName",
-                resizable: true,
+                resizable: true
             }));
             mTable.addColumn(new sap.ui.table.Column({
                 width: "auto",
@@ -251,7 +251,7 @@
                 template: new sap.ui.commons.TextView().bindProperty("text", "reasonDescr"),
                 sortProperty: "reasonDescr",
                 filterProperty: "reasonDescr",
-                resizable: true,
+                resizable: true
             }));
             mTable.addColumn(new sap.ui.table.Column({
                 width: "150px",
@@ -261,7 +261,7 @@
                 template: new sap.ui.commons.TextView().bindProperty("text", "unitName_FloorMaps"),
                 sortProperty: "unitName_FloorMaps",
                 filterProperty: "unitName_FloorMaps",
-                resizable: true,
+                resizable: true
             }));
 //        mTable.addColumn(new sap.ui.table.Column({
 //            width : "80px",
@@ -281,7 +281,7 @@
                 template: new sap.ui.commons.TextView().bindProperty("text", "catagory"),
                 sortProperty: "catagory",
                 filterProperty: "catagory",
-                resizable: true,
+                resizable: true
             }));
 
             // 		mTable.addColumn(new sap.ui.table.Column({
@@ -312,7 +312,7 @@
                 template: new sap.ui.commons.TextView().bindProperty("text", "CreatedBy"),
                 sortProperty: "CreatedBy",
                 filterProperty: "CreatedBy",
-                resizable: true,
+                resizable: true
             }));
 
             mTable.addColumn(new sap.ui.table.Column({
@@ -323,7 +323,7 @@
                 template: new sap.ui.commons.TextView().bindProperty("text", "CreatedOn"),
                 sortProperty: "CreatedOn",
                 filterProperty: "CreatedOn",
-                resizable: true,
+                resizable: true
             }));
             mTable.addColumn(new sap.ui.table.Column({
                 width: "60px",
@@ -334,7 +334,7 @@
                     return s == "1";
                 }),
                 resizable: true,
-                hAlign: "Center",
+                hAlign: "Center"
             }));
 
             //		sp = document.getElementById("OEEM_content").clientWidth - 200 - 190;
@@ -345,7 +345,7 @@
                     textAlign: sap.ui.core.TextAlign.Center,
                     text: "DOWNTIME REASON DEFs: LINE(A) - WORKCENTER(B) - EQUIPMENT(C)",
                     // 				width : "" + (document.getElementById("OEEM_content").clientWidth - 200 - 400) + "px",
-                    height: "30px",
+                    height: "30px"
                 })],
                 rightItems: [new sap.ui.commons.Button("btn_tbOperations_add", {
                     text: "Add",
@@ -454,7 +454,7 @@
                         geometry: {
                             type: "MultiPolygon",
                             coordinates: pieces
-                        },
+                        }
 //                            drilldown: true
                     });
                 }
@@ -472,7 +472,7 @@
             $.each(mapTop, function (i) {
                 this.drilldown = this.properties['name'];
                 this.value = 50 + Math.round((Math.random() * 50));
-            })
+            });
             mapChart = new Highcharts.Map('p1', {
                 chart: {
                     height: ScreenSize()['y'] - 365,
@@ -999,7 +999,7 @@
                         recordID: _jsondata['recordID'],
                         unitType: _jsondata['unitType'],
                         idUnitParent: _jsondata['idUnitParent'],
-                        oeeStatus: _jsondata['oeeStatus'],
+                        oeeStatus: _jsondata['oeeStatus']
                     });
                     var _icon = "";
 
@@ -1117,7 +1117,7 @@
             enableColumnFreeze: false,
             width: "100%",
             columnHeaderVisible: true,
-            enableCustomFilter: false,
+            enableCustomFilter: false
         });
         // ******************************************************************************************************************************************************************
         function oeeTableInit() { // Bind the table rows to this model
@@ -1142,7 +1142,7 @@
                         OEE_Availability: jsondata[i]['OEE_Availability'],
                         OEE_Performance: jsondata[i]['OEE_Performance'],
                         OEE_Quality: jsondata[i]['OEE_Quality'],
-                        OEE_OEE: jsondata[i]['OEE_OEE'],
+                        OEE_OEE: jsondata[i]['OEE_OEE']
 
                     });
                 }
@@ -1164,88 +1164,88 @@
                 width: "200px",
                 label: new sap.ui.commons.Label({
                     text: "Product Name",
-                    textAlign: sap.ui.core.TextAlign.Center,
+                    textAlign: sap.ui.core.TextAlign.Center
                 }),
                 template: new sap.ui.commons.TextView().bindProperty("text", "Product_Name"),
                 // 			sortProperty : "Timestamp",
                 // 			filterProperty : "Timestamp",
                 resizable: false,
-                hAlign: "Center",
+                hAlign: "Center"
             }));
             oeeTable.addColumn(new sap.ui.table.Column({
                 width: "160px",
                 label: new sap.ui.commons.Label({
                     text: " Timestamp",
-                    textAlign: sap.ui.core.TextAlign.Center,
+                    textAlign: sap.ui.core.TextAlign.Center
                 }),
                 template: new sap.ui.commons.TextView().bindProperty("text", "Timestamp", function (ts) {
                     return (new Date(parseInt(ts))).toLocaleString();
                 }),
                 // 			sortProperty : "Timestamp",
                 // 			filterProperty : "Timestamp",
-                resizable: false,
+                resizable: false
             }));
             oeeTable.addColumn(new sap.ui.table.Column({
                 width: "105px",
                 // 			hAlign : 'Right',
                 label: new sap.ui.commons.Label({
                     text: " OEE",
-                    textAlign: sap.ui.core.TextAlign.Center,
+                    textAlign: sap.ui.core.TextAlign.Center
                 }),
                 template: new sap.ui.commons.TextView({
-                    textAlign: sap.ui.core.TextAlign.Right,
+                    textAlign: sap.ui.core.TextAlign.Right
                 }).bindProperty("text", "OEE_OEE", function (s) {
                     return s + "%";
                 }),
                 // 			sortProperty : "OEE_OEE",
                 // 			filterProperty : "OEE_OEE",
-                resizable: false,
+                resizable: false
                 // 			hAlign : "Center",
             }));
             oeeTable.addColumn(new sap.ui.table.Column({
                 width: "105px",
                 label: new sap.ui.commons.Label({
                     text: "Availability",
-                    textAlign: sap.ui.core.TextAlign.Center,
+                    textAlign: sap.ui.core.TextAlign.Center
                 }),
                 template: new sap.ui.commons.TextView({
-                    textAlign: sap.ui.core.TextAlign.Right,
+                    textAlign: sap.ui.core.TextAlign.Right
                 }).bindProperty("text", "OEE_Availability", function (s) {
                     return s + "%";
                 }),
                 // 			sortProperty : "OEE_Availability",
                 // 			filterProperty : "OEE_Availability",
-                resizable: true,
+                resizable: true
             }));
             oeeTable.addColumn(new sap.ui.table.Column({
                 width: "105px",
                 label: new sap.ui.commons.Label({
                     text: "Performance",
-                    textAlign: sap.ui.core.TextAlign.Center,
+                    textAlign: sap.ui.core.TextAlign.Center
                 }),
                 template: new sap.ui.commons.TextView({
-                    textAlign: sap.ui.core.TextAlign.Right,
+                    textAlign: sap.ui.core.TextAlign.Right
                 }).bindProperty("text", "OEE_Performance", function (s) {
                     return s + "%";
                 }),
                 // 			sortProperty : "OEE_Performance",
                 // 			filterProperty : "OEE_Performance",
-                resizable: false,
+                resizable: false
             }));
             oeeTable.addColumn(new sap.ui.table.Column({
                 width: "105px",
                 label: new sap.ui.commons.Label({
                     text: "Quality",
-                    textAlign: sap.ui.core.TextAlign.Center,
+                    textAlign: sap.ui.core.TextAlign.Center
                 }),
                 template: new sap.ui.commons.TextView({
-                    textAlign: sap.ui.core.TextAlign.Right,
+                    textAlign: sap.ui.core.TextAlign.Right
                 }).bindProperty("text", "OEE_Quality", function (s) {
                     return s + "%";
                 }),
                 // 			sortProperty : "OEE_Quality",
                 // 			filterProperty : "OEE_Quality",
-                resizable: false,
+                resizable: false
             }));
             // 		oeeTable.addColumn(new sap.ui.table.Column({
             // 			width : "150px",
@@ -1261,12 +1261,12 @@
                 width: "auto",
                 label: new sap.ui.commons.Label({
                     text: "Description",
-                    textAlign: sap.ui.core.TextAlign.Center,
+                    textAlign: sap.ui.core.TextAlign.Center
                 }),
                 template: new sap.ui.commons.TextView().bindProperty("text", "Description"),
                 // 			sortProperty : "Description",
                 // 			filterProperty : "Description",
-                resizable: false,
+                resizable: false
             }));
 
             // 		oeeTable.addColumn(new sap.ui.table.Column({
@@ -1330,7 +1330,7 @@
                     textAlign: sap.ui.core.TextAlign.Center,
                     text: "",
                     // 				width : "" + (document.getElementById("OEEM_content").clientWidth - 200 - 400) + "px",
-                    height: "30px",
+                    height: "30px"
                 })],
                 rightItems: [
                     // 			    new sap.ui.commons.Button("btn_tbOperations_add", {
@@ -1670,25 +1670,25 @@
                                         name: 'OEE',
                                         colorByPoint: false,
                                         color: '#7cb5ec',
-                                        data: oeeData,
+                                        data: oeeData
                                     };
                                     var Availability = {
                                         name: 'Availability',
                                         colorByPoint: false,
                                         color: '#434348',
-                                        data: availabilityData,
+                                        data: availabilityData
                                     };
                                     var Performance = {
                                         name: 'Performance',
                                         colorByPoint: false,
                                         color: '#90ed7d',
-                                        data: performanceData,
+                                        data: performanceData
                                     };
                                     var Quality = {
                                         name: 'Quality',
                                         colorByPoint: false,
                                         color: '#f7a35c',
-                                        data: qualityData,
+                                        data: qualityData
                                     };
                                     // 									setTimeout(function() {
                                     // 										chart.hideLoading();
@@ -1701,7 +1701,7 @@
                                     var OEE = {
                                         name: 'OEE',
                                         colorByPoint: true,
-                                        data: oeeData,
+                                        data: oeeData
                                     };
                                     // 								var Availability = {
                                     // 									name : 'Availability',
@@ -1782,7 +1782,7 @@
                     max: 100,
                     title: {
                         text: 'yAxis',
-                        enabled: false,
+                        enabled: false
                     }
                 },
 
@@ -1791,14 +1791,14 @@
                 },
 
                 title: {
-                    text: _title,
+                    text: _title
                 },
                 // 			subtitle : {
                 // 				text : 'Click the columns to view versions. Source: <a href="http://rtsautomation.com">rtsautomation.com</a>.'
                 // 			},
 
                 subtitle: {
-                    text: '',
+                    text: ''
                 },
 
                 legend: {
@@ -1835,7 +1835,7 @@
                     // 					symbolWidth: undefined
                     // 					title: {…}
                     // 					useHTML: false
-                    verticalAlign: "center",
+                    verticalAlign: "center"
                     // 					width: undefined
                     // 					x: 0
                     // 					y: 0
@@ -1895,7 +1895,7 @@
                             enabled: false
                         }
                     }
-                },
+                }
             });
             // 		lastTitle = _title;
 
@@ -1933,22 +1933,22 @@
                 aOEE.push({
                     name: Node.getText(),
                     y: 60 + Math.round((Math.random() * 40)),
-                    drilldown: true,
+                    drilldown: true
                 });
                 aAvailability.push({
                     name: Node.getText(),
                     y: 60 + Math.round((Math.random() * 40)),
-                    drilldown: true,
+                    drilldown: true
                 });
                 aPerformance.push({
                     name: Node.getText(),
                     y: 60 + Math.round((Math.random() * 40)),
-                    drilldown: true,
+                    drilldown: true
                 });
                 aQuality.push({
                     name: Node.getText(),
                     y: 60 + Math.round((Math.random() * 40)),
-                    drilldown: true,
+                    drilldown: true
                 });
 
                 // 			if (getNodeByText(_sid).getNodes().length > 0) {
@@ -2258,7 +2258,7 @@
                     enabled: true,
                     align: "center",
                     verticalAlign: "bottom",
-                    shadow: false,
+                    shadow: false
                 },
                 rangeSelector: {
                     buttons: [{
@@ -2305,7 +2305,7 @@
                     max: 100,
                     title: {
                         text: 'yAxis',
-                        enabled: false,
+                        enabled: false
                     },
                     labels: {
                         formatter: function () {
