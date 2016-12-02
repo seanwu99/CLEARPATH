@@ -1,339 +1,298 @@
 <!DOCTYPE html>
 <html>
 <head>
-</head>
-<title>Reports Center</title>
-<script id="sap-ui-bootstrap" src="https://sapui5.netweaver.ondemand.com/resources/sap-ui-core.js"
-        data-sap-ui-theme="sap_bluecrystal" data-sap-ui-libs="sap.ui.core,sap.m,sap.ui.commons,sap.ui.table"
-        data-sap-ui-language="en">
+    <meta charset="UTF-8">
 
-</script>
+    <title>Reports Center</title>
 
-<script src="stimulsoft/stimulsoft.reports.js" type="text/javascript"></script>
-<script src="stimulsoft/stimulsoft.viewer.js" type="text/javascript"></script>
-<script src="stimulsoft/stimulsoft.designer.js" type="text/javascript"></script>
-<script src="stimulsoft/Reports/demo.js" type="text/javascript"></script>
-<link href="stimulsoft/css/demo.css" rel="stylesheet">
-<link href="stimulsoft/css/stimulsoft.designer.office2013.whiteteal.css"
-      rel="stylesheet">
-<link href="stimulsoft/css/stimulsoft.viewer.office2013.whiteteal.css"
-      rel="stylesheet">
-<script src="rts.oeem.ApplicationHeader.js"></script>
-<script src="rts.oeem.MenuBar.js"></script>
+    <script id="sap-ui-bootstrap" src="https://sapui5.netweaver.ondemand.com/resources/sap-ui-core.js"
+            data-sap-ui-theme="sap_bluecrystal" data-sap-ui-libs="sap.ui.core,sap.m,sap.ui.commons,sap.ui.table"
+            data-sap-ui-language="en">
+    </script>
+    <script src="stimulsoft/stimulsoft.reports.js" type="text/javascript"></script>
+    <script src="stimulsoft/stimulsoft.viewer.js" type="text/javascript"></script>
+    <script src="stimulsoft/stimulsoft.designer.js" type="text/javascript"></script>
+    <script src="stimulsoft/Reports/demo.js" type="text/javascript"></script>
+    <link href="stimulsoft/css/demo.css" rel="stylesheet">
+    <link href="stimulsoft/css/stimulsoft.designer.office2013.whiteteal.css" rel="stylesheet">
+    <link href="stimulsoft/css/stimulsoft.viewer.office2013.whiteteal.css" rel="stylesheet">
+    <script src="rts.oeem.ApplicationHeader.js"></script>
+    <script src="rts.oeem.MenuBar.js"></script>
+    <script type="text/javascript" src="Common/js/default.js"></script>
 
-<script type="text/javascript" src="Common/js/default.js"></script>
-<script>
 
-</script>
-<script>
-    var mockServer = true;
-    var USERNAME = "unknow";
-    var floorTreeReady = false;
-    var treeIndex = 0;
-    var treeArray = [];
-    var TreeNodes = [];
-    // ******************************************************************************************************************************************************************
-    // 	function init() {
-    // 	}
-    // ******************************************************************************************************************************************************************
-    var mModelXML = new sap.ui.model.xml.XMLModel();
-    var mTable = new sap.ui.table.Table({
-        //visibleRowCount : 12,
-        //firstVisibleRow : 3,
-        //visibleRowCountMode : sap.ui.table.VisibleRowCountMode.Interactive,
-        firstVisibleRow: 0,
-        selectionBehavior: sap.ui.table.SelectionBehavior.Row,
-        selectionMode: sap.ui.table.SelectionMode.Single,
-        editable: false,
-        enableColumnFreeze: false,
-        width: "100%",
-        columnHeaderVisible: true,
-        enableCustomFilter: false,
-        //navigationMode : sap.ui.table.NavigationMode.Paginator
-    });
+    <script>
+        var theReport;
+        var viewer = null;
+        var designer = null;
+        var dataSet = null;
+        var rpDataSet = null;
+        var rpJSONModel = new sap.ui.model.json.JSONModel();
 
-    var StopReasons_Data;
-    var StopReasons_selectedIndex;
+        var mockServer = true;
+        var USERNAME = "unknow";
+        // ******************************************************************************************************************************************************************
+        // 	function init() {
+        // 	}
+        // ******************************************************************************************************************************************************************
+        var mModelXML = new sap.ui.model.xml.XMLModel();
+        var mTable = new sap.ui.table.Table({
+            //visibleRowCount : 12,
+            //firstVisibleRow : 3,
+            //visibleRowCountMode : sap.ui.table.VisibleRowCountMode.Interactive,
+            firstVisibleRow: 0,
+            selectionBehavior: sap.ui.table.SelectionBehavior.Row,
+            selectionMode: sap.ui.table.SelectionMode.Single,
+            editable: false,
+            enableColumnFreeze: false,
+            width: "100%",
+            columnHeaderVisible: true,
+            enableCustomFilter: false,
+            //navigationMode : sap.ui.table.NavigationMode.Paginator
+        });
 
-    function StopReasons_Table() { // Bind the table rows to this model
+        var StopReasons_Data;
+        var StopReasons_selectedIndex;
 
-        //load table's data
-        Param1 = "MESM_StopReasons";
-        Param2 = "sortOrder";
-        var url = "/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/get_Table&Param.1=" + P1 + "&Param.2=" + P2 + "&Param.3=" + P3 + "&Param.4=" + P4 + "&Content-Type=text/xml";
-        if (mockServer) {
-            url = 'mockServer/MESM_StopReasons.xml';
-        }
-        getData(url, parseJsonParent);
-        function parseJsonParent(jsondata) {
-            StopReasons_selectedIndex = -1;
-            StopReasons_Data = [];
-            for (var i = 0; i < jsondata.length; i++) {
-                StopReasons_Data.push({
-                    recordID: jsondata[i]['recordID'],
-                    reasonName: jsondata[i]['reasonName'],
-                    reasonDescr: jsondata[i]['reasonDescr'],
-                    reasonActive: jsondata[i]['reasonActive'],
-                    sortOrder: jsondata[i]['sortOrder'],
-                    catagory: jsondata[i]['catagory'],
-                    recordID_FloorMaps: jsondata[i]['recordID_FloorMaps'],
-                    unitName_FloorMaps: jsondata[i]['unitName_FloorMaps'],
-                    CreatedBy: jsondata[i]['CreatedBy'],
-                    CreatedOn: jsondata[i]['CreatedOn'],
-                });
+
+        function StopReasons_Table() { // Bind the table rows to this model
+            //load table's data
+            P1 = "SELECT *";
+            P2 = "FROM MESM_StopReasons";
+            P3 = "ORDER BY sortOrder";
+            P4 = "";
+            var url = "/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/get_Table&Param.1=" + P1 + "&Param.2=" + P2 + "&Param.3=" + P3 + "&Param.4=" + P4 + "&Content-Type=text/xml";
+            if (mockServer) {
+                url = 'mockServer/MESM_StopReasons.xml'
             }
+            //        alert(url);
+            getData(url, parseJsonParent);
+
+            function parseJsonParent(jsondata) {
+                //ss(jsondata.length);
+                StopReasons_selectedIndex = -1;
+                StopReasons_Data = [];
+                for (var i = 0; i < jsondata.length; i++) {
+                    StopReasons_Data.push({
+                        recordID: jsondata[i]['recordID'],
+                        reasonName: jsondata[i]['reasonName'],
+                        reasonDescr: jsondata[i]['reasonDescr'],
+                        reasonActive: jsondata[i]['reasonActive'],
+                        sortOrder: jsondata[i]['sortOrder'],
+                        catagory: jsondata[i]['catagory'],
+                        recordID_FloorMaps: jsondata[i]['recordID_FloorMaps'],
+                        unitName_FloorMaps: jsondata[i]['unitName_FloorMaps'],
+                        CreatedBy: jsondata[i]['CreatedBy'],
+                        CreatedOn: jsondata[i]['CreatedOn']
+                    });
+                }
+                //   alert(StopReasons_Data.length);
+            }
+
+            //var timestamp = new Date().getTime();
+            // 		url = "/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/get_Table&Param.1=" + P1 + "&Param.2=" + P2 + "&Param.3=" + P3 + "&ts="
+            // 				+ (new Date().getTime()) + "&Content-Type=text/xml";
+            //alert(url);
+            //url = "mock/Get_Missions.xml"; //Mock request
+
+            mModelXML.loadData(url, "", false);
+//            alert(mModelXML.getXML());
+            //		createColumns
+            mTable.setModel(mModelXML);
+            mTable.bindRows("/Rowset/Row");
+            mTable.setVisibleRowCount(7);
+            mTable.addColumn(new sap.ui.table.Column({
+                width: "150px",
+                label: new sap.ui.commons.Label({
+                    text: " Name"
+                }),
+                template: new sap.ui.commons.TextView().bindProperty("text", "reasonName"),
+                sortProperty: "reasonName",
+                filterProperty: "reasonName",
+                resizable: true
+            }));
+            mTable.addColumn(new sap.ui.table.Column({
+                width: "auto",
+                label: new sap.ui.commons.Label({
+                    text: " Description"
+                }),
+                template: new sap.ui.commons.TextView().bindProperty("text", "reasonDescr"),
+                sortProperty: "reasonDescr",
+                filterProperty: "reasonDescr",
+                resizable: true
+            }));
+            mTable.addColumn(new sap.ui.table.Column({
+                width: "150px",
+                label: new sap.ui.commons.Label({
+                    text: " unitName"
+                }),
+                template: new sap.ui.commons.TextView().bindProperty("text", "unitName_FloorMaps"),
+                sortProperty: "unitName_FloorMaps",
+                filterProperty: "unitName_FloorMaps",
+                resizable: true
+            }));
+//        mTable.addColumn(new sap.ui.table.Column({
+//            width : "80px",
+//            label : new sap.ui.commons.Label({
+//                text : " unitID"
+//            }),
+//            template : new sap.ui.commons.TextView().bindProperty("text", "recordID_FloorMaps"),
+//            sortProperty : "recordID_FloorMaps",
+//            filterProperty : "recordID_FloorMaps",
+//            resizable : true,
+//        }));
+            mTable.addColumn(new sap.ui.table.Column({
+                width: "150px",
+                label: new sap.ui.commons.Label({
+                    text: "Catagory"
+                }),
+                template: new sap.ui.commons.TextView().bindProperty("text", "catagory"),
+                sortProperty: "catagory",
+                filterProperty: "catagory",
+                resizable: true
+            }));
+
+            // 		mTable.addColumn(new sap.ui.table.Column({
+            // 			width : "80px",
+            // 			label : new sap.ui.commons.Label({
+            // 				text : "ModifiedBy"
+            // 			}),
+            // 			template : new sap.ui.commons.TextView().bindProperty("text", "ModifiedBy"),
+            // 			sortProperty : "ModifiedBy",
+            // 			filterProperty : "ModifiedBy",
+            // 			resizable : true,
+            // 		}));
+            // 		mTable.addColumn(new sap.ui.table.Column({
+            // 			width : "150px",
+            // 			label : new sap.ui.commons.Label({
+            // 				text : "ModifiedOn"
+            // 			}),
+            // 			template : new sap.ui.commons.TextView().bindProperty("text", "ModifiedOn"),
+            // 			sortProperty : "ModifiedOn",
+            // 			filterProperty : "ModifiedOn",
+            // 			resizable : true,
+            // 		}));
+            mTable.addColumn(new sap.ui.table.Column({
+                width: "80px",
+                label: new sap.ui.commons.Label({
+                    text: " CreatedBy"
+                }),
+                template: new sap.ui.commons.TextView().bindProperty("text", "CreatedBy"),
+                sortProperty: "CreatedBy",
+                filterProperty: "CreatedBy",
+                resizable: true
+            }));
+
+            mTable.addColumn(new sap.ui.table.Column({
+                width: "150px",
+                label: new sap.ui.commons.Label({
+                    text: "CreatedOn"
+                }),
+                template: new sap.ui.commons.TextView().bindProperty("text", "CreatedOn"),
+                sortProperty: "CreatedOn",
+                filterProperty: "CreatedOn",
+                resizable: true
+            }));
+            mTable.addColumn(new sap.ui.table.Column({
+                width: "60px",
+                label: new sap.ui.commons.Label({
+                    text: "Active"
+                }),
+                template: new sap.ui.commons.CheckBox().bindProperty("checked", "reasonActive", function (s) {
+                    return s == "1";
+                }),
+                resizable: true,
+                hAlign: "Center"
+            }));
+
+            //		sp = document.getElementById("OEEM_content").clientWidth - 200 - 190;
+            mTable.setToolbar(new sap.ui.commons.Toolbar({
+                height: "50px",
+                items: [new sap.m.Label({
+                    desig: sap.m.LabelDesign.Bold,
+                    textAlign: sap.ui.core.TextAlign.Center,
+                    text: "DOWNTIME REASON DEFs: LINE(A) - WORKCENTER(B) - EQUIPMENT(C)",
+                    // 				width : "" + (document.getElementById("OEEM_content").clientWidth - 200 - 400) + "px",
+                    height: "30px"
+                })],
+                rightItems: [new sap.ui.commons.Button("btn_tbOperations_add", {
+                    text: "Add",
+                    width: "80px",
+                    height: "30px",
+                    style: "Default",
+                    icon: "sap-icon://add",
+                    lite: true,
+                    press: function () {
+                        StopReasons_add("", "add a StopReason");
+                    }
+                }).setEnabled(true), new sap.ui.commons.Button("btn_tbOperations_edit", {
+                    text: "Edit",
+                    width: "80px",
+                    height: "30px",
+                    style: "Default",
+                    icon: "sap-icon://edit",
+                    lite: true,
+                    press: function () {
+                        StopReasons_edit("", "edit an operation", true);
+                    }
+                }), new sap.ui.commons.Button("btn_tbOperations_delete", {
+                    text: "Delete",
+                    width: "80px",
+                    height: "30px",
+                    style: "Default",
+                    icon: "sap-icon://delete",
+                    lite: true,
+                    press: function () {
+                        StopReasons_edit("", "delete a StopReason", false);
+                    }
+                })
+
+                    // 			, new sap.ui.commons.MenuButton({
+                    // 				height : "30px",
+                    // 				width : "40px",
+                    // 				//text : "",
+                    // 				icon : "sap-icon://menu",
+                    // 				lite : true,
+                    // 				menu : new sap.ui.unified.Menu({
+                    // 					title : "Operation",
+                    // 					enabled : true,
+                    // 					items : [ new sap.ui.commons.MenuItem("menu_tbOperations_add", {
+                    // 						text : "Add",
+                    // 						enabled : true,
+                    // 					}), new sap.ui.commons.MenuItem("menu_tbOperations_edit", {
+                    // 						text : "Edit",
+                    // 						enabled : true,
+                    // 					}), new sap.ui.commons.MenuItem("menu_tbOperations_delete", {
+                    // 						text : "Delete",
+                    // 						enabled : true,
+                    // 					}) ]
+                    // 				}),
+                    // 				itemSelected : function(oEvent) {
+                    // 					alert("menuOperationMissionitemSelected");
+                    // 				}
+                    // 			})
+                ]
+            }));
+            // 		var str = location.href;
+            // 		mTable.filter(mTable.getColumns()[3], location.href.substring(location.href.indexOf("FloorMaps_Index=") + 16));
         }
 
-        //var timestamp = new Date().getTime();
-        url = "/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/StopReasons_get&ts=" + (new Date().getTime()) + "&Content-Type=text/xml";
-        //alert(url);
-        //url = "mock/Get_Missions.xml"; //Mock request
+        // ******************************************************************************************************************************************************************
 
-        mModelXML.loadData(url, "", false);
-        //alert(mModelXML.getXML());
-        //		createColumns
-        mTable.setModel(mModelXML);
-        mTable.bindRows("/Rowset/Row");
-        mTable.setVisibleRowCount(5);
-        mTable.addColumn(new sap.ui.table.Column({
-            width: "150px",
-            label: new sap.ui.commons.Label({
-                text: " Name"
-            }),
-            template: new sap.ui.commons.TextView().bindProperty("text", "reasonName"),
-            sortProperty: "reasonName",
-            filterProperty: "reasonName",
-            resizable: true,
-        }));
-        mTable.addColumn(new sap.ui.table.Column({
-            width: "auto",
-            label: new sap.ui.commons.Label({
-                text: " Description"
-            }),
-            template: new sap.ui.commons.TextView().bindProperty("text", "reasonDescr"),
-            sortProperty: "reasonDescr",
-            filterProperty: "reasonDescr",
-            resizable: true,
-        }));
-        mTable.addColumn(new sap.ui.table.Column({
-            width: "150px",
-            label: new sap.ui.commons.Label({
-                text: " unitName"
-            }),
-            template: new sap.ui.commons.TextView().bindProperty("text", "unitName_FloorMaps"),
-            sortProperty: "unitName_FloorMaps",
-            filterProperty: "unitName_FloorMaps",
-            resizable: true,
-        }));
-        mTable.addColumn(new sap.ui.table.Column({
-            width: "80px",
-            label: new sap.ui.commons.Label({
-                text: " unitID"
-            }),
-            template: new sap.ui.commons.TextView().bindProperty("text", "recordID_FloorMaps", function (s) {
-                return "1234";
-            }),
-            sortProperty: "recordID_FloorMaps",
-            filterProperty: "recordID_FloorMaps",
-            resizable: true,
-            hAlign: "Center",
-        }));
-        mTable.addColumn(new sap.ui.table.Column({
-            width: "150px",
-            label: new sap.ui.commons.Label({
-                text: "Catagory"
-            }),
-            template: new sap.ui.commons.TextView().bindProperty("text", "catagory"),
-            sortProperty: "catagory",
-            filterProperty: "catagory",
-            resizable: true,
-        }));
+        $(function () {
+            USERNAME = document.getElementById("user_name").value;
+            var myRoles = document.getElementById("user_roles").value;
+            var role2Access = "OEEM_" + document.getElementById("user_role").value;
+            // alert(role2Access);
+            if (!mockServer && myRoles.indexOf(role2Access) < 0) {
+                window.location.assign("security.irpt");
+                return true;
+            }
 
-        mTable.addColumn(new sap.ui.table.Column({
-            width: "80px",
-            label: new sap.ui.commons.Label({
-                text: " CreatedBy"
-            }),
-            template: new sap.ui.commons.TextView().bindProperty("text", "CreatedBy"),
-            sortProperty: "CreatedBy",
-            filterProperty: "CreatedBy",
-            resizable: true,
-        }));
-
-        mTable.addColumn(new sap.ui.table.Column({
-            width: "150px",
-            label: new sap.ui.commons.Label({
-                text: "CreatedOn"
-            }),
-            template: new sap.ui.commons.TextView({
-                textAlign: sap.ui.core.TextAlign.Center,
-            }).bindProperty("text", "CreatedOn"),
-
-            sortProperty: "CreatedOn",
-            filterProperty: "CreatedOn",
-            resizable: true,
-        }));
-        mTable.addColumn(new sap.ui.table.Column({
-            width: "60px",
-            label: new sap.ui.commons.Label({
-                text: "Active"
-            }),
-            template: new sap.ui.commons.CheckBox().bindProperty("checked", "reasonActive", function (s) {
-                return s == "1";
-            }),
-            resizable: true,
-            hAlign: "Center",
-        }));
-
-        //		sp = document.getElementById("OEEM_content").clientWidth - 200 - 190;
-        mTable.setToolbar(new sap.m.Toolbar({
-            height: "50px",
-            content: [new sap.m.Label({
-                desig: sap.m.LabelDesign.Bold,
-                textAlign: sap.ui.core.TextAlign.Center,
-                text: "",
-                // 				width : "" + (document.getElementById("OEEM_content").clientWidth - 200 - 400) + "px",
-                height: "30px",
-            }),
-                // 			new sap.m.DateTimePicker("DateTimePicker1", {
-                // 				height : "30px",
-                // 				width : "160px",
-                // 				placeholder : "From ...",
-                // 				//value : new Date(),
-                // 				valueFormat : "MM dd, yyyy hh:mm:ss a",
-                // 				displayFormat : "short",
-                // 				//displayFormatType : "Islamic",
-                // 				//secondaryCalendarType : "Gregorian",
-                // 				//change="handleChange"/>
-                // 				change : function(oEvent) {
-                // 					// 			var oText = this.byId("T1");
-                // 					var oDTP = oEvent.oSource;
-                // 					var sValue = oEvent.getParameter("value");
-                // 					var bValid = oEvent.getParameter("valid");
-                // 					// 			this._iEvent++;
-                // 					// 			oText.setText("Change - Event " + this._iEvent
-                // 					// 					+ ": DateTimePicker " + oDTP.getId() + ":" + sValue);
-
-                // 					if (bValid) {
-                // 						oDTP.setValueState(sap.ui.core.ValueState.None);
-                // 						// 						Stimulsoft.Report.Dictionary.synchronize();
-                // 						// 						Stimulsoft.Report.regData();
-                // 						// 						theReport.render();
-                // 						//alert(oDTP.getDateValue().getTime());
-                // 					} else {
-                // 						oDTP.setValueState(sap.ui.core.ValueState.Error);
-                // 					}
-                // 				},
-                // 			}), new sap.m.DateTimePicker("DateTimePicker2", {
-                // 				height : "30px",
-                // 				width : "160px",
-                // 				placeholder : "To ...",
-                // 				//value : new Date(),
-                // 				valueFormat : "MM dd, yyyy hh:mm:ss a",
-                // 				displayFormat : "short",
-                // 				//displayFormatType : "Islamic",
-                // 				//secondaryCalendarType : "Gregorian",
-                // 				//change="handleChange"/>
-                // 				change : function(oEvent) {
-                // 					// 			var oText = this.byId("T1");
-                // 					var oDTP = oEvent.oSource;
-                // 					var sValue = oEvent.getParameter("value");
-                // 					var bValid = oEvent.getParameter("valid");
-                // 					// 			this._iEvent++;
-                // 					// 			oText.setText("Change - Event " + this._iEvent
-                // 					// 					+ ": DateTimePicker " + oDTP.getId() + ":" + sValue);
-
-                // 					if (bValid) {
-                // 						oDTP.setValueState(sap.ui.core.ValueState.None);
-                // 						// 						Stimulsoft.Report.Dictionary.synchronize();
-                // 						// 						Stimulsoft.Report.regData();
-                // 						// 						theReport.render();
-                // 						//alert(oDTP.getDateValue().getTime());
-                // 					} else {
-                // 						oDTP.setValueState(sap.ui.core.ValueState.Error);
-                // 					}
-                // 				},
-                // 			})
-            ],
-            rightItems: [
-                // 			 new sap.ui.commons.Button("btn_tbOperations_add", {
-                // 				text : "Add",
-                // 				width : "80px",
-                // 				height : "30px",
-                // 				style : "Default",
-                // 				icon : "sap-icon://add",
-                // 				lite : true,
-                // 				press : function() {
-                // 					StopReasons_add("", "add a StopReason");
-                // 				}
-                // 			}).setEnabled(true), new sap.ui.commons.Button("btn_tbOperations_edit", {
-                // 				text : "Edit",
-                // 				width : "80px",
-                // 				height : "30px",
-                // 				style : "Default",
-                // 				icon : "sap-icon://edit",
-                // 				lite : true,
-                // 				press : function() {
-                // 					StopReasons_edit("", "edit an operation", true);
-                // 				}
-                // 			}), new sap.ui.commons.Button("btn_tbOperations_delete", {
-                // 				text : "Delete",
-                // 				width : "80px",
-                // 				height : "30px",
-                // 				style : "Default",
-                // 				icon : "sap-icon://delete",
-                // 				lite : true,
-                // 				press : function() {
-                // 					StopReasons_edit("", "delete a StopReason", false);
-                // 				}
-                // 			})
-
-                // 			, new sap.ui.commons.MenuButton({
-                // 				height : "30px",
-                // 				width : "40px",
-                // 				//text : "",
-                // 				icon : "sap-icon://menu",
-                // 				lite : true,
-                // 				menu : new sap.ui.unified.Menu({
-                // 					title : "Operation",
-                // 					enabled : true,
-                // 					items : [ new sap.ui.commons.MenuItem("menu_tbOperations_add", {
-                // 						text : "Add",
-                // 						enabled : true,
-                // 					}), new sap.ui.commons.MenuItem("menu_tbOperations_edit", {
-                // 						text : "Edit",
-                // 						enabled : true,
-                // 					}), new sap.ui.commons.MenuItem("menu_tbOperations_delete", {
-                // 						text : "Delete",
-                // 						enabled : true,
-                // 					}) ]
-                // 				}),
-                // 				itemSelected : function(oEvent) {
-                // 					alert("menuOperationMissionitemSelected");
-                // 				}
-                // 			})
-            ]
-        }));
-        // 		var str = location.href;
-        // 		mTable.filter(mTable.getColumns()[3], location.href.substring(location.href.indexOf("FloorMaps_Index=") + 16));
-    }
-
-    // ******************************************************************************************************************************************************************
-
-    $(function () {
-        USERNAME = document.getElementById("user_name").value;
-        var myRoles = document.getElementById("user_roles").value;
-        var role2Access = "OEEM_" + document.getElementById("user_role").value;
-        // alert(role2Access);
-        if (!mockServer && myRoles.indexOf(role2Access) < 0) {
-            window.location.assign("security.irpt");
-            return true;
-        }
-
-        var roleString = document.getElementById("user_role").value;
-        var roleArray = roleString.split("_");
-        level2Access = roleArray[0];
-        plant2Access = roleArray[1];
+            var roleString = document.getElementById("user_role").value;
+            var roleArray = roleString.split("_");
+            level2Access = roleArray[0];
+            plant2Access = roleArray[1];
 //        new sap.ui.commons.ApplicationHeader({
 //            logoSrc: "Common/images/logo.png",
 //            logoText: " Overall Equipment Effectiveness Module on SAP MII",
@@ -343,297 +302,332 @@
 //        }).placeAt("header");
 //
 //        MenuDef();
-        var appHeader = new ApplicationHeader({
-            user: USERNAME,
-            elm: 'header',
-            logoSrc: 'Common/images/logo.png',
-            logoText: 'Overall Equipment Effectiveness Module on SAP MII'
-        });
+            var appHeader = new ApplicationHeader({
+                user: USERNAME,
+                elm: 'header',
+                logoSrc: 'Common/images/logo.png',
+                logoText: 'Overall Equipment Effectiveness Module on SAP MII'
+            });
 
-        var menuBar = new MenuBar({
-            elm: 'menu'
-        });
-        floorTreeInit();
+            var menuBar = new MenuBar({
+                elm: 'menu'
+            });
+            floorTreeInit();
 //        mTree.placeAt("nav");
-        StopReasons_Table();
-        mTable.placeAt("p2");
-        jsonSLoad();
+            StopReasons_Table();
+            mTable.placeAt("p2");
+            jsonSLoad();
 
-        // 		xPage = new sap.ui.core.HTML("pages", {
-        // 			content : "<iframe src=\"ReportViewer.html\" style=\"border:none;\" height=\"1300px\" width=\"100%\"></iframe>"
-        // 		});
+            // 		xPage = new sap.ui.core.HTML("pages", {
+            // 			content : "<iframe src=\"ReportViewer.html\" style=\"border:none;\" height=\"1300px\" width=\"100%\"></iframe>"
+            // 		});
 
-        // 		xPage = new sap.ui.core.HTML("pages", {
-        // 			content : "<iframe src=\"DateTimePicker.html\" style=\"border:none;\" height=\"1300px\" width=\"100%\"></iframe>"
-        // 		});
-        // 		xPage.placeAt("p2");
-    });
-    // ******************************************************************************************************************************************************************
-    function floorTreeInit() {
+            // 		xPage = new sap.ui.core.HTML("pages", {
+            // 			content : "<iframe src=\"DateTimePicker.html\" style=\"border:none;\" height=\"1300px\" width=\"100%\"></iframe>"
+            // 		});
+            // 		xPage.placeAt("p2");
+        });
+        // ******************************************************************************************************************************************************************
+        function ScreenSize() {
+            var a = 100;
+            var w = window;
+            var d = document;
+            var e = d.documentElement;
+            var g = d.getElementsByTagName('body')[0];
+            var sx = w.innerWidth || e.clientWidth || g.clientWidth;
+            var sy = w.innerHeight || e.clientHeight || g.clientHeight;
+            return {
+                x: sx,
+                y: sy
+            }
+        }
+        var floorTree = new sap.ui.commons.Tree("tree", {
+            title: "FloorMaps",
+            width: "100%",
+            height: (ScreenSize()['y'] - 120) + 'px',
+            showHeaderIcons: true,
+            showHorizontalScrollbar: true,
+            showHeader: true,
+            selectionMode: sap.ui.commons.TreeSelectionMode.Single,
+            select: function (oControlEvent) {
+                treeIndex = parseInt(oControlEvent.getParameters().node.getId().substring(oControlEvent.getParameters().node.getId().indexOf("_") + 1));
+                var name = treeArray[treeIndex]['unitName'];
+                var id = treeArray[treeIndex]['recordID'];
+                // 			sap.ui.getCore().byId("mTableLabel").setText(name + " (ID: " + id + " )");
+                // 			TableRef(id, name);
+                // 			ss(oControlEvent.getParameters().node.getText());
+                // 			ss(oeeStatus(oControlEvent.getParameters().node.getText()));
+                cc(oControlEvent.getParameters().node.getText());
+                var n = oControlEvent.getParameters().node;
+                if (n.getNodes().length == 0) {
+                    return;
+                } else {
+//                mapInit(n);
+                }
+//                if (oeeStatus(oControlEvent.getParameters().node.getText()) == 0) {
+//                    chartReady = false;
+//                    barChartInit(oControlEvent.getParameters().node);
+//                } else {
+//                    lineChartTest(oControlEvent.getParameters().node.getText());
+//                }
+                //
 
-        var P1 = "SELECT *";
-        var P2 = "FROM MESM_FloorMaps";
-        var P3 = "ORDER BY idUnitParent";
-        var P4 = "";
-        var url = "/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/get_Table&Param.1=" + P1 + "&Param.2=" + P2 + "&Param.3=" + P3 + "&Param.4=" + P4 + "&Content-Type=text/xml";
+            },
+            selectionChange: function (oControlEvent) {
+                // 			ss('selectionChange');
+            }
+        });
+        function floorTreeInit() {
+
+            var P1 = "SELECT *";
+            var P2 = "FROM MESM_FloorMaps";
+            var P3 = "ORDER BY idUnitParent";
+            var P4 = "";
+            var url = "/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/get_Table&Param.1=" + P1 + "&Param.2=" + P2 + "&Param.3=" + P3 + "&Param.4=" + P4 + "&Content-Type=text/xml";
 //            ss(url);
-        if (mockServer) {
-            url = 'mockServer/MESM_FloorMaps.xml';
-        }
+            if (mockServer) {
+                url = 'mockServer/MESM_FloorMaps.xml';
+            }
 
-        //ss(url);
-        getData(url, parseJsonParent);
+            //ss(url);
+            getData(url, parseJsonParent);
 
-        function parseJsonParent(jsondata) {
-            treeArray = [];
-            TreeNodes = new Array(jsondata.length);
-            $.each(jsondata, function (i, _jsondata) {
-                treeArray.push({
-                    unitName: _jsondata['unitName'],
-                    recordID: _jsondata['recordID'],
-                    unitType: _jsondata['unitType'],
-                    idUnitParent: _jsondata['idUnitParent'],
-                    oeeStatus: _jsondata['oeeStatus']
+            function parseJsonParent(jsondata) {
+                treeArray = [];
+                TreeNodes = new Array(jsondata.length);
+                $.each(jsondata, function (i, _jsondata) {
+                    treeArray.push({
+                        unitName: _jsondata['unitName'],
+                        recordID: _jsondata['recordID'],
+                        unitType: _jsondata['unitType'],
+                        idUnitParent: _jsondata['idUnitParent'],
+                        oeeStatus: _jsondata['oeeStatus']
+                    });
+                    var _icon = "";
+
+                    TreeNodes[i] = new sap.ui.commons.TreeNode("floorTree_" + i, {
+                        text: _jsondata['unitName'],
+                        icon: _icon,
+                        expanded: true
+                    });
+                    floorTree.addNode(TreeNodes[i]);
                 });
-                var _icon = "";
 
-                TreeNodes[i] = new sap.ui.commons.TreeNode("floorTree_" + i, {
-                    text: _jsondata['unitName'],
-                    icon: _icon,
-                    expanded: true
-                });
-                floorTree.addNode(TreeNodes[i]);
-            });
-
-            $.each(TreeNodes, function (i, m) {
-                $.each(TreeNodes, function (j, n) {
-                    if (i != j) {
-                        if (treeArray[j]['idUnitParent'] == treeArray[i]['recordID']) {
-                            m.addNode(n);
+                $.each(TreeNodes, function (i, m) {
+                    $.each(TreeNodes, function (j, n) {
+                        if (i != j) {
+                            if (treeArray[j]['idUnitParent'] == treeArray[i]['recordID']) {
+                                m.addNode(n);
+                            }
+                            if (treeArray[i]['idUnitParent'] == treeArray[j]['recordID']) {
+                                n.addNode(m);
+                            }
                         }
-                        if (treeArray[i]['idUnitParent'] == treeArray[j]['recordID']) {
-                            n.addNode(m);
-                        }
-                    }
+                    });
                 });
+                floorTree.placeAt("nav");
+                // 			barChartInit(getNodeByText('2100 DOC'));
+                // 			barChartInit(floorTree.getNodes()[0]);
+                // 			cc(oeeChart);
+                floorTreeReady = true;
+                // 			nn = getNodeByText('2110 SCR 1');
+                // 			ss(findParent(nn).getText());
+                //cc(floorTree);
+            }
+
+        }
+        // ******************************************************************************************************************************************************************
+
+        function oeeStatus(_s) {
+            var status;
+            $.each(treeArray, function (i, _treeArray) {
+                if (_treeArray['unitName'] == _s) {
+                    status = _treeArray['oeeStatus'];
+                    return false;
+                }
+
             });
-            floorTree.placeAt("nav");
-            // 			barChartInit(getNodeByText('2100 DOC'));
-            // 			barChartInit(floorTree.getNodes()[0]);
-            // 			cc(oeeChart);
-            floorTreeReady = true;
-            // 			nn = getNodeByText('2110 SCR 1');
-            // 			ss(findParent(nn).getText());
-            //cc(floorTree);
+            return status;
         }
+        // ******************************************************************************************************************************************************************
 
-    }
-    // ******************************************************************************************************************************************************************
+        function getBranch(node, tArray) {
+            tArray.push(node);
+            if (node.getNodes().length == 0) {
 
-    function oeeStatus(_s) {
-        var status;
-        $.each(treeArray, function (i, _treeArray) {
-            if (_treeArray['unitName'] == _s) {
-                status = _treeArray['oeeStatus'];
-                return false;
-            }
-
-        });
-        return status;
-    }
-    // ******************************************************************************************************************************************************************
-
-    function getBranch(node, tArray) {
-        tArray.push(node);
-        if (node.getNodes().length == 0) {
-
-        } else {
-            $.each(node.getNodes(), function (i, _node) {
-                getBranch(_node, tArray);
-            });
-        }
-    }
-
-    function getNodeByText(text) {
-        var node;
-        $.each(TreeNodes, function (i, treeNode) {
-            // 			cc(_treeNodes.getText());
-            if (treeNode.getText() == text) {
-                node = treeNode;
-                return false;
-            }
-        });
-        return node;
-    }
-
-    // 	function getChildren(node) {
-    // 		var o = [];
-    // 		if (node.getNodes().length == 0) {
-    // 			return null;
-    // 		}
-    // 		$.each(node.getNodes(), function(i, child) {
-    // 			o.push(child);
-    // 		});
-    // 		return o;
-    // 	}
-
-    function findParent(node) {
-        var parent;
-        var allNodes = [];
-        getBranch(floorTree.getNodes()[0], allNodes);
-        // 		ss(allNodes.length);
-        $.each(allNodes, function (i, _node) {
-            // 			ss(_node.getText());
-            if (_node.getNodes().length > 0) {
-                $.each(_node.getNodes(), function (i, mm) {
-                    if (mm.getText() == node.getText()) {
-                        // 						ss(_node.getText());
-                        parent = _node;
-                        return false;
-                    }
-                });
-            }
-        });
-        return parent;
-    }
-
-    //***********************************************************
-    function jsonSLoad() { // Bind the table rows to this model
-        //load table's data
-        // 		P1 = "SELECT *";
-        // 		P2 = "FROM MESM_FloorMaps";
-        // 		P3 = "ORDER BY idUnitParent";
-        // 		P4 = "";
-        // 		url = "/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/get_Table&Param.1=" + P1 + "&Param.2=" + P2 + "&Param.3=" + P3 + "&Param.4="
-        // 				+ P4 + "&Content-Type=text/xml";
-        //getData(url, parseJsonParent);
-
-        P1 = "SELECT *";
-        P2 = "FROM OEEM_Data_Collection";
-        P3 = "ORDER BY Timestamp DESC";
-        P4 = "";
-        var url = "/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/get_Table&Param.1=" + P1 + "&Param.2=" + P2 + "&Param.3=" + P3 + "&Param.4=" + P4 + "&ts=" + new Date().getTime()
-            + "&Content-Type=text/xml";
-//        ss(url);
-        if (mockServer) {
-            url = 'mockServer/OEEM_Data_Collection.xml';
-        }
-        getData(url, parseJsonParent);
-        function parseJsonParent(jsondata) {
-            rpJSONModel.setData(jsondata);
-            // 			mTableSelectedIndex = -1;
-            // 			OEEM_Array = [];
-
-            //			for (var i = 0; i < jsondata.length; i++) {
-            for (var i = 0; i < jsondata.length; i++) {
-                // 				OEEM_Array.push({
-                // 					recordID : jsondata[i]['recordID'],
-                // 					Timestamp : jsondata[i]['Timestamp'],
-                // 					Description : jsondata[i]['Description'],
-                // 					OEE_Availability : jsondata[i]['OEE_Availability'],
-                // 					OEE_Performance : jsondata[i]['OEE_Performance'],
-                // 					OEE_Quality : jsondata[i]['OEE_Quality'],
-                // 					OEE_OEE : jsondata[i]['OEE_OEE'],
-
-                // 				});
-                //d = new Date(parseInt(jsondata[i]['Timestamp']));
-
-                jsondata[i]['Timestamp'] = new Date(parseInt(jsondata[i]['Timestamp'])).toLocaleString();
-            }
-            ReprotsLoad();
-        }
-
-
-    }
-    function ss(s) {
-        alert(s);
-    }
-
-    function cc(o) {
-        console.log(o);
-    }
-</script>
-<script>
-    var theReport;
-    var viewer = null;
-    var designer = null;
-    var dataSet = null;
-    var rpDataSet = null;
-    var rpJSONModel = new sap.ui.model.json.JSONModel();
-    // 	rpJSONModel.setData({
-    // 		firstName : "Peter",
-    // 		lastName : "Pan"
-    // 	});
-
-    function createViewer() {
-        // Specify necessary options for the viewer
-        var options = new Stimulsoft.Viewer.StiViewerOptions();
-        options.height = "100%";
-        options.appearance.scrollbarsMode = true;
-        options.toolbar.showDesignButton = true;
-        options.appearance.interfaceType = Stimulsoft.Viewer.StiInterfaceType.Mouse;
-        options.appearance.htmlRenderMode = Stimulsoft.Report.Export.StiHtmlExportMode.Table;
-
-        // Create an instance of the viewer
-        viewer = new Stimulsoft.Viewer.StiViewer(options, "StiViewer", false);
-
-        // Add the design button event
-        viewer.onDesignReport = function (e) {
-            this.visible = false;
-            if (designer == null) {
-                createDesigner(e);
             } else {
-                designer.visible = true;
-                designer.report = e.report;
-                // 				ga('set', {
-                // 					page : '/designer_' + designer.report.reportName,
-                // 					title : 'Designer ' + designer.report.reportName
-                // 				});
-                // 				ga('send', 'pageview');
+                $.each(node.getNodes(), function (i, _node) {
+                    getBranch(_node, tArray);
+                });
             }
-        };
-        viewer.renderHtml("viewerContent");
-    }
+        }
 
-    function createDesigner(e) {
-        // 		centerWheel(true);
-        // 		zip
-        // 				.installJS(
-        // 						"designer.zip",
-        // 						[ "stimulsoft.designer.js" ],
-        // 						function() {
-        // 		hideWhell();
-        var options = new Stimulsoft.Designer.StiDesignerOptions();
-        options.appearance.fullScreenMode = true;
-        options.appearance.interfaceType = Stimulsoft.Designer.StiInterfaceType.Mouse;
-        options.appearance.htmlRenderMode = Stimulsoft.Report.Export.StiHtmlExportMode.Table;
+        function getNodeByText(text) {
+            var node;
+            $.each(TreeNodes, function (i, treeNode) {
+                // 			cc(_treeNodes.getText());
+                if (treeNode.getText() == text) {
+                    node = treeNode;
+                    return false;
+                }
+            });
+            return node;
+        }
 
-        // Create an instance of the designer
-        designer = new Stimulsoft.Designer.StiDesigner(options, "StiDesigner", false);
+        // 	function getChildren(node) {
+        // 		var o = [];
+        // 		if (node.getNodes().length == 0) {
+        // 			return null;
+        // 		}
+        // 		$.each(node.getNodes(), function(i, child) {
+        // 			o.push(child);
+        // 		});
+        // 		return o;
+        // 	}
 
-        // Add the exit menu item event
-        designer.onExit = function (e) {
-            this.visible = false;
-            viewer.visible = true;
+        function findParent(node) {
+            var parent;
+            var allNodes = [];
+            getBranch(floorTree.getNodes()[0], allNodes);
+            // 		ss(allNodes.length);
+            $.each(allNodes, function (i, _node) {
+                // 			ss(_node.getText());
+                if (_node.getNodes().length > 0) {
+                    $.each(_node.getNodes(), function (i, mm) {
+                        if (mm.getText() == node.getText()) {
+                            // 						ss(_node.getText());
+                            parent = _node;
+                            return false;
+                        }
+                    });
+                }
+            });
+            return parent;
+        }
+
+        //***********************************************************
+        function jsonSLoad() { // Bind the table rows to this model
+            //load table's data
+            // 		P1 = "SELECT *";
+            // 		P2 = "FROM MESM_FloorMaps";
+            // 		P3 = "ORDER BY idUnitParent";
+            // 		P4 = "";
+            // 		url = "/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/get_Table&Param.1=" + P1 + "&Param.2=" + P2 + "&Param.3=" + P3 + "&Param.4="
+            // 				+ P4 + "&Content-Type=text/xml";
+            //getData(url, parseJsonParent);
+
+            P1 = "SELECT *";
+            P2 = "FROM OEEM_Data_Collection";
+            P3 = "ORDER BY Timestamp DESC";
+            P4 = "";
+            var url = "/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/get_Table&Param.1=" + P1 + "&Param.2=" + P2 + "&Param.3=" + P3 + "&Param.4=" + P4 + "&ts=" + new Date().getTime()
+                + "&Content-Type=text/xml";
+//        ss(url);
+            if (mockServer) {
+                url = 'mockServer/OEEM_Data_Collection.xml';
+            }
+            getData(url, parseJsonParent);
+            function parseJsonParent(jsondata) {
+                rpJSONModel.setData(jsondata);
+                // 			mTableSelectedIndex = -1;
+                // 			OEEM_Array = [];
+
+                //			for (var i = 0; i < jsondata.length; i++) {
+                for (var i = 0; i < jsondata.length; i++) {
+                    // 				OEEM_Array.push({
+                    // 					recordID : jsondata[i]['recordID'],
+                    // 					Timestamp : jsondata[i]['Timestamp'],
+                    // 					Description : jsondata[i]['Description'],
+                    // 					OEE_Availability : jsondata[i]['OEE_Availability'],
+                    // 					OEE_Performance : jsondata[i]['OEE_Performance'],
+                    // 					OEE_Quality : jsondata[i]['OEE_Quality'],
+                    // 					OEE_OEE : jsondata[i]['OEE_OEE'],
+
+                    // 				});
+                    //d = new Date(parseInt(jsondata[i]['Timestamp']));
+
+                    jsondata[i]['Timestamp'] = new Date(parseInt(jsondata[i]['Timestamp'])).toLocaleString();
+                }
+                ReprotsLoad();
+            }
+
 
         }
-        designer.renderHtml("designerContent");
-        designer.visible = true;
-        designer.report = e.report;
-        // 		ga('set', {
-        // 			page : '/designer_' + designer.report.reportName,
-        // 			title : 'Designer ' + designer.report.reportName
-        // 		});
-        // 		ga('send', 'pageview');
-        // 						});
-    }
 
-    function setReport(reportObject) {
-        // Forcibly show process indicator
-        viewer.showProcessIndicator();
+        // 	rpJSONModel.setData({
+        // 		firstName : "Peter",
+        // 		lastName : "Pan"
+        // 	});
 
-        // Timeout need for immediate display loading report indicator
-        setTimeout(function () {
+        function createViewer() {
+            // Specify necessary options for the viewer
+            var options = new Stimulsoft.Viewer.StiViewerOptions();
+            options.height = "100%";
+            options.appearance.scrollbarsMode = true;
+            options.toolbar.showDesignButton = true;
+            options.appearance.interfaceType = Stimulsoft.Viewer.StiInterfaceType.Mouse;
+            options.appearance.htmlRenderMode = Stimulsoft.Report.Export.StiHtmlExportMode.Table;
+
+            // Create an instance of the viewer
+            viewer = new Stimulsoft.Viewer.StiViewer(options, "StiViewer", false);
+
+            // Add the design button event
+            viewer.onDesignReport = function (e) {
+                this.visible = false;
+                if (designer == null) {
+                    createDesigner(e);
+                } else {
+                    designer.visible = true;
+                    designer.report = e.report;
+                    // 				ga('set', {
+                    // 					page : '/designer_' + designer.report.reportName,
+                    // 					title : 'Designer ' + designer.report.reportName
+                    // 				});
+                    // 				ga('send', 'pageview');
+                }
+            };
+            viewer.renderHtml("viewerContent");
+        }
+
+        function createDesigner(e) {
+            // 		centerWheel(true);
+            // 		zip
+            // 				.installJS(
+            // 						"designer.zip",
+            // 						[ "stimulsoft.designer.js" ],
+            // 						function() {
+            // 		hideWhell();
+            var options = new Stimulsoft.Designer.StiDesignerOptions();
+            options.appearance.fullScreenMode = true;
+            options.appearance.interfaceType = Stimulsoft.Designer.StiInterfaceType.Mouse;
+            options.appearance.htmlRenderMode = Stimulsoft.Report.Export.StiHtmlExportMode.Table;
+
+            // Create an instance of the designer
+            designer = new Stimulsoft.Designer.StiDesigner(options, "StiDesigner", false);
+
+            // Add the exit menu item event
+            designer.onExit = function (e) {
+                this.visible = false;
+                viewer.visible = true;
+
+            }
+            designer.renderHtml("designerContent");
+            designer.visible = true;
+            designer.report = e.report;
+            // 		ga('set', {
+            // 			page : '/designer_' + designer.report.reportName,
+            // 			title : 'Designer ' + designer.report.reportName
+            // 		});
+            // 		ga('send', 'pageview');
+            // 						});
+        }
+
+        function setReport(reportObject) {
+            // Forcibly show process indicator
+            viewer.showProcessIndicator();
+
+            // Timeout need for immediate display loading report indicator
+//        setTimeout(function () {
             // Create a new report instance
             theReport = new Stimulsoft.Report.StiReport();
             // Load reports from JSON object
@@ -653,115 +647,96 @@
             // 				title : 'Viewer ' + viewer.getReportFileName()
             // 			});
             // 			ga('send', 'pageview');
-        }, 10000);
-    }
-
-    // Set report button style
-    function setReportButton(button) {
-        for (var reportName in reportsCollection) {
-            var reportButton = document.getElementById(reportName);
-            reportButton.isSelected = reportButton == button;
-            reportButton.className = reportButton.isSelected ? "ReportButton Selected" : "ReportButton";
+//        }, 10000);
         }
-    }
 
-    function ReprotsLoad() {
-        // 		var js = {};
-        window.addEventListener("resize", function (event) {
-            centerWheel(false);
-        });
-        // 		centerWheel(true);
-        // 		zip.installJS("lib.zip", [ "stimulsoft.reports.js",
-        // 				"stimulsoft.viewer.js", "demo.js" ], function() {
-        // 			hideWhell();
-        showViewer();
-        // 		});
-    }
 
-    // Load first report after the page is loaded
-    function showViewer() {
-        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/ar.xml", false, "Arabic");
-        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/be.xml", false, "Belarusian");
-        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/bg.xml", false, "Bulgarian");
-        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/ca-ES.xml", false, "Catalan");
-        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/cs.xml", false, "Czech");
-        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/de.xml", false, "Deutsch");
-        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/el-GR.xml", false, "Greek");
-        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/es.xml", false, "Spanish");
-        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/eu-ES.xml", false, "Basque");
-        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/fa.xml", false, "Farsi");
-        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/fr.xml", false, "French");
-        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/gl-ES.xml", false, "Galician");
-        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/hr.xml", false, "Croatian");
-        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/hu.xml", false, "Hungarian");
-        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/id.xml", false, "Indonesian");
-        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/it.xml", false, "Italian");
-        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/ka.xml", false, "Georgian");
-        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/Lt-sr-SP.xml", false, "Serbian (Latin)");
-        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/lt.xml", false, "Lithuanian");
-        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/nb-NO.xml", false, "Norwegian (Bokmål)");
-        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/nl.xml", false, "Dutch");
-        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/pl.xml", false, "Polish");
-        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/pt-BR.xml", false, "Portuguese (Brazil)");
-        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/ro.xml", false, "Romanian");
-        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/ru.xml", false, "Russian");
-        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/sk.xml", false, "Slovak");
-        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/sv.xml", false, "Swedish");
-        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/tr.xml", false, "Turkish");
-        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/uk.xml", false, "Ukrainian");
-        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/zh-CHS.xml", false, "Chinese (Simplified)");
-        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/zh-CHT.xml", false, "Chinese (Traditional)");
+        function ReprotsLoad() {
+            // 		var js = {};
+            window.addEventListener("resize", function (event) {
+                centerWheel(false);
+            });
+            // 		centerWheel(true);
+            // 		zip.installJS("lib.zip", [ "stimulsoft.reports.js",
+            // 				"stimulsoft.viewer.js", "demo.js" ], function() {
+            // 			hideWhell();
+            showViewer();
+            // 		});
+        }
 
-        // Create new DataSet object
-        dataSet = new Stimulsoft.System.Data.DataSet("DEMO");
-        rpDataSet = new Stimulsoft.System.Data.DataSet("rpDataSource");
-        // Load JSON data file from specified URL to the DataSet object
-        dataSet.readJson(demoData);
-        rpDataSet.readJson(rpJSONModel.getJSON());
+        // Load first report after the page is loaded
+        function showViewer() {
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/ar.xml", false, "Arabic");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/be.xml", false, "Belarusian");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/bg.xml", false, "Bulgarian");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/ca-ES.xml", false, "Catalan");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/cs.xml", false, "Czech");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/de.xml", false, "Deutsch");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/el-GR.xml", false, "Greek");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/es.xml", false, "Spanish");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/eu-ES.xml", false, "Basque");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/fa.xml", false, "Farsi");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/fr.xml", false, "French");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/gl-ES.xml", false, "Galician");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/hr.xml", false, "Croatian");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/hu.xml", false, "Hungarian");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/id.xml", false, "Indonesian");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/it.xml", false, "Italian");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/ka.xml", false, "Georgian");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/Lt-sr-SP.xml", false, "Serbian (Latin)");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/lt.xml", false, "Lithuanian");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/nb-NO.xml", false, "Norwegian (Bokmål)");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/nl.xml", false, "Dutch");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/pl.xml", false, "Polish");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/pt-BR.xml", false, "Portuguese (Brazil)");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/ro.xml", false, "Romanian");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/ru.xml", false, "Russian");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/sk.xml", false, "Slovak");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/sv.xml", false, "Swedish");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/tr.xml", false, "Turkish");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/uk.xml", false, "Ukrainian");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/zh-CHS.xml", false, "Chinese (Simplified)");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/zh-CHT.xml", false, "Chinese (Traditional)");
 
-        createViewer();
-        //selectedButton = document.getElementById("SimpleList");
-        // 		onButtonClick(selectedButton, SimpleList);
-        setReport('report_0');
-    }
+            // Create new DataSet object
+            dataSet = new Stimulsoft.System.Data.DataSet("DEMO");
+            rpDataSet = new Stimulsoft.System.Data.DataSet("rpDataSource");
+            // Load JSON data file from specified URL to the DataSet object
+            dataSet.readJson(demoData);
+            rpDataSet.readJson(rpJSONModel.getJSON());
 
-    function centerWheel(show) {
-        //document.getElementById("load_wheel").style.left = (document.getElementById("stLeftPanel").offsetWidth +
-        //			(window.innerWidth - document.getElementById("stLeftPanel").offsetWidth) / 2 - 36) + "px";
-        document.getElementById("load_wheel").style.left = (window.innerWidth / 2 - 36) + "px";
-        if (show)
-            showWhell();
-    }
+            createViewer();
+            //selectedButton = document.getElementById("SimpleList");
+            // 		onButtonClick(selectedButton, SimpleList);
+            setReport('report_0');
+        }
 
-    function showWhell() {
-        document.getElementById("load_wheel").style.display = "";
-    }
+        function centerWheel(show) {
+            //document.getElementById("load_wheel").style.left = (document.getElementById("stLeftPanel").offsetWidth +
+            //			(window.innerWidth - document.getElementById("stLeftPanel").offsetWidth) / 2 - 36) + "px";
+            document.getElementById("load_wheel").style.left = (window.innerWidth / 2 - 36) + "px";
+            if (show)
+                showWhell();
+        }
 
-    function hideWhell() {
-        document.getElementById("load_wheel").style.display = "none";
-    }
+        function showWhell() {
+            document.getElementById("load_wheel").style.display = "";
+        }
 
-    var reportsCollection = {
-        "SimpleList": "Simple List",
-        "OnlineStoreSales": "Online Store Sales",
-        "SiteStatistics": "Site Statistics",
-        "UsersAppleIpad": "Users Apple iPad",
-        "TwoSimpleLists": "Two Simple Lists",
-        "HighlightCondition": "Highlight Condition",
-        "Shapes": "Shapes",
-        "Images": "Images",
-        "Indicators": "Indicators",
-        "BarCodes": "Bar-Codes",
-        "MasterDetail": "Master Detail",
-        "ParametersHighlightCondition": "Parameters Highlight Condition",
-        "ParametersSelectingCountry": "Parameters Selecting Country"
-    };
-</script>
+        function hideWhell() {
+            document.getElementById("load_wheel").style.display = "none";
+        }
+        function ss(s) {
+            alert(s);
+        }
+
+        function cc(o) {
+            console.log(o);
+        }
+
+    </script>
+</head>
 <body>
-<!-- 	<script src="highmaps.js"></script> -->
-<!-- 	<script src="data.js"></script> -->
-<!-- 	<script src="drilldown.js"></script> -->
-<!-- 	<script src="ShopFloor.js"></script> -->
 
 
 <input id="user_roles" type="hidden" value="{IllumLoginRoles}"
