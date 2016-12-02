@@ -12,9 +12,9 @@ function MenuBar(f) {
                     items: new sap.ui.commons.MenuItem("Home", {
                         text: "Home",
                         enabled: true,
-                        select: MenuSelect,
+                        select: MenuSelect
                     })
-                }),
+                })
             }),
             new sap.ui.commons.MenuItem({
                 text: "Settings",
@@ -152,7 +152,7 @@ function MenuBar(f) {
                         enabled: true,
                         select: MenuSelect
                     })]
-                }),
+                })
             }),
             new sap.ui.commons.MenuItem({
                 text: "Reports",
@@ -179,8 +179,8 @@ function MenuBar(f) {
                         enabled: true,
                         select: MenuSelect
                     })]
-                }),
-            }),
+                })
+            })
         ]
     });
 
@@ -191,8 +191,8 @@ function MenuBar(f) {
 var _MenuSelect = function (oEvent) {
     cc(oEvent.getParameter("item").getId());
     cc(oEvent.getParameter("item").getText());
-    return;
-}
+
+};
 
 function ss(_string) {
     alert(_string);
@@ -328,5 +328,5 @@ var MenuSelect = function (oEvent) {
         xPage.placeAt("p1");
     }
 
-}
+};
 
