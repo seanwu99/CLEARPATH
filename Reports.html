@@ -3,1079 +3,1098 @@
 <head>
 </head>
 <title>Reports Center</title>
-<script id="sap-ui-bootstrap" src="/sapui5/resources/sap-ui-core.js"
-	data-sap-ui-theme="sap_bluecrystal" data-sap-ui-libs="sap.ui.core,sap.m,sap.ui.commons,sap.ui.table"
-	data-sap-ui-language="en">
-	
+<script id="sap-ui-bootstrap" src="https://sapui5.netweaver.ondemand.com/resources/sap-ui-core.js"
+        data-sap-ui-theme="sap_bluecrystal" data-sap-ui-libs="sap.ui.core,sap.m,sap.ui.commons,sap.ui.table"
+        data-sap-ui-language="en">
+
 </script>
 
-<script src="stimulsoft.reports.js" type="text/javascript"></script>
-<script src="stimulsoft.viewer.js" type="text/javascript"></script>
-<script src="stimulsoft.designer.js" type="text/javascript"></script>
-<script src="demo.js" type="text/javascript"></script>
-<link href="css/demo.css" rel="stylesheet">
-<link href="css/stimulsoft.designer.office2013.whiteteal.css"
-	rel="stylesheet">
-<link href="css/stimulsoft.viewer.office2013.whiteteal.css"
-	rel="stylesheet">
+<script src="stimulsoft/stimulsoft.reports.js" type="text/javascript"></script>
+<script src="stimulsoft/stimulsoft.viewer.js" type="text/javascript"></script>
+<script src="stimulsoft/stimulsoft.designer.js" type="text/javascript"></script>
+<script src="stimulsoft/Reports/demo.js" type="text/javascript"></script>
+<link href="stimulsoft/css/demo.css" rel="stylesheet">
+<link href="stimulsoft/css/stimulsoft.designer.office2013.whiteteal.css"
+      rel="stylesheet">
+<link href="stimulsoft/css/stimulsoft.viewer.office2013.whiteteal.css"
+      rel="stylesheet">
 
 
 <script type="text/javascript" src="Common/js/default.js"></script>
 <script>
-	
+
 </script>
 <script>
-	var _userNAME = "unknow";
-	// ******************************************************************************************************************************************************************
-	// 	function init() {
-	// 	}
-	// ******************************************************************************************************************************************************************
-	// ******************************************************************************************************************************************************************
-	var MenuSelect = function(oEvent) {
-		itemid = oEvent.getParameter("item").getId();
-		//alert(itemid);
-		appID = "";
-		switch (itemid) {
-		// Menu home
-		case "Home_Home":
-			setTimeout("location.href = '" + "OEEM.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
-			// Menu Settings 1
-			break;
-		case "OEE_Dashboard":
-			setTimeout("location.href = '" + "DashBoard.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
-			break;
-		case "OEE_Report":
-			setTimeout("location.href = '" + "Reports.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
-			break;
-		case "Equipment_Management":
-			appID = "MgtHierarchy.irpt?ROLE=" + document.getElementById("user_role").value;
-			//setTimeout("location.href = '" + "MgtHierarchy.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
-			break;
-		case "Hierarchy_Levels_Setup":
-			appID = "LvlHierarchy.irpt?ROLE=" + document.getElementById("user_role").value;
-			//setTimeout("location.href = '" + "LvlHierarchy.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
-			break;
+    var mockServer = true;
+    var _userNAME = "unknow";
+    // ******************************************************************************************************************************************************************
+    // 	function init() {
+    // 	}
+    // ******************************************************************************************************************************************************************
+    // ******************************************************************************************************************************************************************
+    var MenuSelect = function (oEvent) {
+        itemid = oEvent.getParameter("item").getId();
+        //alert(itemid);
+        appID = "";
+        switch (itemid) {
+            // Menu home
+            case "Home_Home":
+                setTimeout("location.href = '" + "OEEM.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+                // Menu Settings 1
+                break;
+            case "OEE_Dashboard":
+                setTimeout("location.href = '" + "DashBoard.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+                break;
+            case "OEE_Report":
+                setTimeout("location.href = '" + "Reports.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+                break;
+            case "Equipment_Management":
+                appID = "MgtHierarchy.irpt?ROLE=" + document.getElementById("user_role").value;
+                //setTimeout("location.href = '" + "MgtHierarchy.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+                break;
+            case "Hierarchy_Levels_Setup":
+                appID = "LvlHierarchy.irpt?ROLE=" + document.getElementById("user_role").value;
+                //setTimeout("location.href = '" + "LvlHierarchy.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+                break;
 
-		// Menu Settings 2
-		case "item1-4-1":
-			appID = "MemMapTags.irpt?ROLE=" + document.getElementById("user_role").value;
-			//setTimeout("location.href = '" + "MemMapTags.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
-			break;
-		case "item1-4-5":
-			appID = "MemMapTrxs.irpt?ROLE=" + document.getElementById("user_role").value;
-			//setTimeout("location.href = '" + "MemMapTrxs.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
-			break;
-		case "item1-4-4":
-			appID = "TagCommGroups.irpt?ROLE=" + document.getElementById("user_role").value;
-			//setTimeout("location.href = '" + "TagCommGroups.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
-			break;
-		case "item1-4-2":
-			appID = "TagTypes.irpt?ROLE=" + document.getElementById("user_role").value;
-			//setTimeout("location.href = '" + "TagTypes.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
-			break;
-		case "item1-4-3":
-			appID = "TagFunctions.irpt?ROLE=" + document.getElementById("user_role").value;
-			//setTimeout("location.href = '" + "TagFunctions.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
-			break;
+            // Menu Settings 2
+            case "item1-4-1":
+                appID = "MemMapTags.irpt?ROLE=" + document.getElementById("user_role").value;
+                //setTimeout("location.href = '" + "MemMapTags.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+                break;
+            case "item1-4-5":
+                appID = "MemMapTrxs.irpt?ROLE=" + document.getElementById("user_role").value;
+                //setTimeout("location.href = '" + "MemMapTrxs.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+                break;
+            case "item1-4-4":
+                appID = "TagCommGroups.irpt?ROLE=" + document.getElementById("user_role").value;
+                //setTimeout("location.href = '" + "TagCommGroups.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+                break;
+            case "item1-4-2":
+                appID = "TagTypes.irpt?ROLE=" + document.getElementById("user_role").value;
+                //setTimeout("location.href = '" + "TagTypes.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+                break;
+            case "item1-4-3":
+                appID = "TagFunctions.irpt?ROLE=" + document.getElementById("user_role").value;
+                //setTimeout("location.href = '" + "TagFunctions.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+                break;
 
-		// Menu Settings 3
-		case "item1-5-6":
-			appID = "Operators.irpt?ROLE=" + document.getElementById("user_role").value;
-			//setTimeout("location.href = '" + "Operators.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
-			break;
-		case "item1-5-1":
-			appID = "Stations.irpt?ROLE=" + document.getElementById("user_role").value;
-			//setTimeout("location.href = '" + "Stations.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
-			break;
-		case "item1-5-2":
-			appID = "Printers.irpt?ROLE=" + document.getElementById("user_role").value;
-			//setTimeout("location.href = '" + "Printers.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
-			break;
-		case "item1-5-3":
-			appID = "PCoServers.irpt?ROLE=" + document.getElementById("user_role").value;
-			//setTimeout("location.href = '" + "PCoServers.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
-			break;
-		case "item1-5-4":
-			appID = "PCoAgents.irpt?ROLE=" + document.getElementById("user_role").value;
-			//setTimeout("location.href = '" + "PCoAgents.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
-			break;
-		case "item1-5-5":
-			appID = "SqlServers.irpt?ROLE=" + document.getElementById("user_role").value;
-			//setTimeout("location.href = '" + "SqlServers.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
-			break;
+            // Menu Settings 3
+            case "item1-5-6":
+                appID = "Operators.irpt?ROLE=" + document.getElementById("user_role").value;
+                //setTimeout("location.href = '" + "Operators.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+                break;
+            case "item1-5-1":
+                appID = "Stations.irpt?ROLE=" + document.getElementById("user_role").value;
+                //setTimeout("location.href = '" + "Stations.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+                break;
+            case "item1-5-2":
+                appID = "Printers.irpt?ROLE=" + document.getElementById("user_role").value;
+                //setTimeout("location.href = '" + "Printers.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+                break;
+            case "item1-5-3":
+                appID = "PCoServers.irpt?ROLE=" + document.getElementById("user_role").value;
+                //setTimeout("location.href = '" + "PCoServers.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+                break;
+            case "item1-5-4":
+                appID = "PCoAgents.irpt?ROLE=" + document.getElementById("user_role").value;
+                //setTimeout("location.href = '" + "PCoAgents.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+                break;
+            case "item1-5-5":
+                appID = "SqlServers.irpt?ROLE=" + document.getElementById("user_role").value;
+                //setTimeout("location.href = '" + "SqlServers.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+                break;
 
-		// Menu Settings 4
-		case "item1-7-1":
-			appID = "UnitsOfMeasure.irpt?ROLE=" + document.getElementById("user_role").value;
-			//setTimeout("location.href = '" + "UnitsOfMeasure.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
-			break;
-		case "item1-7-2":
-			appID = "ProductsMgmt.irpt?ROLE=" + document.getElementById("user_role").value;
-			//setTimeout("location.href = '" + "ProductsMgmt.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
-			break;
-		case "item1-7-3":
-			appID = "BomMgmt.irpt?ROLE=" + document.getElementById("user_role").value;
-			//setTimeout("location.href = '" + "BomMgmt.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
-			break;
-		case "item1-7-4":
-			appID = "RoutingMgmt.irpt?ROLE=" + document.getElementById("user_role").value;
-			//setTimeout("location.href = '" + "RoutingMgmt.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
-			break;
+            // Menu Settings 4
+            case "item1-7-1":
+                appID = "UnitsOfMeasure.irpt?ROLE=" + document.getElementById("user_role").value;
+                //setTimeout("location.href = '" + "UnitsOfMeasure.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+                break;
+            case "item1-7-2":
+                appID = "ProductsMgmt.irpt?ROLE=" + document.getElementById("user_role").value;
+                //setTimeout("location.href = '" + "ProductsMgmt.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+                break;
+            case "item1-7-3":
+                appID = "BomMgmt.irpt?ROLE=" + document.getElementById("user_role").value;
+                //setTimeout("location.href = '" + "BomMgmt.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+                break;
+            case "item1-7-4":
+                appID = "RoutingMgmt.irpt?ROLE=" + document.getElementById("user_role").value;
+                //setTimeout("location.href = '" + "RoutingMgmt.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+                break;
 
-		// Menu Default
-		default:
-			// alert("Items \"" + oEvent.getParameter("itemId") + "\" was selected.");
-			break;
-		}
-		if (appID == "") {
-			return false;
-		}
-		//alert(appID);
+            // Menu Default
+            default:
+                // alert("Items \"" + oEvent.getParameter("itemId") + "\" was selected.");
+                break;
+        }
+        if (appID == "") {
+            return false;
+        }
+        //alert(appID);
 
-		//sap.ui.getCore().getUIArea("article").removeContent(xPage);
+        //sap.ui.getCore().getUIArea("article").removeContent(xPage);
 
-		if (!locked) {
-			locked = true;
-			xPage.setContent("<iframe src=\"" + appID + "\" style=\"border:none;\" height=\"1000px\" width=\"100%\"></iframe>");
-			xPage.placeAt("article");
-		}
+        if (!locked) {
+            locked = true;
+            xPage.setContent("<iframe src=\"" + appID + "\" style=\"border:none;\" height=\"1000px\" width=\"100%\"></iframe>");
+            xPage.placeAt("article");
+        }
 
-	}
+    }
 
-	function MenuDef() {
+    function MenuDef() {
 
-		var oMenuBar = new sap.ui.commons.MenuBar("menuBar", {
-			enabled : true,
-			width : "100%",
-			design : sap.ui.commons.MenuBarDesign.Header,
-		});
+        var oMenuBar = new sap.ui.commons.MenuBar("menuBar", {
+            enabled: true,
+            width: "100%",
+            design: sap.ui.commons.MenuBarDesign.Header,
+        });
 
-		var oMenuBarItem0 = new sap.ui.commons.MenuItem("Home", {
-			text : "Home",
-			enabled : true,
-		});
-		oMenuBar.addItem(oMenuBarItem0);
-		var oMenuButton0 = new sap.ui.commons.Menu("oMenuButton0");
-		oMenuBarItem0.setSubmenu(oMenuButton0);
-		var oMenuItem01 = new sap.ui.commons.MenuItem("Home_Home", {
-			text : "Home",
-			enabled : true
-		});
-		oMenuButton0.addItem(oMenuItem01);
-		oMenuItem01.attachSelect(MenuSelect);
+        var oMenuBarItem0 = new sap.ui.commons.MenuItem("Home", {
+            text: "Home",
+            enabled: true,
+        });
+        oMenuBar.addItem(oMenuBarItem0);
+        var oMenuButton0 = new sap.ui.commons.Menu("oMenuButton0");
+        oMenuBarItem0.setSubmenu(oMenuButton0);
+        var oMenuItem01 = new sap.ui.commons.MenuItem("Home_Home", {
+            text: "Home",
+            enabled: true
+        });
+        oMenuButton0.addItem(oMenuItem01);
+        oMenuItem01.attachSelect(MenuSelect);
 
-		var oMenuBarItem1 = new sap.ui.commons.MenuItem({
-			text : "Settings",
-			enabled : true,
-		});
-		oMenuBar.addItem(oMenuBarItem1);
-		var oMenuBarItem2 = new sap.ui.commons.MenuItem({
-			text : "Dashboards",
-			enabled : true,
-		});
-		oMenuBar.addItem(oMenuBarItem2);
-		var oMenuBarItem3 = new sap.ui.commons.MenuItem({
-			text : "Reports",
-			enabled : true,
-		});
-		oMenuBar.addItem(oMenuBarItem3);
+        var oMenuBarItem1 = new sap.ui.commons.MenuItem({
+            text: "Settings",
+            enabled: true,
+        });
+        oMenuBar.addItem(oMenuBarItem1);
+        var oMenuBarItem2 = new sap.ui.commons.MenuItem({
+            text: "Dashboards",
+            enabled: true,
+        });
+        oMenuBar.addItem(oMenuBarItem2);
+        var oMenuBarItem3 = new sap.ui.commons.MenuItem({
+            text: "Reports",
+            enabled: true,
+        });
+        oMenuBar.addItem(oMenuBarItem3);
 
-		var oMenuButton1 = new sap.ui.commons.Menu("oMenuButton1");
-		oMenuBarItem1.setSubmenu(oMenuButton1);
-		var oMenuItem1 = new sap.ui.commons.MenuItem("Enterprise_Hierarchy", {
-			text : "Enterprise Hierarchy",
-			enabled : true
-		});
-		oMenuButton1.addItem(oMenuItem1);
-		oMenuItem1.attachSelect(MenuSelect);
-		var oMenuItem2 = new sap.ui.commons.MenuItem("Plant_Connectivity", {
-			text : "Plant Connectivity",
-			enabled : true
-		});
-		oMenuButton1.addItem(oMenuItem2);
-		oMenuItem2.attachSelect(MenuSelect);
-		var oMenuItem3 = new sap.ui.commons.MenuItem("Master_Data_Setup", {
-			text : "Master Data Setup",
-			enabled : true
-		});
-		oMenuButton1.addItem(oMenuItem3);
+        var oMenuButton1 = new sap.ui.commons.Menu("oMenuButton1");
+        oMenuBarItem1.setSubmenu(oMenuButton1);
+        var oMenuItem1 = new sap.ui.commons.MenuItem("Enterprise_Hierarchy", {
+            text: "Enterprise Hierarchy",
+            enabled: true
+        });
+        oMenuButton1.addItem(oMenuItem1);
+        oMenuItem1.attachSelect(MenuSelect);
+        var oMenuItem2 = new sap.ui.commons.MenuItem("Plant_Connectivity", {
+            text: "Plant Connectivity",
+            enabled: true
+        });
+        oMenuButton1.addItem(oMenuItem2);
+        oMenuItem2.attachSelect(MenuSelect);
+        var oMenuItem3 = new sap.ui.commons.MenuItem("Master_Data_Setup", {
+            text: "Master Data Setup",
+            enabled: true
+        });
+        oMenuButton1.addItem(oMenuItem3);
 
-		var oMenuButton2 = new sap.ui.commons.Menu("oMenuButton2");
-		oMenuBarItem2.setSubmenu(oMenuButton2);
-		var oMenuItem21 = new sap.ui.commons.MenuItem("OEE_Dashboard", {
-			text : "OEE Dashboard",
-			enabled : true
-		});
-		oMenuButton2.addItem(oMenuItem21);
-		oMenuItem21.attachSelect(MenuSelect);
-		var oMenuItem22 = new sap.ui.commons.MenuItem("Availability_Dashboard", {
-			text : "Availability Dashboard",
-			enabled : true
-		});
-		oMenuButton2.addItem(oMenuItem22);
-		oMenuItem22.attachSelect(MenuSelect);
-		var oMenuItem23 = new sap.ui.commons.MenuItem("Performance_Dashboard", {
-			text : "Performance Dashboard",
-			enabled : true
-		});
-		oMenuButton2.addItem(oMenuItem23);
-		oMenuItem23.attachSelect(MenuSelect);
+        var oMenuButton2 = new sap.ui.commons.Menu("oMenuButton2");
+        oMenuBarItem2.setSubmenu(oMenuButton2);
+        var oMenuItem21 = new sap.ui.commons.MenuItem("OEE_Dashboard", {
+            text: "OEE Dashboard",
+            enabled: true
+        });
+        oMenuButton2.addItem(oMenuItem21);
+        oMenuItem21.attachSelect(MenuSelect);
+        var oMenuItem22 = new sap.ui.commons.MenuItem("Availability_Dashboard", {
+            text: "Availability Dashboard",
+            enabled: true
+        });
+        oMenuButton2.addItem(oMenuItem22);
+        oMenuItem22.attachSelect(MenuSelect);
+        var oMenuItem23 = new sap.ui.commons.MenuItem("Performance_Dashboard", {
+            text: "Performance Dashboard",
+            enabled: true
+        });
+        oMenuButton2.addItem(oMenuItem23);
+        oMenuItem23.attachSelect(MenuSelect);
 
-		var oMenuItem24 = new sap.ui.commons.MenuItem("Quality_Dashboardy", {
-			text : "Quality Dashboardy",
-			enabled : true
-		});
-		oMenuButton2.addItem(oMenuItem24);
-		oMenuItem24.attachSelect(MenuSelect);
-		var oMenuItem25 = new sap.ui.commons.MenuItem("Alerts_Dashboard", {
-			text : "Alerts Dashboard",
-			enabled : true
-		});
-		oMenuButton2.addItem(oMenuItem25);
-		oMenuItem25.attachSelect(MenuSelect);
+        var oMenuItem24 = new sap.ui.commons.MenuItem("Quality_Dashboardy", {
+            text: "Quality Dashboardy",
+            enabled: true
+        });
+        oMenuButton2.addItem(oMenuItem24);
+        oMenuItem24.attachSelect(MenuSelect);
+        var oMenuItem25 = new sap.ui.commons.MenuItem("Alerts_Dashboard", {
+            text: "Alerts Dashboard",
+            enabled: true
+        });
+        oMenuButton2.addItem(oMenuItem25);
+        oMenuItem25.attachSelect(MenuSelect);
 
-		var oMenuButton3 = new sap.ui.commons.Menu("oMenuButton3");
-		oMenuBarItem3.setSubmenu(oMenuButton3);
-		var oMenuItem31 = new sap.ui.commons.MenuItem("OEE_Report", {
-			text : "OEE Report",
-			enabled : true
-		});
-		oMenuButton3.addItem(oMenuItem31);
-		oMenuItem31.attachSelect(MenuSelect);
-		var oMenuItem32 = new sap.ui.commons.MenuItem("Availability_Report", {
-			text : "Availability Report",
-			enabled : true
-		});
-		oMenuButton3.addItem(oMenuItem32);
-		oMenuItem32.attachSelect(MenuSelect);
-		var oMenuItem33 = new sap.ui.commons.MenuItem("Performance_Report", {
-			text : "Performance Report",
-			enabled : true
-		});
-		oMenuButton3.addItem(oMenuItem33);
-		oMenuItem33.attachSelect(MenuSelect);
-		var oMenuItem34 = new sap.ui.commons.MenuItem("Quality_Report", {
-			text : "Quality Report",
-			enabled : true
-		});
-		oMenuButton3.addItem(oMenuItem34);
-		oMenuItem34.attachSelect(MenuSelect);
-		var oMenuItem35 = new sap.ui.commons.MenuItem("Alerts_Report", {
-			text : "Alerts Report",
-			enabled : true
-		});
-		oMenuButton3.addItem(oMenuItem35);
-		oMenuItem35.attachSelect(MenuSelect);
-		var oMenuItem36 = new sap.ui.commons.MenuItem("Connection_Diagnostics", {
-			text : "Connection Diagnostics",
-			enabled : true
-		});
-		oMenuButton3.addItem(oMenuItem36);
-		oMenuItem36.attachSelect(MenuSelect);
+        var oMenuButton3 = new sap.ui.commons.Menu("oMenuButton3");
+        oMenuBarItem3.setSubmenu(oMenuButton3);
+        var oMenuItem31 = new sap.ui.commons.MenuItem("OEE_Report", {
+            text: "OEE Report",
+            enabled: true
+        });
+        oMenuButton3.addItem(oMenuItem31);
+        oMenuItem31.attachSelect(MenuSelect);
+        var oMenuItem32 = new sap.ui.commons.MenuItem("Availability_Report", {
+            text: "Availability Report",
+            enabled: true
+        });
+        oMenuButton3.addItem(oMenuItem32);
+        oMenuItem32.attachSelect(MenuSelect);
+        var oMenuItem33 = new sap.ui.commons.MenuItem("Performance_Report", {
+            text: "Performance Report",
+            enabled: true
+        });
+        oMenuButton3.addItem(oMenuItem33);
+        oMenuItem33.attachSelect(MenuSelect);
+        var oMenuItem34 = new sap.ui.commons.MenuItem("Quality_Report", {
+            text: "Quality Report",
+            enabled: true
+        });
+        oMenuButton3.addItem(oMenuItem34);
+        oMenuItem34.attachSelect(MenuSelect);
+        var oMenuItem35 = new sap.ui.commons.MenuItem("Alerts_Report", {
+            text: "Alerts Report",
+            enabled: true
+        });
+        oMenuButton3.addItem(oMenuItem35);
+        oMenuItem35.attachSelect(MenuSelect);
+        var oMenuItem36 = new sap.ui.commons.MenuItem("Connection_Diagnostics", {
+            text: "Connection Diagnostics",
+            enabled: true
+        });
+        oMenuButton3.addItem(oMenuItem36);
+        oMenuItem36.attachSelect(MenuSelect);
 
-		var oMenu6 = new sap.ui.commons.Menu("menu6");
-		oMenuItem1.setSubmenu(oMenu6);
-		var oMenuItem61 = new sap.ui.commons.MenuItem("Equipment_Management", {
-			text : "Equipment Management"
-		});
-		oMenu6.addItem(oMenuItem61);
-		oMenuItem61.attachSelect(MenuSelect);
-		var oMenuItem62 = new sap.ui.commons.MenuItem("Plant_Work_Force", {
-			text : "Plant Work Force"
-		});
-		oMenu6.addItem(oMenuItem62);
-		oMenuItem62.attachSelect(MenuSelect);
-		var oMenuItem63 = new sap.ui.commons.MenuItem("Plant_Shifts_and_Breaks", {
-			text : "Plant Shifts & Breaks"
-		});
-		oMenu6.addItem(oMenuItem63);
-		oMenuItem63.attachSelect(MenuSelect);
-		var oMenuItem64 = new sap.ui.commons.MenuItem("Hierarchy_Levels_Setup", {
-			text : "Hierarchy Levels Setup"
-		});
-		oMenu6.addItem(oMenuItem64);
-		oMenuItem64.attachSelect(MenuSelect);
+        var oMenu6 = new sap.ui.commons.Menu("menu6");
+        oMenuItem1.setSubmenu(oMenu6);
+        var oMenuItem61 = new sap.ui.commons.MenuItem("Equipment_Management", {
+            text: "Equipment Management"
+        });
+        oMenu6.addItem(oMenuItem61);
+        oMenuItem61.attachSelect(MenuSelect);
+        var oMenuItem62 = new sap.ui.commons.MenuItem("Plant_Work_Force", {
+            text: "Plant Work Force"
+        });
+        oMenu6.addItem(oMenuItem62);
+        oMenuItem62.attachSelect(MenuSelect);
+        var oMenuItem63 = new sap.ui.commons.MenuItem("Plant_Shifts_and_Breaks", {
+            text: "Plant Shifts & Breaks"
+        });
+        oMenu6.addItem(oMenuItem63);
+        oMenuItem63.attachSelect(MenuSelect);
+        var oMenuItem64 = new sap.ui.commons.MenuItem("Hierarchy_Levels_Setup", {
+            text: "Hierarchy Levels Setup"
+        });
+        oMenu6.addItem(oMenuItem64);
+        oMenuItem64.attachSelect(MenuSelect);
 
-		var oMenu5 = new sap.ui.commons.Menu("oMenu5");
-		oMenuItem2.setSubmenu(oMenu5);
-		var oMenuItem51 = new sap.ui.commons.MenuItem("Plant_Connectivity_Servers", {
-			text : "Plant Connectivity Servers"
-		});
-		oMenu5.addItem(oMenuItem51);
-		oMenuItem51.attachSelect(MenuSelect);
-		var oMenuItem52 = new sap.ui.commons.MenuItem("Plant_Connectivity_Agents", {
-			text : "Plant Connectivity Agents"
-		});
-		oMenu5.addItem(oMenuItem52);
-		oMenuItem52.attachSelect(MenuSelect);
-		var oMenuItem53 = new sap.ui.commons.MenuItem("Line_Side_SQL_Servers", {
-			text : "Line Side SQL Servers"
-		});
-		oMenu5.addItem(oMenuItem53);
-		oMenuItem53.attachSelect(MenuSelect);
-		var oMenuItem54 = new sap.ui.commons.MenuItem("PLC_Tag_List", {
-			text : "PLC Tag List"
-		});
-		oMenu5.addItem(oMenuItem54);
-		oMenuItem54.attachSelect(MenuSelect);
-		var oMenuItem55 = new sap.ui.commons.MenuItem("PLC_Tag_Groups", {
-			text : "PLC Tag Groups"
-		});
-		oMenu5.addItem(oMenuItem55);
-		oMenuItem55.attachSelect(MenuSelect);
-		var oMenuItem56 = new sap.ui.commons.MenuItem("PLC_Tag_Types", {
-			text : "PLC Tag Types"
-		});
-		oMenu5.addItem(oMenuItem56);
-		oMenuItem56.attachSelect(MenuSelect);
-		var oMenuItem57 = new sap.ui.commons.MenuItem("PLC_Tag_Functions", {
-			text : "PLC Tag Functions"
-		});
-		oMenu5.addItem(oMenuItem57);
-		oMenuItem57.attachSelect(MenuSelect);
+        var oMenu5 = new sap.ui.commons.Menu("oMenu5");
+        oMenuItem2.setSubmenu(oMenu5);
+        var oMenuItem51 = new sap.ui.commons.MenuItem("Plant_Connectivity_Servers", {
+            text: "Plant Connectivity Servers"
+        });
+        oMenu5.addItem(oMenuItem51);
+        oMenuItem51.attachSelect(MenuSelect);
+        var oMenuItem52 = new sap.ui.commons.MenuItem("Plant_Connectivity_Agents", {
+            text: "Plant Connectivity Agents"
+        });
+        oMenu5.addItem(oMenuItem52);
+        oMenuItem52.attachSelect(MenuSelect);
+        var oMenuItem53 = new sap.ui.commons.MenuItem("Line_Side_SQL_Servers", {
+            text: "Line Side SQL Servers"
+        });
+        oMenu5.addItem(oMenuItem53);
+        oMenuItem53.attachSelect(MenuSelect);
+        var oMenuItem54 = new sap.ui.commons.MenuItem("PLC_Tag_List", {
+            text: "PLC Tag List"
+        });
+        oMenu5.addItem(oMenuItem54);
+        oMenuItem54.attachSelect(MenuSelect);
+        var oMenuItem55 = new sap.ui.commons.MenuItem("PLC_Tag_Groups", {
+            text: "PLC Tag Groups"
+        });
+        oMenu5.addItem(oMenuItem55);
+        oMenuItem55.attachSelect(MenuSelect);
+        var oMenuItem56 = new sap.ui.commons.MenuItem("PLC_Tag_Types", {
+            text: "PLC Tag Types"
+        });
+        oMenu5.addItem(oMenuItem56);
+        oMenuItem56.attachSelect(MenuSelect);
+        var oMenuItem57 = new sap.ui.commons.MenuItem("PLC_Tag_Functions", {
+            text: "PLC Tag Functions"
+        });
+        oMenu5.addItem(oMenuItem57);
+        oMenuItem57.attachSelect(MenuSelect);
 
-		var oMenu7 = new sap.ui.commons.Menu("Menu7");
-		oMenuItem3.setSubmenu(oMenu7);
-		var oMenuItem71 = new sap.ui.commons.MenuItem("Products_Management", {
-			text : "Products Management"
-		});
-		oMenu7.addItem(oMenuItem71);
-		oMenuItem71.attachSelect(MenuSelect);
-		var oMenuItem72 = new sap.ui.commons.MenuItem("Work_Order_Management", {
-			text : "Work Order Management"
-		});
-		oMenu7.addItem(oMenuItem72);
-		oMenuItem72.attachSelect(MenuSelect);
-		var oMenuItem73 = new sap.ui.commons.MenuItem("Alerts_Management", {
-			text : "Alerts Management"
-		});
-		oMenu7.addItem(oMenuItem73);
-		oMenuItem73.attachSelect(MenuSelect);
+        var oMenu7 = new sap.ui.commons.Menu("Menu7");
+        oMenuItem3.setSubmenu(oMenu7);
+        var oMenuItem71 = new sap.ui.commons.MenuItem("Products_Management", {
+            text: "Products Management"
+        });
+        oMenu7.addItem(oMenuItem71);
+        oMenuItem71.attachSelect(MenuSelect);
+        var oMenuItem72 = new sap.ui.commons.MenuItem("Work_Order_Management", {
+            text: "Work Order Management"
+        });
+        oMenu7.addItem(oMenuItem72);
+        oMenuItem72.attachSelect(MenuSelect);
+        var oMenuItem73 = new sap.ui.commons.MenuItem("Alerts_Management", {
+            text: "Alerts Management"
+        });
+        oMenu7.addItem(oMenuItem73);
+        oMenuItem73.attachSelect(MenuSelect);
 
-		oMenuBar.placeAt("menu");
+        oMenuBar.placeAt("menu");
 
-	}
+    }
 
-	// ******************************************************************************************************************************************************************
+    // ******************************************************************************************************************************************************************
 
-	var FloorMaps_Data;
-	var FloorMaps_Index;
-	var mTree = new sap.ui.commons.Tree("tree", {
-		title : "FloorMaps",
-		width : "100%",
-		// 		height : "400px",
-		showHeaderIcons : true,
-		showHorizontalScrollbar : true,
-		showHeader : true,
-		select : function(oControlEvent) {
+    var FloorMaps_Data;
+    var FloorMaps_Index;
+    var mTree = new sap.ui.commons.Tree("tree", {
+        title: "FloorMaps",
+        width: "100%",
+        // 		height : "400px",
+        showHeaderIcons: true,
+        showHorizontalScrollbar: true,
+        showHeader: true,
+        select: function (oControlEvent) {
 
-		}
-	});
+        }
+    });
 
-	function mTreeLoad() {
-		P1 = "SELECT *";
-		P2 = "FROM MESM_FloorMaps";
-		P3 = "ORDER BY idUnitParent";
-		P4 = "";
-		url = "/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/get_Table&Param.1=" + P1 + "&Param.2=" + P2 + "&Param.3=" + P3 + "&Param.4=" + P4 + "&Content-Type=text/xml";
-		getData(url, parseJsonParent);
+    function mTreeLoad() {
+        P1 = "SELECT *";
+        P2 = "FROM MESM_FloorMaps";
+        P3 = "ORDER BY idUnitParent";
+        P4 = "";
+        var url = "/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/get_Table&Param.1=" + P1 + "&Param.2=" + P2 + "&Param.3=" + P3 + "&Param.4=" + P4 + "&Content-Type=text/xml";
+        if (mockServer) {
+            url = 'mockServer/MESM_FloorMaps.xml';
+        }        //ss(url);
+        getData(url, parseJsonParent);
 
-		function parseJsonParent(jsondata) {
-			FloorMaps_Data = [];
-			_Node = new Array(jsondata.length);
-			for (var i = 0; i < jsondata.length; i++) {
-				FloorMaps_Data.push({
-					unitName : jsondata[i]['unitName'],
-					recordID : jsondata[i]['recordID'],
-					unitType : jsondata[i]['unitType'],
-					idUnitParent : jsondata[i]['idUnitParent'],
-					oeeStatus : jsondata[i]['oeeStatus'],
-				});
-				_icon = "";
-				// 				if (FloorMaps_Data[i]['unitType'] == "4") {
-				// 					_icon = "sap-icon://world";
-				// 				}
-				// 				if (FloorMaps_Data[i]['unitType'] == "6") {
-				// 					_icon = "sap-icon://line-chart";
-				// 				}
-				_Node[i] = new sap.ui.commons.TreeNode("FloorMaps_" + i, {
-					text : jsondata[i]['unitName'],
-					icon : _icon,
-					expanded : true
-				});
-				mTree.addNode(_Node[i]);
-			}
+        function parseJsonParent(jsondata) {
+            FloorMaps_Data = [];
+            _Node = new Array(jsondata.length);
+            for (var i = 0; i < jsondata.length; i++) {
+                FloorMaps_Data.push({
+                    unitName: jsondata[i]['unitName'],
+                    recordID: jsondata[i]['recordID'],
+                    unitType: jsondata[i]['unitType'],
+                    idUnitParent: jsondata[i]['idUnitParent'],
+                    oeeStatus: jsondata[i]['oeeStatus'],
+                });
+                _icon = "";
+                // 				if (FloorMaps_Data[i]['unitType'] == "4") {
+                // 					_icon = "sap-icon://world";
+                // 				}
+                // 				if (FloorMaps_Data[i]['unitType'] == "6") {
+                // 					_icon = "sap-icon://line-chart";
+                // 				}
+                _Node[i] = new sap.ui.commons.TreeNode("FloorMaps_" + i, {
+                    text: jsondata[i]['unitName'],
+                    icon: _icon,
+                    expanded: true
+                });
+                mTree.addNode(_Node[i]);
+            }
 
-			for (var i = 0; i < jsondata.length - 1; i++) {
-				for (var j = i + 1; j < jsondata.length; j++) {
-					if (FloorMaps_Data[j]['idUnitParent'] == FloorMaps_Data[i]['recordID']) {
-						_Node[i].addNode(_Node[j]);
-					}
-				}
-			}
+            for (var i = 0; i < jsondata.length - 1; i++) {
+                for (var j = i + 1; j < jsondata.length; j++) {
+                    if (FloorMaps_Data[j]['idUnitParent'] == FloorMaps_Data[i]['recordID']) {
+                        _Node[i].addNode(_Node[j]);
+                    }
+                }
+            }
 
-		}
-	}
-	// ******************************************************************************************************************************************************************
-	var mModelXML = new sap.ui.model.xml.XMLModel();
-	var mTable = new sap.ui.table.Table({
-		//visibleRowCount : 12,
-		//firstVisibleRow : 3,
-		//visibleRowCountMode : sap.ui.table.VisibleRowCountMode.Interactive,
-		firstVisibleRow : 0,
-		selectionBehavior : sap.ui.table.SelectionBehavior.Row,
-		selectionMode : sap.ui.table.SelectionMode.Single,
-		editable : false,
-		enableColumnFreeze : false,
-		width : "100%",
-		columnHeaderVisible : true,
-		enableCustomFilter : false,
-	//navigationMode : sap.ui.table.NavigationMode.Paginator
-	});
+        }
+    }
+    // ******************************************************************************************************************************************************************
+    var mModelXML = new sap.ui.model.xml.XMLModel();
+    var mTable = new sap.ui.table.Table({
+        //visibleRowCount : 12,
+        //firstVisibleRow : 3,
+        //visibleRowCountMode : sap.ui.table.VisibleRowCountMode.Interactive,
+        firstVisibleRow: 0,
+        selectionBehavior: sap.ui.table.SelectionBehavior.Row,
+        selectionMode: sap.ui.table.SelectionMode.Single,
+        editable: false,
+        enableColumnFreeze: false,
+        width: "100%",
+        columnHeaderVisible: true,
+        enableCustomFilter: false,
+        //navigationMode : sap.ui.table.NavigationMode.Paginator
+    });
 
-	var StopReasons_Data;
-	var StopReasons_selectedIndex;
+    var StopReasons_Data;
+    var StopReasons_selectedIndex;
 
-	function StopReasons_Table() { // Bind the table rows to this model
+    function StopReasons_Table() { // Bind the table rows to this model
 
-		//load table's data
-		Param1 = "MESM_StopReasons";
-		Param2 = "sortOrder";
-		getData("/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/get_Table&Param.1=" + Param1 + "&Param.2=" + Param2 + "&Content-Type=text/xml", parseJsonParent);
+        //load table's data
+        Param1 = "MESM_StopReasons";
+        Param2 = "sortOrder";
+        var url = "/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/get_Table&Param.1=" + P1 + "&Param.2=" + P2 + "&Param.3=" + P3 + "&Param.4=" + P4 + "&Content-Type=text/xml";
+        if (mockServer) {
+            url = 'mockServer/MESM_StopReasons.xml';
+        }
+        getData(url, parseJsonParent);
+        function parseJsonParent(jsondata) {
+            StopReasons_selectedIndex = -1;
+            StopReasons_Data = [];
+            for (var i = 0; i < jsondata.length; i++) {
+                StopReasons_Data.push({
+                    recordID: jsondata[i]['recordID'],
+                    reasonName: jsondata[i]['reasonName'],
+                    reasonDescr: jsondata[i]['reasonDescr'],
+                    reasonActive: jsondata[i]['reasonActive'],
+                    sortOrder: jsondata[i]['sortOrder'],
+                    catagory: jsondata[i]['catagory'],
+                    recordID_FloorMaps: jsondata[i]['recordID_FloorMaps'],
+                    unitName_FloorMaps: jsondata[i]['unitName_FloorMaps'],
+                    CreatedBy: jsondata[i]['CreatedBy'],
+                    CreatedOn: jsondata[i]['CreatedOn'],
+                });
+            }
+        }
 
-		function parseJsonParent(jsondata) {
-			StopReasons_selectedIndex = -1;
-			StopReasons_Data = [];
-			for (var i = 0; i < jsondata.length; i++) {
-				StopReasons_Data.push({
-					recordID : jsondata[i]['recordID'],
-					reasonName : jsondata[i]['reasonName'],
-					reasonDescr : jsondata[i]['reasonDescr'],
-					reasonActive : jsondata[i]['reasonActive'],
-					sortOrder : jsondata[i]['sortOrder'],
-					catagory : jsondata[i]['catagory'],
-					recordID_FloorMaps : jsondata[i]['recordID_FloorMaps'],
-					unitName_FloorMaps : jsondata[i]['unitName_FloorMaps'],
-					CreatedBy : jsondata[i]['CreatedBy'],
-					CreatedOn : jsondata[i]['CreatedOn'],
-				});
-			}
-		}
-		//var timestamp = new Date().getTime();
-		url = "/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/StopReasons_get&ts=" + (new Date().getTime()) + "&Content-Type=text/xml";
-		//alert(url);
-		//url = "mock/Get_Missions.xml"; //Mock request
+        //var timestamp = new Date().getTime();
+        url = "/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/StopReasons_get&ts=" + (new Date().getTime()) + "&Content-Type=text/xml";
+        //alert(url);
+        //url = "mock/Get_Missions.xml"; //Mock request
 
-		mModelXML.loadData(url, "", false);
-		//alert(mModelXML.getXML());
-		//		createColumns
-		mTable.setModel(mModelXML);
-		mTable.bindRows("/Rowset/Row");
-		mTable.setVisibleRowCount(5);
-		mTable.addColumn(new sap.ui.table.Column({
-			width : "150px",
-			label : new sap.ui.commons.Label({
-				text : " Name"
-			}),
-			template : new sap.ui.commons.TextView().bindProperty("text", "reasonName"),
-			sortProperty : "reasonName",
-			filterProperty : "reasonName",
-			resizable : true,
-		}));
-		mTable.addColumn(new sap.ui.table.Column({
-			width : "auto",
-			label : new sap.ui.commons.Label({
-				text : " Description"
-			}),
-			template : new sap.ui.commons.TextView().bindProperty("text", "reasonDescr"),
-			sortProperty : "reasonDescr",
-			filterProperty : "reasonDescr",
-			resizable : true,
-		}));
-		mTable.addColumn(new sap.ui.table.Column({
-			width : "150px",
-			label : new sap.ui.commons.Label({
-				text : " unitName"
-			}),
-			template : new sap.ui.commons.TextView().bindProperty("text", "unitName_FloorMaps"),
-			sortProperty : "unitName_FloorMaps",
-			filterProperty : "unitName_FloorMaps",
-			resizable : true,
-		}));
-		mTable.addColumn(new sap.ui.table.Column({
-			width : "80px",
-			label : new sap.ui.commons.Label({
-				text : " unitID"
-			}),
-			template : new sap.ui.commons.TextView().bindProperty("text", "recordID_FloorMaps", function(s) {
-				return "1234";
-			}),
-			sortProperty : "recordID_FloorMaps",
-			filterProperty : "recordID_FloorMaps",
-			resizable : true,
-			hAlign : "Center",
-		}));
-		mTable.addColumn(new sap.ui.table.Column({
-			width : "150px",
-			label : new sap.ui.commons.Label({
-				text : "Catagory"
-			}),
-			template : new sap.ui.commons.TextView().bindProperty("text", "catagory"),
-			sortProperty : "catagory",
-			filterProperty : "catagory",
-			resizable : true,
-		}));
+        mModelXML.loadData(url, "", false);
+        //alert(mModelXML.getXML());
+        //		createColumns
+        mTable.setModel(mModelXML);
+        mTable.bindRows("/Rowset/Row");
+        mTable.setVisibleRowCount(5);
+        mTable.addColumn(new sap.ui.table.Column({
+            width: "150px",
+            label: new sap.ui.commons.Label({
+                text: " Name"
+            }),
+            template: new sap.ui.commons.TextView().bindProperty("text", "reasonName"),
+            sortProperty: "reasonName",
+            filterProperty: "reasonName",
+            resizable: true,
+        }));
+        mTable.addColumn(new sap.ui.table.Column({
+            width: "auto",
+            label: new sap.ui.commons.Label({
+                text: " Description"
+            }),
+            template: new sap.ui.commons.TextView().bindProperty("text", "reasonDescr"),
+            sortProperty: "reasonDescr",
+            filterProperty: "reasonDescr",
+            resizable: true,
+        }));
+        mTable.addColumn(new sap.ui.table.Column({
+            width: "150px",
+            label: new sap.ui.commons.Label({
+                text: " unitName"
+            }),
+            template: new sap.ui.commons.TextView().bindProperty("text", "unitName_FloorMaps"),
+            sortProperty: "unitName_FloorMaps",
+            filterProperty: "unitName_FloorMaps",
+            resizable: true,
+        }));
+        mTable.addColumn(new sap.ui.table.Column({
+            width: "80px",
+            label: new sap.ui.commons.Label({
+                text: " unitID"
+            }),
+            template: new sap.ui.commons.TextView().bindProperty("text", "recordID_FloorMaps", function (s) {
+                return "1234";
+            }),
+            sortProperty: "recordID_FloorMaps",
+            filterProperty: "recordID_FloorMaps",
+            resizable: true,
+            hAlign: "Center",
+        }));
+        mTable.addColumn(new sap.ui.table.Column({
+            width: "150px",
+            label: new sap.ui.commons.Label({
+                text: "Catagory"
+            }),
+            template: new sap.ui.commons.TextView().bindProperty("text", "catagory"),
+            sortProperty: "catagory",
+            filterProperty: "catagory",
+            resizable: true,
+        }));
 
-		mTable.addColumn(new sap.ui.table.Column({
-			width : "80px",
-			label : new sap.ui.commons.Label({
-				text : " CreatedBy"
-			}),
-			template : new sap.ui.commons.TextView().bindProperty("text", "CreatedBy"),
-			sortProperty : "CreatedBy",
-			filterProperty : "CreatedBy",
-			resizable : true,
-		}));
+        mTable.addColumn(new sap.ui.table.Column({
+            width: "80px",
+            label: new sap.ui.commons.Label({
+                text: " CreatedBy"
+            }),
+            template: new sap.ui.commons.TextView().bindProperty("text", "CreatedBy"),
+            sortProperty: "CreatedBy",
+            filterProperty: "CreatedBy",
+            resizable: true,
+        }));
 
-		mTable.addColumn(new sap.ui.table.Column({
-			width : "150px",
-			label : new sap.ui.commons.Label({
-				text : "CreatedOn"
-			}),
-			template : new sap.ui.commons.TextView({
-				textAlign : sap.ui.core.TextAlign.Center,
-			}).bindProperty("text", "CreatedOn"),
+        mTable.addColumn(new sap.ui.table.Column({
+            width: "150px",
+            label: new sap.ui.commons.Label({
+                text: "CreatedOn"
+            }),
+            template: new sap.ui.commons.TextView({
+                textAlign: sap.ui.core.TextAlign.Center,
+            }).bindProperty("text", "CreatedOn"),
 
-			sortProperty : "CreatedOn",
-			filterProperty : "CreatedOn",
-			resizable : true,
-		}));
-		mTable.addColumn(new sap.ui.table.Column({
-			width : "60px",
-			label : new sap.ui.commons.Label({
-				text : "Active"
-			}),
-			template : new sap.ui.commons.CheckBox().bindProperty("checked", "reasonActive", function(s) {
-				return s == "1";
-			}),
-			resizable : true,
-			hAlign : "Center",
-		}));
+            sortProperty: "CreatedOn",
+            filterProperty: "CreatedOn",
+            resizable: true,
+        }));
+        mTable.addColumn(new sap.ui.table.Column({
+            width: "60px",
+            label: new sap.ui.commons.Label({
+                text: "Active"
+            }),
+            template: new sap.ui.commons.CheckBox().bindProperty("checked", "reasonActive", function (s) {
+                return s == "1";
+            }),
+            resizable: true,
+            hAlign: "Center",
+        }));
 
-		//		sp = document.getElementById("OEEM_content").clientWidth - 200 - 190;
-		mTable.setToolbar(new sap.m.Toolbar({
-			height : "50px",
-			content : [ new sap.m.Label({
-				desig : sap.m.LabelDesign.Bold,
-				textAlign : sap.ui.core.TextAlign.Center,
-				text : "",
-				// 				width : "" + (document.getElementById("OEEM_content").clientWidth - 200 - 400) + "px",
-				height : "30px",
-			}),
-			// 			new sap.m.DateTimePicker("DateTimePicker1", {
-			// 				height : "30px",
-			// 				width : "160px",
-			// 				placeholder : "From ...",
-			// 				//value : new Date(),
-			// 				valueFormat : "MM dd, yyyy hh:mm:ss a",
-			// 				displayFormat : "short",
-			// 				//displayFormatType : "Islamic",
-			// 				//secondaryCalendarType : "Gregorian",
-			// 				//change="handleChange"/>
-			// 				change : function(oEvent) {
-			// 					// 			var oText = this.byId("T1");
-			// 					var oDTP = oEvent.oSource;
-			// 					var sValue = oEvent.getParameter("value");
-			// 					var bValid = oEvent.getParameter("valid");
-			// 					// 			this._iEvent++;
-			// 					// 			oText.setText("Change - Event " + this._iEvent
-			// 					// 					+ ": DateTimePicker " + oDTP.getId() + ":" + sValue);
+        //		sp = document.getElementById("OEEM_content").clientWidth - 200 - 190;
+        mTable.setToolbar(new sap.m.Toolbar({
+            height: "50px",
+            content: [new sap.m.Label({
+                desig: sap.m.LabelDesign.Bold,
+                textAlign: sap.ui.core.TextAlign.Center,
+                text: "",
+                // 				width : "" + (document.getElementById("OEEM_content").clientWidth - 200 - 400) + "px",
+                height: "30px",
+            }),
+                // 			new sap.m.DateTimePicker("DateTimePicker1", {
+                // 				height : "30px",
+                // 				width : "160px",
+                // 				placeholder : "From ...",
+                // 				//value : new Date(),
+                // 				valueFormat : "MM dd, yyyy hh:mm:ss a",
+                // 				displayFormat : "short",
+                // 				//displayFormatType : "Islamic",
+                // 				//secondaryCalendarType : "Gregorian",
+                // 				//change="handleChange"/>
+                // 				change : function(oEvent) {
+                // 					// 			var oText = this.byId("T1");
+                // 					var oDTP = oEvent.oSource;
+                // 					var sValue = oEvent.getParameter("value");
+                // 					var bValid = oEvent.getParameter("valid");
+                // 					// 			this._iEvent++;
+                // 					// 			oText.setText("Change - Event " + this._iEvent
+                // 					// 					+ ": DateTimePicker " + oDTP.getId() + ":" + sValue);
 
-			// 					if (bValid) {
-			// 						oDTP.setValueState(sap.ui.core.ValueState.None);
-			// 						// 						Stimulsoft.Report.Dictionary.synchronize();
-			// 						// 						Stimulsoft.Report.regData();
-			// 						// 						theReport.render();
-			// 						//alert(oDTP.getDateValue().getTime());
-			// 					} else {
-			// 						oDTP.setValueState(sap.ui.core.ValueState.Error);
-			// 					}
-			// 				},
-			// 			}), new sap.m.DateTimePicker("DateTimePicker2", {
-			// 				height : "30px",
-			// 				width : "160px",
-			// 				placeholder : "To ...",
-			// 				//value : new Date(),
-			// 				valueFormat : "MM dd, yyyy hh:mm:ss a",
-			// 				displayFormat : "short",
-			// 				//displayFormatType : "Islamic",
-			// 				//secondaryCalendarType : "Gregorian",
-			// 				//change="handleChange"/>
-			// 				change : function(oEvent) {
-			// 					// 			var oText = this.byId("T1");
-			// 					var oDTP = oEvent.oSource;
-			// 					var sValue = oEvent.getParameter("value");
-			// 					var bValid = oEvent.getParameter("valid");
-			// 					// 			this._iEvent++;
-			// 					// 			oText.setText("Change - Event " + this._iEvent
-			// 					// 					+ ": DateTimePicker " + oDTP.getId() + ":" + sValue);
+                // 					if (bValid) {
+                // 						oDTP.setValueState(sap.ui.core.ValueState.None);
+                // 						// 						Stimulsoft.Report.Dictionary.synchronize();
+                // 						// 						Stimulsoft.Report.regData();
+                // 						// 						theReport.render();
+                // 						//alert(oDTP.getDateValue().getTime());
+                // 					} else {
+                // 						oDTP.setValueState(sap.ui.core.ValueState.Error);
+                // 					}
+                // 				},
+                // 			}), new sap.m.DateTimePicker("DateTimePicker2", {
+                // 				height : "30px",
+                // 				width : "160px",
+                // 				placeholder : "To ...",
+                // 				//value : new Date(),
+                // 				valueFormat : "MM dd, yyyy hh:mm:ss a",
+                // 				displayFormat : "short",
+                // 				//displayFormatType : "Islamic",
+                // 				//secondaryCalendarType : "Gregorian",
+                // 				//change="handleChange"/>
+                // 				change : function(oEvent) {
+                // 					// 			var oText = this.byId("T1");
+                // 					var oDTP = oEvent.oSource;
+                // 					var sValue = oEvent.getParameter("value");
+                // 					var bValid = oEvent.getParameter("valid");
+                // 					// 			this._iEvent++;
+                // 					// 			oText.setText("Change - Event " + this._iEvent
+                // 					// 					+ ": DateTimePicker " + oDTP.getId() + ":" + sValue);
 
-			// 					if (bValid) {
-			// 						oDTP.setValueState(sap.ui.core.ValueState.None);
-			// 						// 						Stimulsoft.Report.Dictionary.synchronize();
-			// 						// 						Stimulsoft.Report.regData();
-			// 						// 						theReport.render();
-			// 						//alert(oDTP.getDateValue().getTime());
-			// 					} else {
-			// 						oDTP.setValueState(sap.ui.core.ValueState.Error);
-			// 					}
-			// 				},
-			// 			})
-			],
-			rightItems : [
-			// 			 new sap.ui.commons.Button("btn_tbOperations_add", {
-			// 				text : "Add",
-			// 				width : "80px",
-			// 				height : "30px",
-			// 				style : "Default",
-			// 				icon : "sap-icon://add",
-			// 				lite : true,
-			// 				press : function() {
-			// 					StopReasons_add("", "add a StopReason");
-			// 				}
-			// 			}).setEnabled(true), new sap.ui.commons.Button("btn_tbOperations_edit", {
-			// 				text : "Edit",
-			// 				width : "80px",
-			// 				height : "30px",
-			// 				style : "Default",
-			// 				icon : "sap-icon://edit",
-			// 				lite : true,
-			// 				press : function() {
-			// 					StopReasons_edit("", "edit an operation", true);
-			// 				}
-			// 			}), new sap.ui.commons.Button("btn_tbOperations_delete", {
-			// 				text : "Delete",
-			// 				width : "80px",
-			// 				height : "30px",
-			// 				style : "Default",
-			// 				icon : "sap-icon://delete",
-			// 				lite : true,
-			// 				press : function() {
-			// 					StopReasons_edit("", "delete a StopReason", false);
-			// 				}
-			// 			})
+                // 					if (bValid) {
+                // 						oDTP.setValueState(sap.ui.core.ValueState.None);
+                // 						// 						Stimulsoft.Report.Dictionary.synchronize();
+                // 						// 						Stimulsoft.Report.regData();
+                // 						// 						theReport.render();
+                // 						//alert(oDTP.getDateValue().getTime());
+                // 					} else {
+                // 						oDTP.setValueState(sap.ui.core.ValueState.Error);
+                // 					}
+                // 				},
+                // 			})
+            ],
+            rightItems: [
+                // 			 new sap.ui.commons.Button("btn_tbOperations_add", {
+                // 				text : "Add",
+                // 				width : "80px",
+                // 				height : "30px",
+                // 				style : "Default",
+                // 				icon : "sap-icon://add",
+                // 				lite : true,
+                // 				press : function() {
+                // 					StopReasons_add("", "add a StopReason");
+                // 				}
+                // 			}).setEnabled(true), new sap.ui.commons.Button("btn_tbOperations_edit", {
+                // 				text : "Edit",
+                // 				width : "80px",
+                // 				height : "30px",
+                // 				style : "Default",
+                // 				icon : "sap-icon://edit",
+                // 				lite : true,
+                // 				press : function() {
+                // 					StopReasons_edit("", "edit an operation", true);
+                // 				}
+                // 			}), new sap.ui.commons.Button("btn_tbOperations_delete", {
+                // 				text : "Delete",
+                // 				width : "80px",
+                // 				height : "30px",
+                // 				style : "Default",
+                // 				icon : "sap-icon://delete",
+                // 				lite : true,
+                // 				press : function() {
+                // 					StopReasons_edit("", "delete a StopReason", false);
+                // 				}
+                // 			})
 
-			// 			, new sap.ui.commons.MenuButton({
-			// 				height : "30px",
-			// 				width : "40px",
-			// 				//text : "",
-			// 				icon : "sap-icon://menu",
-			// 				lite : true,
-			// 				menu : new sap.ui.unified.Menu({
-			// 					title : "Operation",
-			// 					enabled : true,
-			// 					items : [ new sap.ui.commons.MenuItem("menu_tbOperations_add", {
-			// 						text : "Add",
-			// 						enabled : true,
-			// 					}), new sap.ui.commons.MenuItem("menu_tbOperations_edit", {
-			// 						text : "Edit",
-			// 						enabled : true,
-			// 					}), new sap.ui.commons.MenuItem("menu_tbOperations_delete", {
-			// 						text : "Delete",
-			// 						enabled : true,
-			// 					}) ]
-			// 				}),
-			// 				itemSelected : function(oEvent) {
-			// 					alert("menuOperationMissionitemSelected");
-			// 				}
-			// 			})
-			]
-		}));
-		// 		var str = location.href;
-		// 		mTable.filter(mTable.getColumns()[3], location.href.substring(location.href.indexOf("FloorMaps_Index=") + 16));
-	}
+                // 			, new sap.ui.commons.MenuButton({
+                // 				height : "30px",
+                // 				width : "40px",
+                // 				//text : "",
+                // 				icon : "sap-icon://menu",
+                // 				lite : true,
+                // 				menu : new sap.ui.unified.Menu({
+                // 					title : "Operation",
+                // 					enabled : true,
+                // 					items : [ new sap.ui.commons.MenuItem("menu_tbOperations_add", {
+                // 						text : "Add",
+                // 						enabled : true,
+                // 					}), new sap.ui.commons.MenuItem("menu_tbOperations_edit", {
+                // 						text : "Edit",
+                // 						enabled : true,
+                // 					}), new sap.ui.commons.MenuItem("menu_tbOperations_delete", {
+                // 						text : "Delete",
+                // 						enabled : true,
+                // 					}) ]
+                // 				}),
+                // 				itemSelected : function(oEvent) {
+                // 					alert("menuOperationMissionitemSelected");
+                // 				}
+                // 			})
+            ]
+        }));
+        // 		var str = location.href;
+        // 		mTable.filter(mTable.getColumns()[3], location.href.substring(location.href.indexOf("FloorMaps_Index=") + 16));
+    }
 
-	// ******************************************************************************************************************************************************************
+    // ******************************************************************************************************************************************************************
 
-	$(function() {
-		_userNAME = document.getElementById("user_name").value;
-		var myRoles = document.getElementById("user_roles").value;
-		var role2Access = "OEEM_" + document.getElementById("user_role").value;
-		// alert(role2Access);
-		if (myRoles.indexOf(role2Access) < 0) {
-			window.location.assign("security.irpt");
-			return true;
-		}
+    $(function () {
+        _userNAME = document.getElementById("user_name").value;
+        var myRoles = document.getElementById("user_roles").value;
+        var role2Access = "OEEM_" + document.getElementById("user_role").value;
+        // alert(role2Access);
+        if (!mockServer && myRoles.indexOf(role2Access) < 0) {
+            window.location.assign("security.irpt");
+            return true;
+        }
 
-		var roleString = document.getElementById("user_role").value;
-		var roleArray = roleString.split("_");
-		level2Access = roleArray[0];
-		plant2Access = roleArray[1];
-		new sap.ui.commons.ApplicationHeader({
-			logoSrc : "RTS.png",
-			logoText : " Overall Equipment Effectiveness on SAP MII",
-			displayLogoff : true,
-			userName : _userNAME,
-			displayWelcome : true,
-		}).placeAt("header");
+        var roleString = document.getElementById("user_role").value;
+        var roleArray = roleString.split("_");
+        level2Access = roleArray[0];
+        plant2Access = roleArray[1];
+        new sap.ui.commons.ApplicationHeader({
+            logoSrc: "Common/images/logo.png",
+            logoText: " Overall Equipment Effectiveness Module on SAP MII",
+            displayLogoff: true,
+            userName: _userNAME,
+            displayWelcome: true,
+        }).placeAt("header");
 
-		MenuDef();
-		mTreeLoad();
-		mTree.placeAt("nav");
-		StopReasons_Table();
-		mTable.placeAt("p2");
-		jsonSLoad();
+        MenuDef();
+        mTreeLoad();
+        mTree.placeAt("nav");
+        StopReasons_Table();
+        mTable.placeAt("p2");
+        jsonSLoad();
 
-		// 		xPage = new sap.ui.core.HTML("pages", {
-		// 			content : "<iframe src=\"ReportViewer.html\" style=\"border:none;\" height=\"1300px\" width=\"100%\"></iframe>"
-		// 		});
+        // 		xPage = new sap.ui.core.HTML("pages", {
+        // 			content : "<iframe src=\"ReportViewer.html\" style=\"border:none;\" height=\"1300px\" width=\"100%\"></iframe>"
+        // 		});
 
-		// 		xPage = new sap.ui.core.HTML("pages", {
-		// 			content : "<iframe src=\"DateTimePicker.html\" style=\"border:none;\" height=\"1300px\" width=\"100%\"></iframe>"
-		// 		});
-		// 		xPage.placeAt("p2");
-	});
-	//***********************************************************
-	function jsonSLoad() { // Bind the table rows to this model
-		//load table's data
-		// 		P1 = "SELECT *";
-		// 		P2 = "FROM MESM_FloorMaps";
-		// 		P3 = "ORDER BY idUnitParent";
-		// 		P4 = "";
-		// 		url = "/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/get_Table&Param.1=" + P1 + "&Param.2=" + P2 + "&Param.3=" + P3 + "&Param.4="
-		// 				+ P4 + "&Content-Type=text/xml";
-		//getData(url, parseJsonParent);
+        // 		xPage = new sap.ui.core.HTML("pages", {
+        // 			content : "<iframe src=\"DateTimePicker.html\" style=\"border:none;\" height=\"1300px\" width=\"100%\"></iframe>"
+        // 		});
+        // 		xPage.placeAt("p2");
+    });
+    //***********************************************************
+    function jsonSLoad() { // Bind the table rows to this model
+        //load table's data
+        // 		P1 = "SELECT *";
+        // 		P2 = "FROM MESM_FloorMaps";
+        // 		P3 = "ORDER BY idUnitParent";
+        // 		P4 = "";
+        // 		url = "/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/get_Table&Param.1=" + P1 + "&Param.2=" + P2 + "&Param.3=" + P3 + "&Param.4="
+        // 				+ P4 + "&Content-Type=text/xml";
+        //getData(url, parseJsonParent);
 
-		P1 = "SELECT *";
-		P2 = "FROM OEEM_Data_Collection";
-		P3 = "ORDER BY Timestamp DESC";
-		P4 = "";
-		url = "/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/get_Table&Param.1=" + P1 + "&Param.2=" + P2 + "&Param.3=" + P3 + "&Param.4=" + P4 + "&ts=" + new Date().getTime()
-				+ "&Content-Type=text/xml";
+        P1 = "SELECT *";
+        P2 = "FROM OEEM_Data_Collection";
+        P3 = "ORDER BY Timestamp DESC";
+        P4 = "";
+        var url = "/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/get_Table&Param.1=" + P1 + "&Param.2=" + P2 + "&Param.3=" + P3 + "&Param.4=" + P4 + "&ts=" + new Date().getTime()
+            + "&Content-Type=text/xml";
+        ss(url);
+        if (mockServer) {
+            url = 'mockServer/OEEM_Data_Collection.xml';
+        }
+        getData(url, parseJsonParent);
+        function parseJsonParent(jsondata) {
+            rpJSONModel.setData(jsondata);
+            // 			mTableSelectedIndex = -1;
+            // 			OEEM_Array = [];
 
-		getData(url, parseJsonParent);
-		function parseJsonParent(jsondata) {
-			rpJSONModel.setData(jsondata);
-			// 			mTableSelectedIndex = -1;
-			// 			OEEM_Array = [];
+            //			for (var i = 0; i < jsondata.length; i++) {
+            for (var i = 0; i < jsondata.length; i++) {
+                // 				OEEM_Array.push({
+                // 					recordID : jsondata[i]['recordID'],
+                // 					Timestamp : jsondata[i]['Timestamp'],
+                // 					Description : jsondata[i]['Description'],
+                // 					OEE_Availability : jsondata[i]['OEE_Availability'],
+                // 					OEE_Performance : jsondata[i]['OEE_Performance'],
+                // 					OEE_Quality : jsondata[i]['OEE_Quality'],
+                // 					OEE_OEE : jsondata[i]['OEE_OEE'],
 
-			//			for (var i = 0; i < jsondata.length; i++) {
-			for (var i = 0; i < jsondata.length; i++) {
-				// 				OEEM_Array.push({
-				// 					recordID : jsondata[i]['recordID'],
-				// 					Timestamp : jsondata[i]['Timestamp'],
-				// 					Description : jsondata[i]['Description'],
-				// 					OEE_Availability : jsondata[i]['OEE_Availability'],
-				// 					OEE_Performance : jsondata[i]['OEE_Performance'],
-				// 					OEE_Quality : jsondata[i]['OEE_Quality'],
-				// 					OEE_OEE : jsondata[i]['OEE_OEE'],
+                // 				});
+                //d = new Date(parseInt(jsondata[i]['Timestamp']));
 
-				// 				});
-				//d = new Date(parseInt(jsondata[i]['Timestamp']));
+                jsondata[i]['Timestamp'] = new Date(parseInt(jsondata[i]['Timestamp'])).toLocaleString();
+            }
+            ReprotsLoad();
+        }
 
-				jsondata[i]['Timestamp'] = new Date(parseInt(jsondata[i]['Timestamp'])).toLocaleString();
-			}
-			ReprotsLoad();
-		}
-	}
+
+    }
+    function ss(s) {
+        alert(s);
+    }
+
+    function cc(o) {
+        console.log(o);
+    }
 </script>
 <script>
-	var theReport;
-	var viewer = null;
-	var designer = null;
-	var dataSet = null;
-	var rpDataSet = null;
-	var rpJSONModel = new sap.ui.model.json.JSONModel();
-	// 	rpJSONModel.setData({
-	// 		firstName : "Peter",
-	// 		lastName : "Pan"
-	// 	});
+    var theReport;
+    var viewer = null;
+    var designer = null;
+    var dataSet = null;
+    var rpDataSet = null;
+    var rpJSONModel = new sap.ui.model.json.JSONModel();
+    // 	rpJSONModel.setData({
+    // 		firstName : "Peter",
+    // 		lastName : "Pan"
+    // 	});
 
-	function createViewer() {
-		// Specify necessary options for the viewer
-		var options = new Stimulsoft.Viewer.StiViewerOptions();
-		options.height = "100%";
-		options.appearance.scrollbarsMode = true;
-		options.toolbar.showDesignButton = true;
-		options.appearance.interfaceType = Stimulsoft.Viewer.StiInterfaceType.Mouse;
-		options.appearance.htmlRenderMode = Stimulsoft.Report.Export.StiHtmlExportMode.Table;
+    function createViewer() {
+        // Specify necessary options for the viewer
+        var options = new Stimulsoft.Viewer.StiViewerOptions();
+        options.height = "100%";
+        options.appearance.scrollbarsMode = true;
+        options.toolbar.showDesignButton = true;
+        options.appearance.interfaceType = Stimulsoft.Viewer.StiInterfaceType.Mouse;
+        options.appearance.htmlRenderMode = Stimulsoft.Report.Export.StiHtmlExportMode.Table;
 
-		// Create an instance of the viewer
-		viewer = new Stimulsoft.Viewer.StiViewer(options, "StiViewer", false);
+        // Create an instance of the viewer
+        viewer = new Stimulsoft.Viewer.StiViewer(options, "StiViewer", false);
 
-		// Add the design button event
-		viewer.onDesignReport = function(e) {
-			this.visible = false;
-			if (designer == null) {
-				createDesigner(e);
-			} else {
-				designer.visible = true;
-				designer.report = e.report;
-				// 				ga('set', {
-				// 					page : '/designer_' + designer.report.reportName,
-				// 					title : 'Designer ' + designer.report.reportName
-				// 				});
-				// 				ga('send', 'pageview');
-			}
-		};
-		viewer.renderHtml("viewerContent");
-	}
+        // Add the design button event
+        viewer.onDesignReport = function (e) {
+            this.visible = false;
+            if (designer == null) {
+                createDesigner(e);
+            } else {
+                designer.visible = true;
+                designer.report = e.report;
+                // 				ga('set', {
+                // 					page : '/designer_' + designer.report.reportName,
+                // 					title : 'Designer ' + designer.report.reportName
+                // 				});
+                // 				ga('send', 'pageview');
+            }
+        };
+        viewer.renderHtml("viewerContent");
+    }
 
-	function createDesigner(e) {
-		// 		centerWheel(true);
-		// 		zip
-		// 				.installJS(
-		// 						"designer.zip",
-		// 						[ "stimulsoft.designer.js" ],
-		// 						function() {
-		// 		hideWhell();
-		var options = new Stimulsoft.Designer.StiDesignerOptions();
-		options.appearance.fullScreenMode = true;
-		options.appearance.interfaceType = Stimulsoft.Designer.StiInterfaceType.Mouse;
-		options.appearance.htmlRenderMode = Stimulsoft.Report.Export.StiHtmlExportMode.Table;
+    function createDesigner(e) {
+        // 		centerWheel(true);
+        // 		zip
+        // 				.installJS(
+        // 						"designer.zip",
+        // 						[ "stimulsoft.designer.js" ],
+        // 						function() {
+        // 		hideWhell();
+        var options = new Stimulsoft.Designer.StiDesignerOptions();
+        options.appearance.fullScreenMode = true;
+        options.appearance.interfaceType = Stimulsoft.Designer.StiInterfaceType.Mouse;
+        options.appearance.htmlRenderMode = Stimulsoft.Report.Export.StiHtmlExportMode.Table;
 
-		// Create an instance of the designer
-		designer = new Stimulsoft.Designer.StiDesigner(options, "StiDesigner", false);
+        // Create an instance of the designer
+        designer = new Stimulsoft.Designer.StiDesigner(options, "StiDesigner", false);
 
-		// Add the exit menu item event
-		designer.onExit = function(e) {
-			this.visible = false;
-			viewer.visible = true;
+        // Add the exit menu item event
+        designer.onExit = function (e) {
+            this.visible = false;
+            viewer.visible = true;
 
-		}
-		designer.renderHtml("designerContent");
-		designer.visible = true;
-		designer.report = e.report;
-		// 		ga('set', {
-		// 			page : '/designer_' + designer.report.reportName,
-		// 			title : 'Designer ' + designer.report.reportName
-		// 		});
-		// 		ga('send', 'pageview');
-		// 						});
-	}
+        }
+        designer.renderHtml("designerContent");
+        designer.visible = true;
+        designer.report = e.report;
+        // 		ga('set', {
+        // 			page : '/designer_' + designer.report.reportName,
+        // 			title : 'Designer ' + designer.report.reportName
+        // 		});
+        // 		ga('send', 'pageview');
+        // 						});
+    }
 
-	function setReport(reportObject) {
-		// Forcibly show process indicator
-		viewer.showProcessIndicator();
+    function setReport(reportObject) {
+        // Forcibly show process indicator
+        viewer.showProcessIndicator();
 
-		// Timeout need for immediate display loading report indicator
-		setTimeout(function() {
-			// Create a new report instance
-			theReport = new Stimulsoft.Report.StiReport();
-			// Load reports from JSON object
-			// 			report.loadFile("Reports/" + reportObject.id + ".mrt");
-			theReport.loadFile("Reports/" + reportObject + ".mrt");
-			// Remove all connections from the report template
-			theReport.dictionary.databases.clear();
-			// Register DataSet object
-			theReport.regData("DEMO", "DEMO", dataSet);
-			theReport.regData("rpDataSource", "rpDataSource", rpDataSet);
+        // Timeout need for immediate display loading report indicator
+        setTimeout(function () {
+            // Create a new report instance
+            theReport = new Stimulsoft.Report.StiReport();
+            // Load reports from JSON object
+            // 			report.loadFile("Reports/" + reportObject.id + ".mrt");
+            theReport.loadFile("stimulsoft/Reports/" + reportObject + ".mrt");
+            // Remove all connections from the report template
+            theReport.dictionary.databases.clear();
+            // Register DataSet object
+            theReport.regData("DEMO", "DEMO", dataSet);
+            theReport.regData("rpDataSource", "rpDataSource", rpDataSet);
 
-			// Assign the report to the viewer
-			viewer.report = theReport;
+            // Assign the report to the viewer
+            viewer.report = theReport;
 
-			// 			ga('set', {
-			// 				page : '/viewer_' + viewer.getReportFileName(),
-			// 				title : 'Viewer ' + viewer.getReportFileName()
-			// 			});
-			// 			ga('send', 'pageview');
-		}, 10000);
-	}
+            // 			ga('set', {
+            // 				page : '/viewer_' + viewer.getReportFileName(),
+            // 				title : 'Viewer ' + viewer.getReportFileName()
+            // 			});
+            // 			ga('send', 'pageview');
+        }, 10000);
+    }
 
-	// Set report button style
-	function setReportButton(button) {
-		for ( var reportName in reportsCollection) {
-			var reportButton = document.getElementById(reportName);
-			reportButton.isSelected = reportButton == button;
-			reportButton.className = reportButton.isSelected ? "ReportButton Selected" : "ReportButton";
-		}
-	}
+    // Set report button style
+    function setReportButton(button) {
+        for (var reportName in reportsCollection) {
+            var reportButton = document.getElementById(reportName);
+            reportButton.isSelected = reportButton == button;
+            reportButton.className = reportButton.isSelected ? "ReportButton Selected" : "ReportButton";
+        }
+    }
 
-	function ReprotsLoad() {
-		// 		var js = {};
-		window.addEventListener("resize", function(event) {
-			centerWheel(false);
-		});
-		// 		centerWheel(true);
-		// 		zip.installJS("lib.zip", [ "stimulsoft.reports.js",
-		// 				"stimulsoft.viewer.js", "demo.js" ], function() {
-		// 			hideWhell();
-		showViewer();
-		// 		});
-	}
+    function ReprotsLoad() {
+        // 		var js = {};
+        window.addEventListener("resize", function (event) {
+            centerWheel(false);
+        });
+        // 		centerWheel(true);
+        // 		zip.installJS("lib.zip", [ "stimulsoft.reports.js",
+        // 				"stimulsoft.viewer.js", "demo.js" ], function() {
+        // 			hideWhell();
+        showViewer();
+        // 		});
+    }
 
-	// Load first report after the page is loaded
-	function showViewer() {
-		Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/ar.xml", false, "Arabic");
-		Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/be.xml", false, "Belarusian");
-		Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/bg.xml", false, "Bulgarian");
-		Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/ca-ES.xml", false, "Catalan");
-		Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/cs.xml", false, "Czech");
-		Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/de.xml", false, "Deutsch");
-		Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/el-GR.xml", false, "Greek");
-		Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/es.xml", false, "Spanish");
-		Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/eu-ES.xml", false, "Basque");
-		Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/fa.xml", false, "Farsi");
-		Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/fr.xml", false, "French");
-		Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/gl-ES.xml", false, "Galician");
-		Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/hr.xml", false, "Croatian");
-		Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/hu.xml", false, "Hungarian");
-		Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/id.xml", false, "Indonesian");
-		Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/it.xml", false, "Italian");
-		Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/ka.xml", false, "Georgian");
-		Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/Lt-sr-SP.xml", false, "Serbian (Latin)");
-		Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/lt.xml", false, "Lithuanian");
-		Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/nb-NO.xml", false, "Norwegian (Bokmål)");
-		Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/nl.xml", false, "Dutch");
-		Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/pl.xml", false, "Polish");
-		Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/pt-BR.xml", false, "Portuguese (Brazil)");
-		Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/ro.xml", false, "Romanian");
-		Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/ru.xml", false, "Russian");
-		Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/sk.xml", false, "Slovak");
-		Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/sv.xml", false, "Swedish");
-		Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/tr.xml", false, "Turkish");
-		Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/uk.xml", false, "Ukrainian");
-		Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/zh-CHS.xml", false, "Chinese (Simplified)");
-		Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/zh-CHT.xml", false, "Chinese (Traditional)");
+    // Load first report after the page is loaded
+    function showViewer() {
+        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/ar.xml", false, "Arabic");
+        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/be.xml", false, "Belarusian");
+        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/bg.xml", false, "Bulgarian");
+        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/ca-ES.xml", false, "Catalan");
+        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/cs.xml", false, "Czech");
+        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/de.xml", false, "Deutsch");
+        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/el-GR.xml", false, "Greek");
+        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/es.xml", false, "Spanish");
+        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/eu-ES.xml", false, "Basque");
+        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/fa.xml", false, "Farsi");
+        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/fr.xml", false, "French");
+        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/gl-ES.xml", false, "Galician");
+        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/hr.xml", false, "Croatian");
+        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/hu.xml", false, "Hungarian");
+        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/id.xml", false, "Indonesian");
+        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/it.xml", false, "Italian");
+        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/ka.xml", false, "Georgian");
+        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/Lt-sr-SP.xml", false, "Serbian (Latin)");
+        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/lt.xml", false, "Lithuanian");
+        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/nb-NO.xml", false, "Norwegian (BokmÃ¥l)");
+        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/nl.xml", false, "Dutch");
+        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/pl.xml", false, "Polish");
+        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/pt-BR.xml", false, "Portuguese (Brazil)");
+        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/ro.xml", false, "Romanian");
+        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/ru.xml", false, "Russian");
+        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/sk.xml", false, "Slovak");
+        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/sv.xml", false, "Swedish");
+        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/tr.xml", false, "Turkish");
+        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/uk.xml", false, "Ukrainian");
+        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/zh-CHS.xml", false, "Chinese (Simplified)");
+        Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/zh-CHT.xml", false, "Chinese (Traditional)");
 
-		// Create new DataSet object
-		dataSet = new Stimulsoft.System.Data.DataSet("DEMO");
-		rpDataSet = new Stimulsoft.System.Data.DataSet("rpDataSource");
-		// Load JSON data file from specified URL to the DataSet object
-		dataSet.readJson(demoData);
-		rpDataSet.readJson(rpJSONModel.getJSON());
+        // Create new DataSet object
+        dataSet = new Stimulsoft.System.Data.DataSet("DEMO");
+        rpDataSet = new Stimulsoft.System.Data.DataSet("rpDataSource");
+        // Load JSON data file from specified URL to the DataSet object
+        dataSet.readJson(demoData);
+        rpDataSet.readJson(rpJSONModel.getJSON());
 
-		createViewer();
-		//selectedButton = document.getElementById("SimpleList");
-		// 		onButtonClick(selectedButton, SimpleList);
-		setReport('report_0');
-	}
+        createViewer();
+        //selectedButton = document.getElementById("SimpleList");
+        // 		onButtonClick(selectedButton, SimpleList);
+        setReport('report_0');
+    }
 
-	function centerWheel(show) {
-		//document.getElementById("load_wheel").style.left = (document.getElementById("stLeftPanel").offsetWidth +
-		//			(window.innerWidth - document.getElementById("stLeftPanel").offsetWidth) / 2 - 36) + "px";
-		document.getElementById("load_wheel").style.left = (window.innerWidth / 2 - 36) + "px";
-		if (show)
-			showWhell();
-	}
+    function centerWheel(show) {
+        //document.getElementById("load_wheel").style.left = (document.getElementById("stLeftPanel").offsetWidth +
+        //			(window.innerWidth - document.getElementById("stLeftPanel").offsetWidth) / 2 - 36) + "px";
+        document.getElementById("load_wheel").style.left = (window.innerWidth / 2 - 36) + "px";
+        if (show)
+            showWhell();
+    }
 
-	function showWhell() {
-		document.getElementById("load_wheel").style.display = "";
-	}
+    function showWhell() {
+        document.getElementById("load_wheel").style.display = "";
+    }
 
-	function hideWhell() {
-		document.getElementById("load_wheel").style.display = "none";
-	}
+    function hideWhell() {
+        document.getElementById("load_wheel").style.display = "none";
+    }
 
-	var reportsCollection = {
-		"SimpleList" : "Simple List",
-		"OnlineStoreSales" : "Online Store Sales",
-		"SiteStatistics" : "Site Statistics",
-		"UsersAppleIpad" : "Users Apple iPad",
-		"TwoSimpleLists" : "Two Simple Lists",
-		"HighlightCondition" : "Highlight Condition",
-		"Shapes" : "Shapes",
-		"Images" : "Images",
-		"Indicators" : "Indicators",
-		"BarCodes" : "Bar-Codes",
-		"MasterDetail" : "Master Detail",
-		"ParametersHighlightCondition" : "Parameters Highlight Condition",
-		"ParametersSelectingCountry" : "Parameters Selecting Country"
-	};
+    var reportsCollection = {
+        "SimpleList": "Simple List",
+        "OnlineStoreSales": "Online Store Sales",
+        "SiteStatistics": "Site Statistics",
+        "UsersAppleIpad": "Users Apple iPad",
+        "TwoSimpleLists": "Two Simple Lists",
+        "HighlightCondition": "Highlight Condition",
+        "Shapes": "Shapes",
+        "Images": "Images",
+        "Indicators": "Indicators",
+        "BarCodes": "Bar-Codes",
+        "MasterDetail": "Master Detail",
+        "ParametersHighlightCondition": "Parameters Highlight Condition",
+        "ParametersSelectingCountry": "Parameters Selecting Country"
+    };
 </script>
 <body>
-	<!-- 	<script src="highmaps.js"></script> -->
-	<!-- 	<script src="data.js"></script> -->
-	<!-- 	<script src="drilldown.js"></script> -->
-	<!-- 	<script src="ShopFloor.js"></script> -->
+<!-- 	<script src="highmaps.js"></script> -->
+<!-- 	<script src="data.js"></script> -->
+<!-- 	<script src="drilldown.js"></script> -->
+<!-- 	<script src="ShopFloor.js"></script> -->
 
 
-	<input id="user_roles" type="hidden" value="{IllumLoginRoles}"
-		style="display: block; width: 1000px;" readonly />
-	<input id="user_role" type="hidden" value="{ROLE}"
-		style="display: block; width: 1000px;" readonly />
-	<input id="user_name" type="hidden" value="{IllumLoginName}"
-		style="display: block; width: 1000px;" readonly />
-	<input id="user_height" type="hidden" value="{HEIGHT}"
-		style="display: block; width: 100px;" readonly />
-	<input id="user_address" type="hidden" value="{Machine}"
-		style="display: block; width: 1000px;" readonly />
+<input id="user_roles" type="hidden" value="{IllumLoginRoles}"
+       style="display: block; width: 1000px;" readonly/>
+<input id="user_role" type="hidden" value="{ROLE}"
+       style="display: block; width: 1000px;" readonly/>
+<input id="user_name" type="hidden" value="{IllumLoginName}"
+       style="display: block; width: 1000px;" readonly/>
+<input id="user_height" type="hidden" value="{HEIGHT}"
+       style="display: block; width: 100px;" readonly/>
+<input id="user_address" type="hidden" value="{Machine}"
+       style="display: block; width: 1000px;" readonly/>
 
-	<div id="container" class="container">
-		<header id="header"></header>
-		<menu id="menu"></menu>
-		<nav id="nav"></nav>
-		<article id="article">
-			<div id="p1">
-				<div class="js_loader" id="load_wheel"
-					style="position: absolute; z-index: 70000; top: 254px; display: none"></div>
-				<div id="designerContent"></div>
-				<table class="Main">
-					<tr>
-						<td height="800" id="viewerContent"></td>
-					</tr>
-				</table>
+<div id="container" class="container">
+    <header id="header"></header>
+    <menu id="menu"></menu>
+    <nav id="nav"></nav>
+    <article id="article">
+        <div id="p1">
+            <div class="js_loader" id="load_wheel"
+                 style="position: absolute; z-index: 70000; top: 254px; display: none"></div>
+            <div id="designerContent"></div>
+            <table class="Main">
+                <tr>
+                    <td height="800" id="viewerContent"></td>
+                </tr>
+            </table>
 
-			</div>
-			<div id="p2"></div>
-		</article>
-		<footer id="footer"></footer>
-	</div>
+        </div>
+        <div id="p2"></div>
+    </article>
+    <footer id="footer"></footer>
+</div>
 
 </body>
 <style>
-div.container {
-	/* 	border: 1px solid gray; */
-	/* 	margin: 0 auto; */
-	margin: 0em auto;
-	min-width: 1000px;
-	width: 100%;
-	/* 	margin-top: 100px; */
-	/* 	margin-bottom: 100px; */
-	/* 	margin-right: 100px; */
-	/* 	margin-left: 100px; */
-	position: relative;
-}
+    div.container {
+        /* 	border: 1px solid gray; */
+        /* 	margin: 0 auto; */
+        margin: 0em auto;
+        min-width: 1000px;
+        width: 100%;
+        /* 	margin-top: 100px; */
+        /* 	margin-bottom: 100px; */
+        /* 	margin-right: 100px; */
+        /* 	margin-left: 100px; */
+        position: relative;
+    }
 
-header {
-	width: 100%;
-}
+    header {
+        width: 100%;
+    }
 
-nav {
-	float: left;
-	/* 	min-width: 100px; */
-	width: 20%;
-	margin: 0px 0px 0px 10%;
-	/* 	padding: 1em; */
-}
+    nav {
+        float: left;
+        /* 	min-width: 100px; */
+        width: 20%;
+        margin: 0px 0px 0px 10%;
+        /* 	padding: 1em; */
+    }
 
-nav ul {
-	list-style-type: none;
-	padding: 0;
-}
+    nav ul {
+        list-style-type: none;
+        padding: 0;
+    }
 
-nav ul a {
-	text-decoration: none;
-}
+    nav ul a {
+        text-decoration: none;
+    }
 
-article {
-	margin-left: 35%;
-	width: 55%;
-	/* 	height: 600px; */
-	/* 	border-left: 1px solid gray; */
-	/* 	padding: 0em; */
-	/* 	margin: 0px 10%; */
-	/* 	overflow: hidden; */
-}
+    article {
+        margin-left: 35%;
+        width: 55%;
+        /* 	height: 600px; */
+        /* 	border-left: 1px solid gray; */
+        /* 	padding: 0em; */
+        /* 	margin: 0px 10%; */
+        /* 	overflow: hidden; */
+    }
 
-footer {
-	/* 	margin-left: 30%; */
-	/* 	border-left: 1px solid gray; */
-	padding: 1em;
-	/* 	overflow: hidden; */
-}
+    footer {
+        /* 	margin-left: 30%; */
+        /* 	border-left: 1px solid gray; */
+        padding: 1em;
+        /* 	overflow: hidden; */
+    }
 </style>
-
 
 
 </html>
