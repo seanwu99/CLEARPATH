@@ -13,271 +13,30 @@
     <script src="stimulsoft/stimulsoft.viewer.js" type="text/javascript"></script>
     <script src="stimulsoft/stimulsoft.designer.js" type="text/javascript"></script>
     <script src="stimulsoft/Reports/demo.js" type="text/javascript"></script>
-    <link href="stimulsoft/css/demo.css" rel="stylesheet">
-    <link href="stimulsoft/css/stimulsoft.designer.office2013.whiteteal.css" rel="stylesheet">
-    <link href="stimulsoft/css/stimulsoft.viewer.office2013.whiteteal.css" rel="stylesheet">
     <script src="rts.oeem.ApplicationHeader.js"></script>
     <script src="rts.oeem.MenuBar.js"></script>
     <script type="text/javascript" src="Common/js/default.js"></script>
-
+    <link href="stimulsoft/css/demo.css" rel="stylesheet">
+    <link href="stimulsoft/css/stimulsoft.designer.office2013.whiteteal.css" rel="stylesheet">
+    <link href="stimulsoft/css/stimulsoft.viewer.office2013.whiteteal.css" rel="stylesheet">
 
     <script>
-        var theReport;
-        var viewer = null;
-        var designer = null;
-        var dataSet = null;
-        var rpDataSet = null;
-        var rpJSONModel = new sap.ui.model.json.JSONModel();
+        var reportOne;
+        var reportViewer = null;
+        var reportDesigner = null;
+        var reportDataSet = null;
+        var JSONModelForReport = new sap.ui.model.json.JSONModel();
+//        var dataSetForReport = null;
 
         var mockServer = true;
         var USERNAME = "unknow";
         // ******************************************************************************************************************************************************************
         // 	function init() {
         // 	}
-        // ******************************************************************************************************************************************************************
-        var mModelXML = new sap.ui.model.xml.XMLModel();
-        var mTable = new sap.ui.table.Table({
-            //visibleRowCount : 12,
-            //firstVisibleRow : 3,
-            //visibleRowCountMode : sap.ui.table.VisibleRowCountMode.Interactive,
-            firstVisibleRow: 0,
-            selectionBehavior: sap.ui.table.SelectionBehavior.Row,
-            selectionMode: sap.ui.table.SelectionMode.Single,
-            editable: false,
-            enableColumnFreeze: false,
-            width: "100%",
-            columnHeaderVisible: true,
-            enableCustomFilter: false,
-            //navigationMode : sap.ui.table.NavigationMode.Paginator
-        });
-
-        var StopReasons_Data;
-        var StopReasons_selectedIndex;
 
 
-        function StopReasons_Table() { // Bind the table rows to this model
-            //load table's data
-            P1 = "SELECT *";
-            P2 = "FROM MESM_StopReasons";
-            P3 = "ORDER BY sortOrder";
-            P4 = "";
-            var url = "/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/get_Table&Param.1=" + P1 + "&Param.2=" + P2 + "&Param.3=" + P3 + "&Param.4=" + P4 + "&Content-Type=text/xml";
-            if (mockServer) {
-                url = 'mockServer/MESM_StopReasons.xml'
-            }
-            //        alert(url);
-            getData(url, parseJsonParent);
-
-            function parseJsonParent(jsondata) {
-                //ss(jsondata.length);
-                StopReasons_selectedIndex = -1;
-                StopReasons_Data = [];
-                for (var i = 0; i < jsondata.length; i++) {
-                    StopReasons_Data.push({
-                        recordID: jsondata[i]['recordID'],
-                        reasonName: jsondata[i]['reasonName'],
-                        reasonDescr: jsondata[i]['reasonDescr'],
-                        reasonActive: jsondata[i]['reasonActive'],
-                        sortOrder: jsondata[i]['sortOrder'],
-                        catagory: jsondata[i]['catagory'],
-                        recordID_FloorMaps: jsondata[i]['recordID_FloorMaps'],
-                        unitName_FloorMaps: jsondata[i]['unitName_FloorMaps'],
-                        CreatedBy: jsondata[i]['CreatedBy'],
-                        CreatedOn: jsondata[i]['CreatedOn']
-                    });
-                }
-                //   alert(StopReasons_Data.length);
-            }
-
-            //var timestamp = new Date().getTime();
-            // 		url = "/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/get_Table&Param.1=" + P1 + "&Param.2=" + P2 + "&Param.3=" + P3 + "&ts="
-            // 				+ (new Date().getTime()) + "&Content-Type=text/xml";
-            //alert(url);
-            //url = "mock/Get_Missions.xml"; //Mock request
-
-            mModelXML.loadData(url, "", false);
-//            alert(mModelXML.getXML());
-            //		createColumns
-            mTable.setModel(mModelXML);
-            mTable.bindRows("/Rowset/Row");
-            mTable.setVisibleRowCount(7);
-            mTable.addColumn(new sap.ui.table.Column({
-                width: "150px",
-                label: new sap.ui.commons.Label({
-                    text: " Name"
-                }),
-                template: new sap.ui.commons.TextView().bindProperty("text", "reasonName"),
-                sortProperty: "reasonName",
-                filterProperty: "reasonName",
-                resizable: true
-            }));
-            mTable.addColumn(new sap.ui.table.Column({
-                width: "auto",
-                label: new sap.ui.commons.Label({
-                    text: " Description"
-                }),
-                template: new sap.ui.commons.TextView().bindProperty("text", "reasonDescr"),
-                sortProperty: "reasonDescr",
-                filterProperty: "reasonDescr",
-                resizable: true
-            }));
-            mTable.addColumn(new sap.ui.table.Column({
-                width: "150px",
-                label: new sap.ui.commons.Label({
-                    text: " unitName"
-                }),
-                template: new sap.ui.commons.TextView().bindProperty("text", "unitName_FloorMaps"),
-                sortProperty: "unitName_FloorMaps",
-                filterProperty: "unitName_FloorMaps",
-                resizable: true
-            }));
-//        mTable.addColumn(new sap.ui.table.Column({
-//            width : "80px",
-//            label : new sap.ui.commons.Label({
-//                text : " unitID"
-//            }),
-//            template : new sap.ui.commons.TextView().bindProperty("text", "recordID_FloorMaps"),
-//            sortProperty : "recordID_FloorMaps",
-//            filterProperty : "recordID_FloorMaps",
-//            resizable : true,
-//        }));
-            mTable.addColumn(new sap.ui.table.Column({
-                width: "150px",
-                label: new sap.ui.commons.Label({
-                    text: "Catagory"
-                }),
-                template: new sap.ui.commons.TextView().bindProperty("text", "catagory"),
-                sortProperty: "catagory",
-                filterProperty: "catagory",
-                resizable: true
-            }));
-
-            // 		mTable.addColumn(new sap.ui.table.Column({
-            // 			width : "80px",
-            // 			label : new sap.ui.commons.Label({
-            // 				text : "ModifiedBy"
-            // 			}),
-            // 			template : new sap.ui.commons.TextView().bindProperty("text", "ModifiedBy"),
-            // 			sortProperty : "ModifiedBy",
-            // 			filterProperty : "ModifiedBy",
-            // 			resizable : true,
-            // 		}));
-            // 		mTable.addColumn(new sap.ui.table.Column({
-            // 			width : "150px",
-            // 			label : new sap.ui.commons.Label({
-            // 				text : "ModifiedOn"
-            // 			}),
-            // 			template : new sap.ui.commons.TextView().bindProperty("text", "ModifiedOn"),
-            // 			sortProperty : "ModifiedOn",
-            // 			filterProperty : "ModifiedOn",
-            // 			resizable : true,
-            // 		}));
-            mTable.addColumn(new sap.ui.table.Column({
-                width: "80px",
-                label: new sap.ui.commons.Label({
-                    text: " CreatedBy"
-                }),
-                template: new sap.ui.commons.TextView().bindProperty("text", "CreatedBy"),
-                sortProperty: "CreatedBy",
-                filterProperty: "CreatedBy",
-                resizable: true
-            }));
-
-            mTable.addColumn(new sap.ui.table.Column({
-                width: "150px",
-                label: new sap.ui.commons.Label({
-                    text: "CreatedOn"
-                }),
-                template: new sap.ui.commons.TextView().bindProperty("text", "CreatedOn"),
-                sortProperty: "CreatedOn",
-                filterProperty: "CreatedOn",
-                resizable: true
-            }));
-            mTable.addColumn(new sap.ui.table.Column({
-                width: "60px",
-                label: new sap.ui.commons.Label({
-                    text: "Active"
-                }),
-                template: new sap.ui.commons.CheckBox().bindProperty("checked", "reasonActive", function (s) {
-                    return s == "1";
-                }),
-                resizable: true,
-                hAlign: "Center"
-            }));
-
-            //		sp = document.getElementById("OEEM_content").clientWidth - 200 - 190;
-            mTable.setToolbar(new sap.ui.commons.Toolbar({
-                height: "50px",
-                items: [new sap.m.Label({
-                    desig: sap.m.LabelDesign.Bold,
-                    textAlign: sap.ui.core.TextAlign.Center,
-                    text: "DOWNTIME REASON DEFs: LINE(A) - WORKCENTER(B) - EQUIPMENT(C)",
-                    // 				width : "" + (document.getElementById("OEEM_content").clientWidth - 200 - 400) + "px",
-                    height: "30px"
-                })],
-                rightItems: [new sap.ui.commons.Button("btn_tbOperations_add", {
-                    text: "Add",
-                    width: "80px",
-                    height: "30px",
-                    style: "Default",
-                    icon: "sap-icon://add",
-                    lite: true,
-                    press: function () {
-                        StopReasons_add("", "add a StopReason");
-                    }
-                }).setEnabled(true), new sap.ui.commons.Button("btn_tbOperations_edit", {
-                    text: "Edit",
-                    width: "80px",
-                    height: "30px",
-                    style: "Default",
-                    icon: "sap-icon://edit",
-                    lite: true,
-                    press: function () {
-                        StopReasons_edit("", "edit an operation", true);
-                    }
-                }), new sap.ui.commons.Button("btn_tbOperations_delete", {
-                    text: "Delete",
-                    width: "80px",
-                    height: "30px",
-                    style: "Default",
-                    icon: "sap-icon://delete",
-                    lite: true,
-                    press: function () {
-                        StopReasons_edit("", "delete a StopReason", false);
-                    }
-                })
-
-                    // 			, new sap.ui.commons.MenuButton({
-                    // 				height : "30px",
-                    // 				width : "40px",
-                    // 				//text : "",
-                    // 				icon : "sap-icon://menu",
-                    // 				lite : true,
-                    // 				menu : new sap.ui.unified.Menu({
-                    // 					title : "Operation",
-                    // 					enabled : true,
-                    // 					items : [ new sap.ui.commons.MenuItem("menu_tbOperations_add", {
-                    // 						text : "Add",
-                    // 						enabled : true,
-                    // 					}), new sap.ui.commons.MenuItem("menu_tbOperations_edit", {
-                    // 						text : "Edit",
-                    // 						enabled : true,
-                    // 					}), new sap.ui.commons.MenuItem("menu_tbOperations_delete", {
-                    // 						text : "Delete",
-                    // 						enabled : true,
-                    // 					}) ]
-                    // 				}),
-                    // 				itemSelected : function(oEvent) {
-                    // 					alert("menuOperationMissionitemSelected");
-                    // 				}
-                    // 			})
-                ]
-            }));
-            // 		var str = location.href;
-            // 		mTable.filter(mTable.getColumns()[3], location.href.substring(location.href.indexOf("FloorMaps_Index=") + 16));
-        }
-
-        // ******************************************************************************************************************************************************************
+//        var StopReasons_Data;
+//        var StopReasons_selectedIndex;
 
         $(function () {
             USERNAME = document.getElementById("user_name").value;
@@ -293,15 +52,6 @@
             var roleArray = roleString.split("_");
             level2Access = roleArray[0];
             plant2Access = roleArray[1];
-//        new sap.ui.commons.ApplicationHeader({
-//            logoSrc: "Common/images/logo.png",
-//            logoText: " Overall Equipment Effectiveness Module on SAP MII",
-//            displayLogoff: true,
-//            userName: _userNAME,
-//            displayWelcome: true,
-//        }).placeAt("header");
-//
-//        MenuDef();
             var appHeader = new ApplicationHeader({
                 user: USERNAME,
                 elm: 'header',
@@ -314,20 +64,253 @@
             });
             floorTreeInit();
 //        mTree.placeAt("nav");
-            StopReasons_Table();
-            mTable.placeAt("p2");
-            jsonSLoad();
-
-            // 		xPage = new sap.ui.core.HTML("pages", {
-            // 			content : "<iframe src=\"ReportViewer.html\" style=\"border:none;\" height=\"1300px\" width=\"100%\"></iframe>"
-            // 		});
-
-            // 		xPage = new sap.ui.core.HTML("pages", {
-            // 			content : "<iframe src=\"DateTimePicker.html\" style=\"border:none;\" height=\"1300px\" width=\"100%\"></iframe>"
-            // 		});
-            // 		xPage.placeAt("p2");
+//            StopReasons_Table();
+//            mTable.placeAt("p2");
+            jsonLoad();
         });
         // ******************************************************************************************************************************************************************
+
+        // ******************************************************************************************************************************************************************
+
+
+//        function StopReasons_Table() { // Bind the table rows to this model
+//            //load table's data
+//            P1 = "SELECT *";
+//            P2 = "FROM MESM_StopReasons";
+//            P3 = "ORDER BY sortOrder";
+//            P4 = "";
+//            var url = "/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/get_Table&Param.1=" + P1 + "&Param.2=" + P2 + "&Param.3=" + P3 + "&Param.4=" + P4 + "&Content-Type=text/xml";
+//            if (mockServer) {
+//                url = 'mockServer/MESM_StopReasons.xml'
+//            }
+//            //        alert(url);
+//            getData(url, parseJsonParent);
+//
+//            function parseJsonParent(jsondata) {
+//                //ss(jsondata.length);
+////                StopReasons_selectedIndex = -1;
+////                StopReasons_Data = [];
+////                for (var i = 0; i < jsondata.length; i++) {
+////                    StopReasons_Data.push({
+////                        recordID: jsondata[i]['recordID'],
+////                        reasonName: jsondata[i]['reasonName'],
+////                        reasonDescr: jsondata[i]['reasonDescr'],
+////                        reasonActive: jsondata[i]['reasonActive'],
+////                        sortOrder: jsondata[i]['sortOrder'],
+////                        catagory: jsondata[i]['catagory'],
+////                        recordID_FloorMaps: jsondata[i]['recordID_FloorMaps'],
+////                        unitName_FloorMaps: jsondata[i]['unitName_FloorMaps'],
+////                        CreatedBy: jsondata[i]['CreatedBy'],
+////                        CreatedOn: jsondata[i]['CreatedOn']
+////                    });
+////                }
+//                //   alert(StopReasons_Data.length);
+//            }
+//
+//            //var timestamp = new Date().getTime();
+//            // 		url = "/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/get_Table&Param.1=" + P1 + "&Param.2=" + P2 + "&Param.3=" + P3 + "&ts="
+//            // 				+ (new Date().getTime()) + "&Content-Type=text/xml";
+//            //alert(url);
+//            //url = "mock/Get_Missions.xml"; //Mock request
+//            var mModelXML = new sap.ui.model.xml.XMLModel();
+//            mModelXML.loadData(url, "", false);
+////            alert(mModelXML.getXML());
+//            //		createColumns
+//            var mTable = new sap.ui.table.Table({
+//                //visibleRowCount : 12,
+//                //firstVisibleRow : 3,
+//                //visibleRowCountMode : sap.ui.table.VisibleRowCountMode.Interactive,
+//                firstVisibleRow: 0,
+//                selectionBehavior: sap.ui.table.SelectionBehavior.Row,
+//                selectionMode: sap.ui.table.SelectionMode.Single,
+//                editable: false,
+//                enableColumnFreeze: false,
+//                width: "100%",
+//                columnHeaderVisible: true,
+//                enableCustomFilter: false,
+//                //navigationMode : sap.ui.table.NavigationMode.Paginator
+//            });
+//            mTable.setModel(mModelXML);
+//            mTable.bindRows("/Rowset/Row");
+//            mTable.setVisibleRowCount(7);
+//            mTable.addColumn(new sap.ui.table.Column({
+//                width: "150px",
+//                label: new sap.ui.commons.Label({
+//                    text: " Name"
+//                }),
+//                template: new sap.ui.commons.TextView().bindProperty("text", "reasonName"),
+//                sortProperty: "reasonName",
+//                filterProperty: "reasonName",
+//                resizable: true
+//            }));
+//            mTable.addColumn(new sap.ui.table.Column({
+//                width: "auto",
+//                label: new sap.ui.commons.Label({
+//                    text: " Description"
+//                }),
+//                template: new sap.ui.commons.TextView().bindProperty("text", "reasonDescr"),
+//                sortProperty: "reasonDescr",
+//                filterProperty: "reasonDescr",
+//                resizable: true
+//            }));
+//            mTable.addColumn(new sap.ui.table.Column({
+//                width: "150px",
+//                label: new sap.ui.commons.Label({
+//                    text: " unitName"
+//                }),
+//                template: new sap.ui.commons.TextView().bindProperty("text", "unitName_FloorMaps"),
+//                sortProperty: "unitName_FloorMaps",
+//                filterProperty: "unitName_FloorMaps",
+//                resizable: true
+//            }));
+////        mTable.addColumn(new sap.ui.table.Column({
+////            width : "80px",
+////            label : new sap.ui.commons.Label({
+////                text : " unitID"
+////            }),
+////            template : new sap.ui.commons.TextView().bindProperty("text", "recordID_FloorMaps"),
+////            sortProperty : "recordID_FloorMaps",
+////            filterProperty : "recordID_FloorMaps",
+////            resizable : true,
+////        }));
+//            mTable.addColumn(new sap.ui.table.Column({
+//                width: "150px",
+//                label: new sap.ui.commons.Label({
+//                    text: "Catagory"
+//                }),
+//                template: new sap.ui.commons.TextView().bindProperty("text", "catagory"),
+//                sortProperty: "catagory",
+//                filterProperty: "catagory",
+//                resizable: true
+//            }));
+//
+//            // 		mTable.addColumn(new sap.ui.table.Column({
+//            // 			width : "80px",
+//            // 			label : new sap.ui.commons.Label({
+//            // 				text : "ModifiedBy"
+//            // 			}),
+//            // 			template : new sap.ui.commons.TextView().bindProperty("text", "ModifiedBy"),
+//            // 			sortProperty : "ModifiedBy",
+//            // 			filterProperty : "ModifiedBy",
+//            // 			resizable : true,
+//            // 		}));
+//            // 		mTable.addColumn(new sap.ui.table.Column({
+//            // 			width : "150px",
+//            // 			label : new sap.ui.commons.Label({
+//            // 				text : "ModifiedOn"
+//            // 			}),
+//            // 			template : new sap.ui.commons.TextView().bindProperty("text", "ModifiedOn"),
+//            // 			sortProperty : "ModifiedOn",
+//            // 			filterProperty : "ModifiedOn",
+//            // 			resizable : true,
+//            // 		}));
+//            mTable.addColumn(new sap.ui.table.Column({
+//                width: "80px",
+//                label: new sap.ui.commons.Label({
+//                    text: " CreatedBy"
+//                }),
+//                template: new sap.ui.commons.TextView().bindProperty("text", "CreatedBy"),
+//                sortProperty: "CreatedBy",
+//                filterProperty: "CreatedBy",
+//                resizable: true
+//            }));
+//
+//            mTable.addColumn(new sap.ui.table.Column({
+//                width: "150px",
+//                label: new sap.ui.commons.Label({
+//                    text: "CreatedOn"
+//                }),
+//                template: new sap.ui.commons.TextView().bindProperty("text", "CreatedOn"),
+//                sortProperty: "CreatedOn",
+//                filterProperty: "CreatedOn",
+//                resizable: true
+//            }));
+//            mTable.addColumn(new sap.ui.table.Column({
+//                width: "60px",
+//                label: new sap.ui.commons.Label({
+//                    text: "Active"
+//                }),
+//                template: new sap.ui.commons.CheckBox().bindProperty("checked", "reasonActive", function (s) {
+//                    return s == "1";
+//                }),
+//                resizable: true,
+//                hAlign: "Center"
+//            }));
+//
+//            //		sp = document.getElementById("OEEM_content").clientWidth - 200 - 190;
+//            mTable.setToolbar(new sap.ui.commons.Toolbar({
+//                height: "50px",
+//                items: [new sap.m.Label({
+//                    desig: sap.m.LabelDesign.Bold,
+//                    textAlign: sap.ui.core.TextAlign.Center,
+//                    text: "DOWNTIME REASON DEFs: LINE(A) - WORKCENTER(B) - EQUIPMENT(C)",
+//                    // 				width : "" + (document.getElementById("OEEM_content").clientWidth - 200 - 400) + "px",
+//                    height: "30px"
+//                })],
+//                rightItems: [new sap.ui.commons.Button("btn_tbOperations_add", {
+//                    text: "Add",
+//                    width: "80px",
+//                    height: "30px",
+//                    style: "Default",
+//                    icon: "sap-icon://add",
+//                    lite: true,
+//                    press: function () {
+//                        StopReasons_add("", "add a StopReason");
+//                    }
+//                }).setEnabled(true), new sap.ui.commons.Button("btn_tbOperations_edit", {
+//                    text: "Edit",
+//                    width: "80px",
+//                    height: "30px",
+//                    style: "Default",
+//                    icon: "sap-icon://edit",
+//                    lite: true,
+//                    press: function () {
+//                        StopReasons_edit("", "edit an operation", true);
+//                    }
+//                }), new sap.ui.commons.Button("btn_tbOperations_delete", {
+//                    text: "Delete",
+//                    width: "80px",
+//                    height: "30px",
+//                    style: "Default",
+//                    icon: "sap-icon://delete",
+//                    lite: true,
+//                    press: function () {
+//                        StopReasons_edit("", "delete a StopReason", false);
+//                    }
+//                })
+//
+//                    // 			, new sap.ui.commons.MenuButton({
+//                    // 				height : "30px",
+//                    // 				width : "40px",
+//                    // 				//text : "",
+//                    // 				icon : "sap-icon://menu",
+//                    // 				lite : true,
+//                    // 				menu : new sap.ui.unified.Menu({
+//                    // 					title : "Operation",
+//                    // 					enabled : true,
+//                    // 					items : [ new sap.ui.commons.MenuItem("menu_tbOperations_add", {
+//                    // 						text : "Add",
+//                    // 						enabled : true,
+//                    // 					}), new sap.ui.commons.MenuItem("menu_tbOperations_edit", {
+//                    // 						text : "Edit",
+//                    // 						enabled : true,
+//                    // 					}), new sap.ui.commons.MenuItem("menu_tbOperations_delete", {
+//                    // 						text : "Delete",
+//                    // 						enabled : true,
+//                    // 					}) ]
+//                    // 				}),
+//                    // 				itemSelected : function(oEvent) {
+//                    // 					alert("menuOperationMissionitemSelected");
+//                    // 				}
+//                    // 			})
+//                ]
+//            }));
+//            // 		var str = location.href;
+//            // 		mTable.filter(mTable.getColumns()[3], location.href.substring(location.href.indexOf("FloorMaps_Index=") + 16));
+//        }
+
+        // ******************************************************************************************************************************************************************
+
         function ScreenSize() {
             var a = 100;
             var w = window;
@@ -506,16 +489,7 @@
         }
 
         //***********************************************************
-        function jsonSLoad() { // Bind the table rows to this model
-            //load table's data
-            // 		P1 = "SELECT *";
-            // 		P2 = "FROM MESM_FloorMaps";
-            // 		P3 = "ORDER BY idUnitParent";
-            // 		P4 = "";
-            // 		url = "/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/get_Table&Param.1=" + P1 + "&Param.2=" + P2 + "&Param.3=" + P3 + "&Param.4="
-            // 				+ P4 + "&Content-Type=text/xml";
-            //getData(url, parseJsonParent);
-
+        function jsonLoad() { // Bind the table rows to this model
             P1 = "SELECT *";
             P2 = "FROM OEEM_Data_Collection";
             P3 = "ORDER BY Timestamp DESC";
@@ -528,7 +502,7 @@
             }
             getData(url, parseJsonParent);
             function parseJsonParent(jsondata) {
-                rpJSONModel.setData(jsondata);
+                JSONModelForReport.setData(jsondata);
                 // 			mTableSelectedIndex = -1;
                 // 			OEEM_Array = [];
 
@@ -569,16 +543,16 @@
             options.appearance.htmlRenderMode = Stimulsoft.Report.Export.StiHtmlExportMode.Table;
 
             // Create an instance of the viewer
-            viewer = new Stimulsoft.Viewer.StiViewer(options, "StiViewer", false);
+            reportViewer = new Stimulsoft.Viewer.StiViewer(options, "StiViewer", false);
 
             // Add the design button event
-            viewer.onDesignReport = function (e) {
+            reportViewer.onDesignReport = function (e) {
                 this.visible = false;
-                if (designer == null) {
+                if (reportDesigner == null) {
                     createDesigner(e);
                 } else {
-                    designer.visible = true;
-                    designer.report = e.report;
+                    reportDesigner.visible = true;
+                    reportDesigner.report = e.report;
                     // 				ga('set', {
                     // 					page : '/designer_' + designer.report.reportName,
                     // 					title : 'Designer ' + designer.report.reportName
@@ -586,7 +560,7 @@
                     // 				ga('send', 'pageview');
                 }
             };
-            viewer.renderHtml("viewerContent");
+            reportViewer.renderHtml("viewerContent");
         }
 
         function createDesigner(e) {
@@ -603,17 +577,17 @@
             options.appearance.htmlRenderMode = Stimulsoft.Report.Export.StiHtmlExportMode.Table;
 
             // Create an instance of the designer
-            designer = new Stimulsoft.Designer.StiDesigner(options, "StiDesigner", false);
+            reportDesigner = new Stimulsoft.Designer.StiDesigner(options, "StiDesigner", false);
 
             // Add the exit menu item event
-            designer.onExit = function (e) {
+            reportDesigner.onExit = function (e) {
                 this.visible = false;
-                viewer.visible = true;
+                reportViewer.visible = true;
 
             }
-            designer.renderHtml("designerContent");
-            designer.visible = true;
-            designer.report = e.report;
+            reportDesigner.renderHtml("designerContent");
+            reportDesigner.visible = true;
+            reportDesigner.report = e.report;
             // 		ga('set', {
             // 			page : '/designer_' + designer.report.reportName,
             // 			title : 'Designer ' + designer.report.reportName
@@ -624,23 +598,23 @@
 
         function setReport(reportObject) {
             // Forcibly show process indicator
-            viewer.showProcessIndicator();
+            reportViewer.showProcessIndicator();
 
             // Timeout need for immediate display loading report indicator
 //        setTimeout(function () {
             // Create a new report instance
-            theReport = new Stimulsoft.Report.StiReport();
+            reportOne = new Stimulsoft.Report.StiReport();
             // Load reports from JSON object
             // 			report.loadFile("Reports/" + reportObject.id + ".mrt");
-            theReport.loadFile("stimulsoft/Reports/" + reportObject + ".mrt");
+            reportOne.loadFile("stimulsoft/Reports/" + reportObject + ".mrt");
             // Remove all connections from the report template
-            theReport.dictionary.databases.clear();
+            reportOne.dictionary.databases.clear();
             // Register DataSet object
-            theReport.regData("DEMO", "DEMO", dataSet);
-            theReport.regData("rpDataSource", "rpDataSource", rpDataSet);
+//            reportOne.regData("DEMO", "DEMO", dataSetForReport);
+            reportOne.regData("reportDataSource", "reportDataSource", reportDataSet);
 
             // Assign the report to the viewer
-            viewer.report = theReport;
+            reportViewer.report = reportOne;
 
             // 			ga('set', {
             // 				page : '/viewer_' + viewer.getReportFileName(),
@@ -699,11 +673,11 @@
             Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/zh-CHT.xml", false, "Chinese (Traditional)");
 
             // Create new DataSet object
-            dataSet = new Stimulsoft.System.Data.DataSet("DEMO");
-            rpDataSet = new Stimulsoft.System.Data.DataSet("rpDataSource");
+//            dataSetForReport = new Stimulsoft.System.Data.DataSet("DEMO");
+            reportDataSet = new Stimulsoft.System.Data.DataSet("reportDataSource");
             // Load JSON data file from specified URL to the DataSet object
-            dataSet.readJson(demoData);
-            rpDataSet.readJson(rpJSONModel.getJSON());
+//            dataSetForReport.readJson(demoData);
+            reportDataSet.readJson(JSONModelForReport.getJSON());
 
             createViewer();
             //selectedButton = document.getElementById("SimpleList");
