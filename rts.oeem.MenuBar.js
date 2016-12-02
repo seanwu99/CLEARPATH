@@ -9,12 +9,12 @@ function MenuBar(f) {
                 text: "Home",
                 enabled: true,
                 submenu: new sap.ui.commons.Menu({
-                    items: new sap.ui.commons.MenuItem("Home",{
+                    items: new sap.ui.commons.MenuItem("Home", {
                         text: "Home",
                         enabled: true,
-                        select: MenuSelect,
+                        select: MenuSelect
                     })
-                }),
+                })
             }),
             new sap.ui.commons.MenuItem({
                 text: "Settings",
@@ -24,23 +24,23 @@ function MenuBar(f) {
                         text: "Enterprise Hierarchy",
                         enabled: true,
                         submenu: new sap.ui.commons.Menu({
-                            items: [new sap.ui.commons.MenuItem("HierarchyManagement",{
+                            items: [new sap.ui.commons.MenuItem("HierarchyManagement", {
                                 text: "Hierarchy Management",
                                 enabled: true,
                                 select: MenuSelect
-                            }), new sap.ui.commons.MenuItem("HierarchyLevelsSetup",{
+                            }), new sap.ui.commons.MenuItem("HierarchyLevelsSetup", {
                                 text: "Hierarchy Levels Setup",
                                 enabled: true,
                                 select: MenuSelect
-                            }), new sap.ui.commons.MenuItem("EquipmentManagement",{
+                            }), new sap.ui.commons.MenuItem("EquipmentManagement", {
                                 text: "Equipment Management",
                                 enabled: true,
                                 select: MenuSelect
-                            }), new sap.ui.commons.MenuItem("PlantWorkForce",{
+                            }), new sap.ui.commons.MenuItem("PlantWorkForce", {
                                 text: "Plant Work Force",
                                 enabled: true,
                                 select: MenuSelect
-                            }), new sap.ui.commons.MenuItem("PlantShiftsAndBreaks",{
+                            }), new sap.ui.commons.MenuItem("PlantShiftsAndBreaks", {
                                 text: "Plant Shifts And Breaks",
                                 enabled: true,
                                 select: MenuSelect
@@ -50,23 +50,23 @@ function MenuBar(f) {
                         text: "Memory Maps",
                         enabled: true,
                         submenu: new sap.ui.commons.Menu({
-                            items: [new sap.ui.commons.MenuItem("MemoryMapTags",{
+                            items: [new sap.ui.commons.MenuItem("MemoryMapTags", {
                                 text: "Memory Map Tags",
                                 enabled: true,
                                 select: MenuSelect
-                            }), new sap.ui.commons.MenuItem("MemoryMapTransactions",{
+                            }), new sap.ui.commons.MenuItem("MemoryMapTransactions", {
                                 text: "Memory Map Transactions",
                                 enabled: true,
                                 select: MenuSelect
-                            }), new sap.ui.commons.MenuItem("PLCTagGroups",{
+                            }), new sap.ui.commons.MenuItem("PLCTagGroups", {
                                 text: "PLC Tag Groups",
                                 enabled: true,
                                 select: MenuSelect
-                            }), new sap.ui.commons.MenuItem("PLCTagTypes",{
+                            }), new sap.ui.commons.MenuItem("PLCTagTypes", {
                                 text: "PLC Tag Types",
                                 enabled: true,
                                 select: MenuSelect
-                            }), new sap.ui.commons.MenuItem( "PLCTagFunctions",{
+                            }), new sap.ui.commons.MenuItem("PLCTagFunctions", {
                                 text: "PLC Tag Functions",
                                 enabled: true,
                                 select: MenuSelect
@@ -76,27 +76,27 @@ function MenuBar(f) {
                         text: "Plant Connectivity",
                         enabled: true,
                         submenu: new sap.ui.commons.Menu({
-                            items: [new sap.ui.commons.MenuItem("ShopFloorOperators",{
+                            items: [new sap.ui.commons.MenuItem("ShopFloorOperators", {
                                 text: "Shop Floor Operators",
                                 enabled: true,
                                 select: MenuSelect
-                            }), new sap.ui.commons.MenuItem("ShopFloorComputers",{
+                            }), new sap.ui.commons.MenuItem("ShopFloorComputers", {
                                 text: "Shop Floor Computers",
                                 enabled: true,
                                 select: MenuSelect
-                            }), new sap.ui.commons.MenuItem("ShopFloorPrinters",{
+                            }), new sap.ui.commons.MenuItem("ShopFloorPrinters", {
                                 text: "Shop Floor Printers",
                                 enabled: true,
                                 select: MenuSelect
-                            }), new sap.ui.commons.MenuItem("PlantConnectivityServers",{
+                            }), new sap.ui.commons.MenuItem("PlantConnectivityServers", {
                                 text: "Plant Connectivity Servers",
                                 enabled: true,
                                 select: MenuSelect
-                            }), new sap.ui.commons.MenuItem("PlantConnectivityAgents",{
+                            }), new sap.ui.commons.MenuItem("PlantConnectivityAgents", {
                                 text: "Plant Connectivity Agents",
                                 enabled: true,
                                 select: MenuSelect
-                            }), new sap.ui.commons.MenuItem("LineSideSQLServers",{
+                            }), new sap.ui.commons.MenuItem("LineSideSQLServers", {
                                 text: "Line Side SQL Servers",
                                 enabled: true,
                                 select: MenuSelect
@@ -106,19 +106,19 @@ function MenuBar(f) {
                         text: "Master Data Setup",
                         enabled: true,
                         submenu: new sap.ui.commons.Menu({
-                            items: [new sap.ui.commons.MenuItem("UnitsOfMeasure",{
+                            items: [new sap.ui.commons.MenuItem("UnitsOfMeasure", {
                                 text: "Units Of Measure",
                                 enabled: true,
                                 select: MenuSelect
-                            }), new sap.ui.commons.MenuItem("ProductsManagement",{
+                            }), new sap.ui.commons.MenuItem("ProductsManagement", {
                                 text: "Products Management",
                                 enabled: true,
                                 select: MenuSelect
-                            }), new sap.ui.commons.MenuItem("BillsofMaterials",{
+                            }), new sap.ui.commons.MenuItem("BillsofMaterials", {
                                 text: "Bills of Materials",
                                 enabled: true,
                                 select: MenuSelect
-                            }), new sap.ui.commons.MenuItem("ProductsRouting",{
+                            }), new sap.ui.commons.MenuItem("ProductsRouting", {
                                 text: "Products Routing",
                                 enabled: true,
                                 select: MenuSelect
@@ -131,56 +131,56 @@ function MenuBar(f) {
                 text: "Dashboards",
                 enabled: true,
                 submenu: new sap.ui.commons.Menu({
-                    items: [new sap.ui.commons.MenuItem("OEEDashboard",{
+                    items: [new sap.ui.commons.MenuItem("OEEDashboard", {
                         text: "OEE Dashboard",
                         enabled: true,
                         select: MenuSelect
-                    }), new sap.ui.commons.MenuItem("AvailabilityDashboard",{
+                    }), new sap.ui.commons.MenuItem("AvailabilityDashboard", {
                         text: "Availability Dashboard",
                         enabled: true,
                         select: MenuSelect
-                    }), new sap.ui.commons.MenuItem("PerformanceDashboard",{
+                    }), new sap.ui.commons.MenuItem("PerformanceDashboard", {
                         text: "Performance Dashboard",
                         enabled: true,
                         select: MenuSelect
-                    }), new sap.ui.commons.MenuItem("QualityDashboard",{
+                    }), new sap.ui.commons.MenuItem("QualityDashboard", {
                         text: "Quality Dashboard",
                         enabled: true,
                         select: MenuSelect
-                    }), new sap.ui.commons.MenuItem("AlertsDashboard",{
+                    }), new sap.ui.commons.MenuItem("AlertsDashboard", {
                         text: "Alerts Dashboard",
                         enabled: true,
                         select: MenuSelect
                     })]
-                }),
+                })
             }),
             new sap.ui.commons.MenuItem({
                 text: "Reports",
                 enabled: true,
                 submenu: new sap.ui.commons.Menu({
-                    items: [new sap.ui.commons.MenuItem("OEEReport",{
+                    items: [new sap.ui.commons.MenuItem("OEEReport", {
                         text: "OEE Report",
                         enabled: true,
                         select: MenuSelect
-                    }), new sap.ui.commons.MenuItem("AvailabilityReport",{
+                    }), new sap.ui.commons.MenuItem("AvailabilityReport", {
                         text: "Availability Report",
                         enabled: true,
                         select: MenuSelect
-                    }), new sap.ui.commons.MenuItem("PerformanceReport",{
+                    }), new sap.ui.commons.MenuItem("PerformanceReport", {
                         text: "Performance Report",
                         enabled: true,
                         select: MenuSelect
-                    }), new sap.ui.commons.MenuItem("QualityReport",{
+                    }), new sap.ui.commons.MenuItem("QualityReport", {
                         text: "Quality Report",
                         enabled: true,
                         select: MenuSelect
-                    }), new sap.ui.commons.MenuItem("AlertsReport",{
+                    }), new sap.ui.commons.MenuItem("AlertsReport", {
                         text: "Alerts Report",
                         enabled: true,
                         select: MenuSelect
                     })]
-                }),
-            }),
+                })
+            })
         ]
     });
 
@@ -188,11 +188,12 @@ function MenuBar(f) {
     oMenuBar.placeAt(f.elm);
 
 }
-var MenuSelect = function (oEvent) {
+var _MenuSelect = function (oEvent) {
     cc(oEvent.getParameter("item").getId());
     cc(oEvent.getParameter("item").getText());
-    return;
-}
+
+};
+
 function ss(_string) {
     alert(_string);
 }
@@ -200,23 +201,24 @@ function ss(_string) {
 function cc(_object) {
     console.log(_object);
 }
-var _menuSelect = function (oEvent) {
-    cc(oEvent);
-    ss(oEvent);
+var MenuSelect = function (oEvent) {
+    // cc(oEvent);
+    // ss(oEvent);
     // reurn;
-    itemid = oEvent.getParameter("item").getId();
+    var itemid = oEvent.getParameter("item").getId();
+    cc(itemid);
     // alert(itemid);
-    appID = "";
+    var appID = "";
     switch (itemid) {
         // Menu home
-        case "Home_Home":
+        case "Home":
             setTimeout("location.href = '" + "OEEM.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
             // Menu Settings 1
             break;
-        case "OEE_Dashboard":
+        case "OEEDashboard":
             setTimeout("location.href = '" + "DashBoard.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
             break;
-        case "OEE_Report":
+        case "OEEReport":
             setTimeout("location.href = '" + "Reports.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
             break;
         case "Equipment_Management":
@@ -326,5 +328,5 @@ var _menuSelect = function (oEvent) {
         xPage.placeAt("p1");
     }
 
-}
+};
 
