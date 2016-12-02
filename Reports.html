@@ -18,7 +18,8 @@
       rel="stylesheet">
 <link href="stimulsoft/css/stimulsoft.viewer.office2013.whiteteal.css"
       rel="stylesheet">
-
+<script src="rts.oeem.ApplicationHeader.js"></script>
+<script src="rts.oeem.MenuBar.js"></script>
 
 <script type="text/javascript" src="Common/js/default.js"></script>
 <script>
@@ -26,400 +27,14 @@
 </script>
 <script>
     var mockServer = true;
-    var _userNAME = "unknow";
+    var USERNAME = "unknow";
+    var floorTreeReady = false;
+    var treeIndex = 0;
+    var treeArray = [];
+    var TreeNodes = [];
     // ******************************************************************************************************************************************************************
     // 	function init() {
     // 	}
-    // ******************************************************************************************************************************************************************
-    // ******************************************************************************************************************************************************************
-    var MenuSelect = function (oEvent) {
-        itemid = oEvent.getParameter("item").getId();
-        //alert(itemid);
-        appID = "";
-        switch (itemid) {
-            // Menu home
-            case "Home_Home":
-                setTimeout("location.href = '" + "OEEM.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
-                // Menu Settings 1
-                break;
-            case "OEE_Dashboard":
-                setTimeout("location.href = '" + "DashBoard.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
-                break;
-            case "OEE_Report":
-                setTimeout("location.href = '" + "Reports.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
-                break;
-            case "Equipment_Management":
-                appID = "MgtHierarchy.irpt?ROLE=" + document.getElementById("user_role").value;
-                //setTimeout("location.href = '" + "MgtHierarchy.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
-                break;
-            case "Hierarchy_Levels_Setup":
-                appID = "LvlHierarchy.irpt?ROLE=" + document.getElementById("user_role").value;
-                //setTimeout("location.href = '" + "LvlHierarchy.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
-                break;
-
-            // Menu Settings 2
-            case "item1-4-1":
-                appID = "MemMapTags.irpt?ROLE=" + document.getElementById("user_role").value;
-                //setTimeout("location.href = '" + "MemMapTags.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
-                break;
-            case "item1-4-5":
-                appID = "MemMapTrxs.irpt?ROLE=" + document.getElementById("user_role").value;
-                //setTimeout("location.href = '" + "MemMapTrxs.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
-                break;
-            case "item1-4-4":
-                appID = "TagCommGroups.irpt?ROLE=" + document.getElementById("user_role").value;
-                //setTimeout("location.href = '" + "TagCommGroups.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
-                break;
-            case "item1-4-2":
-                appID = "TagTypes.irpt?ROLE=" + document.getElementById("user_role").value;
-                //setTimeout("location.href = '" + "TagTypes.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
-                break;
-            case "item1-4-3":
-                appID = "TagFunctions.irpt?ROLE=" + document.getElementById("user_role").value;
-                //setTimeout("location.href = '" + "TagFunctions.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
-                break;
-
-            // Menu Settings 3
-            case "item1-5-6":
-                appID = "Operators.irpt?ROLE=" + document.getElementById("user_role").value;
-                //setTimeout("location.href = '" + "Operators.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
-                break;
-            case "item1-5-1":
-                appID = "Stations.irpt?ROLE=" + document.getElementById("user_role").value;
-                //setTimeout("location.href = '" + "Stations.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
-                break;
-            case "item1-5-2":
-                appID = "Printers.irpt?ROLE=" + document.getElementById("user_role").value;
-                //setTimeout("location.href = '" + "Printers.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
-                break;
-            case "item1-5-3":
-                appID = "PCoServers.irpt?ROLE=" + document.getElementById("user_role").value;
-                //setTimeout("location.href = '" + "PCoServers.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
-                break;
-            case "item1-5-4":
-                appID = "PCoAgents.irpt?ROLE=" + document.getElementById("user_role").value;
-                //setTimeout("location.href = '" + "PCoAgents.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
-                break;
-            case "item1-5-5":
-                appID = "SqlServers.irpt?ROLE=" + document.getElementById("user_role").value;
-                //setTimeout("location.href = '" + "SqlServers.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
-                break;
-
-            // Menu Settings 4
-            case "item1-7-1":
-                appID = "UnitsOfMeasure.irpt?ROLE=" + document.getElementById("user_role").value;
-                //setTimeout("location.href = '" + "UnitsOfMeasure.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
-                break;
-            case "item1-7-2":
-                appID = "ProductsMgmt.irpt?ROLE=" + document.getElementById("user_role").value;
-                //setTimeout("location.href = '" + "ProductsMgmt.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
-                break;
-            case "item1-7-3":
-                appID = "BomMgmt.irpt?ROLE=" + document.getElementById("user_role").value;
-                //setTimeout("location.href = '" + "BomMgmt.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
-                break;
-            case "item1-7-4":
-                appID = "RoutingMgmt.irpt?ROLE=" + document.getElementById("user_role").value;
-                //setTimeout("location.href = '" + "RoutingMgmt.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
-                break;
-
-            // Menu Default
-            default:
-                // alert("Items \"" + oEvent.getParameter("itemId") + "\" was selected.");
-                break;
-        }
-        if (appID == "") {
-            return false;
-        }
-        //alert(appID);
-
-        //sap.ui.getCore().getUIArea("article").removeContent(xPage);
-
-        if (!locked) {
-            locked = true;
-            xPage.setContent("<iframe src=\"" + appID + "\" style=\"border:none;\" height=\"1000px\" width=\"100%\"></iframe>");
-            xPage.placeAt("article");
-        }
-
-    }
-
-    function MenuDef() {
-
-        var oMenuBar = new sap.ui.commons.MenuBar("menuBar", {
-            enabled: true,
-            width: "100%",
-            design: sap.ui.commons.MenuBarDesign.Header,
-        });
-
-        var oMenuBarItem0 = new sap.ui.commons.MenuItem("Home", {
-            text: "Home",
-            enabled: true,
-        });
-        oMenuBar.addItem(oMenuBarItem0);
-        var oMenuButton0 = new sap.ui.commons.Menu("oMenuButton0");
-        oMenuBarItem0.setSubmenu(oMenuButton0);
-        var oMenuItem01 = new sap.ui.commons.MenuItem("Home_Home", {
-            text: "Home",
-            enabled: true
-        });
-        oMenuButton0.addItem(oMenuItem01);
-        oMenuItem01.attachSelect(MenuSelect);
-
-        var oMenuBarItem1 = new sap.ui.commons.MenuItem({
-            text: "Settings",
-            enabled: true,
-        });
-        oMenuBar.addItem(oMenuBarItem1);
-        var oMenuBarItem2 = new sap.ui.commons.MenuItem({
-            text: "Dashboards",
-            enabled: true,
-        });
-        oMenuBar.addItem(oMenuBarItem2);
-        var oMenuBarItem3 = new sap.ui.commons.MenuItem({
-            text: "Reports",
-            enabled: true,
-        });
-        oMenuBar.addItem(oMenuBarItem3);
-
-        var oMenuButton1 = new sap.ui.commons.Menu("oMenuButton1");
-        oMenuBarItem1.setSubmenu(oMenuButton1);
-        var oMenuItem1 = new sap.ui.commons.MenuItem("Enterprise_Hierarchy", {
-            text: "Enterprise Hierarchy",
-            enabled: true
-        });
-        oMenuButton1.addItem(oMenuItem1);
-        oMenuItem1.attachSelect(MenuSelect);
-        var oMenuItem2 = new sap.ui.commons.MenuItem("Plant_Connectivity", {
-            text: "Plant Connectivity",
-            enabled: true
-        });
-        oMenuButton1.addItem(oMenuItem2);
-        oMenuItem2.attachSelect(MenuSelect);
-        var oMenuItem3 = new sap.ui.commons.MenuItem("Master_Data_Setup", {
-            text: "Master Data Setup",
-            enabled: true
-        });
-        oMenuButton1.addItem(oMenuItem3);
-
-        var oMenuButton2 = new sap.ui.commons.Menu("oMenuButton2");
-        oMenuBarItem2.setSubmenu(oMenuButton2);
-        var oMenuItem21 = new sap.ui.commons.MenuItem("OEE_Dashboard", {
-            text: "OEE Dashboard",
-            enabled: true
-        });
-        oMenuButton2.addItem(oMenuItem21);
-        oMenuItem21.attachSelect(MenuSelect);
-        var oMenuItem22 = new sap.ui.commons.MenuItem("Availability_Dashboard", {
-            text: "Availability Dashboard",
-            enabled: true
-        });
-        oMenuButton2.addItem(oMenuItem22);
-        oMenuItem22.attachSelect(MenuSelect);
-        var oMenuItem23 = new sap.ui.commons.MenuItem("Performance_Dashboard", {
-            text: "Performance Dashboard",
-            enabled: true
-        });
-        oMenuButton2.addItem(oMenuItem23);
-        oMenuItem23.attachSelect(MenuSelect);
-
-        var oMenuItem24 = new sap.ui.commons.MenuItem("Quality_Dashboardy", {
-            text: "Quality Dashboardy",
-            enabled: true
-        });
-        oMenuButton2.addItem(oMenuItem24);
-        oMenuItem24.attachSelect(MenuSelect);
-        var oMenuItem25 = new sap.ui.commons.MenuItem("Alerts_Dashboard", {
-            text: "Alerts Dashboard",
-            enabled: true
-        });
-        oMenuButton2.addItem(oMenuItem25);
-        oMenuItem25.attachSelect(MenuSelect);
-
-        var oMenuButton3 = new sap.ui.commons.Menu("oMenuButton3");
-        oMenuBarItem3.setSubmenu(oMenuButton3);
-        var oMenuItem31 = new sap.ui.commons.MenuItem("OEE_Report", {
-            text: "OEE Report",
-            enabled: true
-        });
-        oMenuButton3.addItem(oMenuItem31);
-        oMenuItem31.attachSelect(MenuSelect);
-        var oMenuItem32 = new sap.ui.commons.MenuItem("Availability_Report", {
-            text: "Availability Report",
-            enabled: true
-        });
-        oMenuButton3.addItem(oMenuItem32);
-        oMenuItem32.attachSelect(MenuSelect);
-        var oMenuItem33 = new sap.ui.commons.MenuItem("Performance_Report", {
-            text: "Performance Report",
-            enabled: true
-        });
-        oMenuButton3.addItem(oMenuItem33);
-        oMenuItem33.attachSelect(MenuSelect);
-        var oMenuItem34 = new sap.ui.commons.MenuItem("Quality_Report", {
-            text: "Quality Report",
-            enabled: true
-        });
-        oMenuButton3.addItem(oMenuItem34);
-        oMenuItem34.attachSelect(MenuSelect);
-        var oMenuItem35 = new sap.ui.commons.MenuItem("Alerts_Report", {
-            text: "Alerts Report",
-            enabled: true
-        });
-        oMenuButton3.addItem(oMenuItem35);
-        oMenuItem35.attachSelect(MenuSelect);
-        var oMenuItem36 = new sap.ui.commons.MenuItem("Connection_Diagnostics", {
-            text: "Connection Diagnostics",
-            enabled: true
-        });
-        oMenuButton3.addItem(oMenuItem36);
-        oMenuItem36.attachSelect(MenuSelect);
-
-        var oMenu6 = new sap.ui.commons.Menu("menu6");
-        oMenuItem1.setSubmenu(oMenu6);
-        var oMenuItem61 = new sap.ui.commons.MenuItem("Equipment_Management", {
-            text: "Equipment Management"
-        });
-        oMenu6.addItem(oMenuItem61);
-        oMenuItem61.attachSelect(MenuSelect);
-        var oMenuItem62 = new sap.ui.commons.MenuItem("Plant_Work_Force", {
-            text: "Plant Work Force"
-        });
-        oMenu6.addItem(oMenuItem62);
-        oMenuItem62.attachSelect(MenuSelect);
-        var oMenuItem63 = new sap.ui.commons.MenuItem("Plant_Shifts_and_Breaks", {
-            text: "Plant Shifts & Breaks"
-        });
-        oMenu6.addItem(oMenuItem63);
-        oMenuItem63.attachSelect(MenuSelect);
-        var oMenuItem64 = new sap.ui.commons.MenuItem("Hierarchy_Levels_Setup", {
-            text: "Hierarchy Levels Setup"
-        });
-        oMenu6.addItem(oMenuItem64);
-        oMenuItem64.attachSelect(MenuSelect);
-
-        var oMenu5 = new sap.ui.commons.Menu("oMenu5");
-        oMenuItem2.setSubmenu(oMenu5);
-        var oMenuItem51 = new sap.ui.commons.MenuItem("Plant_Connectivity_Servers", {
-            text: "Plant Connectivity Servers"
-        });
-        oMenu5.addItem(oMenuItem51);
-        oMenuItem51.attachSelect(MenuSelect);
-        var oMenuItem52 = new sap.ui.commons.MenuItem("Plant_Connectivity_Agents", {
-            text: "Plant Connectivity Agents"
-        });
-        oMenu5.addItem(oMenuItem52);
-        oMenuItem52.attachSelect(MenuSelect);
-        var oMenuItem53 = new sap.ui.commons.MenuItem("Line_Side_SQL_Servers", {
-            text: "Line Side SQL Servers"
-        });
-        oMenu5.addItem(oMenuItem53);
-        oMenuItem53.attachSelect(MenuSelect);
-        var oMenuItem54 = new sap.ui.commons.MenuItem("PLC_Tag_List", {
-            text: "PLC Tag List"
-        });
-        oMenu5.addItem(oMenuItem54);
-        oMenuItem54.attachSelect(MenuSelect);
-        var oMenuItem55 = new sap.ui.commons.MenuItem("PLC_Tag_Groups", {
-            text: "PLC Tag Groups"
-        });
-        oMenu5.addItem(oMenuItem55);
-        oMenuItem55.attachSelect(MenuSelect);
-        var oMenuItem56 = new sap.ui.commons.MenuItem("PLC_Tag_Types", {
-            text: "PLC Tag Types"
-        });
-        oMenu5.addItem(oMenuItem56);
-        oMenuItem56.attachSelect(MenuSelect);
-        var oMenuItem57 = new sap.ui.commons.MenuItem("PLC_Tag_Functions", {
-            text: "PLC Tag Functions"
-        });
-        oMenu5.addItem(oMenuItem57);
-        oMenuItem57.attachSelect(MenuSelect);
-
-        var oMenu7 = new sap.ui.commons.Menu("Menu7");
-        oMenuItem3.setSubmenu(oMenu7);
-        var oMenuItem71 = new sap.ui.commons.MenuItem("Products_Management", {
-            text: "Products Management"
-        });
-        oMenu7.addItem(oMenuItem71);
-        oMenuItem71.attachSelect(MenuSelect);
-        var oMenuItem72 = new sap.ui.commons.MenuItem("Work_Order_Management", {
-            text: "Work Order Management"
-        });
-        oMenu7.addItem(oMenuItem72);
-        oMenuItem72.attachSelect(MenuSelect);
-        var oMenuItem73 = new sap.ui.commons.MenuItem("Alerts_Management", {
-            text: "Alerts Management"
-        });
-        oMenu7.addItem(oMenuItem73);
-        oMenuItem73.attachSelect(MenuSelect);
-
-        oMenuBar.placeAt("menu");
-
-    }
-
-    // ******************************************************************************************************************************************************************
-
-    var FloorMaps_Data;
-    var FloorMaps_Index;
-    var mTree = new sap.ui.commons.Tree("tree", {
-        title: "FloorMaps",
-        width: "100%",
-        // 		height : "400px",
-        showHeaderIcons: true,
-        showHorizontalScrollbar: true,
-        showHeader: true,
-        select: function (oControlEvent) {
-
-        }
-    });
-
-    function mTreeLoad() {
-        P1 = "SELECT *";
-        P2 = "FROM MESM_FloorMaps";
-        P3 = "ORDER BY idUnitParent";
-        P4 = "";
-        var url = "/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/get_Table&Param.1=" + P1 + "&Param.2=" + P2 + "&Param.3=" + P3 + "&Param.4=" + P4 + "&Content-Type=text/xml";
-        if (mockServer) {
-            url = 'mockServer/MESM_FloorMaps.xml';
-        }        //ss(url);
-        getData(url, parseJsonParent);
-
-        function parseJsonParent(jsondata) {
-            FloorMaps_Data = [];
-            _Node = new Array(jsondata.length);
-            for (var i = 0; i < jsondata.length; i++) {
-                FloorMaps_Data.push({
-                    unitName: jsondata[i]['unitName'],
-                    recordID: jsondata[i]['recordID'],
-                    unitType: jsondata[i]['unitType'],
-                    idUnitParent: jsondata[i]['idUnitParent'],
-                    oeeStatus: jsondata[i]['oeeStatus'],
-                });
-                _icon = "";
-                // 				if (FloorMaps_Data[i]['unitType'] == "4") {
-                // 					_icon = "sap-icon://world";
-                // 				}
-                // 				if (FloorMaps_Data[i]['unitType'] == "6") {
-                // 					_icon = "sap-icon://line-chart";
-                // 				}
-                _Node[i] = new sap.ui.commons.TreeNode("FloorMaps_" + i, {
-                    text: jsondata[i]['unitName'],
-                    icon: _icon,
-                    expanded: true
-                });
-                mTree.addNode(_Node[i]);
-            }
-
-            for (var i = 0; i < jsondata.length - 1; i++) {
-                for (var j = i + 1; j < jsondata.length; j++) {
-                    if (FloorMaps_Data[j]['idUnitParent'] == FloorMaps_Data[i]['recordID']) {
-                        _Node[i].addNode(_Node[j]);
-                    }
-                }
-            }
-
-        }
-    }
     // ******************************************************************************************************************************************************************
     var mModelXML = new sap.ui.model.xml.XMLModel();
     var mTable = new sap.ui.table.Table({
@@ -706,7 +321,7 @@
     // ******************************************************************************************************************************************************************
 
     $(function () {
-        _userNAME = document.getElementById("user_name").value;
+        USERNAME = document.getElementById("user_name").value;
         var myRoles = document.getElementById("user_roles").value;
         var role2Access = "OEEM_" + document.getElementById("user_role").value;
         // alert(role2Access);
@@ -719,17 +334,27 @@
         var roleArray = roleString.split("_");
         level2Access = roleArray[0];
         plant2Access = roleArray[1];
-        new sap.ui.commons.ApplicationHeader({
-            logoSrc: "Common/images/logo.png",
-            logoText: " Overall Equipment Effectiveness Module on SAP MII",
-            displayLogoff: true,
-            userName: _userNAME,
-            displayWelcome: true,
-        }).placeAt("header");
+//        new sap.ui.commons.ApplicationHeader({
+//            logoSrc: "Common/images/logo.png",
+//            logoText: " Overall Equipment Effectiveness Module on SAP MII",
+//            displayLogoff: true,
+//            userName: _userNAME,
+//            displayWelcome: true,
+//        }).placeAt("header");
+//
+//        MenuDef();
+        var appHeader = new ApplicationHeader({
+            user: USERNAME,
+            elm: 'header',
+            logoSrc: 'Common/images/logo.png',
+            logoText: 'Overall Equipment Effectiveness Module on SAP MII'
+        });
 
-        MenuDef();
-        mTreeLoad();
-        mTree.placeAt("nav");
+        var menuBar = new MenuBar({
+            elm: 'menu'
+        });
+        floorTreeInit();
+//        mTree.placeAt("nav");
         StopReasons_Table();
         mTable.placeAt("p2");
         jsonSLoad();
@@ -743,6 +368,135 @@
         // 		});
         // 		xPage.placeAt("p2");
     });
+    // ******************************************************************************************************************************************************************
+    function floorTreeInit() {
+
+        var P1 = "SELECT *";
+        var P2 = "FROM MESM_FloorMaps";
+        var P3 = "ORDER BY idUnitParent";
+        var P4 = "";
+        var url = "/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/get_Table&Param.1=" + P1 + "&Param.2=" + P2 + "&Param.3=" + P3 + "&Param.4=" + P4 + "&Content-Type=text/xml";
+//            ss(url);
+        if (mockServer) {
+            url = 'mockServer/MESM_FloorMaps.xml';
+        }
+
+        //ss(url);
+        getData(url, parseJsonParent);
+
+        function parseJsonParent(jsondata) {
+            treeArray = [];
+            TreeNodes = new Array(jsondata.length);
+            $.each(jsondata, function (i, _jsondata) {
+                treeArray.push({
+                    unitName: _jsondata['unitName'],
+                    recordID: _jsondata['recordID'],
+                    unitType: _jsondata['unitType'],
+                    idUnitParent: _jsondata['idUnitParent'],
+                    oeeStatus: _jsondata['oeeStatus']
+                });
+                var _icon = "";
+
+                TreeNodes[i] = new sap.ui.commons.TreeNode("floorTree_" + i, {
+                    text: _jsondata['unitName'],
+                    icon: _icon,
+                    expanded: true
+                });
+                floorTree.addNode(TreeNodes[i]);
+            });
+
+            $.each(TreeNodes, function (i, m) {
+                $.each(TreeNodes, function (j, n) {
+                    if (i != j) {
+                        if (treeArray[j]['idUnitParent'] == treeArray[i]['recordID']) {
+                            m.addNode(n);
+                        }
+                        if (treeArray[i]['idUnitParent'] == treeArray[j]['recordID']) {
+                            n.addNode(m);
+                        }
+                    }
+                });
+            });
+            floorTree.placeAt("nav");
+            // 			barChartInit(getNodeByText('2100 DOC'));
+            // 			barChartInit(floorTree.getNodes()[0]);
+            // 			cc(oeeChart);
+            floorTreeReady = true;
+            // 			nn = getNodeByText('2110 SCR 1');
+            // 			ss(findParent(nn).getText());
+            //cc(floorTree);
+        }
+
+    }
+    // ******************************************************************************************************************************************************************
+
+    function oeeStatus(_s) {
+        var status;
+        $.each(treeArray, function (i, _treeArray) {
+            if (_treeArray['unitName'] == _s) {
+                status = _treeArray['oeeStatus'];
+                return false;
+            }
+
+        });
+        return status;
+    }
+    // ******************************************************************************************************************************************************************
+
+    function getBranch(node, tArray) {
+        tArray.push(node);
+        if (node.getNodes().length == 0) {
+
+        } else {
+            $.each(node.getNodes(), function (i, _node) {
+                getBranch(_node, tArray);
+            });
+        }
+    }
+
+    function getNodeByText(text) {
+        var node;
+        $.each(TreeNodes, function (i, treeNode) {
+            // 			cc(_treeNodes.getText());
+            if (treeNode.getText() == text) {
+                node = treeNode;
+                return false;
+            }
+        });
+        return node;
+    }
+
+    // 	function getChildren(node) {
+    // 		var o = [];
+    // 		if (node.getNodes().length == 0) {
+    // 			return null;
+    // 		}
+    // 		$.each(node.getNodes(), function(i, child) {
+    // 			o.push(child);
+    // 		});
+    // 		return o;
+    // 	}
+
+    function findParent(node) {
+        var parent;
+        var allNodes = [];
+        getBranch(floorTree.getNodes()[0], allNodes);
+        // 		ss(allNodes.length);
+        $.each(allNodes, function (i, _node) {
+            // 			ss(_node.getText());
+            if (_node.getNodes().length > 0) {
+                $.each(_node.getNodes(), function (i, mm) {
+                    if (mm.getText() == node.getText()) {
+                        // 						ss(_node.getText());
+                        parent = _node;
+                        return false;
+                    }
+                });
+            }
+        });
+        return parent;
+    }
+
     //***********************************************************
     function jsonSLoad() { // Bind the table rows to this model
         //load table's data
