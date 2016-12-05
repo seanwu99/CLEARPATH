@@ -137,42 +137,6 @@
             StopReasons_Table();
             mTable.placeAt("p2");
 
-            $('#p1').mousemove(function (e) {
-                var position;
-
-                if (mapChart) {
-                    if (!mapChart.lab) {
-                        mapChart.lab = mapChart.renderer.text('', 0, 0)
-                            .attr({
-                                zIndex: 5
-                            })
-                            .css({
-                                color: '#505050'
-                            })
-                            .add();
-                    }
-
-                    e = mapChart.pointer.normalize(e);
-                     position = mapChart.fromPointToLatLon({
-                        x: mapChart.xAxis[0].toValue(e.chartX),
-                        y: mapChart.yAxis[0].toValue(e.chartY)
-                    });
-                    console.log(position);
-                    mapChart.lab.attr({
-                        x: e.chartX + 5,
-                        y: e.chartY - 22,
-                        text: 'Lat: ' + position.lat.toFixed(2) + '<br>Lon: ' + position.lon.toFixed(2)
-                    });
-                }
-            });
-
-            $('#p1').mouseout(function () {
-                if (mapChart && mapChart.lab) {
-                    mapChart.lab.destroy();
-                    mapChart.lab = null;
-                }
-            });
-
 
             setInterval(function () {
 //                if (floorTreeReady && mapChart == null) {
@@ -648,22 +612,69 @@
 
 
                                     });
-                                    this.addSingleSeriesAsDrilldown(e.point, {
-                                        "type": "mappoint",
-                                        "name": "ops",
-                                        "dataLabels": {
-                                            "enabled": false
-                                        },
+//                                    //add markers
+                                    if (e.point.name == '2140 DPF 1') {
+//                                        cc(e.point);
 
-                                        "data": [{
-                                            "name": "op1",
-                                            "x": 270,
-                                            "y": 100,
-                                            "marker": {
-                                                "symbol": "url(Common/images/op1.png)"
+                                        this.addSingleSeriesAsDrilldown(e.point, {
+                                            "type": "mappoint",
+                                            "name": "OPs",
+                                            "dataLabels": {
+                                                "enabled": true
                                             },
-                                        }]
-                                    });
+                                            "data": [{
+                                                "name": "op1",
+                                                "x": 60,
+                                                "y": 60,
+                                                "marker": {
+                                                    "symbol": "url(Common/images/op1.png)"
+                                                },
+                                            }, {
+                                                "name": "op2",
+                                                "x": 161,
+                                                "y": 60,
+                                                "marker": {
+                                                    "symbol": "url(Common/images/op1.png)"
+                                                },
+                                            }, {
+                                                "name": "op3",
+                                                "x": 233,
+                                                "y": 60,
+                                                "marker": {
+                                                    "symbol": "url(Common/images/op1.png)"
+                                                },
+                                            }, {
+                                                "name": "op4",
+                                                "x": 330,
+                                                "y": 60,
+                                                "marker": {
+                                                    "symbol": "url(Common/images/op1.png)"
+                                                },
+                                            }, {
+                                                "name": "forklift 1",
+                                                "x": 60,
+                                                "y": 140,
+                                                "marker": {
+                                                    "symbol": "url(Common/images/forklift.png)"
+                                                },
+                                            }, {
+                                                "name": "millwright",
+                                                "x": 180,
+                                                "y": 140,
+                                                "marker": {
+                                                    "symbol": "url(Common/images/op2.png)"
+                                                },
+                                            }, {
+                                                "name": "forklift 2",
+                                                "x": 330,
+                                                "y": 140,
+                                                "marker": {
+                                                    "symbol": "url(Common/images/forklift.png)"
+                                                }
+                                            }]
+                                        });
+                                    }
+
                                     this.applyDrilldown();
 //                                    this.addSeriesAsDrilldown(e.point, {
 //                                        name: e.point.name,
@@ -837,27 +848,28 @@
 //                    }
 //                },
                 legend: {
+                    enabled: false,
                     layout: 'vertical',
                     align: 'right',
                     verticalAlign: 'middle'
                 },
-                xAxis: {
-                    crosshair: {
-                        zIndex: 5,
-                        dashStyle: 'dot',
-                        snap: false,
-                        color: 'gray'
-                    }
-                },
-
-                yAxis: {
-                    crosshair: {
-                        zIndex: 5,
-                        dashStyle: 'dot',
-                        snap: false,
-                        color: 'gray'
-                    }
-                },
+//                xAxis: {
+//                    crosshair: {
+//                        zIndex: 5,
+//                        dashStyle: 'dot',
+//                        snap: false,
+//                        color: 'gray'
+//                    }
+//                },
+//
+//                yAxis: {
+//                    crosshair: {
+//                        zIndex: 5,
+//                        dashStyle: 'dot',
+//                        snap: false,
+//                        color: 'gray'
+//                    }
+//                },
                 colorAxis: {
                     showInLegend: false,
                     min: 0,
