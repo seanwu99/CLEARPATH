@@ -27,7 +27,7 @@
         var reportDataSet = null;
         var reportJSONModel = new sap.ui.model.json.JSONModel();
         var reportXMLModel = new sap.ui.model.xml.XMLModel();
-        //        var dataSetForReport = null;
+        var dataSetForReport = null;
 
         var mockServer = true;
         var USERNAME = "unknow";
@@ -611,7 +611,7 @@
             // Remove all connections from the report template
             reportOne.dictionary.databases.clear();
             // Register DataSet object
-//            reportOne.regData("DEMO", "DEMO", dataSetForReport);
+            reportOne.regData("DEMO", "DEMO", dataSetForReport);
             reportOne.regData("reportDataSource", "reportDataSource", reportDataSet);
 
             // Assign the report to the viewer
@@ -674,16 +674,17 @@
             Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/zh-CHT.xml", false, "Chinese (Traditional)");
 
             // Create new DataSet object
-//            dataSetForReport = new Stimulsoft.System.Data.DataSet("DEMO");
+            dataSetForReport = new Stimulsoft.System.Data.DataSet("DEMO");
             reportDataSet = new Stimulsoft.System.Data.DataSet("reportDataSource");
             // Load JSON data file from specified URL to the DataSet object
-//            dataSetForReport.readJson(demoData);
+            dataSetForReport.readJson(demoData);
             reportDataSet.readJson(reportJSONModel.getJSON());
 
             createViewer();
             //selectedButton = document.getElementById("SimpleList");
             // 		onButtonClick(selectedButton, SimpleList);
-            setReport('report_0');
+//            setReport('report_0');
+            setReport('stimulsoft/Reports/SimpleList');
         }
 
         function centerWheel(show) {
