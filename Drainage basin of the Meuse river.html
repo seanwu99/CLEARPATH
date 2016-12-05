@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script id="sap-ui-bootstrap"
+            src="https://sapui5.netweaver.ondemand.com/resources/sap-ui-core.js"
+            data-sap-ui-theme="sap_bluecrystal"
+            data-sap-ui-libs="sap.m,sap.ui.commons,sap.ui.table,sap.ui.core"
+            data-sap-ui-language="en">
+    </script>
+    <script>
+        $(function () {
+
+            var series = [{
+                "type": "mappoint",
+                "name": "Cities",
+                "dataLabels": {
+                    "enabled": false
+                },
+                "marker": {
+                    "symbol": "url(Untitled-1.png)"
+                },
+                "data": [{
+                    "name": "Liège",
+                    "x": 751,
+                    "y": 356
+                }, {
+                    "name": "Brussels",
+                    "x": 573,
+                    "y": 285
+                }, {
+                    "name": "Tournai",
+                    "x": 427,
+                    "y": 325
+                }, {
+                    "name": "Mons",
+                    "x": 506,
+                    "y": 374
+                }, {
+                    "name": "Namur",
+                    "x": 645,
+                    "y": 388
+                }, {
+                    "name": "Charleroi",
+                    "x": 573,
+                    "y": 395
+                }, {
+                    "name": "Arlon",
+                    "x": 775,
+                    "y": 578
+                }]
+            }, {
+                "type": "mappoint",
+                "name": "Cities",
+                "dataLabels": {
+                    "enabled": false
+                },
+                "marker": {
+                    "symbol": "url(85_-Forklift-_transport_vehicle-48.png)"
+                },
+                "data": [{
+                    "name": "Liège",
+                    "x": 751 + 50,
+                    "y": 356
+                }, {
+                    "name": "Brussels",
+                    "x": 573 + 50,
+                    "y": 285
+                }, {
+                    "name": "Tournai",
+                    "x": 427 + 50,
+                    "y": 325
+                }, {
+                    "name": "Mons",
+                    "x": 506 + 50,
+                    "y": 374
+                }, {
+                    "name": "Namur",
+                    "x": 645 + 50,
+                    "y": 388
+                }, {
+                    "name": "Charleroi",
+                    "x": 573 + 50,
+                    "y": 395
+                }, {
+                    "name": "Arlon",
+                    "x": 775 + 50,
+                    "y": 578
+                }]
+            }];
+
+            // Instanciate the map
+            $('#container').highcharts('Map', {
+                chart: {
+                    plotBorderWidth: 1,
+                    plotBackgroundColor: '#f4e2ba',
+                    ignoreHiddenSeries: false
+                },
+
+                title: {
+                    text: 'Drainage basin of the Meuse river'
+                },
+
+                subtitle: {
+                    text: 'An example of <i>mapline</i> and <i>mappoint</i> series in Highcharts Maps. ' +
+                    ' (Source: <a href="http://en.wikipedia.org/wiki/File:Bassin_de_la_Meuse.svg">Wikipedia</a>)'
+                },
+
+                xAxis: {
+                    minPadding: -0.01
+                },
+                yAxis: {
+                    minPadding: -0.01,
+                    maxPadding: 0.01
+                },
+                plotOptions: {
+                    series: {
+                        tooltip: {
+                            headerFormat: '',
+                            pointFormat: '{point.name}'
+                        }
+                    }
+                },
+
+                legend: {
+                    align: 'left',
+                    backgroundColor: 'white',
+                    floating: true,
+                    layout: 'vertical',
+                    verticalAlign: 'bottom',
+                    x: 50,
+                    y: -50
+                },
+
+
+                series: series
+            });
+        });
+    </script>
+</head>
+<body>
+<script src="http://code.highcharts.com/maps/highmaps.js"></script>
+<script src="http://code.highcharts.com/maps/modules/exporting.js"></script>
+<div id="container" style="height: 600px; width: 365px; max-width: 600px; margin: 0 auto"></div>
+<div id="drag"></div>
+<div id="drop"></div>
+</body>
+</html>
