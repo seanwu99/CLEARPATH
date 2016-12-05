@@ -12,8 +12,9 @@
     <link href="css/demo.css" rel="stylesheet">
     <link href="css/stimulsoft.designer.office2013.whiteteal.css?v=20161205" rel="stylesheet">
     <link href="css/stimulsoft.viewer.office2013.whiteteal.css?v=20161205" rel="stylesheet">
-    <script type="text/javascript" src="stimulsoft.reports.js"></script>
-    <script type="text/javascript" src="stimulsoft.viewer.js"></script>
+    <script type="text/javascript" src="stimulsoft/stimulsoft.reports.js"></script>
+    <script type="text/javascript" src="stimulsoft/stimulsoft.viewer.js"></script>
+    <script type="text/javascript" src="stimulsoft/stimulsoft.designer.js"></script>
     <script type="text/javascript" src="demo.js"></script>
     <!-- Application scripts -->
 
@@ -54,42 +55,42 @@
 
         function createDesigner(e) {
             centerWheel(true);
-            $.getScript("stimulsoft.designer.js", function () {
+//            $.getScript("stimulsoft.designer.js", function () {
 //
 //                alert("Script loaded but not necessarily executed.");
 //
 //            });
 //            zip.installJS("designer.zip?v=20161205", ["stimulsoft.designer.js"], function () {
-                hideWhell();
-                var options = new Stimulsoft.Designer.StiDesignerOptions();
-                options.appearance.fullScreenMode = true;
-                options.appearance.interfaceType = Stimulsoft.Designer.StiInterfaceType.Mouse;
-                options.appearance.htmlRenderMode = Stimulsoft.Report.Export.StiHtmlExportMode.Table;
+            hideWhell();
+            var options = new Stimulsoft.Designer.StiDesignerOptions();
+            options.appearance.fullScreenMode = true;
+            options.appearance.interfaceType = Stimulsoft.Designer.StiInterfaceType.Mouse;
+            options.appearance.htmlRenderMode = Stimulsoft.Report.Export.StiHtmlExportMode.Table;
 
-                // Create an instance of the designer
-                designer = new Stimulsoft.Designer.StiDesigner(options, "StiDesigner", false);
+            // Create an instance of the designer
+            designer = new Stimulsoft.Designer.StiDesigner(options, "StiDesigner", false);
 
-                // Add the exit menu item event
-                designer.onExit = function (e) {
-                    this.visible = false;
-                    viewer.visible = true;
+            // Add the exit menu item event
+            designer.onExit = function (e) {
+                this.visible = false;
+                viewer.visible = true;
 
-                    ga('set', {
-                        page: '/viewer_' + viewer.getReportFileName(),
-                        title: 'Viewer ' + viewer.getReportFileName()
-                    });
-                    ga('send', 'pageview');
-
-                }
-                designer.renderHtml("designerContent");
-                designer.visible = true;
-                designer.report = e.report;
                 ga('set', {
-                    page: '/designer_' + designer.report.reportName,
-                    title: 'Designer ' + designer.report.reportName
+                    page: '/viewer_' + viewer.getReportFileName(),
+                    title: 'Viewer ' + viewer.getReportFileName()
                 });
                 ga('send', 'pageview');
+
+            }
+            designer.renderHtml("designerContent");
+            designer.visible = true;
+            designer.report = e.report;
+            ga('set', {
+                page: '/designer_' + designer.report.reportName,
+                title: 'Designer ' + designer.report.reportName
             });
+            ga('send', 'pageview');
+//            });
         }
 
         function setReport(reportObject) {
@@ -133,12 +134,12 @@
                 centerWheel(false);
             });
             centerWheel(true);
-            $.getScript("stimulsoft.designer.js", function () {
+//            $.getScript("stimulsoft.designer.js", function () {
 
 //            zip.installJS("lib.zip?v=20161205", ["stimulsoft.reports.js", "stimulsoft.viewer.js", "demo.js"], function () {
-                hideWhell();
-                showViewer();
-            });
+            hideWhell();
+            showViewer();
+//            });
         }
 
         // Load first report after the page is loaded
