@@ -137,6 +137,42 @@
             StopReasons_Table();
             mTable.placeAt("p2");
 
+            $('#p1').mousemove(function (e) {
+                var position;
+
+                if (mapChart) {
+                    if (!mapChart.lab) {
+                        mapChart.lab = mapChart.renderer.text('', 0, 0)
+                            .attr({
+                                zIndex: 5
+                            })
+                            .css({
+                                color: '#505050'
+                            })
+                            .add();
+                    }
+
+                    e = mapChart.pointer.normalize(e);
+                     position = mapChart.fromPointToLatLon({
+                        x: mapChart.xAxis[0].toValue(e.chartX),
+                        y: mapChart.yAxis[0].toValue(e.chartY)
+                    });
+                    console.log(position);
+                    mapChart.lab.attr({
+                        x: e.chartX + 5,
+                        y: e.chartY - 22,
+                        text: 'Lat: ' + position.lat.toFixed(2) + '<br>Lon: ' + position.lon.toFixed(2)
+                    });
+                }
+            });
+
+            $('#p1').mouseout(function () {
+                if (mapChart && mapChart.lab) {
+                    mapChart.lab.destroy();
+                    mapChart.lab = null;
+                }
+            });
+
 
             setInterval(function () {
 //                if (floorTreeReady && mapChart == null) {
@@ -426,6 +462,7 @@
 
         }
 
+
         function mapInit(rootNode) {
 
 //            rootNode = getNodeByText(nodeName);
@@ -568,11 +605,12 @@
                                     });
                                     features = {
                                         "type": 'FeatureCollection',
-                                        "features": features
+                                        "features": features,
                                     };
 //                                    cc('features');
 //                                    cc(features);
                                     mapDrilldown = Highcharts.geojson(features);
+
                                     $.each(mapDrilldown, function (i) {
 //                                        this.drilldown = this.properties['name'];
                                         this.value = 50 + Math.round((Math.random() * 50));
@@ -600,14 +638,43 @@
                                     // 								};
                                     // 									setTimeout(function() {
                                     // 										chart.hideLoading();
-                                    this.addSeriesAsDrilldown(e.point, {
+                                    this.addSingleSeriesAsDrilldown(e.point, {
                                         name: e.point.name,
                                         data: mapDrilldown,
                                         dataLabels: {
                                             enabled: true,
                                             format: '{point.name}'
-                                        }
+                                        },
+
+
                                     });
+                                    this.addSingleSeriesAsDrilldown(e.point, {
+                                        "type": "mappoint",
+                                        "name": "ops",
+                                        "dataLabels": {
+                                            "enabled": false
+                                        },
+
+                                        "data": [{
+                                            "name": "op1",
+                                            "x": 270,
+                                            "y": 100,
+                                            "marker": {
+                                                "symbol": "url(Common/images/op1.png)"
+                                            },
+                                        }]
+                                    });
+                                    this.applyDrilldown();
+//                                    this.addSeriesAsDrilldown(e.point, {
+//                                        name: e.point.name,
+//                                        data: mapDrilldown,
+//                                        dataLabels: {
+//                                            enabled: true,
+//                                            format: '{point.name}'
+//                                        },
+//
+//
+//                                    });
 
                                     // 			colors: [ '#7cb5ec', '#434348', '#90ed7d', '#f7a35c', '#8085e9', '#f15c80', '#e4d354', '#2b908f', '#f45b5b', '#91e8e1' ]
 
@@ -641,7 +708,7 @@
 //                                        chart.addSingleSeriesAsDrilldown(e.point, Availability);
 //                                        chart.addSingleSeriesAsDrilldown(e.point, Performance);
 //                                        chart.addSingleSeriesAsDrilldown(e.point, Quality);
-//                                        chart.applyDrilldown();
+
                                 } else {
                                     var features = [];
                                     $.each(ePoint.getNodes(), function (i, branchNode) {
@@ -704,7 +771,7 @@
                                     // 								};
                                     // 									setTimeout(function() {
                                     // 										chart.hideLoading();
-                                    this.addSeriesAsDrilldown(e.point, {
+                                    this.addSingleSeriesAsDrilldown(e.point, {
                                         name: e.point.name,
                                         data: mapDrilldown,
                                         dataLabels: {
@@ -717,7 +784,7 @@
                                     // 								chart.addSingleSeriesAsDrilldown(e.point, Availability);
                                     // 								chart.addSingleSeriesAsDrilldown(e.point, Performance);
                                     // 								chart.addSingleSeriesAsDrilldown(e.point, Quality);
-//                                    chart.applyDrilldown();
+                                    this.applyDrilldown();
 
                                 }
                             }
@@ -773,6 +840,23 @@
                     layout: 'vertical',
                     align: 'right',
                     verticalAlign: 'middle'
+                },
+                xAxis: {
+                    crosshair: {
+                        zIndex: 5,
+                        dashStyle: 'dot',
+                        snap: false,
+                        color: 'gray'
+                    }
+                },
+
+                yAxis: {
+                    crosshair: {
+                        zIndex: 5,
+                        dashStyle: 'dot',
+                        snap: false,
+                        color: 'gray'
+                    }
                 },
                 colorAxis: {
                     showInLegend: false,
