@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-
+<meta charset="utf-8"/>
 <head>
 
     <style>
@@ -83,13 +83,15 @@
         var TreeNodes = [];
         var BarChart = null;
         var LineChart = null;
+        var mapChart = null;
         // 	var chartRoot = '';
 
         var ChartType = 'BAR';
         var chartReady = false;
         // 	var lastTitle = [];
+        //        var isDrilldown = false;
         var isDrilldown = false;
-
+        var mapJson = null;
         // ******************************************************************************************************************************************************************
 
         $(function () {
@@ -122,436 +124,34 @@
                 elm: 'menu'
             });
 
+            $.get('map.json', function (data) {
+                mapJson = data;
+            });
+
             floorTreeInit();
 
-            windowHeigth = $(window).height();
-            //alert(((windowHeigth - 100) * .6) | 0);
-            //panel.placeAt("article");
-            // 		var e1 = document.getElementById("article");
-            // 		e1.style.width = '300px';
-            // 		e1.style.heigth = '600px';
+//            windowHeigth = $(window).height();
+//            alert(((windowHeigth - 100) * .6) | 0);
 
-            var tt = 0;
-            nWorkCenters = 5;
-            var mapLevel1 = new Array(nWorkCenters + 1);
-            var mapLevel1Refresh = new Date().getTime(), mapLevel1Cycle = 5 * 1000, mapLeve11Detail = false, mapLeve11DetailRefresh = new Date().getTime(), mapLevel1DetailCycle = 2 * 1000;
-            var mapLevel2, mapLevelDetailCycle = 1 * 1000, mapLevel2Refresh = new Date().getTime(), mapLevel2Cycle = 1 * 1000;
-            var drilling = false;
-            mapLevel1[0] = Highcharts.geojson(Highcharts.maps['ShopFloor']);
-            // Some responsiveness
 
-            $.each(mapLevel1[0], function (i) {
-                this.drilldown = this.properties['hc-key'];
-                this.value = randomBogusData(20, 80); // random bogus data
-            });
-
-            var chart1 = new Highcharts.Map('p1', {
-                chart: {
-                    height: ScreenSize()['y'] - 365,
-                    events: {
-                        drilldown: function (e) {
-
-                            drilling = true;
-                            //alert(e.point.drilldown);
-                            if (!e.seriesOptions) {
-                                var chart = this, mapKey = e.point.drilldown;
-
-                                // Handle error, the timeout is cleared on success
-                                fail = setTimeout(function () {
-                                    if (!Highcharts.maps[mapKey]) {
-                                        chart.showLoading('<i class="icon-frown"></i> Failed loading ' + e.point.name);
-
-                                        fail = setTimeout(function () {
-                                            chart.hideLoading();
-                                        }, 1000);
-                                    }
-                                }, 3000);
-                                //alert(mapKey);
-                                // Show the spinner
-                                chart.showLoading('<i class="icon-spinner icon-spin icon-3x"></i>'); // Font Awesome spinner
-                                // Load the drilldown map
-                                // 						var _name;
-                                $.getScript(mapKey + '.js', function () {
-                                    mapLevel2 = Highcharts.geojson(Highcharts.maps[mapKey]);
-                                    // 							_name = new Array(dataMap.length);
-                                    // Set a non-random bogus value
-
-                                    $.each(mapLevel2, function (i) {
-                                        this.value = randomBogusData(20, 80);//random bogus data
-                                    });
-                                    //subMapName = e.point.name;
-                                    //subMapLabel = '{point.name}';
-                                    //subMapLabel
-                                    // Hide loading and add series
-                                    chart.hideLoading();
-                                    clearTimeout(fail);
-                                    //Objectpoint = e.point;
-                                    chart.addSeriesAsDrilldown(e.point, {
-                                        name: e.point.name,
-                                        data: mapLevel2,
-                                        dataLabels: {
-                                            enabled: true,
-                                            align: 'center',
-                                            verticalAlign: 'middle',
-                                            format: '{point.name}'
-                                        }
-                                    });
-
-                                });
-                            }
-
-                            this.setTitle(null, {
-                                text: e.point.name
-                            });
-                        },
-                        drillup: function () {
-                            drilling = false;
-                            // 			if (chart.series.length == 2) {
-                            // 				chart.series[1].remove(true);
-                            // 				chart.series[0].show();
-                            // 				chart.redraw();
-                            // 			}
-                            mapLevel1Refresh = new Date().getTime();
-                            this.setTitle(null, {
-                                text: 'Shop Floor'
-                            });
-
-                        },
-                        load: function () {
-                            // 			var chart = this;
-
-                        }
-                    }
-                },
-
-                title: {
-                    text: 'Total Effective Equipment Performance'
-                },
-//                subtitle : {
-//                    text : 'Shop Floor',
-//                    floating : false,
-//                    align : 'center',
-//                    y : 50,
-//                    style : {
-//                        fontSize : '16px'
-//                    }
-//                },
-                legend: {
-                    layout: 'vertical',
-                    align: 'right',
-                    verticalAlign: 'middle'
-                },
-                colorAxis: {
-                    showInLegend: false,
-                    min: 0,
-                    minColor: '#E6E7E8',
-                    maxColor: '#005645'
-                },
-                mapNavigation: {
-                    enabled: true,
-                    buttonOptions: {
-                        verticalAlign: 'bottom'
-                    }
-                },
-                plotOptions: {
-                    series: {
-                        point: {
-                            events: {
-                                click: function () {
-                                    mapLevel1Refresh = new Date().getTime();
-                                },
-                                mouseOver: function () {
-                                    //alert('mouseOver');
-                                    mapLevel1Refresh = new Date().getTime();
-
-                                },
-                                mouseOut: function () {
-                                    //alert('mouseOut');
-                                    mapLevel1Refresh = new Date().getTime();
-
-                                }
-                            }
-                        }
-                    }
-                },
-                series: [{
-                    data: mapLevel1[0],
-                    name: 'Shop Floor',
-                    dataLabels: {
-                        enabled: true,
-                        align: 'center',
-                        verticalAlign: 'middle',
-                        format: '{point.properties.name}',
-                    }
-                }],
-                drilldown: {
-                    //series: drilldownSeries,
-                    activeDataLabelStyle: {
-                        color: '#FFFFFF',
-                        textDecoration: 'none',
-                        textShadow: '0 0 0px #000000'
-                    },
-                    drillUpButton: {
-                        relativeTo: 'spacingBox',
-                        position: {
-                            x: 0,
-                            y: 60
-                        }
-                    }
-                },
-
-            });
             StopReasons_Table();
             mTable.placeAt("p2");
-            function randomBogusData(a, b) {
-                return parseInt(a + b * Math.random());
-
-            }
 
 
             setInterval(function () {
-                return;
-                if (!floorTreeReady) {
-                    return;
-                }
-
-                if (ChartType == 'BAR') {
-                    if (!chartReady) {
-                        barChartInit(floorTree.getNodes()[0]);
-                    } else {
-//                        cc('BarChart:');
-//                        cc(BarChart);
-                        $.each(BarChart.series, function (i, bs) {
-                            $.each(bs.data, function (j, data) {
-                                data.y = 60 + Math.round((Math.random() * 40));
-
-                            });
-                            BarChart.series[i].isDirty = true;
-                            BarChart.redraw();
-                        });
-                    }
-                }
-
-                if (ChartType == 'LINE') {
-//TODO
-                    if (chartReady) {
-                        // 			if (treeArray[treeIndex]['oeeStatus'] == 1) {
-
-                        // 				if (mChart.series.length < 5) {
-                        // 					return;
-                        // 				}
-                        // 				if (mChart.series[0]['data'].length != mChart.series[1]['data'].length || mChart.series[0]['data'].length != mChart.series[2]['data'].length || mChart.series[0]['data'].length != mChart.series[3]['data'].length) {
-                        // 					return;
-                        // 				}
-                        var ts, oee, availability, performance, quality, len;
-                        ts = Math.round(new Date().getTime() / 1000) * 1000;
-                        len = LineChart.series[0]['data'].length;
-
-                        availability = 60 + Math.round((Math.random() * 40));
-                        performance = 60 + Math.round((Math.random() * 40));
-                        quality = 60 + Math.round((Math.random() * 40));
-
-                        oee = (availability * performance * quality / 10000) | 0;
-
-                        LineChart.setTitle({
-                            text: 'OEE: ' + oee + '%'
-                        });
-
-                        LineChart.subtitle.update({
-                            text: 'Availability: ' + availability + '%    Performance: ' + performance + '%    Quality: ' + quality + '%'
-                        });
-
-                        LineChart.series[1].addPoint([ts, availability], false, false);
-                        LineChart.series[2].addPoint([ts, performance], false, false);
-                        LineChart.series[3].addPoint([ts, quality], false, false);
-                        LineChart.series[0].addPoint([ts, oee], true, false);
-//                        dataAdd2Table(ts, treeArray[treeIndex]['unitName'], treeArray[treeIndex]['recordID'], "Dr.Oper", availability, performance, quality, oee);
-                    }
-                }
-
-
-                return;
-//                if (BarChart == null && floorTreeReady) {
-//                    barChartInit(floorTree.getNodes()[0]);
-//                    return;
+//                if (floorTreeReady && mapChart == null) {
+//                    mapInit();
 //                }
-//                if (hChart == null && floorTreeReady) {
-//                    lineChartInit(floorTree.getNodes()[0]);
-//                    return;
-//                }
-//                cc('BarChart');
-//                cc(BarChart);
+//                cc('main routine');
+                if (mapChart == null && floorTreeReady && mapJson != null) {
+                    mapInit(floorTree.getNodes()[0]);
+                }
 
-
-                // 			if (BarChart == null) {
-                // 				// 						barChartInit(floorTree.getNodes()[0]);
-
-                // 				var ds = BarChart.options.drilldown.series;
-                // 				$.each(ds, function(i, _ds) {
-                // 					ds.pop();
-                // 				});
-                // 				// 				$.each(ds, function(i, _ds) {
-                // 				// 					_data.push({
-                // 				// 						name : _chartItems,
-                // 				// 						y : 60 + Math.round((Math.random() * 40)),
-                // 				// 						drilldown : _chartItems,
-                // 				// 					});
-                // 				// 					ds[i]['name'] = _chartItems;
-                // 				// 				});
-                // 				chartRoot = getNodeByText(oeeChart.options.title['text']);
-                // 				var chartItems = getChildren(chartRoot);
-
-                // 				//ss(chartItem.length);
-                // 				var _data = [];
-                // 				$.each(chartItems, function(i, _chartItems) {
-                // 					_data.push({
-                // 						name : _chartItems,
-                // 						y : 60 + Math.round((Math.random() * 40)),
-                // 						drilldown : _chartItems,
-                // 					});
-
-                // 					var dsNode = getNodeByText(_chartItems);
-
-                // 					var dsItems = getChildren(dsNode);
-                // 					var ds_data = [];
-                // 					$.each(dsItems, function(i, _dsItems) {
-                // 						//_ds['name'] = '';
-                // 						ds_data.push([ _dsItems, 60 + Math.round((Math.random() * 40)) ]);
-                // 					});
-
-                // 					ds.push({
-                // 						name : _chartItems,
-                // 						id : _chartItems,
-                // 						data : ds_data,
-
-                // 					});
-                // 					//ds[i]['name'] = _chartItems;
-                // 				});
-
-                // 				// 				oeeChart.subtitle.update({
-                // 				// 					text : ''
-                // 				// 				});
-
-                // 				oeeChart.series[0].setData(_data);
-
-                // 			} else {
-                // 				// 				ss(oeeChart.options.drilldown);
-                // 				var ds = oeeChart.options.drilldown.series;
-                // 				$.each(ds, function(i, _ds) {
-                // 					// 					_ds['name'] = '';
-                // 					//ss(_ds['name']);
-                // 				});
-                // 			}
-
-                // 			if (oeeChart.options.subtitle['text'] == 'data retrieval ...') {
-                // 				var chartRoot = getNodeByText(oeeChart.options.title['text']);
-                // 				var chartItem = getChildren(chartRoot);
-
-                // 				//ss(chartItem.length);
-                // 				var _data = [];
-                // 				$.each(chartItem, function(i, _chartItem) {
-                // 					_data.push({
-                // 						name : _chartItem,
-                // 						y : 60 + Math.round((Math.random() * 40)),
-                // 						drilldown : _chartItem,
-                // 					});
-                // 				});
-
-                // 				oeeChart.subtitle.update({
-                // 					text : ''
-                // 				});
-
-                // 				oeeChart.series[0].setData(_data);
-
-                // 				// 				ss(oeeChart.options.drilldown.series.length);
-                // 				var drilldownseries = oeeChart.options.drilldown.series;
-                // 				for (var i = 0; i < drilldownseries.length; i++) {
-                // 					ss(drilldownseries[i]['name'])
-                // 				}
-
-                // 				// 				ss(drilldownseries.length);
-                // 				$.each(chartItem, function(i, _chartItem) {
-                // 					oeeChart.options.drilldown.addSeries({
-                // 						name : _chartItem,
-                // 						id : _chartItem,
-                // 						data : [ 194.1, 95.6, 54.4, 29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4 ]
-                // 					});
-
-                // 				});
-
-                // 				// 				$.each(chartItem, function(i, _chartItem) {
-                // 				// 					var drilldownseries;
-                // 				// 					_data.push({
-                // 				// 						name : _chartItem,
-                // 				// 						y : 60 + Math.round((Math.random() * 40)),
-                // 				// 						drilldown : _chartItem,
-                // 				// 					});
-                // 				// 				});
-                // 				// 				dd = oeeChart.series[0].data;
-                // 				// 				$.each(dd, function(i, d) {
-                // 				// 					ss(d['name'] + ' / ' + d['y']);
-                // 				// 				});
-
-                // 				// 				oeeChart.series[0].setData(_data);
-                // 			}
-
-                // 			if (treeArray[treeIndex]['oeeStatus'] == 1) {
-
-                // 				if (mChart.series.length < 5) {
-                // 					return;
-                // 				}
-                // 				if (mChart.series[0]['data'].length != mChart.series[1]['data'].length || mChart.series[0]['data'].length != mChart.series[2]['data'].length || mChart.series[0]['data'].length != mChart.series[3]['data'].length) {
-                // 					return;
-                // 				}
-                // 				var ts, oee, availability, performance, quality, len;
-                // 				ts = Math.round(new Date().getTime() / 1000) * 1000;
-                // 				len = mChart.series[0]['data'].length;
-                // 				if (len == 0) {
-                // 					availability = (50 + 50 * Math.random()) | 0;
-                // 					performance = (50 + 50 * Math.random()) | 0;
-                // 					quality = (50 + 50 * Math.random()) | 0;
-                // 				} else {
-                // 					if (ts == mChart.series[0]['data'][len - 1].x) {
-                // 						return;
-                // 					}
-
-                // 					availability = mChart.series[1]['data'][len - 1].y + ((20 * Math.random()) | 0) - 10;
-                // 					performance = mChart.series[2]['data'][len - 1].y + ((20 * Math.random()) | 0) - 10;
-                // 					quality = mChart.series[3]['data'][len - 1].y + ((20 * Math.random()) | 0) - 10;
-                // 					if (availability > 100)
-                // 						availability = 100;
-                // 					if (performance > 100)
-                // 						performance = 100;
-                // 					if (quality > 100)
-                // 						quality = 100;
-                // 					if (availability < 60)
-                // 						availability = 60;
-                // 					if (performance < 60)
-                // 						performance = 60;
-                // 					if (quality < 60)
-                // 						quality = 60;
-                // 				}
-                // 				oee = (availability * performance * quality / 10000) | 0;
-
-                // 				mChart.setTitle({
-                // 					text : 'OEE: ' + oee + '%'
-                // 				});
-
-                // 				mChart.subtitle.update({
-                // 					text : 'Availability: ' + availability + '%    Performance: ' + performance + '%    Quality: ' + quality + '%'
-                // 				});
-
-                // 				mChart.series[1].addPoint([ ts, availability ], false, false);
-                // 				mChart.series[2].addPoint([ ts, performance ], false, false);
-                // 				mChart.series[3].addPoint([ ts, quality ], false, false);
-                // 				mChart.series[0].addPoint([ ts, oee ], true, false);
-                // 				dataAdd2Table(ts, treeArray[treeIndex]['unitName'], treeArray[treeIndex]['recordID'], "Dr.Oper", availability, performance, quality, oee);
-                // 			}
-            }, 3000);
+            }, 1000);
 
             var TESTS;
             $('#test1').click(function () {
-                barChartInit(floorTree.getNodes()[0]);
+                mapInit('COLUMBUS SOUTH');
             });
 
             $('#test2').click(function () {
@@ -809,7 +409,462 @@
             // 		mTable.filter(mTable.getColumns()[3], location.href.substring(location.href.indexOf("FloorMaps_Index=") + 16));
         }
 
+        function getPieceByName(mapData, pieceName) {
+            var coor = null;
+            $.each(mapData['features'], function (i, piece) {
+                if (piece['properties']['name'] == pieceName) {
+                    coor = piece;
+                    return false;
+                }
+            });
+            if (coor != null) {
+                return coor['geometry']['coordinates'];
+            } else {
+                return null;
+            }
+//            cc(coor['geometry']['coordinates']);
 
+        }
+
+        function mapInit(rootNode) {
+
+//            rootNode = getNodeByText(nodeName);
+            if (rootNode.getNodes().length == 0) {
+                return;
+            }
+            var features = [];
+            $.each(rootNode.getNodes(), function (i, branchNode) {
+                var branch = [];
+                getBranch(branchNode, branch);
+                //get Branch nodes, push to features
+                var pieces = [];
+                if (branch.length > 0) {
+                    $.each(branch, function (i, _branch) {
+                        var coor = getPieceByName(mapJson, _branch.getText());
+                        if (coor != null) {
+                            pieces.push(coor);
+                        }
+                    });
+                    features.push({
+                        type: "Feature",
+                        properties: {
+                            "hc-key": branchNode.getText(),
+                            "name": branchNode.getText()
+                        },
+                        geometry: {
+                            type: "MultiPolygon",
+                            coordinates: pieces
+                        },
+//                            drilldown: true
+                    });
+                }
+            });
+
+            features = {
+                "type": 'FeatureCollection',
+                "features": features
+            };
+//                var hd = Highcharts.geojson(features);
+//            cc('features');
+//            cc(features);
+            var mapTop = Highcharts.geojson(features);
+
+            $.each(mapTop, function (i) {
+                this.drilldown = this.properties['name'];
+                this.value = 50 + Math.round((Math.random() * 50));
+            })
+            mapChart = new Highcharts.Map('p1', {
+                chart: {
+                    height: ScreenSize()['y'] - 365,
+                    events: {
+                        redraw: function () {
+//                                cc('redraw');
+                        },
+                        drilldown: function (e) {
+                            cc('drilldown');
+                            var mapDrilldown;
+
+                            isDrilldown = true;
+                            if (!e.seriesOptions) {
+//                                var chart = this;
+
+//                                cc('drilldown');
+//                                cc(e);
+                                // 							ss(e.point.name)
+//                                var ePointName = e.point.name;
+                                // 							lastTitle.push(BarChart.options.title['text']);
+                                this.title.update({
+                                    text: e.point.name
+                                });
+
+                                var ePoint = getNodeByText(e.point.name);
+//                                cc('ePoint');
+//                                cc(ePoint.getText());
+                                if (ePoint.getNodes().length == 0) {
+                                    cc('(ePoint.getNodes().length');
+                                    cc(ePoint.getNodes().length);
+                                    // 								ss('lineChartTest ?!');
+//                                        lineChartTest(pn);
+                                    cc('ePoint.getNodes().length == 0');
+                                    isDrilldown = false;
+                                    return;
+                                }
+
+                                // 							tts = getChildren(node);
+//                                    var oeeData = [];
+//                                    var availabilityData = [];
+//                                    var performanceData = [];
+//                                    var qualityData = [];
+//                                    $.each(node.getNodes(), function (i, child) {
+//                                        oeeData.push({
+//                                            name: child.getText(),
+//                                            y: 60 + Math.round((Math.random() * 40)),
+//                                            drilldown: true
+//                                        });
+//                                        availabilityData.push({
+//                                            name: child.getText(),
+//                                            y: 60 + Math.round((Math.random() * 40)),
+//                                            drilldown: true
+//                                        });
+//                                        performanceData.push({
+//                                            name: child.getText(),
+//                                            y: 60 + Math.round((Math.random() * 40)),
+//                                            drilldown: true
+//                                        });
+//                                        qualityData.push({
+//                                            name: child.getText(),
+//                                            y: 60 + Math.round((Math.random() * 40)),
+//                                            drilldown: true
+//                                        });
+//                                    });
+
+                                if (ePoint.getNodes()[0].getNodes().length == 0) {
+                                    var features = [];
+                                    $.each(ePoint.getNodes(), function (i, branchNode) {
+                                        var branch = [];
+                                        getBranch(branchNode, branch);
+
+//                                        cc(branchNode.getText());
+//                                        if (branch.length > 0) {
+                                        var pieces = [];
+                                        $.each(branch, function (i, _branch) {
+                                            var coor = getPieceByName(mapJson, _branch.getText());
+                                            if (coor != null) {
+                                                pieces.push(coor);
+                                            }
+                                        });
+                                        features.push({
+                                            type: "Feature",
+                                            properties: {
+                                                "hc-key": branchNode.getText(),
+                                                "name": branchNode.getText()
+                                            },
+                                            geometry: {
+                                                type: "MultiPolygon",
+                                                coordinates: pieces
+                                            }
+                                        });
+//                                        }
+                                    });
+                                    features = {
+                                        "type": 'FeatureCollection',
+                                        "features": features
+                                    };
+//                                    cc('features');
+//                                    cc(features);
+                                    mapDrilldown = Highcharts.geojson(features);
+                                    $.each(mapDrilldown, function (i) {
+//                                        this.drilldown = this.properties['name'];
+                                        this.value = 50 + Math.round((Math.random() * 50));
+                                    });
+//                                    cc(mapDrilldown);
+//                                        var OEE = {
+//                                            name: 'OEE',
+//                                            colorByPoint: true,
+//                                            data: oeeData,
+//                                        };
+                                    // 								var Availability = {
+                                    // 									name : 'Availability',
+                                    // 									colorByPoint : true,
+                                    // 									data : availabilityData,
+                                    // 								};
+                                    // 								var Performance = {
+                                    // 									name : 'Performance',
+                                    // 									colorByPoint : true,
+                                    // 									data : performanceData,
+                                    // 								};
+                                    // 								var Quality = {
+                                    // 									name : 'Quality',
+                                    // 									colorByPoint : true,
+                                    // 									data : qualityData,
+                                    // 								};
+                                    // 									setTimeout(function() {
+                                    // 										chart.hideLoading();
+                                    this.addSeriesAsDrilldown(e.point, {
+                                        name: e.point.name,
+                                        data: mapDrilldown,
+                                        dataLabels: {
+                                            enabled: true,
+                                            format: '{point.name}'
+                                        }
+                                    });
+
+                                    // 			colors: [ '#7cb5ec', '#434348', '#90ed7d', '#f7a35c', '#8085e9', '#f15c80', '#e4d354', '#2b908f', '#f45b5b', '#91e8e1' ]
+
+//                                        var OEE = {
+//                                            name: 'OEE',
+//                                            colorByPoint: false,
+//                                            color: '#7cb5ec',
+//                                            data: oeeData,
+//                                        };
+//                                        var Availability = {
+//                                            name: 'Availability',
+//                                            colorByPoint: false,
+//                                            color: '#434348',
+//                                            data: availabilityData,
+//                                        };
+//                                        var Performance = {
+//                                            name: 'Performance',
+//                                            colorByPoint: false,
+//                                            color: '#90ed7d',
+//                                            data: performanceData,
+//                                        };
+//                                        var Quality = {
+//                                            name: 'Quality',
+//                                            colorByPoint: false,
+//                                            color: '#f7a35c',
+//                                            data: qualityData,
+//                                        };
+//                                        // 									setTimeout(function() {
+//                                        // 										chart.hideLoading();
+//                                        chart.addSingleSeriesAsDrilldown(e.point, OEE);
+//                                        chart.addSingleSeriesAsDrilldown(e.point, Availability);
+//                                        chart.addSingleSeriesAsDrilldown(e.point, Performance);
+//                                        chart.addSingleSeriesAsDrilldown(e.point, Quality);
+//                                        chart.applyDrilldown();
+                                } else {
+                                    var features = [];
+                                    $.each(ePoint.getNodes(), function (i, branchNode) {
+                                        var branch = [];
+                                        getBranch(branchNode, branch);
+
+//                                        cc(branchNode.getText());
+//                                        if (branch.length > 0) {
+                                        var pieces = [];
+                                        $.each(branch, function (i, _branch) {
+                                            var coor = getPieceByName(mapJson, _branch.getText());
+                                            if (coor != null) {
+                                                pieces.push(coor);
+                                            }
+                                        });
+                                        features.push({
+                                            type: "Feature",
+                                            properties: {
+                                                "hc-key": branchNode.getText(),
+                                                "name": branchNode.getText()
+                                            },
+                                            geometry: {
+                                                type: "MultiPolygon",
+                                                coordinates: pieces
+                                            }
+                                        });
+//                                        }
+                                    });
+                                    features = {
+                                        "type": 'FeatureCollection',
+                                        "features": features
+                                    };
+//                                    cc('features');
+//                                    cc(features);
+                                    mapDrilldown = Highcharts.geojson(features);
+                                    $.each(mapDrilldown, function (i) {
+                                        this.drilldown = this.properties['name'];
+                                        this.value = 50 + Math.round((Math.random() * 50));
+                                    });
+//                                    cc(mapDrilldown);
+//                                        var OEE = {
+//                                            name: 'OEE',
+//                                            colorByPoint: true,
+//                                            data: oeeData,
+//                                        };
+                                    // 								var Availability = {
+                                    // 									name : 'Availability',
+                                    // 									colorByPoint : true,
+                                    // 									data : availabilityData,
+                                    // 								};
+                                    // 								var Performance = {
+                                    // 									name : 'Performance',
+                                    // 									colorByPoint : true,
+                                    // 									data : performanceData,
+                                    // 								};
+                                    // 								var Quality = {
+                                    // 									name : 'Quality',
+                                    // 									colorByPoint : true,
+                                    // 									data : qualityData,
+                                    // 								};
+                                    // 									setTimeout(function() {
+                                    // 										chart.hideLoading();
+                                    this.addSeriesAsDrilldown(e.point, {
+                                        name: e.point.name,
+                                        data: mapDrilldown,
+                                        dataLabels: {
+                                            enabled: true,
+                                            format: '{point.name}'
+                                        }
+                                    });
+
+//                                    chart.addSingleSeriesAsDrilldown(e.point, ePointDrilldown);
+                                    // 								chart.addSingleSeriesAsDrilldown(e.point, Availability);
+                                    // 								chart.addSingleSeriesAsDrilldown(e.point, Performance);
+                                    // 								chart.addSingleSeriesAsDrilldown(e.point, Quality);
+//                                    chart.applyDrilldown();
+
+                                }
+                            }
+                        },
+                        drillup: function (e) {
+                            this.setTitle({
+                                text: findParent(getNodeByText(e.seriesOptions.data[0].name)).getText()
+                            });
+                            isDrilldown = false;
+                        },
+                        load: function () {
+                        }
+                    }
+                },
+                lang: {
+//                    drillUpText: " << Back to {series.name}"
+                    drillUpText: " << Back"
+                },
+                exporting: {
+                    enabled: false
+                },
+                credits: {
+                    enabled: false,
+                    href: 'http://www.rtsperfectplant.com/',
+                    position: {
+                        align: 'right',
+                        x: -10,
+                        verticalAlign: 'bottom',
+                        y: -5
+                    },
+
+                    style: {
+                        cursor: 'pointer',
+                        color: '#999999',
+                        fontSize: '9px'
+                    },
+
+                    text: 'RTS Consulting Inc.'
+                },
+                title: {
+                    text: rootNode.getText()
+                },
+//                subtitle : {
+//                    text : 'Shop Floor',
+//                    floating : false,
+//                    align : 'center',
+//                    y : 50,
+//                    style : {
+//                        fontSize : '16px'
+//                    }
+//                },
+                legend: {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'middle'
+                },
+                colorAxis: {
+                    showInLegend: false,
+                    min: 0,
+                    minColor: '#E6E7E8',
+                    maxColor: '#005645'
+                },
+                mapNavigation: {
+                    enabled: true,
+                    buttonOptions: {
+                        verticalAlign: 'bottom'
+                    }
+                },
+                plotOptions: {
+                    map: {
+                        states: {
+                            hover: {
+                                color: '#EEDD66'
+                            }
+                        }
+                    },
+                    series: {
+                        point: {
+                            events: {
+                                click: function () {
+//                                    mapLevel1Refresh = new Date().getTime();
+                                },
+                                mouseOver: function () {
+                                    //alert('mouseOver');
+//                                    mapLevel1Refresh = new Date().getTime();
+
+                                },
+                                mouseOut: function () {
+                                    //alert('mouseOut');
+//                                    mapLevel1Refresh = new Date().getTime();
+
+                                }
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    animation: {
+                        duration: 1000
+                    },
+                    data: mapTop,
+                    name: "series's name",
+                    dataLabels: {
+                        enabled: true,
+                        align: 'center',
+                        verticalAlign: 'middle',
+                        format: '{point.properties.name}'
+                    }
+                }],
+                drilldown: {
+                    //series: drilldownSeries,
+                    activeDataLabelStyle: {
+                        color: '#FFFFFF',
+                        textDecoration: 'none',
+                        textShadow: '0 0 0px #000000'
+                    },
+                    drillUpButton: {
+                        relativeTo: 'spacingBox',
+                        position: {
+                            x: 0,
+                            y: 60
+                        }
+                    }
+                }
+            });
+//            });
+//            return;
+
+//            nWorkCenters = 5;
+//            var mapLevel1 = new Array(nWorkCenters + 1);
+//            var mapLevel1Refresh = new Date().getTime(), mapLevel1Cycle = 5 * 1000, mapLeve11Detail = false, mapLeve11DetailRefresh = new Date().getTime(), mapLevel1DetailCycle = 2 * 1000;
+//            var mapLevel2, mapLevelDetailCycle = 1 * 1000, mapLevel2Refresh = new Date().getTime(), mapLevel2Cycle = 1 * 1000;
+//            var drilling = false;
+//            mapLevel1[0] = Highcharts.geojson(Highcharts.maps['ShopFloor']);
+            // Some responsiveness
+
+//            $.each(mapLevel1[0], function (i) {
+//                this.drilldown = this.properties['hc-key'];
+//                this.value = randomBogusData(20, 80); // random bogus data
+//            });
+
+
+        }
+        function randomBogusData(a, b) {
+            return parseInt(a + b * Math.random());
+
+        }
         function dataAdd2Table(_Timestamp, _Unit_Name, _UnitID, _Operator, _OEE_Availability, _OEE_Performance, _OEE_Quality, _OEE_OEE) {
             var P1 = _Timestamp;
             var P2 = _Unit_Name;
@@ -898,12 +953,19 @@
                 // 			TableRef(id, name);
                 // 			ss(oControlEvent.getParameters().node.getText());
                 // 			ss(oeeStatus(oControlEvent.getParameters().node.getText()));
-                if (oeeStatus(oControlEvent.getParameters().node.getText()) == 0) {
-                    chartReady = false;
-                    barChartInit(oControlEvent.getParameters().node);
+                cc(oControlEvent.getParameters().node.getText());
+                var n = oControlEvent.getParameters().node;
+                if (n.getNodes().length == 0) {
+                    return;
                 } else {
-                    lineChartTest(oControlEvent.getParameters().node.getText());
+                    mapInit(n);
                 }
+//                if (oeeStatus(oControlEvent.getParameters().node.getText()) == 0) {
+//                    chartReady = false;
+//                    barChartInit(oControlEvent.getParameters().node);
+//                } else {
+//                    lineChartTest(oControlEvent.getParameters().node.getText());
+//                }
                 //
 
             },
@@ -920,7 +982,7 @@
             var P3 = "ORDER BY idUnitParent";
             var P4 = "";
             var url = "/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/get_Table&Param.1=" + P1 + "&Param.2=" + P2 + "&Param.3=" + P3 + "&Param.4=" + P4 + "&Content-Type=text/xml";
-
+//            ss(url);
             if (mockServer) {
                 url = 'mockServer/MESM_FloorMaps.xml';
             }
@@ -968,7 +1030,7 @@
                 floorTreeReady = true;
                 // 			nn = getNodeByText('2110 SCR 1');
                 // 			ss(findParent(nn).getText());
-                cc(floorTree);
+                //cc(floorTree);
             }
 
         }
@@ -1550,13 +1612,13 @@
                             // 						oeeChart.setTitle({
                             // 							text : e.seriesOptions.name
                             // 						});
-                            isDrilldown = true;
+//                            isDrilldown = true;
 
                             if (!e.seriesOptions) {
                                 var chart = this;
 
-                                cc('e');
-                                cc(e);
+                                //cc('e');
+                                // cc(e);
                                 // 							ss(e.point.name)
                                 pn = e.point.name;
                                 // 							lastTitle.push(BarChart.options.title['text']);
@@ -1569,7 +1631,7 @@
                                 if (node.getNodes().length == 0) {
                                     // 								ss('lineChartTest ?!');
                                     lineChartTest(pn);
-                                    isDrilldown = false;
+//                                    isDrilldown = false;
                                     return;
                                 }
 
@@ -1669,7 +1731,7 @@
                         },
                         drillup: function (e) {
 
-                            cc(e);
+                            //cc(e);
                             // 						lastTitle = oeeChart.options.title['text'];
                             var chart = this;
                             // 						cc('drillup');
@@ -2414,6 +2476,7 @@
             alert(_string);
         }
         function cc(_object) {
+
             console.log(_object);
         }
     </script>
@@ -2435,12 +2498,13 @@
        style="display: block; width: 1000px;" readonly/>
 
 <div id="container" class="container">
-    <!--<button id="test1">1</button>-->
-    <!--<button id="test2">2</button>-->
-    <!--<button id="test3">3</button>-->
+
     <header id="header"></header>
     <menu id="menu"></menu>
     <nav id="nav"></nav>
+    <!--<button id="test1">1</button>-->
+    <!--<button id="test2">2</button>-->
+    <!--<button id="test3">3</button>-->
     <article id="article">
         <div id="p1"></div>
         <div id="p2"></div>
