@@ -12,10 +12,10 @@
     <link href="css/demo.css" rel="stylesheet">
     <link href="css/stimulsoft.designer.office2013.whiteteal.css?v=20161205" rel="stylesheet">
     <link href="css/stimulsoft.viewer.office2013.whiteteal.css?v=20161205" rel="stylesheet">
-    <script type="text/javascript" src="stimulsoft/stimulsoft.reports.js"></script>
-    <script type="text/javascript" src="stimulsoft/stimulsoft.viewer.js"></script>
-    <script type="text/javascript" src="stimulsoft/stimulsoft.designer.js"></script>
-    <script type="text/javascript" src="stimulsoft/Reports/demo.js"></script>
+    <script type="text/javascript" src="stimulsoft.reports.js"></script>
+    <script type="text/javascript" src="stimulsoft.viewer.js"></script>
+    <script type="text/javascript" src="stimulsoft.designer.js"></script>
+    <script type="text/javascript" src="Reports/demo.js"></script>
     <!-- Application scripts -->
 
     <script>
@@ -43,11 +43,11 @@
                 } else {
                     designer.visible = true;
                     designer.report = e.report;
-                    ga('set', {
-                        page: '/designer_' + designer.report.reportName,
-                        title: 'Designer ' + designer.report.reportName
-                    });
-                    ga('send', 'pageview');
+//                    ga('set', {
+//                        page: '/designer_' + designer.report.reportName,
+//                        title: 'Designer ' + designer.report.reportName
+//                    });
+//                    ga('send', 'pageview');
                 }
             };
             viewer.renderHtml("viewerContent");
@@ -75,21 +75,21 @@
                 this.visible = false;
                 viewer.visible = true;
 
-                ga('set', {
-                    page: '/viewer_' + viewer.getReportFileName(),
-                    title: 'Viewer ' + viewer.getReportFileName()
-                });
-                ga('send', 'pageview');
+//                ga('set', {
+//                    page: '/viewer_' + viewer.getReportFileName(),
+//                    title: 'Viewer ' + viewer.getReportFileName()
+//                });
+//                ga('send', 'pageview');
 
             }
             designer.renderHtml("designerContent");
             designer.visible = true;
             designer.report = e.report;
-            ga('set', {
-                page: '/designer_' + designer.report.reportName,
-                title: 'Designer ' + designer.report.reportName
-            });
-            ga('send', 'pageview');
+//            ga('set', {
+//                page: '/designer_' + designer.report.reportName,
+//                title: 'Designer ' + designer.report.reportName
+//            });
+//            ga('send', 'pageview');
 //            });
         }
 
@@ -98,25 +98,25 @@
             viewer.showProcessIndicator();
 
             // Timeout need for immediate display loading report indicator
-            setTimeout(function () {
-                // Create a new report instance
-                var report = new Stimulsoft.Report.StiReport();
-                // Load reports from JSON object
-                report.loadFile("stimulsoft/Reports/" + reportObject.id + ".mrt");
-                // Remove all connections from the report template
-                report.dictionary.databases.clear();
-                // Register DataSet object
-                report.regData("Demo", "Demo", dataSet);
+//            setTimeout(function () {
+            // Create a new report instance
+            var report = new Stimulsoft.Report.StiReport();
+            // Load reports from JSON object
+            report.loadFile("Reports/" + reportObject.id + ".mrt");
+            // Remove all connections from the report template
+            report.dictionary.databases.clear();
+            // Register DataSet object
+            report.regData("Demo", "Demo", dataSet);
 
-                // Assign the report to the viewer
-                viewer.report = report;
+            // Assign the report to the viewer
+            viewer.report = report;
 
-                ga('set', {
-                    page: '/viewer_' + viewer.getReportFileName(),
-                    title: 'Viewer ' + viewer.getReportFileName()
-                });
-                ga('send', 'pageview');
-            }, 50);
+//                ga('set', {
+//                    page: '/viewer_' + viewer.getReportFileName(),
+//                    title: 'Viewer ' + viewer.getReportFileName()
+//                });
+//                ga('send', 'pageview');
+//            }, 50);
         }
 
         // Set report button style
@@ -129,7 +129,7 @@
         }
 
         function onBodyLoad() {
-            var js = {};
+//            var js = {};
             window.addEventListener("resize", function (event) {
                 centerWheel(false);
             });
@@ -216,21 +216,21 @@
             document.getElementById("load_wheel").style.display = "none";
         }
     </script>
-    <script type="text/javascript">
-        (function (i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r;
-            i[r] = i[r] || function () {
-                    (i[r].q = i[r].q || []).push(arguments)
-                }, i[r].l = 1 * new Date();
-            a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
-            a.async = 1;
-            a.src = g;
-            m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-        ga('create', 'UA-365390-3', 'auto');
-        //ga('send', 'pageview');
-    </script>
+    <!--<script type="text/javascript">-->
+    <!--(function (i, s, o, g, r, a, m) {-->
+    <!--i['GoogleAnalyticsObject'] = r;-->
+    <!--i[r] = i[r] || function () {-->
+    <!--(i[r].q = i[r].q || []).push(arguments)-->
+    <!--}, i[r].l = 1 * new Date();-->
+    <!--a = s.createElement(o),-->
+    <!--m = s.getElementsByTagName(o)[0];-->
+    <!--a.async = 1;-->
+    <!--a.src = g;-->
+    <!--m.parentNode.insertBefore(a, m)-->
+    <!--})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');-->
+    <!--ga('create', 'UA-365390-3', 'auto');-->
+    <!--//ga('send', 'pageview');-->
+    <!--</script>-->
 </head>
 <body onload="onBodyLoad();">
 <div class="js_loader" id="load_wheel" style="position:absolute;z-index:70000;top:254px;display:none"></div>
@@ -242,9 +242,9 @@
                 <tr>
                     <td height="60px">
                         <img style="position: absolute; width: 150px; left: 0px; top: 5px;"
-                             src="stimulsoft/images/StimulsoftReports.png"/>
+                             src="images/StimulsoftReports.png"/>
                         <img style="position: absolute; width: 30px; height: 30px; left: 105px; top: 25px;"
-                             src="stimulsoft/images/Js.png"/>
+                             src="images/Js.png"/>
                     </td>
                 </tr>
                 <tr>
@@ -276,7 +276,7 @@
                                         "onmouseout=\"onButtonMouseOut(this)\"" +
                                         "onclick=\"onButtonClick(this, " + reportName + ")\">" +
                                         "<table cellpadding=\"0\" cellspacing=\"0\">" +
-                                        "<tr><td style=\"text-align: center; width: 100%;\"><img src=\"stimulsoft/images/" + reportName + ".png\" /></td></tr>" +
+                                        "<tr><td style=\"text-align: center; width: 100%;\"><img src=\"images/" + reportName + ".png\" /></td></tr>" +
                                         "<tr><td class=\"Caption\">" + reportsCollection[reportName] + "</td></tr>" +
                                         "</table>" +
                                         "</a>");
