@@ -25,9 +25,10 @@
         var reportViewer = null;
         var reportDesigner = null;
         var reportDataSet = null;
+        var jsonDataSet = null;
         var reportJSONModel = new sap.ui.model.json.JSONModel();
         var reportXMLModel = new sap.ui.model.xml.XMLModel();
-        var dataSetForReport = null;
+        var demoDataSet = null;
 
         var mockServer = true;
         var USERNAME = "unknow";
@@ -611,8 +612,9 @@
             // Remove all connections from the report template
             reportOne.dictionary.databases.clear();
             // Register DataSet object
-            reportOne.regData("DEMO", "DEMO", dataSetForReport);
-            reportOne.regData("reportDataSource", "reportDataSource", reportDataSet);
+            reportOne.regData("DEMO", "DEMO", demoDataSet);
+            reportOne.regData("rpDataSource", "rpDataSource", reportDataSet);
+            reportOne.regData("jsonDataSource", "jsonDataSource", jsonDataSet);
 
             // Assign the report to the viewer
             reportViewer.report = reportOne;
@@ -674,17 +676,20 @@
             Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/zh-CHT.xml", false, "Chinese (Traditional)");
 
             // Create new DataSet object
-            dataSetForReport = new Stimulsoft.System.Data.DataSet("DEMO");
-            reportDataSet = new Stimulsoft.System.Data.DataSet("reportDataSource");
+            demoDataSet = new Stimulsoft.System.Data.DataSet("DEMO");
+            reportDataSet = new Stimulsoft.System.Data.DataSet("rpDataSource");
+            jsonDataSet = new Stimulsoft.System.Data.DataSet("jsonDataSource");
             // Load JSON data file from specified URL to the DataSet object
-            dataSetForReport.readJson(demoData);
+            demoDataSet.readJson(demoData);
             reportDataSet.readJson(reportJSONModel.getJSON());
+            jsonDataSet.readJson(reportJSONModel.getJSON());
+
 
             createViewer();
             //selectedButton = document.getElementById("SimpleList");
             // 		onButtonClick(selectedButton, SimpleList);
 //            setReport('report_0');
-            setReport('SimpleList');
+            setReport('report_0');
         }
 
         function centerWheel(show) {
