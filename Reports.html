@@ -608,7 +608,7 @@
             reportOne = new Stimulsoft.Report.StiReport();
             // Load reports from JSON object
             // 			report.loadFile("Reports/" + reportObject.id + ".mrt");
-            reportOne.loadFile("stimulsoft/Reports/" + reportObject + ".mrt");
+            reportOne.loadFile(reportObject);
             // Remove all connections from the report template
             reportOne.dictionary.databases.clear();
             // Register DataSet object
@@ -689,7 +689,7 @@
             //selectedButton = document.getElementById("SimpleList");
             // 		onButtonClick(selectedButton, SimpleList);
 //            setReport('report_0');
-            setReport('report_0');
+            setReport('stimulsoft/Reports/report_0.mrt');
         }
 
         function centerWheel(show) {
