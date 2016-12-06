@@ -15,7 +15,7 @@
     <script type="text/javascript" src="stimulsoft/stimulsoft.reports.js"></script>
     <script type="text/javascript" src="stimulsoft/stimulsoft.viewer.js"></script>
     <script type="text/javascript" src="stimulsoft/stimulsoft.designer.js"></script>
-    <script type="text/javascript" src="Reports/demo.js"></script>
+    <script type="text/javascript" src="stimulsoft/Reports/demo.js"></script>
     <!-- Application scripts -->
 
     <script>
@@ -102,7 +102,7 @@
                 // Create a new report instance
                 var report = new Stimulsoft.Report.StiReport();
                 // Load reports from JSON object
-                report.loadFile("Reports/" + reportObject.id + ".mrt");
+                report.loadFile("stimulsoft/Reports/" + reportObject.id + ".mrt");
                 // Remove all connections from the report template
                 report.dictionary.databases.clear();
                 // Register DataSet object
@@ -242,9 +242,9 @@
                 <tr>
                     <td height="60px">
                         <img style="position: absolute; width: 150px; left: 0px; top: 5px;"
-                             src="images/StimulsoftReports.png"/>
+                             src="stimulsoft/images/StimulsoftReports.png"/>
                         <img style="position: absolute; width: 30px; height: 30px; left: 105px; top: 25px;"
-                             src="images/Js.png"/>
+                             src="stimulsoft/images/Js.png"/>
                     </td>
                 </tr>
                 <tr>
@@ -276,7 +276,7 @@
                                         "onmouseout=\"onButtonMouseOut(this)\"" +
                                         "onclick=\"onButtonClick(this, " + reportName + ")\">" +
                                         "<table cellpadding=\"0\" cellspacing=\"0\">" +
-                                        "<tr><td style=\"text-align: center; width: 100%;\"><img src=\"images/" + reportName + ".png\" /></td></tr>" +
+                                        "<tr><td style=\"text-align: center; width: 100%;\"><img src=\"stimulsoft/images/" + reportName + ".png\" /></td></tr>" +
                                         "<tr><td class=\"Caption\">" + reportsCollection[reportName] + "</td></tr>" +
                                         "</table>" +
                                         "</a>");
