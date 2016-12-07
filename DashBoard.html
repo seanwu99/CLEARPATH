@@ -75,14 +75,14 @@
 
     <script>
         // ******************************************************************************************************************************************************************
-        var mockServer = true;
+        var mockServer = false;
         var USERNAME = 'unknown';
         var floorTreeReady = false;
         var treeIndex = 0;
-        var treeArray = [];
-        var TreeNodes = [];
-        var BarChart = null;
-        var LineChart = null;
+        var treeData = [];
+        var treeNodes = [];
+        var barChart = null;
+        var lineChart = null;
         // 	var chartRoot = '';
 
         var ChartType = 'BAR';
@@ -127,67 +127,82 @@
             oeeTableInit();
 
 
-            setInterval(function () {
+            var TESTS;
+            $('#test1').click(function () {
+                barChartInit(floorTree.getNodes()[0]);
+            });
 
-                if (!floorTreeReady) {
-                    return;
-                }
+            $('#test2').click(function () {
+                lineChartTest();
+            });
+            $('#test3').click(function () {
+                barChart.series[0].remove();
+            });
+        });
+        // ******************************************************************************************************************************************************************
+
+        //MainLoop
+        setInterval(function () {
+
+            if (!floorTreeReady) {
+                return;
+            }
 //                cc('BarChart:');
 //                cc(BarChart);
-                if (ChartType == 'BAR') {
-                    if (!chartReady) {
-                        barChartInit(floorTree.getNodes()[0]);
-                    } else {
-                        $.each(BarChart.series, function (i, bs) {
-                            $.each(bs.data, function (j, data) {
-                                data.y = 60 + Math.round((Math.random() * 40));
+            if (ChartType == 'BAR') {
+                if (!chartReady) {
+                    barChartInit(floorTree.getNodes()[0]);
+                } else {
+                    $.each(barChart.series, function (i, bs) {
+                        $.each(bs.data, function (j, data) {
+                            data.y = 60 + Math.round((Math.random() * 40));
 
-                            });
-                            BarChart.series[i].isDirty = true;
-                            BarChart.redraw();
                         });
-                    }
+                        barChart.series[i].isDirty = true;
+                        barChart.redraw();
+                    });
                 }
+            }
 
-                if (ChartType == 'LINE') {
+            if (ChartType == 'LINE') {
 //TODO
-                    if (chartReady) {
-                        // 			if (treeArray[treeIndex]['oeeStatus'] == 1) {
+                if (chartReady) {
+                    // 			if (treeArray[treeIndex]['oeeStatus'] == 1) {
 
-                        // 				if (mChart.series.length < 5) {
-                        // 					return;
-                        // 				}
-                        // 				if (mChart.series[0]['data'].length != mChart.series[1]['data'].length || mChart.series[0]['data'].length != mChart.series[2]['data'].length || mChart.series[0]['data'].length != mChart.series[3]['data'].length) {
-                        // 					return;
-                        // 				}
-                        var ts, oee, availability, performance, quality, len;
-                        ts = Math.round(new Date().getTime() / 1000) * 1000;
-                        len = LineChart.series[0]['data'].length;
+                    // 				if (mChart.series.length < 5) {
+                    // 					return;
+                    // 				}
+                    // 				if (mChart.series[0]['data'].length != mChart.series[1]['data'].length || mChart.series[0]['data'].length != mChart.series[2]['data'].length || mChart.series[0]['data'].length != mChart.series[3]['data'].length) {
+                    // 					return;
+                    // 				}
+                    var ts, oee, availability, performance, quality, len;
+                    ts = Math.round(new Date().getTime() / 1000) * 1000;
+                    len = lineChart.series[0]['data'].length;
 
-                        availability = 60 + Math.round((Math.random() * 40));
-                        performance = 60 + Math.round((Math.random() * 40));
-                        quality = 60 + Math.round((Math.random() * 40));
+                    availability = 60 + Math.round((Math.random() * 40));
+                    performance = 60 + Math.round((Math.random() * 40));
+                    quality = 60 + Math.round((Math.random() * 40));
 
-                        oee = (availability * performance * quality / 10000) | 0;
+                    oee = (availability * performance * quality / 10000) | 0;
 
-                        LineChart.setTitle({
-                            text: 'OEE: ' + oee + '%'
-                        });
+//                    LineChart.setTitle({
+//                        text: 'OEE: ' + oee + '%'
+//                    });
 
-                        LineChart.subtitle.update({
-                            text: 'Availability: ' + availability + '%    Performance: ' + performance + '%    Quality: ' + quality + '%'
-                        });
+                    lineChart.subtitle.update({
+                        text: 'OEE: ' + oee + '% Availability: ' + availability + '% Performance: ' + performance + '% Quality: ' + quality + '%'
+                    });
 
-                        LineChart.series[1].addPoint([ts, availability], false, false);
-                        LineChart.series[2].addPoint([ts, performance], false, false);
-                        LineChart.series[3].addPoint([ts, quality], false, false);
-                        LineChart.series[0].addPoint([ts, oee], true, false);
-//                        dataAdd2Table(ts, treeArray[treeIndex]['unitName'], treeArray[treeIndex]['recordID'], "Dr.Oper", availability, performance, quality, oee);
-                    }
+                    lineChart.series[1].addPoint([ts, availability], false, false);
+                    lineChart.series[2].addPoint([ts, performance], false, false);
+                    lineChart.series[3].addPoint([ts, quality], false, false);
+                    lineChart.series[0].addPoint([ts, oee], true, false);
+                    oeeGather(ts, treeData[treeIndex]['unitName'], 'No.' + Math.round(new Date().getTime() / 60000), "Dr.Oper", availability, performance, quality, oee);
                 }
+            }
 
 
-                return;
+            return;
 //                if (BarChart == null && floorTreeReady) {
 //                    barChartInit(floorTree.getNodes()[0]);
 //                    return;
@@ -200,190 +215,178 @@
 //                cc(BarChart);
 
 
-                // 			if (BarChart == null) {
-                // 				// 						barChartInit(floorTree.getNodes()[0]);
+            // 			if (BarChart == null) {
+            // 				// 						barChartInit(floorTree.getNodes()[0]);
 
-                // 				var ds = BarChart.options.drilldown.series;
-                // 				$.each(ds, function(i, _ds) {
-                // 					ds.pop();
-                // 				});
-                // 				// 				$.each(ds, function(i, _ds) {
-                // 				// 					_data.push({
-                // 				// 						name : _chartItems,
-                // 				// 						y : 60 + Math.round((Math.random() * 40)),
-                // 				// 						drilldown : _chartItems,
-                // 				// 					});
-                // 				// 					ds[i]['name'] = _chartItems;
-                // 				// 				});
-                // 				chartRoot = getNodeByText(oeeChart.options.title['text']);
-                // 				var chartItems = getChildren(chartRoot);
+            // 				var ds = BarChart.options.drilldown.series;
+            // 				$.each(ds, function(i, _ds) {
+            // 					ds.pop();
+            // 				});
+            // 				// 				$.each(ds, function(i, _ds) {
+            // 				// 					_data.push({
+            // 				// 						name : _chartItems,
+            // 				// 						y : 60 + Math.round((Math.random() * 40)),
+            // 				// 						drilldown : _chartItems,
+            // 				// 					});
+            // 				// 					ds[i]['name'] = _chartItems;
+            // 				// 				});
+            // 				chartRoot = getNodeByText(oeeChart.options.title['text']);
+            // 				var chartItems = getChildren(chartRoot);
 
-                // 				//ss(chartItem.length);
-                // 				var _data = [];
-                // 				$.each(chartItems, function(i, _chartItems) {
-                // 					_data.push({
-                // 						name : _chartItems,
-                // 						y : 60 + Math.round((Math.random() * 40)),
-                // 						drilldown : _chartItems,
-                // 					});
+            // 				//ss(chartItem.length);
+            // 				var _data = [];
+            // 				$.each(chartItems, function(i, _chartItems) {
+            // 					_data.push({
+            // 						name : _chartItems,
+            // 						y : 60 + Math.round((Math.random() * 40)),
+            // 						drilldown : _chartItems,
+            // 					});
 
-                // 					var dsNode = getNodeByText(_chartItems);
+            // 					var dsNode = getNodeByText(_chartItems);
 
-                // 					var dsItems = getChildren(dsNode);
-                // 					var ds_data = [];
-                // 					$.each(dsItems, function(i, _dsItems) {
-                // 						//_ds['name'] = '';
-                // 						ds_data.push([ _dsItems, 60 + Math.round((Math.random() * 40)) ]);
-                // 					});
+            // 					var dsItems = getChildren(dsNode);
+            // 					var ds_data = [];
+            // 					$.each(dsItems, function(i, _dsItems) {
+            // 						//_ds['name'] = '';
+            // 						ds_data.push([ _dsItems, 60 + Math.round((Math.random() * 40)) ]);
+            // 					});
 
-                // 					ds.push({
-                // 						name : _chartItems,
-                // 						id : _chartItems,
-                // 						data : ds_data,
+            // 					ds.push({
+            // 						name : _chartItems,
+            // 						id : _chartItems,
+            // 						data : ds_data,
 
-                // 					});
-                // 					//ds[i]['name'] = _chartItems;
-                // 				});
+            // 					});
+            // 					//ds[i]['name'] = _chartItems;
+            // 				});
 
-                // 				// 				oeeChart.subtitle.update({
-                // 				// 					text : ''
-                // 				// 				});
+            // 				// 				oeeChart.subtitle.update({
+            // 				// 					text : ''
+            // 				// 				});
 
-                // 				oeeChart.series[0].setData(_data);
+            // 				oeeChart.series[0].setData(_data);
 
-                // 			} else {
-                // 				// 				ss(oeeChart.options.drilldown);
-                // 				var ds = oeeChart.options.drilldown.series;
-                // 				$.each(ds, function(i, _ds) {
-                // 					// 					_ds['name'] = '';
-                // 					//ss(_ds['name']);
-                // 				});
-                // 			}
+            // 			} else {
+            // 				// 				ss(oeeChart.options.drilldown);
+            // 				var ds = oeeChart.options.drilldown.series;
+            // 				$.each(ds, function(i, _ds) {
+            // 					// 					_ds['name'] = '';
+            // 					//ss(_ds['name']);
+            // 				});
+            // 			}
 
-                // 			if (oeeChart.options.subtitle['text'] == 'data retrieval ...') {
-                // 				var chartRoot = getNodeByText(oeeChart.options.title['text']);
-                // 				var chartItem = getChildren(chartRoot);
+            // 			if (oeeChart.options.subtitle['text'] == 'data retrieval ...') {
+            // 				var chartRoot = getNodeByText(oeeChart.options.title['text']);
+            // 				var chartItem = getChildren(chartRoot);
 
-                // 				//ss(chartItem.length);
-                // 				var _data = [];
-                // 				$.each(chartItem, function(i, _chartItem) {
-                // 					_data.push({
-                // 						name : _chartItem,
-                // 						y : 60 + Math.round((Math.random() * 40)),
-                // 						drilldown : _chartItem,
-                // 					});
-                // 				});
+            // 				//ss(chartItem.length);
+            // 				var _data = [];
+            // 				$.each(chartItem, function(i, _chartItem) {
+            // 					_data.push({
+            // 						name : _chartItem,
+            // 						y : 60 + Math.round((Math.random() * 40)),
+            // 						drilldown : _chartItem,
+            // 					});
+            // 				});
 
-                // 				oeeChart.subtitle.update({
-                // 					text : ''
-                // 				});
+            // 				oeeChart.subtitle.update({
+            // 					text : ''
+            // 				});
 
-                // 				oeeChart.series[0].setData(_data);
+            // 				oeeChart.series[0].setData(_data);
 
-                // 				// 				ss(oeeChart.options.drilldown.series.length);
-                // 				var drilldownseries = oeeChart.options.drilldown.series;
-                // 				for (var i = 0; i < drilldownseries.length; i++) {
-                // 					ss(drilldownseries[i]['name'])
-                // 				}
+            // 				// 				ss(oeeChart.options.drilldown.series.length);
+            // 				var drilldownseries = oeeChart.options.drilldown.series;
+            // 				for (var i = 0; i < drilldownseries.length; i++) {
+            // 					ss(drilldownseries[i]['name'])
+            // 				}
 
-                // 				// 				ss(drilldownseries.length);
-                // 				$.each(chartItem, function(i, _chartItem) {
-                // 					oeeChart.options.drilldown.addSeries({
-                // 						name : _chartItem,
-                // 						id : _chartItem,
-                // 						data : [ 194.1, 95.6, 54.4, 29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4 ]
-                // 					});
+            // 				// 				ss(drilldownseries.length);
+            // 				$.each(chartItem, function(i, _chartItem) {
+            // 					oeeChart.options.drilldown.addSeries({
+            // 						name : _chartItem,
+            // 						id : _chartItem,
+            // 						data : [ 194.1, 95.6, 54.4, 29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4 ]
+            // 					});
 
-                // 				});
+            // 				});
 
-                // 				// 				$.each(chartItem, function(i, _chartItem) {
-                // 				// 					var drilldownseries;
-                // 				// 					_data.push({
-                // 				// 						name : _chartItem,
-                // 				// 						y : 60 + Math.round((Math.random() * 40)),
-                // 				// 						drilldown : _chartItem,
-                // 				// 					});
-                // 				// 				});
-                // 				// 				dd = oeeChart.series[0].data;
-                // 				// 				$.each(dd, function(i, d) {
-                // 				// 					ss(d['name'] + ' / ' + d['y']);
-                // 				// 				});
+            // 				// 				$.each(chartItem, function(i, _chartItem) {
+            // 				// 					var drilldownseries;
+            // 				// 					_data.push({
+            // 				// 						name : _chartItem,
+            // 				// 						y : 60 + Math.round((Math.random() * 40)),
+            // 				// 						drilldown : _chartItem,
+            // 				// 					});
+            // 				// 				});
+            // 				// 				dd = oeeChart.series[0].data;
+            // 				// 				$.each(dd, function(i, d) {
+            // 				// 					ss(d['name'] + ' / ' + d['y']);
+            // 				// 				});
 
-                // 				// 				oeeChart.series[0].setData(_data);
-                // 			}
+            // 				// 				oeeChart.series[0].setData(_data);
+            // 			}
 
-                // 			if (treeArray[treeIndex]['oeeStatus'] == 1) {
+            // 			if (treeArray[treeIndex]['oeeStatus'] == 1) {
 
-                // 				if (mChart.series.length < 5) {
-                // 					return;
-                // 				}
-                // 				if (mChart.series[0]['data'].length != mChart.series[1]['data'].length || mChart.series[0]['data'].length != mChart.series[2]['data'].length || mChart.series[0]['data'].length != mChart.series[3]['data'].length) {
-                // 					return;
-                // 				}
-                // 				var ts, oee, availability, performance, quality, len;
-                // 				ts = Math.round(new Date().getTime() / 1000) * 1000;
-                // 				len = mChart.series[0]['data'].length;
-                // 				if (len == 0) {
-                // 					availability = (50 + 50 * Math.random()) | 0;
-                // 					performance = (50 + 50 * Math.random()) | 0;
-                // 					quality = (50 + 50 * Math.random()) | 0;
-                // 				} else {
-                // 					if (ts == mChart.series[0]['data'][len - 1].x) {
-                // 						return;
-                // 					}
+            // 				if (mChart.series.length < 5) {
+            // 					return;
+            // 				}
+            // 				if (mChart.series[0]['data'].length != mChart.series[1]['data'].length || mChart.series[0]['data'].length != mChart.series[2]['data'].length || mChart.series[0]['data'].length != mChart.series[3]['data'].length) {
+            // 					return;
+            // 				}
+            // 				var ts, oee, availability, performance, quality, len;
+            // 				ts = Math.round(new Date().getTime() / 1000) * 1000;
+            // 				len = mChart.series[0]['data'].length;
+            // 				if (len == 0) {
+            // 					availability = (50 + 50 * Math.random()) | 0;
+            // 					performance = (50 + 50 * Math.random()) | 0;
+            // 					quality = (50 + 50 * Math.random()) | 0;
+            // 				} else {
+            // 					if (ts == mChart.series[0]['data'][len - 1].x) {
+            // 						return;
+            // 					}
 
-                // 					availability = mChart.series[1]['data'][len - 1].y + ((20 * Math.random()) | 0) - 10;
-                // 					performance = mChart.series[2]['data'][len - 1].y + ((20 * Math.random()) | 0) - 10;
-                // 					quality = mChart.series[3]['data'][len - 1].y + ((20 * Math.random()) | 0) - 10;
-                // 					if (availability > 100)
-                // 						availability = 100;
-                // 					if (performance > 100)
-                // 						performance = 100;
-                // 					if (quality > 100)
-                // 						quality = 100;
-                // 					if (availability < 60)
-                // 						availability = 60;
-                // 					if (performance < 60)
-                // 						performance = 60;
-                // 					if (quality < 60)
-                // 						quality = 60;
-                // 				}
-                // 				oee = (availability * performance * quality / 10000) | 0;
+            // 					availability = mChart.series[1]['data'][len - 1].y + ((20 * Math.random()) | 0) - 10;
+            // 					performance = mChart.series[2]['data'][len - 1].y + ((20 * Math.random()) | 0) - 10;
+            // 					quality = mChart.series[3]['data'][len - 1].y + ((20 * Math.random()) | 0) - 10;
+            // 					if (availability > 100)
+            // 						availability = 100;
+            // 					if (performance > 100)
+            // 						performance = 100;
+            // 					if (quality > 100)
+            // 						quality = 100;
+            // 					if (availability < 60)
+            // 						availability = 60;
+            // 					if (performance < 60)
+            // 						performance = 60;
+            // 					if (quality < 60)
+            // 						quality = 60;
+            // 				}
+            // 				oee = (availability * performance * quality / 10000) | 0;
 
-                // 				mChart.setTitle({
-                // 					text : 'OEE: ' + oee + '%'
-                // 				});
+            // 				mChart.setTitle({
+            // 					text : 'OEE: ' + oee + '%'
+            // 				});
 
-                // 				mChart.subtitle.update({
-                // 					text : 'Availability: ' + availability + '%    Performance: ' + performance + '%    Quality: ' + quality + '%'
-                // 				});
+            // 				mChart.subtitle.update({
+            // 					text : 'Availability: ' + availability + '%    Performance: ' + performance + '%    Quality: ' + quality + '%'
+            // 				});
 
-                // 				mChart.series[1].addPoint([ ts, availability ], false, false);
-                // 				mChart.series[2].addPoint([ ts, performance ], false, false);
-                // 				mChart.series[3].addPoint([ ts, quality ], false, false);
-                // 				mChart.series[0].addPoint([ ts, oee ], true, false);
-                // 				dataAdd2Table(ts, treeArray[treeIndex]['unitName'], treeArray[treeIndex]['recordID'], "Dr.Oper", availability, performance, quality, oee);
-                // 			}
-            }, 3000);
+            // 				mChart.series[1].addPoint([ ts, availability ], false, false);
+            // 				mChart.series[2].addPoint([ ts, performance ], false, false);
+            // 				mChart.series[3].addPoint([ ts, quality ], false, false);
+            // 				mChart.series[0].addPoint([ ts, oee ], true, false);
+            // 				dataAdd2Table(ts, treeArray[treeIndex]['unitName'], treeArray[treeIndex]['recordID'], "Dr.Oper", availability, performance, quality, oee);
+            // 			}
+        }, 3000);
 
-            var TESTS;
-            $('#test1').click(function () {
-                barChartInit(floorTree.getNodes()[0]);
-            });
-
-            $('#test2').click(function () {
-                lineChartTest();
-            });
-            $('#test3').click(function () {
-                BarChart.series[0].remove();
-            });
-        });
-        // ******************************************************************************************************************************************************************
-
-        function dataAdd2Table(_Timestamp, _Unit_Name, _UnitID, _Operator, _OEE_Availability, _OEE_Performance, _OEE_Quality, _OEE_OEE) {
+        function oeeGather(_Timestamp, _Unit_Name, _Product_Name, _Operator, _OEE_Availability, _OEE_Performance, _OEE_Quality, _OEE_OEE) {
+//TODO cal·cu·late
+            cc('oeeGather');
             var P1 = _Timestamp;
             var P2 = _Unit_Name;
-            var P3 = _UnitID;
+            var P3 = _Product_Name;
             var P4 = _Operator;
             var P5 = _OEE_Availability;
             var P6 = _OEE_Performance;
@@ -400,39 +403,42 @@
                 var paramStr = "Param.1=" + encodeURIComponent(P1) + "&Param.2=" + encodeURIComponent(P2) + "&Param.3=" + encodeURIComponent(P3) + "&Param.4=" + encodeURIComponent(P4) + "&Param.5=" + encodeURIComponent(P5) + "&Param.6="
                     + encodeURIComponent(P6) + "&Param.7=" + encodeURIComponent(P7) + "&Param.8=" + encodeURIComponent(P8);
                 // alert(paramStr);
-                var queryStr = "/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/OEEM_Data_Collection_ADD&" + paramStr + "&ts=" + timestamp + "&Content-Type=text/xml";
+                var queryStr = "/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/oeeGather&" + paramStr + "&ts=" + timestamp + "&Content-Type=text/xml";
                 //alert(queryStr);
                 oReqData.open("GET", queryStr, true);
                 oReqData.onreadystatechange = function () {
                     if (oReqData.readyState == 4)
                         if (oReqData.status == 200) {
                             //alert("doAddMission");
-                            tableRefresh();
+                            oeeTableFresh();
                         } else {
                             // Not Successful -- alert the user
                             alert("unSuccessful Error: " + oReqData.statusText);
                         }
                 };
                 oReqData.send();
-            } else {
+            }
+            else {
                 window.alert("Error creating XmlHttpRequest object.");
             }
 
         }
 
-        function tableRefresh() {
-
-            if (treeArray[treeIndex]['oeeStatus'] == 1) {
-
+        function oeeTableFresh() {
+            cc('oeeTableFresh');
+            if (oeeStatus(lineChart.title.textStr) == 1) {
                 var P1 = "SELECT *";
                 var P2 = "FROM OEEM_Data_Collection";
-                var P3 = "WHERE UnitID=" + treeArray[treeIndex]['recordID'];
+                var P3 = "WHERE Unit_Name=" + "'" + treeData[treeIndex]['unitName'] + "'";
                 var P4 = "ORDER BY Timestamp DESC";
                 var url = "/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/get_Table&Param.1=" + P1 + "&Param.2=" + P2 + "&Param.3=" + P3 + "&Param.4=" + P4 + "&Content-Type=text/xml";
-
+//                cc(url);
                 oeeXmModel.loadData(url);
 
                 oeeTable.setModel(oeeXmModel);
+//                cc(oeeTable.getModel().refresh(true));
+                sap.ui.getCore().byId("oeeTable").getModel().refresh(true);
+                //.getModel().refresh(true);
             }
         }
 
@@ -462,8 +468,8 @@
             selectionMode: sap.ui.commons.TreeSelectionMode.Single,
             select: function (oControlEvent) {
                 treeIndex = parseInt(oControlEvent.getParameters().node.getId().substring(oControlEvent.getParameters().node.getId().indexOf("_") + 1));
-                var name = treeArray[treeIndex]['unitName'];
-                var id = treeArray[treeIndex]['recordID'];
+                var name = treeData[treeIndex]['unitName'];
+                var id = treeData[treeIndex]['recordID'];
                 // 			sap.ui.getCore().byId("mTableLabel").setText(name + " (ID: " + id + " )");
                 // 			TableRef(id, name);
                 // 			ss(oControlEvent.getParameters().node.getText());
@@ -492,17 +498,17 @@
             var url = "/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/get_Table&Param.1=" + P1 + "&Param.2=" + P2 + "&Param.3=" + P3 + "&Param.4=" + P4 + "&Content-Type=text/xml";
 
             if (mockServer) {
-                url = 'get_Table.xml';
+                url = 'mockServer/MESM_FloorMaps.xml';
             }
 
             //ss(url);
             getData(url, parseJsonParent);
 
             function parseJsonParent(jsondata) {
-                treeArray = [];
-                TreeNodes = new Array(jsondata.length);
+                treeData = [];
+                treeNodes = new Array(jsondata.length);
                 $.each(jsondata, function (i, _jsondata) {
-                    treeArray.push({
+                    treeData.push({
                         unitName: _jsondata['unitName'],
                         recordID: _jsondata['recordID'],
                         unitType: _jsondata['unitType'],
@@ -511,21 +517,21 @@
                     });
                     var _icon = "";
 
-                    TreeNodes[i] = new sap.ui.commons.TreeNode("floorTree_" + i, {
+                    treeNodes[i] = new sap.ui.commons.TreeNode("floorTree_" + i, {
                         text: _jsondata['unitName'],
                         icon: _icon,
                         expanded: true
                     });
-                    floorTree.addNode(TreeNodes[i]);
+                    floorTree.addNode(treeNodes[i]);
                 });
 
-                $.each(TreeNodes, function (i, m) {
-                    $.each(TreeNodes, function (j, n) {
+                $.each(treeNodes, function (i, m) {
+                    $.each(treeNodes, function (j, n) {
                         if (i != j) {
-                            if (treeArray[j]['idUnitParent'] == treeArray[i]['recordID']) {
+                            if (treeData[j]['idUnitParent'] == treeData[i]['recordID']) {
                                 m.addNode(n);
                             }
-                            if (treeArray[i]['idUnitParent'] == treeArray[j]['recordID']) {
+                            if (treeData[i]['idUnitParent'] == treeData[j]['recordID']) {
                                 n.addNode(m);
                             }
                         }
@@ -538,17 +544,17 @@
                 floorTreeReady = true;
                 // 			nn = getNodeByText('2110 SCR 1');
                 // 			ss(findParent(nn).getText());
-                cc(floorTree);
+//                cc(floorTree);
             }
 
         }
         // ******************************************************************************************************************************************************************
 
-        function oeeStatus(_s) {
-            var status;
-            $.each(treeArray, function (i, _treeArray) {
-                if (_treeArray['unitName'] == _s) {
-                    status = _treeArray['oeeStatus'];
+        function oeeStatus(sn) {
+            var status = 0;
+            $.each(treeData, function (i, _treeData) {
+                if (_treeData['unitName'] == sn) {
+                    status = _treeData['oeeStatus'];
                     return false;
                 }
 
@@ -570,7 +576,7 @@
 
         function getNodeByText(text) {
             var node;
-            $.each(TreeNodes, function (i, treeNode) {
+            $.each(treeNodes, function (i, treeNode) {
                 // 			cc(_treeNodes.getText());
                 if (treeNode.getText() == text) {
                     node = treeNode;
@@ -611,9 +617,9 @@
             return parent;
         }
         // ******************************************************************************************************************************************************************
-        var oeeArray = [];
+        //        var oeeArray = [];
         var oeeXmModel = new sap.ui.model.xml.XMLModel();
-        var oeeTable = new sap.ui.table.Table({
+        var oeeTable = new sap.ui.table.Table('oeeTable', {
             //visibleRowCount : 12,
             //firstVisibleRow : 3,
             //visibleRowCountMode : sap.ui.table.VisibleRowCountMode.Interactive,
@@ -636,35 +642,28 @@
             P4 = "";
             url = "/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/get_Table&Param.1=" + P1 + "&Param.2=" + P2 + "&Param.3=" + P3 + "&Param.4=" + P4 + "&ts=" + new Date().getTime() + "&Content-Type=text/xml";
             if (mockServer) {
-                url = 'oeem.xml';
+                url = 'mockServer/OEEM_Data_Collection.xml';
             }
             //alert(url);
-            getData(url, parseJsonParent);
-            function parseJsonParent(jsondata) {
-                oeeArray = [];
-                for (var i = 0; i < jsondata.length; i++) {
-                    oeeArray.push({
-                        recordID: jsondata[i]['recordID'],
-                        Timestamp: jsondata[i]['Timestamp'],
-                        Description: jsondata[i]['Description'],
-                        OEE_Availability: jsondata[i]['OEE_Availability'],
-                        OEE_Performance: jsondata[i]['OEE_Performance'],
-                        OEE_Quality: jsondata[i]['OEE_Quality'],
-                        OEE_OEE: jsondata[i]['OEE_OEE'],
+//            getData(url, parseJsonParent);
+//            function parseJsonParent(jsondata) {
+//                oeeArray = [];
+//                for (var i = 0; i < jsondata.length; i++) {
+//                    oeeArray.push({
+//                        recordID: jsondata[i]['recordID'],
+//                        Timestamp: jsondata[i]['Timestamp'],
+//                        Description: jsondata[i]['Description'],
+//                        OEE_Availability: jsondata[i]['OEE_Availability'],
+//                        OEE_Performance: jsondata[i]['OEE_Performance'],
+//                        OEE_Quality: jsondata[i]['OEE_Quality'],
+//                        OEE_OEE: jsondata[i]['OEE_OEE'],
+//
+//                    });
+//                }
+//            }
 
-                    });
-                }
-            }
-
-            //var timestamp = new Date().getTime();
-            // 		url = "/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/StopReasons_get&ts=" + (new Date().getTime())
-            // 				+ "&Content-Type=text/xml";
-            //alert(url);
-            //url = "mock/Get_Missions.xml"; //Mock request
 
             oeeXmModel.loadData(url);
-            //alert(oeeXmModel.getXML());
-            //		createColumns
             oeeTable.setModel(oeeXmModel);
             oeeTable.bindRows("/Rowset/Row");
             oeeTable.setVisibleRowCount(6);
@@ -1023,7 +1022,7 @@
         // ******************************************************************************************************************************************************************
 
         function lineChartTest(_title) {
-            var oeeArray = [];
+//            var oeeArray = [];
             var dOEE = [];
             var dAvailability = [];
             var dPerformance = [];
@@ -1095,14 +1094,14 @@
 
         // ******************************************************************************************************************************************************************
         function barChartInit(chartRoot) {
-            cc('barChartInit');
+//            cc('barChartInit');
             // 		chartRoot = chartRoot;
             var _title = chartRoot.getText();
             var _subtitle = '';
             var _series = [];
             var _drilldown = [];
             //ss(_title);
-            BarChart = new Highcharts.chart('p1', {
+            barChart = new Highcharts.chart('p1', {
 
                 chart: {
 
@@ -1112,13 +1111,13 @@
                         redraw: function () {
                         },
                         drilldown: function (e) {
-                            cc('drilldown');
+                            console.log('drilldown', e);
                             isDrilldown = true;
                             if (!e.seriesOptions) {
                                 var chart = this;
 
-                                cc('e');
-                                cc(e);
+//                                cc('e');
+//                                cc(e);
                                 // 							ss(e.point.name)
                                 pn = e.point.name;
                                 // 							lastTitle.push(BarChart.options.title['text']);
@@ -1231,7 +1230,7 @@
                         },
                         drillup: function (e) {
 
-                            cc(e);
+                            console.log('drillup', e);
                             // 						lastTitle = oeeChart.options.title['text'];
                             var chart = this;
                             // 						cc('drillup');
@@ -1480,7 +1479,7 @@
             // 		ss();
             if (chartRoot.getNodes()[0].getNodes().length > 0) {
 
-                BarChart.addSeries({
+                barChart.addSeries({
                     name: 'OEE',
                     colorByPoint: true,
                     data: aOEE
@@ -1488,25 +1487,25 @@
             } else {
                 // 			colors: [ '#7cb5ec', '#434348', '#90ed7d', '#f7a35c', '#8085e9', '#f15c80', '#e4d354', '#2b908f', '#f45b5b', '#91e8e1' ]
 
-                BarChart.addSeries({
+                barChart.addSeries({
                     name: 'OEE',
                     color: '#7cb5ec',
                     colorByPoint: false,
                     data: aOEE
                 });
-                BarChart.addSeries({
+                barChart.addSeries({
                     name: 'Availability',
                     color: '#434348',
                     colorByPoint: false,
                     data: aAvailability
                 });
-                BarChart.addSeries({
+                barChart.addSeries({
                     name: 'Performanc',
                     color: '#90ed7d',
                     colorByPoint: false,
                     data: aPerformance
                 });
-                BarChart.addSeries({
+                barChart.addSeries({
                     name: 'Quality',
                     color: '#f7a35c',
                     colorByPoint: false,
@@ -1519,7 +1518,7 @@
             // 		cc('99');
             // 		cc(BarChart);
             ChartType = 'BAR';
-            LineChart = null;
+            lineChart = null;
             chartReady = true;
             // 		return;
 
@@ -1710,7 +1709,7 @@
 
         function lineChartInit(_series, _title) {
             // 		BarChart = null;
-            LineChart = new Highcharts.stockChart('p1', {
+            lineChart = new Highcharts.stockChart('p1', {
                 credits: {
                     enabled: false,
                     href: 'http://www.rtsperfectplant.com/',
@@ -1832,7 +1831,7 @@
 
             ChartType = 'LINE';
             // 		ChartType = 'BAR';
-            BarChart = null;
+            barChart = null;
             chartReady = true;
         }
 
