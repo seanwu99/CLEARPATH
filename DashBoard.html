@@ -197,7 +197,7 @@
                     lineChart.series[2].addPoint([ts, performance], false, false);
                     lineChart.series[3].addPoint([ts, quality], false, false);
                     lineChart.series[0].addPoint([ts, oee], true, false);
-                    oeeGather(ts, treeData[treeIndex]['unitName'], 'No.' + Math.round(new Date().getTime() / 60000), "Dr.Oper", availability, performance, quality, oee);
+                    oeeGather(ts, treeData[treeIndex]['unitName'], 'No.' + Math.round(new Date().getTime() / 60000), USERNAME, availability, performance, quality, oee);
                 }
             }
 
@@ -425,7 +425,6 @@
         }
 
         function oeeTableFresh() {
-            cc('oeeTableFresh');
             if (oeeStatus(lineChart.title.textStr) == 1) {
                 var P1 = "SELECT *";
                 var P2 = "FROM OEEM_Data_Collection";
