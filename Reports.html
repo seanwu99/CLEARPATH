@@ -25,22 +25,17 @@
         var reportViewer = null;
         var reportDesigner = null;
 
-//        var demoDataSet = null;
-//        var jsonDataSet = null;
+        //        var demoDataSet = null;
+        //        var jsonDataSet = null;
         var xmlDataSet = null;
         var reportJSONModel = new sap.ui.model.json.JSONModel();
         var reportXMLModel = new sap.ui.model.xml.XMLModel();
 
 
-        var mockServer = false;
+        var mockServer = true;
         var USERNAME = "unknow";
         // ******************************************************************************************************************************************************************
-        // 	function init() {
-        // 	}
 
-
-        //        var StopReasons_Data;
-        //        var StopReasons_selectedIndex;
 
         $(function () {
             USERNAME = document.getElementById("user_name").value;
@@ -70,7 +65,7 @@
 //        mTree.placeAt("nav");
 //            StopReasons_Table();
 //            mTable.placeAt("p2");
-            reportDataLoad();
+            reportModel();
         });
         // ******************************************************************************************************************************************************************
 
@@ -351,13 +346,7 @@
                 } else {
 //                mapInit(n);
                 }
-//                if (oeeStatus(oControlEvent.getParameters().node.getText()) == 0) {
-//                    chartReady = false;
-//                    barChartInit(oControlEvent.getParameters().node);
-//                } else {
-//                    lineChartTest(oControlEvent.getParameters().node.getText());
-//                }
-                //
+
 
             },
             selectionChange: function (oControlEvent) {
@@ -461,16 +450,6 @@
             return node;
         }
 
-        // 	function getChildren(node) {
-        // 		var o = [];
-        // 		if (node.getNodes().length == 0) {
-        // 			return null;
-        // 		}
-        // 		$.each(node.getNodes(), function(i, child) {
-        // 			o.push(child);
-        // 		});
-        // 		return o;
-        // 	}
 
         function findParent(node) {
             var parent;
@@ -493,7 +472,7 @@
         }
 
         //***********************************************************
-        function reportDataLoad() { // Bind the table rows to this model
+        function reportModel() { // Bind the table rows to this model
             P1 = "SELECT *";
             P2 = "FROM OEEM_Data_Collection";
             P3 = "ORDER BY Timestamp DESC";
@@ -505,7 +484,7 @@
                 url = 'mockServer/OEEM_Data_Collection.xml';
             }
             reportXMLModel.loadData(url, "", false);
-            ReprotsLoad();
+            ReportLoad();
 //            getData(url, parseJsonParent);
 //            function parseJsonParent(jsondata) {
 //                reportJSONModel.setData(jsondata);
@@ -534,10 +513,7 @@
 
         }
 
-        // 	rpJSONModel.setData({
-        // 		firstName : "Peter",
-        // 		lastName : "Pan"
-        // 	});
+
 
         function createViewer() {
             // Specify necessary options for the viewer
@@ -632,7 +608,7 @@
         }
 
 
-        function ReprotsLoad() {
+        function ReportLoad() {
             // 		var js = {};
             window.addEventListener("resize", function (event) {
                 centerWheel(false);
@@ -647,37 +623,37 @@
 
         // Load first report after the page is loaded
         function showViewer() {
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/ar.xml", false, "Arabic");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/be.xml", false, "Belarusian");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/bg.xml", false, "Bulgarian");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/ca-ES.xml", false, "Catalan");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/cs.xml", false, "Czech");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/de.xml", false, "Deutsch");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/el-GR.xml", false, "Greek");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/es.xml", false, "Spanish");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/eu-ES.xml", false, "Basque");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/fa.xml", false, "Farsi");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/fr.xml", false, "French");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/gl-ES.xml", false, "Galician");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/hr.xml", false, "Croatian");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/hu.xml", false, "Hungarian");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/id.xml", false, "Indonesian");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/it.xml", false, "Italian");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/ka.xml", false, "Georgian");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/Lt-sr-SP.xml", false, "Serbian (Latin)");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/lt.xml", false, "Lithuanian");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/nb-NO.xml", false, "Norwegian (Bokmål)");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/nl.xml", false, "Dutch");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/pl.xml", false, "Polish");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/pt-BR.xml", false, "Portuguese (Brazil)");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/ro.xml", false, "Romanian");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/ru.xml", false, "Russian");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/sk.xml", false, "Slovak");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/sv.xml", false, "Swedish");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/tr.xml", false, "Turkish");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/uk.xml", false, "Ukrainian");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/zh-CHS.xml", false, "Chinese (Simplified)");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Localizations/zh-CHT.xml", false, "Chinese (Traditional)");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/ar.xml", false, "Arabic");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/be.xml", false, "Belarusian");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/bg.xml", false, "Bulgarian");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/ca-ES.xml", false, "Catalan");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/cs.xml", false, "Czech");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/de.xml", false, "Deutsch");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/el-GR.xml", false, "Greek");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/es.xml", false, "Spanish");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/eu-ES.xml", false, "Basque");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/fa.xml", false, "Farsi");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/fr.xml", false, "French");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/gl-ES.xml", false, "Galician");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/hr.xml", false, "Croatian");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/hu.xml", false, "Hungarian");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/id.xml", false, "Indonesian");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/it.xml", false, "Italian");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/ka.xml", false, "Georgian");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/Lt-sr-SP.xml", false, "Serbian (Latin)");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/lt.xml", false, "Lithuanian");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/nb-NO.xml", false, "Norwegian (Bokmål)");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/nl.xml", false, "Dutch");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/pl.xml", false, "Polish");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/pt-BR.xml", false, "Portuguese (Brazil)");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/ro.xml", false, "Romanian");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/ru.xml", false, "Russian");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/sk.xml", false, "Slovak");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/sv.xml", false, "Swedish");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/tr.xml", false, "Turkish");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/uk.xml", false, "Ukrainian");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/zh-CHS.xml", false, "Chinese (Simplified)");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/zh-CHT.xml", false, "Chinese (Traditional)");
 
             // Create new DataSet object
 //            demoDataSet = new Stimulsoft.System.Data.DataSet("DEMO");
@@ -781,7 +757,7 @@
     nav {
         float: left;
         /* 	min-width: 100px; */
-        width: 20%;
+        width: 15%;
         margin: 0px 0px 0px 10%;
         /* 	padding: 1em; */
     }
@@ -796,8 +772,8 @@
     }
 
     article {
-        margin-left: 35%;
-        width: 55%;
+        margin-left: 30%;
+        width: 60%;
         /* 	height: 600px; */
         /* 	border-left: 1px solid gray; */
         /* 	padding: 0em; */
