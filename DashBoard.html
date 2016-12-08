@@ -75,7 +75,7 @@
 
     <script>
         // ******************************************************************************************************************************************************************
-        var mockServer = true;
+        var mockServer = false;
         var USERNAME = 'unknown';
         var floorTreeReady = false;
         var treeIndex = 0;
@@ -197,8 +197,9 @@
                     lineChart.series[2].addPoint([ts, performance], false, false);
                     lineChart.series[3].addPoint([ts, quality], false, false);
                     lineChart.series[0].addPoint([ts, oee], true, false);
+//                    cc(lineChart.title.textStr);
                     if (!mockServer) {
-                        oeeGather(ts, treeData[treeIndex]['unitName'], 'No.' + Math.round(new Date().getTime() / 60000), USERNAME, availability, performance, quality, oee);
+                        oeeGather(ts, lineChart.title.textStr, 'No.' + Math.round(new Date().getTime() / 60000), USERNAME, availability, performance, quality, oee);
                     }
 
                 }
@@ -386,7 +387,7 @@
 
         function oeeGather(_Timestamp, _Unit_Name, _Product_Name, _Operator, _OEE_Availability, _OEE_Performance, _OEE_Quality, _OEE_OEE) {
 //TODO cal·cu·late
-            cc('oeeGather');
+//            cc('oeeGather');
             var P1 = _Timestamp;
             var P2 = _Unit_Name;
             var P3 = _Product_Name;
@@ -431,7 +432,7 @@
             if (oeeStatus(lineChart.title.textStr) == 1) {
                 var P1 = "SELECT *";
                 var P2 = "FROM OEEM_Data_Collection";
-                var P3 = "WHERE Unit_Name=" + "'" + treeData[treeIndex]['unitName'] + "'";
+                var P3 = "WHERE Unit_Name=" + "'" + lineChart.title.textStr + "'";
                 var P4 = "ORDER BY Timestamp DESC";
                 var url = "/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/get_Table&Param.1=" + P1 + "&Param.2=" + P2 + "&Param.3=" + P3 + "&Param.4=" + P4 + "&Content-Type=text/xml";
 //                cc(url);
