@@ -1,1 +1,298 @@
-<?xml version="1.0" encoding="UTF-8"?><Rowsets CachedTime="" DateCreated="2016-11-22T17:17:13" EndDate="2016-11-22T17:17:13" StartDate="2016-11-22T16:17:13" Version="15.0 SP4 Patch 11 (Aug 28, 2015)"><Rowset><Columns><Column Description="recordID" MaxRange="1" MinRange="0" Name="recordID" SQLDataType="-5" SourceColumn="recordID"/><Column Description="reasonName" MaxRange="1" MinRange="0" Name="reasonName" SQLDataType="-9" SourceColumn="reasonName"/><Column Description="reasonDescr" MaxRange="1" MinRange="0" Name="reasonDescr" SQLDataType="-9" SourceColumn="reasonDescr"/><Column Description="reasonActive" MaxRange="1" MinRange="0" Name="reasonActive" SQLDataType="4" SourceColumn="reasonActive"/><Column Description="sortOrder" MaxRange="1" MinRange="0" Name="sortOrder" SQLDataType="4" SourceColumn="sortOrder"/><Column Description="catagory" MaxRange="1" MinRange="0" Name="catagory" SQLDataType="-9" SourceColumn="catagory"/><Column Description="recordID_FloorMaps" MaxRange="1" MinRange="0" Name="recordID_FloorMaps" SQLDataType="-5" SourceColumn="recordID_FloorMaps"/><Column Description="unitName_FloorMaps" MaxRange="1" MinRange="0" Name="unitName_FloorMaps" SQLDataType="-9" SourceColumn="unitName_FloorMaps"/><Column Description="ModifiedBy" MaxRange="1" MinRange="0" Name="ModifiedBy" SQLDataType="-9" SourceColumn="ModifiedBy"/><Column Description="ModifiedOn" MaxRange="1" MinRange="0" Name="ModifiedOn" SQLDataType="93" SourceColumn="ModifiedOn"/><Column Description="CreatedBy" MaxRange="1" MinRange="0" Name="CreatedBy" SQLDataType="-9" SourceColumn="CreatedBy"/><Column Description="CreatedOn" MaxRange="1" MinRange="0" Name="CreatedOn" SQLDataType="93" SourceColumn="CreatedOn"/></Columns><Row><recordID>1</recordID><reasonName>Tooling Failures</reasonName><reasonDescr>Down Time Loss</reasonDescr><reasonActive>1</reasonActive><sortOrder>1</sortOrder><catagory>Breakdowns</catagory><recordID_FloorMaps>26</recordID_FloorMaps><unitName_FloorMaps>Tig Repair 703518</unitName_FloorMaps><ModifiedBy>SeaWu</ModifiedBy><ModifiedOn>2016-09-20T15:20:54</ModifiedOn><CreatedBy>RadPa</CreatedBy><CreatedOn>2016-05-10T11:26:47</CreatedOn></Row><Row><recordID>2</recordID><reasonName>Unplanned Maintenance</reasonName><reasonDescr>Down Time Loss</reasonDescr><reasonActive>1</reasonActive><sortOrder>2</sortOrder><catagory>Breakdowns</catagory><recordID_FloorMaps>26</recordID_FloorMaps><unitName_FloorMaps>Tig Repair 703518</unitName_FloorMaps><ModifiedBy>SeaWu</ModifiedBy><ModifiedOn>2016-09-20T15:20:54</ModifiedOn><CreatedBy>RadPa</CreatedBy><CreatedOn>2016-05-10T11:28:32</CreatedOn></Row><Row><recordID>3</recordID><reasonName>General Breakdowns</reasonName><reasonDescr>Down Time Loss</reasonDescr><reasonActive>1</reasonActive><sortOrder>3</sortOrder><catagory>Breakdowns</catagory><recordID_FloorMaps>26</recordID_FloorMaps><unitName_FloorMaps>Tig Repair 703518</unitName_FloorMaps><ModifiedBy>SeaWu</ModifiedBy><ModifiedOn>2016-09-20T15:20:54</ModifiedOn><CreatedBy>RadPa</CreatedBy><CreatedOn>2016-05-10T11:28:32</CreatedOn></Row><Row><recordID>4</recordID><reasonName>Equipment Failure</reasonName><reasonDescr>Down Time Loss</reasonDescr><reasonActive>1</reasonActive><sortOrder>4</sortOrder><catagory>Breakdowns</catagory><recordID_FloorMaps>26</recordID_FloorMaps><unitName_FloorMaps>Tig Repair 703518</unitName_FloorMaps><ModifiedBy>SeaWu</ModifiedBy><ModifiedOn>2016-09-20T15:20:54</ModifiedOn><CreatedBy>RadPa</CreatedBy><CreatedOn>2016-05-10T11:28:32</CreatedOn></Row><Row><recordID>5</recordID><reasonName>Setup</reasonName><reasonDescr>Down Time Loss</reasonDescr><reasonActive>1</reasonActive><sortOrder>5</sortOrder><catagory>Setup and Adjustments</catagory><recordID_FloorMaps>26</recordID_FloorMaps><unitName_FloorMaps>Tig Repair 703518</unitName_FloorMaps><ModifiedBy>SeaWu</ModifiedBy><ModifiedOn>2016-09-20T15:20:54</ModifiedOn><CreatedBy>RadPa</CreatedBy><CreatedOn>2016-05-10T11:28:32</CreatedOn></Row><Row><recordID>6</recordID><reasonName>Material Shortages</reasonName><reasonDescr>Down Time Loss</reasonDescr><reasonActive>1</reasonActive><sortOrder>6</sortOrder><catagory>Down Time Loss</catagory><recordID_FloorMaps>26</recordID_FloorMaps><unitName_FloorMaps>Tig Repair 703518</unitName_FloorMaps><ModifiedBy>SeaWu</ModifiedBy><ModifiedOn>2016-09-20T15:20:54</ModifiedOn><CreatedBy>RadPa</CreatedBy><CreatedOn>2016-05-10T11:28:32</CreatedOn></Row><Row><recordID>7</recordID><reasonName>Operator Shortages</reasonName><reasonDescr>Down Time Loss</reasonDescr><reasonActive>1</reasonActive><sortOrder>7</sortOrder><catagory>Down Time Loss</catagory><recordID_FloorMaps>26</recordID_FloorMaps><unitName_FloorMaps>Tig Repair 703518</unitName_FloorMaps><ModifiedBy>SeaWu</ModifiedBy><ModifiedOn>2016-09-20T15:20:54</ModifiedOn><CreatedBy>RadPa</CreatedBy><CreatedOn>2016-05-10T11:28:32</CreatedOn></Row><Row><recordID>8</recordID><reasonName>Major Adjustments</reasonName><reasonDescr>Down Time Loss</reasonDescr><reasonActive>1</reasonActive><sortOrder>8</sortOrder><catagory>Down Time Loss</catagory><recordID_FloorMaps>26</recordID_FloorMaps><unitName_FloorMaps>Tig Repair 703518</unitName_FloorMaps><ModifiedBy>SeaWu</ModifiedBy><ModifiedOn>2016-09-20T15:20:54</ModifiedOn><CreatedBy>RadPa</CreatedBy><CreatedOn>2016-05-10T11:28:32</CreatedOn></Row><Row><recordID>9</recordID><reasonName>Warm-Up Time</reasonName><reasonDescr>Down Time Loss</reasonDescr><reasonActive>1</reasonActive><sortOrder>9</sortOrder><catagory>Setup and Adjustments</catagory><recordID_FloorMaps>26</recordID_FloorMaps><unitName_FloorMaps>Tig Repair 703518</unitName_FloorMaps><ModifiedBy>SeaWu</ModifiedBy><ModifiedOn>2016-09-20T15:20:54</ModifiedOn><CreatedBy>RadPa</CreatedBy><CreatedOn>2016-05-10T11:28:32</CreatedOn></Row><Row><recordID>10</recordID><reasonName>Component Jams</reasonName><reasonDescr>Speed Loss</reasonDescr><reasonActive>1</reasonActive><sortOrder>10</sortOrder><catagory>Setup and Adjustments</catagory><recordID_FloorMaps>26</recordID_FloorMaps><unitName_FloorMaps>Tig Repair 703518</unitName_FloorMaps><ModifiedBy>SeaWu</ModifiedBy><ModifiedOn>2016-09-20T15:20:54</ModifiedOn><CreatedBy>RadPa</CreatedBy><CreatedOn>2016-05-10T11:28:32</CreatedOn></Row><Row><recordID>11</recordID><reasonName>Misfeeds</reasonName><reasonDescr>Speed Loss</reasonDescr><reasonActive>1</reasonActive><sortOrder>11</sortOrder><catagory>Small Stops</catagory><recordID_FloorMaps>26</recordID_FloorMaps><unitName_FloorMaps>Tig Repair 703518</unitName_FloorMaps><ModifiedBy>SeaWu</ModifiedBy><ModifiedOn>2016-09-20T15:20:54</ModifiedOn><CreatedBy>RadPa</CreatedBy><CreatedOn>2016-05-10T11:28:32</CreatedOn></Row><Row><recordID>12</recordID><reasonName>Sensor Blocked</reasonName><reasonDescr>Speed Loss</reasonDescr><reasonActive>1</reasonActive><sortOrder>12</sortOrder><catagory>Speed Loss</catagory><recordID_FloorMaps>26</recordID_FloorMaps><unitName_FloorMaps>Tig Repair 703518</unitName_FloorMaps><ModifiedBy>SeaWu</ModifiedBy><ModifiedOn>2016-09-20T15:20:54</ModifiedOn><CreatedBy>RadPa</CreatedBy><CreatedOn>2016-05-10T11:28:32</CreatedOn></Row><Row><recordID>13</recordID><reasonName>Delivery Blocked</reasonName><reasonDescr>Speed Loss</reasonDescr><reasonActive>1</reasonActive><sortOrder>13</sortOrder><catagory>Speed Loss</catagory><recordID_FloorMaps>26</recordID_FloorMaps><unitName_FloorMaps>Tig Repair 703518</unitName_FloorMaps><ModifiedBy>SeaWu</ModifiedBy><ModifiedOn>2016-09-20T15:20:54</ModifiedOn><CreatedBy>RadPa</CreatedBy><CreatedOn>2016-05-10T11:28:32</CreatedOn></Row><Row><recordID>14</recordID><reasonName>Cleaning</reasonName><reasonDescr>Speed Loss</reasonDescr><reasonActive>1</reasonActive><sortOrder>14</sortOrder><catagory>Speed Loss</catagory><recordID_FloorMaps>26</recordID_FloorMaps><unitName_FloorMaps>Tig Repair 703518</unitName_FloorMaps><ModifiedBy>SeaWu</ModifiedBy><ModifiedOn>2016-09-20T15:20:54</ModifiedOn><CreatedBy>RadPa</CreatedBy><CreatedOn>2016-05-10T11:28:32</CreatedOn></Row><Row><recordID>15</recordID><reasonName>Rough Running</reasonName><reasonDescr>Speed Loss</reasonDescr><reasonActive>1</reasonActive><sortOrder>15</sortOrder><catagory>Speed Loss</catagory><recordID_FloorMaps>26</recordID_FloorMaps><unitName_FloorMaps>Tig Repair 703518</unitName_FloorMaps><ModifiedBy>SeaWu</ModifiedBy><ModifiedOn>2016-09-20T15:20:54</ModifiedOn><CreatedBy>RadPa</CreatedBy><CreatedOn>2016-05-10T11:28:32</CreatedOn></Row><Row><recordID>16</recordID><reasonName>Under Nameplate Capacity</reasonName><reasonDescr>Speed Loss</reasonDescr><reasonActive>1</reasonActive><sortOrder>16</sortOrder><catagory>Speed Loss</catagory><recordID_FloorMaps>26</recordID_FloorMaps><unitName_FloorMaps>Tig Repair 703518</unitName_FloorMaps><ModifiedBy>SeaWu</ModifiedBy><ModifiedOn>2016-09-20T15:20:54</ModifiedOn><CreatedBy>RadPa</CreatedBy><CreatedOn>2016-05-10T11:28:32</CreatedOn></Row><Row><recordID>17</recordID><reasonName>Under Design Capacity</reasonName><reasonDescr>Speed Loss</reasonDescr><reasonActive>1</reasonActive><sortOrder>17</sortOrder><catagory>Reduced Speed</catagory><recordID_FloorMaps>26</recordID_FloorMaps><unitName_FloorMaps>Tig Repair 703518</unitName_FloorMaps><ModifiedBy>SeaWu</ModifiedBy><ModifiedOn>2016-09-20T15:20:54</ModifiedOn><CreatedBy>RadPa</CreatedBy><CreatedOn>2016-05-10T11:28:32</CreatedOn></Row><Row><recordID>18</recordID><reasonName>Equipment Wear</reasonName><reasonDescr>Speed Loss</reasonDescr><reasonActive>1</reasonActive><sortOrder>18</sortOrder><catagory>Speed Loss</catagory><recordID_FloorMaps>26</recordID_FloorMaps><unitName_FloorMaps>Tig Repair 703518</unitName_FloorMaps><ModifiedBy>SeaWu</ModifiedBy><ModifiedOn>2016-09-20T15:20:54</ModifiedOn><CreatedBy>RadPa</CreatedBy><CreatedOn>2016-05-10T11:28:32</CreatedOn></Row><Row><recordID>19</recordID><reasonName>Operator Inefficiency</reasonName><reasonDescr>Speed Loss</reasonDescr><reasonActive>1</reasonActive><sortOrder>19</sortOrder><catagory>Speed Loss</catagory><recordID_FloorMaps>26</recordID_FloorMaps><unitName_FloorMaps>Tig Repair 703518</unitName_FloorMaps><ModifiedBy>SeaWu</ModifiedBy><ModifiedOn>2016-09-20T15:20:54</ModifiedOn><CreatedBy>RadPa</CreatedBy><CreatedOn>2016-05-10T11:28:32</CreatedOn></Row></Rowset></Rowsets>
+<?xml version="1.0" encoding="UTF-8"?>
+<Rowsets CachedTime="" DateCreated="2016-11-22T17:17:13" EndDate="2016-11-22T17:17:13" StartDate="2016-11-22T16:17:13"
+         Version="15.0 SP4 Patch 11 (Aug 28, 2015)">
+    <Rowset>
+        <Columns>
+            <Column Description="recordID" MaxRange="1" MinRange="0" Name="recordID" SQLDataType="-5"
+                    SourceColumn="recordID"/>
+            <Column Description="reasonName" MaxRange="1" MinRange="0" Name="reasonName" SQLDataType="-9"
+                    SourceColumn="reasonName"/>
+            <Column Description="reasonDescr" MaxRange="1" MinRange="0" Name="reasonDescr" SQLDataType="-9"
+                    SourceColumn="reasonDescr"/>
+            <Column Description="reasonActive" MaxRange="1" MinRange="0" Name="reasonActive" SQLDataType="4"
+                    SourceColumn="reasonActive"/>
+            <Column Description="sortOrder" MaxRange="1" MinRange="0" Name="sortOrder" SQLDataType="4"
+                    SourceColumn="sortOrder"/>
+            <Column Description="catagory" MaxRange="1" MinRange="0" Name="catagory" SQLDataType="-9"
+                    SourceColumn="catagory"/>
+            <Column Description="recordID_FloorMaps" MaxRange="1" MinRange="0" Name="recordID_FloorMaps"
+                    SQLDataType="-5" SourceColumn="recordID_FloorMaps"/>
+            <Column Description="unitName_FloorMaps" MaxRange="1" MinRange="0" Name="unitName_FloorMaps"
+                    SQLDataType="-9" SourceColumn="unitName_FloorMaps"/>
+            <Column Description="ModifiedBy" MaxRange="1" MinRange="0" Name="ModifiedBy" SQLDataType="-9"
+                    SourceColumn="ModifiedBy"/>
+            <Column Description="ModifiedOn" MaxRange="1" MinRange="0" Name="ModifiedOn" SQLDataType="93"
+                    SourceColumn="ModifiedOn"/>
+            <Column Description="CreatedBy" MaxRange="1" MinRange="0" Name="CreatedBy" SQLDataType="-9"
+                    SourceColumn="CreatedBy"/>
+            <Column Description="CreatedOn" MaxRange="1" MinRange="0" Name="CreatedOn" SQLDataType="93"
+                    SourceColumn="CreatedOn"/>
+        </Columns>
+        <Row>
+            <recordID>1</recordID>
+            <reasonName>Tooling Failures</reasonName>
+            <reasonDescr>Down Time Loss</reasonDescr>
+            <reasonActive>1</reasonActive>
+            <sortOrder>1</sortOrder>
+            <catagory>Breakdowns</catagory>
+            <recordID_FloorMaps>26</recordID_FloorMaps>
+            <unitName_FloorMaps>Tig Repair 703518</unitName_FloorMaps>
+            <ModifiedBy>SeaWu</ModifiedBy>
+            <ModifiedOn>2016-09-20T15:20:54</ModifiedOn>
+            <CreatedBy>RadPa</CreatedBy>
+            <CreatedOn>2016-05-10T11:26:47</CreatedOn>
+        </Row>
+        <Row>
+            <recordID>2</recordID>
+            <reasonName>Unplanned Maintenance</reasonName>
+            <reasonDescr>Down Time Loss</reasonDescr>
+            <reasonActive>1</reasonActive>
+            <sortOrder>2</sortOrder>
+            <catagory>Breakdowns</catagory>
+            <recordID_FloorMaps>26</recordID_FloorMaps>
+            <unitName_FloorMaps>Tig Repair 703518</unitName_FloorMaps>
+            <ModifiedBy>SeaWu</ModifiedBy>
+            <ModifiedOn>2016-09-20T15:20:54</ModifiedOn>
+            <CreatedBy>RadPa</CreatedBy>
+            <CreatedOn>2016-05-10T11:28:32</CreatedOn>
+        </Row>
+        <Row>
+            <recordID>3</recordID>
+            <reasonName>General Breakdowns</reasonName>
+            <reasonDescr>Down Time Loss</reasonDescr>
+            <reasonActive>1</reasonActive>
+            <sortOrder>3</sortOrder>
+            <catagory>Breakdowns</catagory>
+            <recordID_FloorMaps>26</recordID_FloorMaps>
+            <unitName_FloorMaps>Tig Repair 703518</unitName_FloorMaps>
+            <ModifiedBy>SeaWu</ModifiedBy>
+            <ModifiedOn>2016-09-20T15:20:54</ModifiedOn>
+            <CreatedBy>RadPa</CreatedBy>
+            <CreatedOn>2016-05-10T11:28:32</CreatedOn>
+        </Row>
+        <Row>
+            <recordID>4</recordID>
+            <reasonName>Equipment Failure</reasonName>
+            <reasonDescr>Down Time Loss</reasonDescr>
+            <reasonActive>1</reasonActive>
+            <sortOrder>4</sortOrder>
+            <catagory>Breakdowns</catagory>
+            <recordID_FloorMaps>26</recordID_FloorMaps>
+            <unitName_FloorMaps>Tig Repair 703518</unitName_FloorMaps>
+            <ModifiedBy>SeaWu</ModifiedBy>
+            <ModifiedOn>2016-09-20T15:20:54</ModifiedOn>
+            <CreatedBy>RadPa</CreatedBy>
+            <CreatedOn>2016-05-10T11:28:32</CreatedOn>
+        </Row>
+        <Row>
+            <recordID>5</recordID>
+            <reasonName>Setup</reasonName>
+            <reasonDescr>Down Time Loss</reasonDescr>
+            <reasonActive>1</reasonActive>
+            <sortOrder>5</sortOrder>
+            <catagory>Setup and Adjustments</catagory>
+            <recordID_FloorMaps>26</recordID_FloorMaps>
+            <unitName_FloorMaps>Tig Repair 703518</unitName_FloorMaps>
+            <ModifiedBy>SeaWu</ModifiedBy>
+            <ModifiedOn>2016-09-20T15:20:54</ModifiedOn>
+            <CreatedBy>RadPa</CreatedBy>
+            <CreatedOn>2016-05-10T11:28:32</CreatedOn>
+        </Row>
+        <Row>
+            <recordID>6</recordID>
+            <reasonName>Material Shortages</reasonName>
+            <reasonDescr>Down Time Loss</reasonDescr>
+            <reasonActive>1</reasonActive>
+            <sortOrder>6</sortOrder>
+            <catagory>Down Time Loss</catagory>
+            <recordID_FloorMaps>26</recordID_FloorMaps>
+            <unitName_FloorMaps>Tig Repair 703518</unitName_FloorMaps>
+            <ModifiedBy>SeaWu</ModifiedBy>
+            <ModifiedOn>2016-09-20T15:20:54</ModifiedOn>
+            <CreatedBy>RadPa</CreatedBy>
+            <CreatedOn>2016-05-10T11:28:32</CreatedOn>
+        </Row>
+        <Row>
+            <recordID>7</recordID>
+            <reasonName>Operator Shortages</reasonName>
+            <reasonDescr>Down Time Loss</reasonDescr>
+            <reasonActive>1</reasonActive>
+            <sortOrder>7</sortOrder>
+            <catagory>Down Time Loss</catagory>
+            <recordID_FloorMaps>26</recordID_FloorMaps>
+            <unitName_FloorMaps>Tig Repair 703518</unitName_FloorMaps>
+            <ModifiedBy>SeaWu</ModifiedBy>
+            <ModifiedOn>2016-09-20T15:20:54</ModifiedOn>
+            <CreatedBy>RadPa</CreatedBy>
+            <CreatedOn>2016-05-10T11:28:32</CreatedOn>
+        </Row>
+        <Row>
+            <recordID>8</recordID>
+            <reasonName>Major Adjustments</reasonName>
+            <reasonDescr>Down Time Loss</reasonDescr>
+            <reasonActive>1</reasonActive>
+            <sortOrder>8</sortOrder>
+            <catagory>Down Time Loss</catagory>
+            <recordID_FloorMaps>26</recordID_FloorMaps>
+            <unitName_FloorMaps>Tig Repair 703518</unitName_FloorMaps>
+            <ModifiedBy>SeaWu</ModifiedBy>
+            <ModifiedOn>2016-09-20T15:20:54</ModifiedOn>
+            <CreatedBy>RadPa</CreatedBy>
+            <CreatedOn>2016-05-10T11:28:32</CreatedOn>
+        </Row>
+        <Row>
+            <recordID>9</recordID>
+            <reasonName>Warm-Up Time</reasonName>
+            <reasonDescr>Down Time Loss</reasonDescr>
+            <reasonActive>1</reasonActive>
+            <sortOrder>9</sortOrder>
+            <catagory>Setup and Adjustments</catagory>
+            <recordID_FloorMaps>26</recordID_FloorMaps>
+            <unitName_FloorMaps>Tig Repair 703518</unitName_FloorMaps>
+            <ModifiedBy>SeaWu</ModifiedBy>
+            <ModifiedOn>2016-09-20T15:20:54</ModifiedOn>
+            <CreatedBy>RadPa</CreatedBy>
+            <CreatedOn>2016-05-10T11:28:32</CreatedOn>
+        </Row>
+        <Row>
+            <recordID>10</recordID>
+            <reasonName>Component Jams</reasonName>
+            <reasonDescr>Speed Loss</reasonDescr>
+            <reasonActive>1</reasonActive>
+            <sortOrder>10</sortOrder>
+            <catagory>Setup and Adjustments</catagory>
+            <recordID_FloorMaps>26</recordID_FloorMaps>
+            <unitName_FloorMaps>Tig Repair 703518</unitName_FloorMaps>
+            <ModifiedBy>SeaWu</ModifiedBy>
+            <ModifiedOn>2016-09-20T15:20:54</ModifiedOn>
+            <CreatedBy>RadPa</CreatedBy>
+            <CreatedOn>2016-05-10T11:28:32</CreatedOn>
+        </Row>
+        <Row>
+            <recordID>11</recordID>
+            <reasonName>Misfeeds</reasonName>
+            <reasonDescr>Speed Loss</reasonDescr>
+            <reasonActive>1</reasonActive>
+            <sortOrder>11</sortOrder>
+            <catagory>Small Stops</catagory>
+            <recordID_FloorMaps>26</recordID_FloorMaps>
+            <unitName_FloorMaps>Tig Repair 703518</unitName_FloorMaps>
+            <ModifiedBy>SeaWu</ModifiedBy>
+            <ModifiedOn>2016-09-20T15:20:54</ModifiedOn>
+            <CreatedBy>RadPa</CreatedBy>
+            <CreatedOn>2016-05-10T11:28:32</CreatedOn>
+        </Row>
+        <Row>
+            <recordID>12</recordID>
+            <reasonName>Sensor Blocked</reasonName>
+            <reasonDescr>Speed Loss</reasonDescr>
+            <reasonActive>1</reasonActive>
+            <sortOrder>12</sortOrder>
+            <catagory>Speed Loss</catagory>
+            <recordID_FloorMaps>26</recordID_FloorMaps>
+            <unitName_FloorMaps>Tig Repair 703518</unitName_FloorMaps>
+            <ModifiedBy>SeaWu</ModifiedBy>
+            <ModifiedOn>2016-09-20T15:20:54</ModifiedOn>
+            <CreatedBy>RadPa</CreatedBy>
+            <CreatedOn>2016-05-10T11:28:32</CreatedOn>
+        </Row>
+        <Row>
+            <recordID>13</recordID>
+            <reasonName>Delivery Blocked</reasonName>
+            <reasonDescr>Speed Loss</reasonDescr>
+            <reasonActive>1</reasonActive>
+            <sortOrder>13</sortOrder>
+            <catagory>Speed Loss</catagory>
+            <recordID_FloorMaps>26</recordID_FloorMaps>
+            <unitName_FloorMaps>Tig Repair 703518</unitName_FloorMaps>
+            <ModifiedBy>SeaWu</ModifiedBy>
+            <ModifiedOn>2016-09-20T15:20:54</ModifiedOn>
+            <CreatedBy>RadPa</CreatedBy>
+            <CreatedOn>2016-05-10T11:28:32</CreatedOn>
+        </Row>
+        <Row>
+            <recordID>14</recordID>
+            <reasonName>Cleaning</reasonName>
+            <reasonDescr>Speed Loss</reasonDescr>
+            <reasonActive>1</reasonActive>
+            <sortOrder>14</sortOrder>
+            <catagory>Speed Loss</catagory>
+            <recordID_FloorMaps>26</recordID_FloorMaps>
+            <unitName_FloorMaps>Tig Repair 703518</unitName_FloorMaps>
+            <ModifiedBy>SeaWu</ModifiedBy>
+            <ModifiedOn>2016-09-20T15:20:54</ModifiedOn>
+            <CreatedBy>RadPa</CreatedBy>
+            <CreatedOn>2016-05-10T11:28:32</CreatedOn>
+        </Row>
+        <Row>
+            <recordID>15</recordID>
+            <reasonName>Rough Running</reasonName>
+            <reasonDescr>Speed Loss</reasonDescr>
+            <reasonActive>1</reasonActive>
+            <sortOrder>15</sortOrder>
+            <catagory>Speed Loss</catagory>
+            <recordID_FloorMaps>26</recordID_FloorMaps>
+            <unitName_FloorMaps>Tig Repair 703518</unitName_FloorMaps>
+            <ModifiedBy>SeaWu</ModifiedBy>
+            <ModifiedOn>2016-09-20T15:20:54</ModifiedOn>
+            <CreatedBy>RadPa</CreatedBy>
+            <CreatedOn>2016-05-10T11:28:32</CreatedOn>
+        </Row>
+        <Row>
+            <recordID>16</recordID>
+            <reasonName>Under Nameplate Capacity</reasonName>
+            <reasonDescr>Speed Loss</reasonDescr>
+            <reasonActive>1</reasonActive>
+            <sortOrder>16</sortOrder>
+            <catagory>Speed Loss</catagory>
+            <recordID_FloorMaps>26</recordID_FloorMaps>
+            <unitName_FloorMaps>Tig Repair 703518</unitName_FloorMaps>
+            <ModifiedBy>SeaWu</ModifiedBy>
+            <ModifiedOn>2016-09-20T15:20:54</ModifiedOn>
+            <CreatedBy>RadPa</CreatedBy>
+            <CreatedOn>2016-05-10T11:28:32</CreatedOn>
+        </Row>
+        <Row>
+            <recordID>17</recordID>
+            <reasonName>Under Design Capacity</reasonName>
+            <reasonDescr>Speed Loss</reasonDescr>
+            <reasonActive>1</reasonActive>
+            <sortOrder>17</sortOrder>
+            <catagory>Reduced Speed</catagory>
+            <recordID_FloorMaps>26</recordID_FloorMaps>
+            <unitName_FloorMaps>Tig Repair 703518</unitName_FloorMaps>
+            <ModifiedBy>SeaWu</ModifiedBy>
+            <ModifiedOn>2016-09-20T15:20:54</ModifiedOn>
+            <CreatedBy>RadPa</CreatedBy>
+            <CreatedOn>2016-05-10T11:28:32</CreatedOn>
+        </Row>
+        <Row>
+            <recordID>18</recordID>
+            <reasonName>Equipment Wear</reasonName>
+            <reasonDescr>Speed Loss</reasonDescr>
+            <reasonActive>1</reasonActive>
+            <sortOrder>18</sortOrder>
+            <catagory>Speed Loss</catagory>
+            <recordID_FloorMaps>26</recordID_FloorMaps>
+            <unitName_FloorMaps>Tig Repair 703518</unitName_FloorMaps>
+            <ModifiedBy>SeaWu</ModifiedBy>
+            <ModifiedOn>2016-09-20T15:20:54</ModifiedOn>
+            <CreatedBy>RadPa</CreatedBy>
+            <CreatedOn>2016-05-10T11:28:32</CreatedOn>
+        </Row>
+        <Row>
+            <recordID>19</recordID>
+            <reasonName>Operator Inefficiency</reasonName>
+            <reasonDescr>Speed Loss</reasonDescr>
+            <reasonActive>1</reasonActive>
+            <sortOrder>19</sortOrder>
+            <catagory>Speed Loss</catagory>
+            <recordID_FloorMaps>26</recordID_FloorMaps>
+            <unitName_FloorMaps>Tig Repair 703518</unitName_FloorMaps>
+            <ModifiedBy>SeaWu</ModifiedBy>
+            <ModifiedOn>2016-09-20T15:20:54</ModifiedOn>
+            <CreatedBy>RadPa</CreatedBy>
+            <CreatedOn>2016-05-10T11:28:32</CreatedOn>
+        </Row>
+    </Rowset>
+</Rowsets>
