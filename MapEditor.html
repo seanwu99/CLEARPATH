@@ -420,8 +420,8 @@ id: <input type="text" id="textID" name="textID" onchange="textInput(this.value)
     //    }
     function newRect() {
         fabricCanvas.add(new fabric.Rect({
-            width: 100,
-            height: 100,
+            width: 50,
+            height: 50,
             left: 0,
             top: 0,
             angle: 0,
@@ -465,9 +465,9 @@ id: <input type="text" id="textID" name="textID" onchange="textInput(this.value)
 
     function newCircle() {
         fabricCanvas.add(new fabric.Circle({
-            radius: 50,
+            radius: 25,
             left: 150,
-            top: 50,
+            top: 25,
             angle: 0,
             originX: 'center',
             originY: 'center',
@@ -501,10 +501,11 @@ id: <input type="text" id="textID" name="textID" onchange="textInput(this.value)
 
     function newTriangle() {
         fabricCanvas.add(new fabric.Triangle({
-            width: 100,
-            height: 100,
+            width: 71,
+            height: 35,
             left: 200,
             top: 0,
+            angle: 0,
 //            fill: '#cca'
             fill: 'rgba(0,200,0,0.80)',
             transparentCorners: false
@@ -689,7 +690,8 @@ id: <input type="text" id="textID" name="textID" onchange="textInput(this.value)
 //        cc(features);
         var mJson = Highcharts.geojson(features);
         $.each(mJson, function () {
-            this.value = 60 + Math.round((Math.random() * 40)); // Non-random bogus data
+//            this.value = 60 + Math.round((Math.random() * 40)); // Non-random bogus data
+            this.value = 50; // Non-random bogus data
         });
 //        cc(JSON.stringify(features));
 //        window.prompt("Copy to clipboard: Ctrl+C, Enter", JSON.stringify(features));
