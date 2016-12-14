@@ -156,6 +156,7 @@ id: <input type="text" id="textID" name="textID" onchange="textInput(this.value)
 
 <button id="clone" onClick="clone()">clone</button>
 
+<button id="place" onClick="place()">place</button>
 
 <canvas id="hCanvas" width="500" height="100" class="lower-canvas"
         style="position: absolute; width: 500px; height: 100px; left: 0px; top: 0px; -webkit-user-select: none;"></canvas>
@@ -211,39 +212,33 @@ id: <input type="text" id="textID" name="textID" onchange="textInput(this.value)
     }
 
     function clone() {
-        if (fabricCanvas.getActiveObject() == null && !fabricCanvas.getActiveGroup()) {
-            cc('getActiveObject() == null');
-            return;
-        }
-        if (true) {
-            var o = fabricCanvas.getActiveObject();
-            var i = fabricCanvas.getObjects().indexOf(o);
-            var group = new fabric.Group();
-            console.log(o, i);
-//            var rect = new fabric.Rect({
-//                width: 100,
-//                height: 100,
-//                left: 0,
-//                top: 0,
-//                angle: 0,
-//                fill: 'rgba(0,200,0,0.80)',
-//                transparentCorners: false
-//            }).on('selected', function (e) {
-//                console.log('selected a rectangle');
-//                console.log(e);
-//                console.log(this);
-//                console.log(fabricCanvas.getObjects().indexOf(this));
-//                document.getElementById("textID").value = fabricID[fabricCanvas.getObjects().indexOf(this)]['id'];
-//            });
-            group.add(o.clone());
-//            var group = new fabric.Group([
-//                o.clone(),
-////                canvas.item(1).clone()
-//            ]);
-            group.addWithUpdate(o.clone());
-            fabricCanvas.add(group);
-            group.destroy();
+        var activegroup = fabricCanvas.getActiveGroup();
+        var objectsInGroup = activegroup.getObjects();
 
+        activegroup.clone(function (newgroup) {
+            fabricCanvas.discardActiveGroup();
+//            objectsInGroup.forEach(function (object) {
+//                fabricCanvas.remove(object);
+//            });
+            fabricCanvas.add(newgroup);
+
+        });
+    }
+
+
+    function place() {
+        var activeObject = fabricCanvas.getActiveObject();
+        if (activeObject.type == "group") {
+            var items = activeObject._objects;
+            alert(items);
+            activeObject._restoreObjectsState();
+            fabricCanvas.remove(activeObject);
+            for (var i = 0; i < items.length; i++) {
+                fabricCanvas.add(items[i]);
+                fabricCanvas.item(canvas.size() - 1).hasControls = true;
+            }
+
+            fabricCanvas.renderAll();
         }
     }
     //    loadMaps
