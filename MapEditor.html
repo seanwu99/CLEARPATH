@@ -230,20 +230,6 @@ id: <input type="text" id="textID" name="textID" onchange="textInput(this.value)
         });
     }
 
-    function objectID(o) {
-        return;
-        console.log(o.get('type'), o.getWidth(), o.getHeight(), o.left, o.top, o.angle);
-        var id = 0;
-        $.each(fabricCanvas.getObjects(), function (i, obj) {
-            console.log(i, obj.get('type'), obj.getWidth(), obj.getHeight(), obj.left, obj.top, obj.angle);
-            if (obj.get('type') == o.get('type') && obj.getWidth() == o.getWidth() && obj.getHeight() == o.getHeight() && obj.left == o.left && obj.top == o.top && obj.angle == o.angle) {
-                id = i;
-                return false;
-            }
-        });
-        return fabricID[id]['id'];
-    }
-
     function place() {
         var activeObject = fabricCanvas.getActiveObject();
         if (activeObject.type == "group") {
@@ -274,20 +260,14 @@ id: <input type="text" id="textID" name="textID" onchange="textInput(this.value)
         fileReader.readAsText(files[0], "UTF-8");
         fileReader.onload = function (fileLoadedEvent) {
             var textFromFileLoaded = fileLoadedEvent.target.result;
-            $.each(fabricCanvas.getObjects(), function (i, object) {
-                fabricCanvas.remove(object);
-            });
-            fabricCanvas.renderAll();
-            $.each(fabricID, function (i, _fabricID) {
-                fabricID.pop();
-            });
 
-            var mapObjects = JSON.parse(textFromFileLoaded);
-            cc(mapObjects.length);
 
-            $.each(mapObjects, function (i, obj) {
-                if (obj['type'] == 'rect') {
-                    var id = obj['id'];
+            var items = JSON.parse(textFromFileLoaded);
+//            cc(mapObjects.length);
+
+            $.each(items, function (i, item) {
+                if (item['type'] == 'rect') {
+                    var id = item['id'];
                     document.getElementById("textID").value = id;
                     fabricID.push({
                         "id": id,
@@ -299,11 +279,11 @@ id: <input type="text" id="textID" name="textID" onchange="textInput(this.value)
 //                        'angle': obj['angle']
                     });
                     fabricCanvas.add(new fabric.Rect({
-                        width: obj['width'],
-                        height: obj['height'],
-                        left: obj['left'],
-                        top: obj['top'],
-                        angle: obj['angle'],
+                        width: item['width'],
+                        height: item['height'],
+                        left: item['left'],
+                        top: item['top'],
+                        angle: item['angle'],
                         fill: 'rgba(0,200,0,0.80)',
                         transparentCorners: false
                     }).on('selected', function (e) {
@@ -314,8 +294,8 @@ id: <input type="text" id="textID" name="textID" onchange="textInput(this.value)
                         document.getElementById("textID").value = fabricID[fabricCanvas.getObjects().indexOf(this)]['id'];
                     }));
 //        cc('addRec')
-                } else if (obj['type'] == 'circle') {
-                    var id = obj['id'];
+                } else if (item['type'] == 'circle') {
+                    var id = item['id'];
                     document.getElementById("textID").value = id;
                     fabricID.push({
                         "id": id,
@@ -332,24 +312,24 @@ id: <input type="text" id="textID" name="textID" onchange="textInput(this.value)
 //                        'scaleY': obj['scaleY']
                     });
                     fabricCanvas.add(new fabric.Circle({
-                        'radius': obj['radius'],
-                        'width': obj['width'],
-                        'height': obj['height'],
-                        'left': obj['left'],
-                        'top': obj['top'],
-                        'angle': obj['angle'],
-                        'originX': obj['originX'],
-                        'originY': obj['originY'],
-                        'scaleX': obj['scaleX'],
-                        'scaleY': obj['scaleY'],
+                        'radius': item['radius'],
+                        'width': item['width'],
+                        'height': item['height'],
+                        'left': item['left'],
+                        'top': item['top'],
+                        'angle': item['angle'],
+                        'originX': item['originX'],
+                        'originY': item['originY'],
+                        'scaleX': item['scaleX'],
+                        'scaleY': item['scaleY'],
 //            fill: '#aac'
                         fill: 'rgba(0,200,0,0.80)',
                         transparentCorners: false
                     }).on('selected', function (e) {
                         document.getElementById("textID").value = fabricID[fabricCanvas.getObjects().indexOf(this)]['id'];
                     }));
-                } else if (obj['type'] == 'triangle') {
-                    var id = obj['id'];
+                } else if (item['type'] == 'triangle') {
+                    var id = item['id'];
                     document.getElementById("textID").value = id;
                     fabricID.push({
                         "id": id,
@@ -362,11 +342,11 @@ id: <input type="text" id="textID" name="textID" onchange="textInput(this.value)
                     });
 
                     fabricCanvas.add(new fabric.Triangle({
-                        width: obj['width'],
-                        height: obj['height'],
-                        left: obj['left'],
-                        top: obj['top'],
-                        angle: obj['angle'],
+                        width: item['width'],
+                        height: item['height'],
+                        left: item['left'],
+                        top: item['top'],
+                        angle: item['angle'],
 //            fill: '#cca'
                         fill: 'rgba(0,200,0,0.80)',
                         transparentCorners: false
