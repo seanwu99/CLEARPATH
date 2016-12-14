@@ -210,32 +210,55 @@ id: <input type="text" id="textID" name="textID" onchange="textInput(this.value)
             fabricID[i]['id'] = text;
         }
     }
+    var groupID;
 
     function clone() {
         var activegroup = fabricCanvas.getActiveGroup();
         var objectsInGroup = activegroup.getObjects();
-
+        groupID = [];
         activegroup.clone(function (newgroup) {
             fabricCanvas.discardActiveGroup();
-//            objectsInGroup.forEach(function (object) {
+            objectsInGroup.forEach(function (object) {
 //                fabricCanvas.remove(object);
-//            });
+                groupID.push({}) ;
+//                fabricID.push({"id": id});
+            });
             fabricCanvas.add(newgroup);
 
         });
     }
 
+    function objectID(o) {
+        console.log(o.get('type'), o.getWidth(), o.getHeight(), o.left, o.top, o.angle);
+        var id = 0;
+        $.each(fabricCanvas.getObjects(), function (i, obj) {
+            console.log(i, obj.get('type'), obj.getWidth(), obj.getHeight(), obj.left, obj.top, obj.angle);
+            if (obj.get('type') == o.get('type') && obj.getWidth() == o.getWidth() && obj.getHeight() == o.getHeight() && obj.left == o.left && obj.top == o.top && obj.angle == o.angle) {
+                id = i;
+                return false;
+            }
+        });
+        return fabricID[id]['id'];
+    }
 
     function place() {
         var activeObject = fabricCanvas.getActiveObject();
         if (activeObject.type == "group") {
             var items = activeObject._objects;
+            $.each(items, function (i, item) {
+                ss(item);
+                ss(objectID(item));
+            });
             alert(items);
             activeObject._restoreObjectsState();
             fabricCanvas.remove(activeObject);
             for (var i = 0; i < items.length; i++) {
                 fabricCanvas.add(items[i]);
-                fabricCanvas.item(canvas.size() - 1).hasControls = true;
+                fabricCanvas.item(fabricCanvas.size() - 1).hasControls = true;
+//                var id = 'id' + new Date().getTime();
+                document.getElementById("textID").value = id;
+//        fabricID.push({"id": id, "type": 'rect', 'width': 100, 'height': 100, 'angle': 0, 'left': 0, 'top': 0});
+                fabricID.push({"id": id});
             }
 
             fabricCanvas.renderAll();
