@@ -210,17 +210,19 @@ id: <input type="text" id="textID" name="textID" onchange="textInput(this.value)
             fabricID[i]['id'] = text;
         }
     }
-    var groupID;
+    var groupClone;
 
     function clone() {
         var activegroup = fabricCanvas.getActiveGroup();
         var objectsInGroup = activegroup.getObjects();
-        groupID = [];
+        groupClone = [];
         activegroup.clone(function (newgroup) {
             fabricCanvas.discardActiveGroup();
             objectsInGroup.forEach(function (object) {
+                cc(fabricID[fabricCanvas.getObjects().indexOf(object)]['id']);
+                groupClone.push({'id': fabricID[fabricCanvas.getObjects().indexOf(object)]['id']});
 //                fabricCanvas.remove(object);
-                groupID.push({}) ;
+//                groupID.push({}) ;
 //                fabricID.push({"id": id});
             });
             fabricCanvas.add(newgroup);
@@ -229,6 +231,7 @@ id: <input type="text" id="textID" name="textID" onchange="textInput(this.value)
     }
 
     function objectID(o) {
+        return;
         console.log(o.get('type'), o.getWidth(), o.getHeight(), o.left, o.top, o.angle);
         var id = 0;
         $.each(fabricCanvas.getObjects(), function (i, obj) {
@@ -245,22 +248,21 @@ id: <input type="text" id="textID" name="textID" onchange="textInput(this.value)
         var activeObject = fabricCanvas.getActiveObject();
         if (activeObject.type == "group") {
             var items = activeObject._objects;
-            $.each(items, function (i, item) {
-                ss(item);
-                ss(objectID(item));
-            });
-            alert(items);
+//            $.each(items, function (i, item) {
+//                ss(item);
+//                ss(objectID(item));
+//            });
+//            alert(items);
             activeObject._restoreObjectsState();
             fabricCanvas.remove(activeObject);
             for (var i = 0; i < items.length; i++) {
                 fabricCanvas.add(items[i]);
                 fabricCanvas.item(fabricCanvas.size() - 1).hasControls = true;
 //                var id = 'id' + new Date().getTime();
-                document.getElementById("textID").value = id;
+//                document.getElementById("textID").value = id;
 //        fabricID.push({"id": id, "type": 'rect', 'width': 100, 'height': 100, 'angle': 0, 'left': 0, 'top': 0});
-                fabricID.push({"id": id});
+                fabricID.push({"id": groupClone[i]['id']});
             }
-
             fabricCanvas.renderAll();
         }
     }
