@@ -37,9 +37,9 @@
         var geojson = JSON.parse($('#geojson').val());
         // Initiate the chart
         mJson = Highcharts.geojson(geojson);
-        $.each(mJson, function (i) {
-            this.value = 60 + Math.round((Math.random() * 40)); // Non-random bogus data
-        });
+//        $.each(mJson, function (i) {
+//            this.value = 60 + Math.round((Math.random() * 40)); // Non-random bogus data
+//        });
         $('#container').slideDown("slow", function () {
 //            alert('slideDown');
         }).highcharts('Map', {
@@ -91,13 +91,13 @@
 //                    align: 'right',
 //                    verticalAlign: 'middle'
 //                },
-
-            colorAxis: {
-                showInLegend: false,
-                min: 0,
-                minColor: '#E6E7E8',
-                maxColor: '#005645'
-            },
+//
+//            colorAxis: {
+//                showInLegend: false,
+//                min: 0,
+//                minColor: '#E6E7E8',
+//                maxColor: '#005645'
+//            },
 
             mapNavigation: {
                 enabled: true,
@@ -126,7 +126,8 @@
                         align: 'center',
                         verticalAlign: 'middle',
                         format: '{point.properties.name}',
-                    }
+                    },
+                    enableMouseTracking: true
                 }
             ],
 
