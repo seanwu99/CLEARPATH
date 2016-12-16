@@ -21,16 +21,18 @@
 
 </head>
 <body>
-<script src="http://code.highcharts.com/maps/highmaps.js"></script>
+<script src="Highcharts/highmaps.src.js"></script>
 
 <div id="container"></div>
 <textarea id="geojson" placeholder="Paste your GeoJSON here to test your map"
           style="height:100px;width:100%"></textarea>
-<button id="run">Run</button><button id="slideup">Up</button>
+<button id="run">Run</button>
+<button id="slideup">Up</button>
 
 <script>
     $('#slideup').click(function () {
-        $('#container').slideUp( "slow", function() {})
+        $('#container').slideUp("slow", function () {
+        })
     });
 
     $('#run').click(function () {
@@ -40,8 +42,10 @@
 //        $.each(mJson, function (i) {
 //            this.value = 60 + Math.round((Math.random() * 40)); // Non-random bogus data
 //        });
-        console.log(JSON.stringify(mJson));
+        console.log('mJson : '+JSON.stringify(mJson));
+        mJson.push();
         $('#container').slideDown("slow", function () {
+
 //            alert('slideDown');
         }).highcharts('Map', {
             credits: {
@@ -122,6 +126,7 @@
                     borderWidth: 0,
                     data: mJson,
                     name: '',
+                    type: '',
                     dataLabels: {
                         enabled: true,
                         align: 'center',
@@ -150,6 +155,7 @@
 
         });
     });
+
 </script>
 
 </body>

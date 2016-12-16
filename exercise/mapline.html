@@ -12,30 +12,31 @@
         $(function () {
 
             var series = [
-//                {
-//                    "type": "map",
-//                    "name": "Basin",
-//                    "color": "rgba(200,150,0,0.4)",
-//                    "borderColor": "#c86400",
-//                    "borderWidth": 3,
-//                    "data": [{
-//                        "name": "River Meuse Basin",
-//                        "path": "M100,100,C100,100,100,150,100,200"
-//                    }]
-//                },
+
                 {
                     "type": "mapline",
-                    "name": "Tributaries",
+                    "name": "Basin",
                     "color": "#0096c8",
-                    "lineWidth": 3,
+                    "lineWidth": 1,
                     "data": [
                         {
-                            "path": "M100,100,100,200,200,200,200,100 Z"
+                            "name": "River Meuse Basin",
+                            "path": "M100,100,L200,200"
                         }
                     ],
                     "tooltip": {
                         "pointFormat": "mapline"
                     }
+                }, {
+                    "type": "map",
+                    "name": "Basin",
+                    "color": "rgba(200,150,0,0.4)",
+                    "borderColor": "#c86400",
+                    "borderWidth": 3,
+                    "data": [{
+                        "name": "River Meuse Basin",
+                        "path": "M100,100,L100,200,200,200,200,100 Z"
+                    }]
                 },
                 {
                     "type": "mappoint",
