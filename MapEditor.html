@@ -160,22 +160,24 @@ id: <input type="text" id="textID" name="textID" onchange="textInput(this.value)
 
 <canvas id="hCanvas" width="500" height="100" class="lower-canvas"
         style="position: absolute; width: 500px; height: 100px; left: 0px; top: 0px; -webkit-user-select: none;"></canvas>
-<!--<canvas id="hCanvas" ></canvas>-->
-
-
-<!--<canvas id="hCanvas" width="500" height="200" style="border: 1px solid #aaa"></canvas>-->
 
 
 <script id="main">
     var mapsJSONforSave = '';
+    var fabricCanvas = new fabric.Canvas("hCanvas");
+    var fabricID = [];
+    fabric.Canvas.prototype.getObjLength = function () {
+        var object = null,
+            objects = this.getObjects();
+        return objects.length;
+    };
     $('#btnLoadBackgroud').click(function () {
         $('#loadBackgroud').click();
     });
     $('#btnLoadMaps').click(function () {
         $('#loadMaps').click();
     });
-    var fabricCanvas = new fabric.Canvas('hCanvas');
-    var fabricID = [];
+
 
     fabricCanvas.on('mouse:down', function (options) {
 //        console.log('canvas event');
@@ -559,6 +561,8 @@ id: <input type="text" id="textID" name="textID" onchange="textInput(this.value)
     //    $('#Map').click(function () {
     //    document.querySelector('#Map').onclick = function () {
     function creatMaps() {
+        cc(fabricCanvas);
+        cc(fabricCanvas.getObjLength());
         var coordinates = [];
         var pieces = [];
         var features = [];
