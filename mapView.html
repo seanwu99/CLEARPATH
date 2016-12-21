@@ -5,8 +5,8 @@
     <title>map view</title>
     <style>
         #container {
-            height: 600px;
-            width: 500px;
+            height: 1000px;
+            /*width: 500px;*/
             margin: 0 auto;
             display: none;
         }
@@ -39,9 +39,6 @@
         var geojson = JSON.parse($('#geojson').val());
         // Initiate the chart
         mJson = Highcharts.geojson(geojson);
-//        $.each(mJson, function (i) {
-//            this.value = 60 + Math.round((Math.random() * 40)); // Non-random bogus data
-//        });
         console.log('mJson : '+JSON.stringify(mJson));
         mJson.push();
         $('#container').slideDown("slow", function () {
@@ -67,7 +64,7 @@
                 text: 'RTS Consulting Inc.'
             },
             chart: {
-
+                height: 1000,
 
                 events: {
                     drilldown: function (e) {
