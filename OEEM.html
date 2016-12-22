@@ -65,10 +65,10 @@
             data-sap-ui-language="en">
     </script>
     <script src="Common/js/default.js"></script>
-    <script src="Highcharts/highmaps.src.js"></script>
-    <script src="Highcharts/modules/data.js"></script>
-    <script src="Highcharts/modules/drilldown.js"></script>
-    <script src="Highcharts/modules/exporting.js"></script>
+    <script src="Common/library/Highcharts/highmaps.src.js"></script>
+    <script src="Common/library/Highcharts/modules/data.js"></script>
+    <script src="Common/library/Highcharts/modules/drilldown.js"></script>
+    <script src="Common/library/Highcharts/modules/exporting.js"></script>
     <script src="rts.oeem.ApplicationHeader.js"></script>
     <script src="rts.oeem.MenuBar.js"></script>
 
@@ -196,7 +196,7 @@
             P4 = "";
             var url = "/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/get_Table&Param.1=" + P1 + "&Param.2=" + P2 + "&Param.3=" + P3 + "&Param.4=" + P4 + "&Content-Type=text/xml";
             if (mockServer) {
-                url = 'mockServer/MESM_StopReasons.xml'
+                url = 'Common/library/mockServer/MESM_StopReasons.xml'
             }
             //        alert(url);
             getData(url, parseJsonParent);
@@ -477,7 +477,7 @@
             });
             mapChart = new Highcharts.Map('p1', {
                 chart: {
-                    height: ScreenSize()['y'] - 365,
+                    height: ScreenSize()['y'],
                     events: {
                         redraw: function () {
 //                                cc('redraw');
@@ -1081,7 +1081,7 @@
             var url = "/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/get_Table&Param.1=" + P1 + "&Param.2=" + P2 + "&Param.3=" + P3 + "&Param.4=" + P4 + "&Content-Type=text/xml";
 //            ss(url);
             if (mockServer) {
-                url = 'mockServer/MESM_FloorMaps.xml';
+                url = 'Common/library/mockServer/MESM_FloorMaps.xml';
             }
 
             //ss(url);
@@ -1225,7 +1225,7 @@
             P4 = "";
             url = "/XMII/Illuminator?QueryTemplate=OEEM/QUERIES/get_Table&Param.1=" + P1 + "&Param.2=" + P2 + "&Param.3=" + P3 + "&Param.4=" + P4 + "&ts=" + new Date().getTime() + "&Content-Type=text/xml";
             if (mockServer) {
-                url = 'mockServer/OEEM_Data_Collection.xml';
+                url = 'Common/library/mockServer/OEEM_Data_Collection.xml';
             }
             //  alert(url);
             getData(url, parseJsonParent);

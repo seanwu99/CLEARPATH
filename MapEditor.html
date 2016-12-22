@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <script src="fabric/fabric.js"></script>
+    <script src="Common/library/fabric/fabric.js"></script>
     <title>MapEditor Demo</title>
 
     <script id="sap-ui-bootstrap"
@@ -139,7 +139,7 @@
 </script>
 <div id="container" style="display: none;"></div>
 <label id="classLabel"></label>
-<input type="text" id="textID" name="textID" onchange="textInput(this.value)">
+<input type="text" id="textID" name="textID" onkeyup="textInput(this.value)">
 <input id="loadBackgroud" type="file" style="display: none;" onchange="loadBackgroud(this.files)">
 <button id="btnLoadBackgroud">backgroud</button>
 <button id="newRect" onClick="newRect()">Rect</button>
@@ -165,9 +165,8 @@
 <script id="main">
     var mapsJSONforSave = '';
     var fabricCanvas = new fabric.Canvas("hCanvas");
-    var fabricID = [];
+    //    var fabricID = [];
     document.getElementById('classLabel').innerText = '_class_';
-    var classLabel = document.getElementById('classLabel').innerText;
     fabric.Canvas.prototype.getObjectsLength = function () {
         var object = null,
             objects = this.getObjects();
@@ -183,8 +182,6 @@
 
 
     fabricCanvas.on('mouse:down', function (options) {
-//        console.log('canvas event');
-//        console.log(options);
         if (fabricCanvas.getActiveObject() == null) {
 //            cc('null');
 //            document.getElementById("textID").value = '';
@@ -195,42 +192,43 @@
     });
 
     function textInput(text) {
+//        cc(text);
+//        cc(document.getElementById('textID').value);
 //        var o = fabricCanvas.getActiveObject();
 //        var i = fabricCanvas.getObjects().indexOf(o);
 //        fabricID[i]['id'] = text;
         if (fabricCanvas.getActiveObject() == null && !fabricCanvas.getActiveGroup()) {
-            cc('getActiveObject() == null');
+//            cc('getActiveObject() == null');
             return;
         }
         if (fabricCanvas.getActiveGroup()) {
-            cc('Group id');
+//            cc('Group id');
             fabricCanvas.getActiveGroup().forEachObject(function (o) {
-                o.id = text;
+                o.nameID = text;
+                o.objectID = document.getElementById('classLabel').innerText + '/' + text;
 //                var i = fabricCanvas.getObjects().indexOf(o);
 //                fabricID[i]['id'] = text;
             });
         } else {
-            cc('single id');
+//            cc('single id');
             var o = fabricCanvas.getActiveObject();
-            o.id = text;
+            o.nameID = text;
+            o.objectID = document.getElementById('classLabel').innerText + '/' + text;
+//            cc(o.id);
 //            var i = fabricCanvas.getObjects().indexOf(o);
 //            fabricID[i]['id'] = text;
         }
     }
-    var groupClone;
+    var groupID;
 
     function clone() {
         var activegroup = fabricCanvas.getActiveGroup();
         var objectsInGroup = activegroup.getObjects();
-        groupClone = [];
+        groupID = [];
         activegroup.clone(function (newgroup) {
             fabricCanvas.discardActiveGroup();
             objectsInGroup.forEach(function (object) {
-//                cc(fabricID[fabricCanvas.getObjects().indexOf(object)]['id']);
-//                groupClone.push({'id': fabricID[fabricCanvas.getObjects().indexOf(object)]['id']});
-//                fabricCanvas.remove(object);
-//                groupID.push({}) ;
-//                fabricID.push({"id": id});
+                groupID.push({classID: object.classID, nameID: object.nameID, objectID: object.objectID});
             });
             fabricCanvas.add(newgroup);
 
@@ -249,12 +247,19 @@
             activeObject._restoreObjectsState();
             fabricCanvas.remove(activeObject);
             for (var i = 0; i < items.length; i++) {
+                cc(items[i]);
+                items[i].classID = groupID[i].classID;
+                items[i].nameID = groupID[i].nameID;
+                items[i].objectID = groupID[i].objectID;
+//                cc(items[i].classID);
+//                cc(items[i].nameID);
+//                cc(items[i].objectID);
                 fabricCanvas.add(items[i]);
-                fabricCanvas.item(fabricCanvas.size() - 1).hasControls = true;
+//                fabricCanvas.item(fabricCanvas.size() - 1).hasControls = true;
 //                var id = 'id' + new Date().getTime();
 //                document.getElementById("textID").value = id;
 //        fabricID.push({"id": id, "type": 'rect', 'width': 100, 'height': 100, 'angle': 0, 'left': 0, 'top': 0});
-                fabricID.push({"id": groupClone[i]['id']});
+//                fabricID.push({"id": groupClone[i]['id']});
             }
             fabricCanvas.renderAll();
         }
@@ -287,11 +292,6 @@
                         nameID: item['nameID'],
                         objectID: item['classID'] + '/' + item['nameID'],
                     }).on('selected', function (e) {
-//                        console.log('selected a rectangle');
-//                        console.log(e);
-//                        console.log(this);
-//                        console.log(fabricCanvas.getObjects().indexOf(this));
-//                        document.getElementById("textID").value = fabricID[fabricCanvas.getObjects().indexOf(this)]['id'];
                         document.getElementById("textID").value = item['nameID'];
                     }));
 
@@ -418,8 +418,9 @@
     //        }
     //    }
     function newRect() {
-
-        var rect = new fabric.Rect({
+        var classID = document.getElementById('classLabel').innerText;
+        var nameID = 'Rect' + new Date().getTime();
+        fabricCanvas.add(new fabric.Rect({
             width: 50,
             height: 50,
             left: 0,
@@ -427,51 +428,19 @@
             angle: 0,
             fill: 'rgba(0,200,0,0.80)',
             transparentCorners: false,
-            classID: classLabel,
-            nameID: 'Rect_' + new Date().getTime(),
-            objectID: classLabel + '/' + 'Rect_' + new Date().getTime()
+            classID: classID,
+            nameID: nameID,
+            objectID: classID + '/' + nameID
         }).on('selected', function (e) {
-//            console.log('selected a rectangle');
-//            console.log(e);
-//            console.log(this);
-//            console.log(fabricCanvas.getObjects().indexOf(this));
-//            document.getElementById("textID").value = fabricID[fabricCanvas.getObjects().indexOf(this)]['id'];
             document.getElementById("textID").value = this.nameID;
-        });
-//        rect.id = 'id' + new Date().getTime();
-        fabricCanvas.add(rect);
-//        cc('rect');
-//        cc(rect);
-
-        document.getElementById("textID").value = rect.nameID;
-//        fabricID.push({"id": id, "type": 'rect', 'width': 100, 'height': 100, 'angle': 0, 'left': 0, 'top': 0});
-//        fabricID.push({"id": id});
-
+        }));
+        document.getElementById("textID").value = nameID;
     }
-    //    $('#Rect').click(function () {
-    //        fabricCanvas.add(new fabric.Rect({
-    //            width: 100,
-    //            height: 100,
-    //            left: 0,
-    //            top: 0,
-    //            angle: 0,
-    //            fill: 'rgba(0,200,0,0.80)',
-    //            transparentCorners: false
-    //        }).on('selected', function (e) {
-    //            console.log('selected a rectangle');
-    //            console.log(e);
-    //            console.log(this);
-    //            console.log(fabricCanvas.getObjects().indexOf(this));
-    //            document.getElementById("textID").value = fabricID[fabricCanvas.getObjects().indexOf(this)]['id'];
-    //        }));
-    ////        cc('addRec')
-    //        var id = 'Unit_' + (fabricCanvas.getObjects().length - 1);
-    //        document.getElementById("textID").value = id;
-    //        fabricID.push({"id": id, "type": 'rect', 'width': 100, 'height': 100, 'left': 0, 'top': 0, 'angle': 0,});
-    //    });
 
     function newCircle() {
-        var circle = new fabric.Circle({
+        var classID = document.getElementById('classLabel').innerText;
+        var nameID = 'Circle' + new Date().getTime();
+        fabricCanvas.add(new fabric.Circle({
             radius: 25,
             left: 150,
             top: 25,
@@ -483,35 +452,19 @@
 //            fill: '#aac'
             fill: 'rgba(0,200,0,0.80)',
             transparentCorners: false,
-            classID: classLabel,
-            nameID: 'Circle_' + new Date().getTime(),
-            objectID: classLabel + '/' + 'Circle_' + new Date().getTime()
+            classID: classID,
+            nameID: nameID,
+            objectID: classID + '/' + nameID
         }).on('selected', function (e) {
-//            console.log('selected a circle');
-//            console.log(e);
-//            console.log(this);
-//            console.log(fabricCanvas.getObjects().indexOf(this));
-//            document.getElementById("textID").value = fabricID[fabricCanvas.getObjects().indexOf(this)]['id'];
             document.getElementById("textID").value = this.nameID;
-        });
-        fabricCanvas.add(circle);
-        document.getElementById("textID").value = circle.nameID;
-//        fabricID.push({
-//            "id": id,
-////            "type": 'circle',
-////            'radius': 50,
-////            'left': 0,
-////            'top': 0,
-////            'angle': 0,
-////            'originY': 'center',
-////            'originY': 'center',
-////            'scaleX': 1,
-////            'scaleY': 1,
-//        });
+        }));
+        document.getElementById("textID").value = nameID;
     }
 
     function newTriangle() {
-        var triangle = new fabric.Triangle({
+        var classID = document.getElementById('classLabel').innerText;
+        var nameID = 'Triangle' + new Date().getTime();
+        fabricCanvas.add(new fabric.Triangle({
             width: 71,
             height: 35,
             left: 200,
@@ -520,22 +473,13 @@
 //            fill: '#cca'
             fill: 'rgba(0,200,0,0.80)',
             transparentCorners: false,
-            classID: classLabel,
-            nameID: 'Triangle_' + new Date().getTime(),
-            objectID: classLabel + '/' + 'Triangle_' + new Date().getTime()
+            classID: classID,
+            nameID: nameID,
+            objectID: classID + '/' + nameID
         }).on('selected', function (e) {
-//            console.log('selected a triangle');
-//            console.log(e);
-//            console.log(this);
-//            console.log(fabricCanvas.getObjects().indexOf(this));
-//            document.getElementById("textID").value = fabricID[fabricCanvas.getObjects().indexOf(this)]['id'];
             document.getElementById("textID").value = this.nameID;
-        });
-        fabricCanvas.add(triangle);
-//        var id = 'id' + new Date().getTime();
-        document.getElementById("textID").value = triangle.nameID;
-//        fabricID.push({"id": id, "type": 'triangle', 'angle': 0, 'width': 100, 'height': 100, 'left': 200, 'top': 0});
-//        fabricID.push({"id": id});
+        }));
+        document.getElementById("textID").value = nameID;
     }
 
     function remove() {
@@ -567,14 +511,7 @@
         });
         return _Exist;
     }
-    //    document.querySelector("#load").onclick = function () {
-    ////        var result = copyToClipboard(new Date().toString());
-    //        console.log("load", 'file');
-    //    };
 
-
-    //    $('#Map').click(function () {
-    //    document.querySelector('#Map').onclick = function () {
     function creatMaps() {
         //cc(fabricCanvas);
 //        cc(fabricCanvas.getObjectsLength());
@@ -585,7 +522,6 @@
         var pieces = [];
         var features = [];
         $.each(fabricCanvas.getObjects(), function (i, obj) {
-//            console.log(i, '/', obj.objectID);
             if (obj.get('type') == 'rect') {
                 var a0 = obj.angle;
                 var x0 = obj.oCoords.bl.x, y0 = obj.oCoords.bl.y;
@@ -677,7 +613,7 @@
             var x = id.indexOf('/');
             var classID = id.substring(0, x);
             var nameID = id.substring(x + 1);
-            cc(classID + '-' + nameID);
+//            cc(classID + '-' + nameID);
 
             features.push({
                 type: "Feature",
@@ -856,10 +792,6 @@
     }
 
 
-    //    document.querySelector("#copy").onclick = function () {
-    //        var result = copyToClipboard(new Date().toString());
-    //        console.log("copied?", result);
-    //    };
     function copyToClipboard(text) {
         if (window.clipboardData && window.clipboardData.setData) {
             // IE specific code path to prevent textarea being shown while dialog is visible.
@@ -961,9 +893,9 @@
     }
     // 		})();
 </script>
-<script src="https://code.highcharts.com/maps/highmaps.js"></script>
-<script src="https://code.highcharts.com/maps/modules/data.js"></script>
-<script src="https://code.highcharts.com/maps/modules/drilldown.js"></script>
+<script src="Common/library/Highcharts/highmaps.src.js"></script>
+<script src="Common/library/Highcharts/modules/data.js"></script>
+<script src="Common/library/Highcharts/modules/drilldown.js"></script>
 
 
 </body>
