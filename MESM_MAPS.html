@@ -111,7 +111,7 @@
                 level2Access = roleArray[0];
                 // alert("level : " + level2Access);
                 plant2Access = roleArray[1];
-                // alert("plant : " + plant2Access);
+//                alert("plant : " + plant2Access);
                 updatePlants(plant2Access);
                 createTableConnDiagnostics();
                 document.getElementById("page_title").innerHTML = role2Access;
@@ -561,6 +561,7 @@
 
         // ****************************************************************************************************************************************************
         function updateTableConnDiagnostics() {
+            cc(oDropdownBoxPlants.getSelectedKey());
             oTable.clearSelection();
             var timestamp = new Date().getTime();
             oModel.loadData("/XMII/Illuminator?QueryTemplate=MESM/DIAGNOSTICS/QUERIES/get_ConnDiag&Param.1=" + oDropdownBoxPlants.getSelectedKey() + "&ts=" + timestamp + "&Content-Type=text/xml", "", false);
@@ -659,9 +660,12 @@
 
         //Bring the table onto the UI
         oMatrixT.createRow(oTable);
-
+        function cc(o) {
+            console.log(o);
+        }
         // ****************************************************************************************************************************************************
         function updatePlants(idPlant) {
+
             var timestamp = new Date().getTime();
             getData("/XMII/Illuminator?QueryTemplate=MESM/PLANTS/TRANSACTIONS/getActivePlants_xAcute&Param.1=" + idPlant + "&ts=" + timestamp + "&Content-Type=text/xml", parseJsonPlantsList);
             function parseJsonPlantsList(jsondata) {
