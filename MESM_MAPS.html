@@ -48,9 +48,14 @@
             color: #cfcfcf;
         }
 
+        #p1 {
+            /*padding: 30px;*/
+            padding-top: 30px;
+        }
+
         #mesm_content {
-            padding: 30px;
-            padding-top: 40px;
+            /*padding: 30px;*/
+            /*padding-top: 40px;*/
         }
 
         #__button0, #__button1, #__button2 {
@@ -82,14 +87,20 @@
             data-sap-ui-libs="sap.ui.core,sap.ui.commons,sap.ui.table,sap.ui.ux3"
             data-sap-ui-language="en">
     </script>
-    <script type="text/javascript" src="Common/js/default.js"></script>
+
+    <script src="Common/js/default.js"></script>
+    <script src="Common/library/Highcharts/highmaps.src.js"></script>
+    <script src="Common/library/Highcharts/highcharts.src.js"></script>
+    <script src="Common/library/Highcharts/modules/data.js"></script>
+    <script src="Common/library/Highcharts/modules/drilldown.js"></script>
+    <script src="Common/library/Highcharts/modules/exporting.js"></script>
 
     <script type="text/javascript" id="app-init">
         // ******************************************************************************************************************************************************************
         // Get Core SAP UI5
         var oCore = sap.ui.getCore();
         // Initialize screen
-        var nrRows = 6;
+        var nrRows = 7;
         var selectedIndex = -1;
         // ******************************************************************************************************************************************************************
         // initialize access
@@ -660,6 +671,53 @@
 
         //Bring the table onto the UI
         oMatrixT.createRow(oTable);
+        var map0, map1, map2, map3, map4, map5, map6, map7, map8, map9, map10, map3489, map510, map67;
+
+        $.get('maps/TOLEDO.json', function (data) {
+            map0 = Highcharts.geojson(data);
+            mapInit(map0);
+        })
+
+        $.get('maps/ALL ASSY.json', function (data) {
+            map1 = Highcharts.geojson(data);
+        });
+        $.get('maps/FORD CS1 ASSY.json', function (data) {
+            map2 = Highcharts.geojson(data);
+        });
+        $.get('maps/FORD CS1 ASSY.json', function (data) {
+            map3 = Highcharts.geojson(data);
+        });
+        $.get('maps/FORD CS1 ASSY.json', function (data) {
+            map4 = Highcharts.geojson(data);
+        });
+        $.get('maps/FORD CS1 ASSY.json', function (data) {
+            map5 = Highcharts.geojson(data);
+        });
+        $.get('maps/FORD CS1 ASSY.json', function (data) {
+            map6 = Highcharts.geojson(data);
+        });
+        $.get('maps/FORD CS1 ASSY.json', function (data) {
+            map7 = Highcharts.geojson(data);
+        });
+        $.get('maps/FORD CS1 ASSY.json', function (data) {
+            map8 = Highcharts.geojson(data);
+        });
+        $.get('maps/FORD CS1 ASSY.json', function (data) {
+            map9 = Highcharts.geojson(data);
+        });
+        $.get('maps/FORD CS1 ASSY.json', function (data) {
+            map10 = Highcharts.geojson(data);
+        });
+        $.get('maps/JL FRONT_REAR.json', function (data) {
+            map3489 = Highcharts.geojson(data);
+        });
+        $.get('maps/FORD P558.json', function (data) {
+            map67 = Highcharts.geojson(data);
+        });
+        $.get('maps/JT COMBO.json', function (data) {
+            map510 = Highcharts.geojson(data);
+        });
+
         function cc(o) {
             console.log(o);
         }
@@ -686,6 +744,330 @@
             }
         }
         // ****************************************************************************************************************************************************
+        function ScreenSize() {
+            var a = 100;
+            var w = window;
+            var d = document;
+            var e = d.documentElement;
+            var g = d.getElementsByTagName('body')[0];
+            var sx = w.innerWidth || e.clientWidth || g.clientWidth;
+            var sy = w.innerHeight || e.clientHeight || g.clientHeight;
+            return {
+                x: sx,
+                y: sy
+            }
+        }
+
+
+        var drillUp = false;
+        var mapChart = null;
+        var chartAnimation = true;
+        var animation_duration = 1000;
+        var prTitle = [];
+        function mapInit(mapData) {
+
+//            console.log('mapData : ', mapData);
+            $.each(mapData, function (i) {
+                this.drilldown = this.properties['hc-key'];
+                this.value = 50 + Math.round((Math.random() * 50));
+            });
+            var mapName = 'TOLEDO';
+//            var mapTop = Highcharts.geojson(map0);
+//            var mapTop;
+
+
+            mapChart = new Highcharts.Map('p1', {
+                chart: {
+                    animation: chartAnimation,
+                },
+                chart: {
+//                    height: ScreenSize()['y'],
+                    animation: false,
+                    height: 450,
+                    events: {
+                        redraw: function () {
+//                                cc('redraw');
+                        },
+                        drilldown: function (e) {
+                            cc(e.point);
+                            var mapDrilldown = null;
+                            if (mapChart.title.textStr == 'TOLEDO') {
+                                if (e.point.name == 'ALL ASSY') {
+                                    prTitle.push(mapChart.title.textStr);
+                                    var title = {
+                                        text: 'ALL ASSY',
+                                    };
+                                    mapChart.setTitle(title);
+                                    mapDrilldown = map1;
+                                } else if (e.point.name == 'FORD CS1 ASSY') {
+                                    prTitle.push(mapChart.title.textStr);
+                                    var title = {
+                                        text: 'FORD CS1 ASSY',
+                                    };
+                                    mapChart.setTitle(title);
+                                    mapDrilldown = map2;
+                                } else if (e.point.name == 'FRONT CS ASSY' || e.point.name == 'REAR CS ASSY' || e.point.name == 'REAR AXLE ASSY' || e.point.name == 'FRONT AXLE ASSY') {
+                                    prTitle.push(mapChart.title.textStr);
+                                    var title = {
+                                        text: 'JL FRONT_REAR',
+                                    };
+                                    mapChart.setTitle(title);
+                                    mapDrilldown = map3489;
+                                    $.each(mapDrilldown, function (i) {
+                                        this.drilldown = this.properties['hc-key'];
+                                        this.value = 50 + Math.round((Math.random() * 50));
+                                    });
+                                } else if (e.point.name == 'FORD CS2 ASSY' || e.point.name == 'FORD AXLE ASSY') {
+                                    prTitle.push(mapChart.title.textStr);
+                                    var title = {
+                                        text: 'FORD P555',
+                                    };
+                                    mapChart.setTitle(title);
+                                    mapDrilldown = map67;
+                                    $.each(mapDrilldown, function (i) {
+                                        this.drilldown = this.properties['hc-key'];
+                                        this.value = 50 + Math.round((Math.random() * 50));
+                                    });
+                                } else if (e.point.name == 'COMBO CS ASSY' || e.point.name == 'COMBO AXLE ASSY') {
+                                    prTitle.push(mapChart.title.textStr);
+                                    var title = {
+                                        text: 'JT COMBO',
+                                    };
+                                    mapChart.setTitle(title);
+                                    mapDrilldown = map510;
+                                    $.each(mapDrilldown, function (i) {
+                                        this.drilldown = this.properties['hc-key'];
+                                        this.value = 50 + Math.round((Math.random() * 50));
+                                    });
+                                }
+                            }
+                            if (mapChart.title.textStr == 'JL FRONT_REAR') {
+                                if (e.point.drilldown == 'FRONT CS ASSY') {
+                                    console.log('JL FRONT_REAR ', 'FRONT CS ASSY');
+
+                                }
+                            }
+                            this.addSingleSeriesAsDrilldown(e.point, {
+                                borderWidth: 0,
+//                                name: e.point.name,
+                                name: mapChart.title.textStr,
+                                data: mapDrilldown,
+                                dataLabels: {
+                                    enabled: true,
+                                    format: '{point.name}'
+                                }
+                            });
+                            this.applyDrilldown();
+                        },
+                        drillup: function (e) {
+                            drillUp = true;
+                            var title = {
+                                text: prTitle.pop(),
+                            };
+
+                            mapChart.setTitle(title);
+//                            cc('drillUp = true');
+                        },
+                        load: function () {
+                        }
+                    }
+                },
+                lang: {
+                    drillUpText: " << Back to {series.name}"
+//                    drillUpText: " << Back"
+                },
+                exporting: {
+                    enabled: false
+                },
+                credits: {
+                    enabled: false,
+                    href: 'http://www.rtsperfectplant.com/',
+                    position: {
+                        align: 'right',
+                        x: -10,
+                        verticalAlign: 'bottom',
+                        y: -5
+                    },
+
+                    style: {
+                        cursor: 'pointer',
+                        color: '#999999',
+                        fontSize: '9px'
+                    },
+
+                    text: 'RTS Consulting Inc.'
+                },
+                title: {
+//                    text: rootNode.getText()
+                    text: mapName
+                },
+                subtitle: {
+                    text: '',
+                    style: {
+                        display: 'none'
+                    }
+                },
+
+                legend: {
+                    enabled: false,
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'middle'
+                },
+//                xAxis: {
+//                    crosshair: {
+//                        zIndex: 5,
+//                        dashStyle: 'dot',
+//                        snap: false,
+//                        color: 'gray'
+//                    }
+//                },
+//
+//                yAxis: {
+//                    crosshair: {
+//                        zIndex: 5,
+//                        dashStyle: 'dot',
+//                        snap: false,
+//                        color: 'gray'
+//                    }
+//                },
+                colorAxis: {
+                    showInLegend: false,
+                    min: 0,
+                    minColor: '#E6E7E8',
+                    maxColor: '#005645'
+                },
+                mapNavigation: {
+                    enabled: true,
+                    buttonOptions: {
+                        verticalAlign: 'bottom'
+                    }
+                },
+
+                plotOptions: {
+                    series: {
+                        events: {
+                            afterAnimate: function () {
+                                cc('afterAnimate');
+                                if (drillUp && mapChart.title.textStr == 'TOLEDO') {
+                                    drillUp = false;
+                                    cc('drillUp');
+                                    chartAnimation = false;
+                                    animation_duration = 0;
+                                    mapInit(map0);
+                                } else {
+                                    drillUp = false;
+                                }
+
+                            }
+                        }
+                    },
+                    map: {
+                        states: {
+                            hover: {
+                                color: '#EEDD66'
+                            }
+                        }
+                    },
+                    point: {
+                        events: {
+                            click: function () {
+//                                    mapLevel1Refresh = new Date().getTime();
+                            },
+                            mouseOver: function () {
+                                //alert('mouseOver');
+//                                    mapLevel1Refresh = new Date().getTime();
+
+                            },
+                            mouseOut: function () {
+                                //alert('mouseOut');
+//                                    mapLevel1Refresh = new Date().getTime();
+                            }
+                        }
+                    }
+                },
+
+
+//                plotOptions: {
+//                    map: {
+//                        states: {
+//                            hover: {
+//                                color: '#EEDD66'
+//                            }
+//                        }
+//                    },
+//                    series: {
+//                        animation: {
+//                            complete: function () {
+//                                cc('complete');
+//                                if (drillUp) {
+//                                    drillUp = false;
+//                                    console.log('drillUp');
+//                                } else {
+//                                    drillUp = false;
+//                                }
+//                            },
+//                            events: {
+//                                afterAnimate: function (ev) {
+//                                    cc('afterAnimate');
+//
+//                                    console.log('fired only once for each series');
+//                                }
+//                            }
+//                        },
+//                        point: {
+//                            events: {
+//                                click: function () {
+////                                    mapLevel1Refresh = new Date().getTime();
+//                                },
+//                                mouseOver: function () {
+//                                    //alert('mouseOver');
+////                                    mapLevel1Refresh = new Date().getTime();
+//
+//                                },
+//                                mouseOut: function () {
+//                                    //alert('mouseOut');
+////                                    mapLevel1Refresh = new Date().getTime();
+//
+//                                }
+//                            }
+//                        }
+//                    }
+//                },
+                series: [{
+                    borderWidth: 0,
+                    animation: {
+                        duration: animation_duration
+                    },
+                    data: mapData,
+                    name: mapName,
+                    dataLabels: {
+                        enabled: true,
+                        align: 'center',
+                        verticalAlign: 'middle',
+                        format: '{point.properties.name}'
+                    }
+                }],
+                drilldown: {
+                    //series: drilldownSeries,
+                    activeDataLabelStyle: {
+                        color: '#FFFFFF',
+                        textDecoration: 'none',
+                        textShadow: '0 0 0px #000000'
+                    },
+                    drillUpButton: {
+                        relativeTo: 'spacingBox',
+                        position: {
+                            x: 0,
+                            y: 60
+                        }
+                    }
+                }
+            });
+            chartAnimation = true;
+            animation_duration = 1000;
+        }
+
     </script>
 </head>
 
@@ -701,6 +1083,7 @@
     <div id="app_menu"></div>
     <div id="page_title">DIAGNOSTICS</div>
 </div>
+<div id="p1"></div>
 <div id="mesm_content"></div>
 </body>
 </html>
