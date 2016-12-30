@@ -684,10 +684,10 @@
         $.get('maps/FORD CS1 ASSY.json', function (data) {
             map2 = Highcharts.geojson(data);
         });
-        $.get('maps/FORD CS1 ASSY.json', function (data) {
+        $.get('maps/FRONT CS ASSY.json', function (data) {
             map3 = Highcharts.geojson(data);
         });
-        $.get('maps/FORD CS1 ASSY.json', function (data) {
+        $.get('maps/REAR CS ASSY.json', function (data) {
             map4 = Highcharts.geojson(data);
         });
         $.get('maps/FORD CS1 ASSY.json', function (data) {
@@ -699,10 +699,10 @@
         $.get('maps/FORD CS1 ASSY.json', function (data) {
             map7 = Highcharts.geojson(data);
         });
-        $.get('maps/FORD CS1 ASSY.json', function (data) {
+        $.get('maps/REAR AXLE ASSY.json', function (data) {
             map8 = Highcharts.geojson(data);
         });
-        $.get('maps/FORD CS1 ASSY.json', function (data) {
+        $.get('maps/FRONT AXLE ASSY.json', function (data) {
             map9 = Highcharts.geojson(data);
         });
         $.get('maps/FORD CS1 ASSY.json', function (data) {
@@ -815,7 +815,7 @@
                                     mapDrilldown = map3489;
                                     $.each(mapDrilldown, function (i) {
                                         this.drilldown = this.properties['hc-key'];
-                                        this.value = 50 + Math.round((Math.random() * 50));
+//                                        this.value = 50 + Math.round((Math.random() * 50));
                                     });
                                 } else if (e.point.name == 'FORD CS2 ASSY' || e.point.name == 'FORD AXLE ASSY') {
                                     prTitle.push(mapChart.title.textStr);
@@ -844,7 +844,16 @@
                             if (mapChart.title.textStr == 'JL FRONT_REAR') {
                                 if (e.point.drilldown == 'FRONT CS ASSY') {
                                     console.log('JL FRONT_REAR ', 'FRONT CS ASSY');
-
+                                    prTitle.push(mapChart.title.textStr);
+                                    var title = {
+                                        text: 'FRONT CS ASSY',
+                                    };
+                                    mapChart.setTitle(title);
+                                    mapDrilldown = map3;
+//                                    $.each(mapDrilldown, function (i) {
+//                                        this.drilldown = this.properties['hc-key'];
+//                                        this.value = 50 + Math.round((Math.random() * 50));
+//                                    });
                                 }
                             }
                             this.addSingleSeriesAsDrilldown(e.point, {
