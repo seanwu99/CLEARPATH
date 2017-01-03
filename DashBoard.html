@@ -65,17 +65,21 @@
             data-sap-ui-language="en">
     </script>
     <script src="Common/js/default.js"></script>
-    <script src="Highcharts/highstock.js"></script>
-    <script src="Highcharts/modules/data.js"></script>
-    <script src="Highcharts/modules/drilldown.js"></script>
-    <script src="Highcharts/modules/exporting.js"></script>
+    <!--<script src="Highcharts/highstock.js"></script>-->
+    <!--<script src="Highcharts/modules/data.js"></script>-->
+    <!--<script src="Highcharts/modules/drilldown.js"></script>-->
+    <!--<script src="Highcharts/modules/exporting.js"></script>-->
+    <script src="https://code.highcharts.com/maps/highmaps.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/data.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/drilldown.js"></script>
+    <script src="https://code.highcharts.com/mapdata/countries/us/us-all.js"></script>
     <script src="rts.oeem.ApplicationHeader.js"></script>
     <script src="rts.oeem.MenuBar.js"></script>
 
 
     <script>
         // ******************************************************************************************************************************************************************
-        var mockServer = false;
+        var mockServer = true;
         var USERNAME = 'unknown';
         var floorTreeReady = false;
         var treeIndex = 0;
