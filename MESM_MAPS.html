@@ -89,12 +89,15 @@
     </script>
 
     <script src="Common/js/default.js"></script>
-    <script src="Common/library/Highcharts/highmaps.src.js"></script>
-    <script src="Common/library/Highcharts/highcharts.src.js"></script>
-    <script src="Common/library/Highcharts/modules/data.js"></script>
-    <script src="Common/library/Highcharts/modules/drilldown.js"></script>
-    <script src="Common/library/Highcharts/modules/exporting.js"></script>
-
+    <!--<script src="Common/library/Highcharts/highmaps.src.js"></script>-->
+    <!--<script src="Common/library/Highcharts/highcharts.src.js"></script>-->
+    <!--<script src="Common/library/Highcharts/modules/data.js"></script>-->
+    <!--<script src="Common/library/Highcharts/modules/drilldown.js"></script>-->
+    <!--<script src="Common/library/Highcharts/modules/exporting.js"></script>-->
+    <script src="https://code.highcharts.com/maps/highmaps.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/data.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/drilldown.js"></script>
+    <script src="https://code.highcharts.com/mapdata/countries/us/us-all.js"></script>
     <script type="text/javascript" id="app-init">
         // ******************************************************************************************************************************************************************
         // Get Core SAP UI5
@@ -690,13 +693,13 @@
         $.get('maps/REAR CS ASSY.json', function (data) {
             map4 = Highcharts.geojson(data);
         });
-        $.get('maps/FORD CS1 ASSY.json', function (data) {
+        $.get('maps/COMBO CS ASSY.json', function (data) {
             map5 = Highcharts.geojson(data);
         });
-        $.get('maps/FORD CS1 ASSY.json', function (data) {
+        $.get('maps/FORD CS2 ASSY.json', function (data) {
             map6 = Highcharts.geojson(data);
         });
-        $.get('maps/FORD CS1 ASSY.json', function (data) {
+        $.get('maps/FORD AXLE ASSY.json', function (data) {
             map7 = Highcharts.geojson(data);
         });
         $.get('maps/REAR AXLE ASSY.json', function (data) {
@@ -705,7 +708,7 @@
         $.get('maps/FRONT AXLE ASSY.json', function (data) {
             map9 = Highcharts.geojson(data);
         });
-        $.get('maps/FORD CS1 ASSY.json', function (data) {
+        $.get('maps/COMBO AXLE ASSY.json', function (data) {
             map10 = Highcharts.geojson(data);
         });
         $.get('maps/JL FRONT_REAR.json', function (data) {
@@ -790,6 +793,7 @@
                         },
                         drilldown: function (e) {
                             cc(e.point);
+//                            cc(mapChart.title.textStr + ' 1');
                             var mapDrilldown = null;
                             if (mapChart.title.textStr == 'TOLEDO') {
                                 if (e.point.name == 'ALL ASSY') {
@@ -815,12 +819,12 @@
                                     mapDrilldown = map3489;
                                     $.each(mapDrilldown, function (i) {
                                         this.drilldown = this.properties['hc-key'];
-//                                        this.value = 50 + Math.round((Math.random() * 50));
+                                        this.value = 50 + Math.round((Math.random() * 50));
                                     });
                                 } else if (e.point.name == 'FORD CS2 ASSY' || e.point.name == 'FORD AXLE ASSY') {
                                     prTitle.push(mapChart.title.textStr);
                                     var title = {
-                                        text: 'FORD P555',
+                                        text: 'FORD P558',
                                     };
                                     mapChart.setTitle(title);
                                     mapDrilldown = map67;
@@ -840,20 +844,108 @@
                                         this.value = 50 + Math.round((Math.random() * 50));
                                     });
                                 }
-                            }
-                            if (mapChart.title.textStr == 'JL FRONT_REAR') {
+                            } else if (mapChart.title.textStr == 'JL FRONT_REAR') {
                                 if (e.point.drilldown == 'FRONT CS ASSY') {
-                                    console.log('JL FRONT_REAR ', 'FRONT CS ASSY');
+//                                    console.log('JL FRONT_REAR ', 'FRONT CS ASSY');
                                     prTitle.push(mapChart.title.textStr);
                                     var title = {
-                                        text: 'FRONT CS ASSY',
+                                        text: e.point.drilldown,
                                     };
                                     mapChart.setTitle(title);
                                     mapDrilldown = map3;
-//                                    $.each(mapDrilldown, function (i) {
+                                    $.each(mapDrilldown, function (i) {
 //                                        this.drilldown = this.properties['hc-key'];
-//                                        this.value = 50 + Math.round((Math.random() * 50));
-//                                    });
+                                        this.value = 50 + Math.round((Math.random() * 50));
+                                    });
+                                } else if (e.point.drilldown == 'REAR CS ASSY') {
+//                                    console.log('JL FRONT_REAR ', 'FRONT CS ASSY');
+                                    prTitle.push(mapChart.title.textStr);
+                                    var title = {
+                                        text: e.point.drilldown
+                                    };
+                                    mapChart.setTitle(title);
+                                    mapDrilldown = map4;
+                                    $.each(mapDrilldown, function (i) {
+//                                        this.drilldown = this.properties['hc-key'];
+                                        this.value = 50 + Math.round((Math.random() * 50));
+                                    });
+                                } else if (e.point.drilldown == 'REAR AXLE ASSY') {
+//                                    console.log('JL FRONT_REAR ', 'FRONT CS ASSY');
+                                    prTitle.push(mapChart.title.textStr);
+                                    var title = {
+                                        text: e.point.drilldown
+                                    };
+                                    mapChart.setTitle(title);
+                                    mapDrilldown = map8;
+                                    $.each(mapDrilldown, function (i) {
+//                                        this.drilldown = this.properties['hc-key'];
+                                        this.value = 50 + Math.round((Math.random() * 50));
+                                    });
+                                } else if (e.point.drilldown == 'FRONT AXLE ASSY') {
+//                                    console.log('JL FRONT_REAR ', 'FRONT CS ASSY');
+                                    prTitle.push(mapChart.title.textStr);
+                                    var title = {
+                                        text: e.point.drilldown
+                                    };
+                                    mapChart.setTitle(title);
+                                    mapDrilldown = map9;
+                                    $.each(mapDrilldown, function (i) {
+//                                        this.drilldown = this.properties['hc-key'];
+                                        this.value = 50 + Math.round((Math.random() * 50));
+                                    });
+                                }
+                            } else if (mapChart.title.textStr == 'JT COMBO') {
+                                if (e.point.drilldown == 'COMBO CS ASSY') {
+//                                    console.log('JL FRONT_REAR ', 'FRONT CS ASSY');
+                                    prTitle.push(mapChart.title.textStr);
+                                    var title = {
+                                        text: e.point.drilldown,
+                                    };
+                                    mapChart.setTitle(title);
+                                    mapDrilldown = map5;
+                                    $.each(mapDrilldown, function (i) {
+//                                        this.drilldown = this.properties['hc-key'];
+                                        this.value = 50 + Math.round((Math.random() * 50));
+                                    });
+                                } else if (e.point.drilldown == 'COMBO AXLE ASSY') {
+//                                    console.log('JL FRONT_REAR ', 'FRONT CS ASSY');
+                                    prTitle.push(mapChart.title.textStr);
+                                    var title = {
+                                        text: e.point.drilldown
+                                    };
+                                    mapChart.setTitle(title);
+                                    mapDrilldown = map10;
+                                    $.each(mapDrilldown, function (i) {
+//                                        this.drilldown = this.properties['hc-key'];
+                                        this.value = 50 + Math.round((Math.random() * 50));
+                                    });
+                                }
+                            } else if (mapChart.title.textStr == 'FORD P558') {
+                                cc('FORD P558');
+                                if (e.point.drilldown == 'FORD CS2 ASSY') {
+//                                    console.log('JL FRONT_REAR ', 'FRONT CS ASSY');
+                                    prTitle.push(mapChart.title.textStr);
+                                    var title = {
+                                        text: e.point.drilldown,
+                                    };
+                                    mapChart.setTitle(title);
+                                    mapDrilldown = map6;
+                                    $.each(mapDrilldown, function (i) {
+//                                        this.drilldown = this.properties['hc-key'];
+                                        this.value = 50 + Math.round((Math.random() * 50));
+                                    });
+                                } else if (e.point.drilldown == 'FORD AXLE ASSY') {
+//                                    console.log('JL FRONT_REAR ', 'FRONT CS ASSY');
+                                    prTitle.push(mapChart.title.textStr);
+                                    var title = {
+                                        text: e.point.drilldown
+                                    };
+                                    mapChart.setTitle(title);
+                                    mapDrilldown = map7;
+                                    $.each(mapDrilldown, function (i) {
+//                                        this.drilldown = this.properties['hc-key'];
+                                        this.value = 50 + Math.round((Math.random() * 50));
+                                    });
                                 }
                             }
                             this.addSingleSeriesAsDrilldown(e.point, {
