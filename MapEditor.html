@@ -4,7 +4,7 @@
 
     <meta charset="utf-8">
     <script src="Common/library/fabric/fabric.js"></script>
-    <title>MapEditor Demo</title>
+    <title>MapEditor</title>
 
     <script id="sap-ui-bootstrap"
             src="https://sapui5.netweaver.ondemand.com/resources/sap-ui-core.js"
@@ -14,119 +14,10 @@
     </script>
 
     <script>
-        //        var features;
 
         $(function () {
-
-
         });
 
-        //        function mapInit(_myJson) {
-        //            var highchartMap = new Highcharts.Map('container', {
-        //                credits: {
-        //                    enabled: false,
-        //                    href: 'http://www.rtsperfectplant.com/',
-        //                    position: {
-        //                        align: 'right',
-        //                        x: -10,
-        //                        verticalAlign: 'bottom',
-        //                        y: -5
-        //                    },
-        //
-        //                    style: {
-        //                        cursor: 'pointer',
-        //                        color: '#999999',
-        //                        fontSize: '9px'
-        //                    },
-        //
-        //                    text: 'RTS Consulting Inc.'
-        //                },
-        //                chart: {
-        //
-        //
-        //                    events: {
-        //                        drilldown: function () {
-        //                        },
-        //                        drillup: function () {
-        //                        }
-        //                    }
-        //                },
-        //
-        //                title: {
-        //                    text: ''
-        //                },
-        //
-        ////                subtitle: {
-        ////                    text: 'subtitle',
-        ////                    floating: true,
-        ////                    align: 'right',
-        ////                    y: 50,
-        ////                    style: {
-        ////                        fontSize: '16px'
-        ////                    }
-        ////                },
-        //
-        ////                legend: small ? {} : {
-        ////                    layout: 'vertical',
-        ////                    align: 'right',
-        ////                    verticalAlign: 'middle'
-        ////                },
-        //
-        //                colorAxis: {
-        //                    showInLegend: false,
-        //                    min: 0,
-        //                    minColor: '#E6E7E8',
-        //                    maxColor: '#005645'
-        //                },
-        //
-        //                mapNavigation: {
-        //                    enabled: true,
-        //                    buttonOptions: {
-        //                        verticalAlign: 'top'
-        //                    }
-        //                },
-        //
-        ////                plotOptions: {
-        ////                    map: {
-        ////                        states: {
-        ////                            hover: {
-        ////                                color: '#EEDD66'
-        ////                            }
-        ////                        }
-        ////                    }
-        ////                },
-        //
-        //                series: [
-        //                    {
-        //                        borderWidth: 0,
-        //                        data: _myJson,
-        //                        name: 'mapSeries',
-        //                        dataLabels: {
-        //                            enabled: true,
-        //                            align: 'center',
-        //                            verticalAlign: 'middle',
-        //                            format: '{point.properties.name}'
-        //                        }
-        //                    }
-        //                ],
-        //
-        //                drilldown: {
-        ////                    //series: drilldownSeries,
-        //                    activeDataLabelStyle: {
-        //                        color: '#FFFFFF',
-        //                        textDecoration: 'none',
-        //                        textShadow: '0 0 3px #000000'
-        //                    }
-        ////                    drillUpButton: {
-        ////                        relativeTo: 'spacingBox',
-        ////                        position: {
-        ////                            x: 0,
-        ////                            y: 60
-        ////                        }
-        ////                    }
-        //                }
-        //            });
-        //        }
     </script>
 </head>
 <body>
@@ -138,8 +29,10 @@
 
 </script>
 <div id="container" style="display: none;"></div>
-<label id="classLabel"></label>
-<input type="text" id="textID" name="textID" onkeyup="textInput(this.value)">
+
+<input type="text" id="textHC" name="textHC" onkeyup="textHC(this.value)">
+/
+<input type="text" id="textName" name="textName" onkeyup="textName(this.value)">
 <input id="loadBackgroud" type="file" style="display: none;" onchange="loadBackgroud(this.files)">
 <button id="btnLoadBackgroud">backgroud</button>
 <button id="newRect" onClick="newRect()">R</button>
@@ -152,14 +45,15 @@
 <button id="btnLoadMaps">load</button>
 <button id="clone" onClick="clone()">clone</button>
 <button id="place" onClick="place()">place</button>
-<canvas id="hCanvas" height="100"></canvas>
+
+<canvas id="hCanvas" height="400"></canvas>
 
 
 <script id="main">
     var mapsJSONforSave = '';
     var fabricCanvas = new fabric.Canvas("hCanvas");
     //    var fabricID = [];
-    document.getElementById('classLabel').innerText = '_class_';
+    document.getElementById('textHC').value = '@';
     fabric.Canvas.prototype.getObjectsLength = function () {
         var object = null,
             objects = this.getObjects();
@@ -174,42 +68,46 @@
     });
 
 
-    fabricCanvas.on('mouse:down', function (options) {
-        if (fabricCanvas.getActiveObject() == null) {
-//            cc('null');
-//            document.getElementById("textID").value = '';
-//            documentt.getElementById('textID').disabled = true;
-        } else {
-            document.getElementById('textID').disabled = false;
-        }
-    });
-
-    function textInput(text) {
-//        cc(text);
-//        cc(document.getElementById('textID').value);
-//        var o = fabricCanvas.getActiveObject();
-//        var i = fabricCanvas.getObjects().indexOf(o);
-//        fabricID[i]['id'] = text;
+//    fabricCanvas.on('mouse:down', function (options) {
+//        if (fabricCanvas.getActiveObject() == null) {
+//            return;
+//
+//        } else {
+//            document.getElementById('textName').disabled = false;
+//        }
+//    });
+    function textHC(text) {
         if (fabricCanvas.getActiveObject() == null && !fabricCanvas.getActiveGroup()) {
-//            cc('getActiveObject() == null');
             return;
         }
         if (fabricCanvas.getActiveGroup()) {
-//            cc('Group id');
             fabricCanvas.getActiveGroup().forEachObject(function (o) {
-                o.nameID = text;
-                o.objectID = document.getElementById('classLabel').innerText + '/' + text;
-//                var i = fabricCanvas.getObjects().indexOf(o);
-//                fabricID[i]['id'] = text;
+                o.nameID = document.getElementById('textName').value;
+                o.classID = text;
+                o.objectID = text + '/' + document.getElementById('textName').value;
             });
         } else {
-//            cc('single id');
+            var o = fabricCanvas.getActiveObject();
+            o.nameID = document.getElementById('textName').value;
+            o.classID = text;
+            o.objectID = text + '/' + document.getElementById('textName').value;
+        }
+    }
+    function textName(text) {
+        if (fabricCanvas.getActiveObject() == null && !fabricCanvas.getActiveGroup()) {
+            return;
+        }
+        if (fabricCanvas.getActiveGroup()) {
+            fabricCanvas.getActiveGroup().forEachObject(function (o) {
+                o.nameID = text;
+                o.classID = document.getElementById('textHC').value;
+                o.objectID = document.getElementById('textHC').value + '/' + text;
+            });
+        } else {
             var o = fabricCanvas.getActiveObject();
             o.nameID = text;
-            o.objectID = document.getElementById('classLabel').innerText + '/' + text;
-//            cc(o.id);
-//            var i = fabricCanvas.getObjects().indexOf(o);
-//            fabricID[i]['id'] = text;
+            o.classID = document.getElementById('textHC').value;
+            o.objectID = document.getElementById('textHC').value + '/' + text;
         }
     }
     var groupID;
@@ -250,7 +148,7 @@
                 fabricCanvas.add(items[i]);
 //                fabricCanvas.item(fabricCanvas.size() - 1).hasControls = true;
 //                var id = 'id' + new Date().getTime();
-//                document.getElementById("textID").value = id;
+//                document.getElementById("textName").value = id;
 //        fabricID.push({"id": id, "type": 'rect', 'width': 100, 'height': 100, 'angle': 0, 'left': 0, 'top': 0});
 //                fabricID.push({"id": groupClone[i]['id']});
             }
@@ -272,7 +170,7 @@
 
             $.each(items, function (i, item) {
                 if (item['type'] == 'rect') {
-                    document.getElementById("textID").value = item['nameID'];
+//                    document.getElementById("textName").value = item['nameID'];
                     fabricCanvas.add(new fabric.Rect({
                         width: item['width'],
                         height: item['height'],
@@ -285,27 +183,13 @@
                         nameID: item['nameID'],
                         objectID: item['classID'] + '/' + item['nameID'],
                     }).on('selected', function (e) {
-                        document.getElementById("textID").value = item['nameID'];
+                        document.getElementById("textHC").value = this.classID;
+                        document.getElementById("textName").value = item['nameID'];
                     }));
 
 //        cc('addRec')
                 } else if (item['type'] == 'circle') {
                     var id = item['id'];
-                    document.getElementById("textID").value = item['nameID'];
-//                    fabricID.push({
-//                        "id": id,
-////                        "type": 'circle',
-////                        'radius': obj['radius'],
-////                        'width': obj['width'],
-////                        'height': obj['height'],
-////                        'left': obj['left'],
-////                        'top': obj['top'],
-////                        'angle': obj['angle'],
-////                        'originX': obj['originX'],
-////                        'originY': obj['originY'],
-////                        'scaleX': obj['scaleX'],
-////                        'scaleY': obj['scaleY']
-//                    });
                     fabricCanvas.add(new fabric.Circle({
                         'radius': item['radius'],
                         'width': item['width'],
@@ -324,11 +208,12 @@
                         classID: item['classID'],
                         objectID: item['classID'] + '/' + item['nameID'],
                     }).on('selected', function (e) {
-//                        document.getElementById("textID").value = fabricID[fabricCanvas.getObjects().indexOf(this)]['id'];
-                        document.getElementById("textID").value = item['nameID'];
+//                        document.getElementById("textName").value = fabricID[fabricCanvas.getObjects().indexOf(this)]['id'];
+                        document.getElementById("textName").value = item['nameID'];
+                        document.getElementById("textHC").value = this.classID;
                     }));
                 } else if (item['type'] == 'triangle') {
-                    document.getElementById("textID").value = item['nameID'];
+                    document.getElementById("textName").value = item['nameID'];
                     fabricCanvas.add(new fabric.Triangle({
                         width: item['width'],
                         height: item['height'],
@@ -342,8 +227,9 @@
                         classID: item['classID'],
                         objectID: item['classID'] + '/' + item['nameID'],
                     }).on('selected', function (e) {
-//                        document.getElementById("textID").value = fabricID[fabricCanvas.getObjects().indexOf(this)]['id'];
-                        document.getElementById("textID").value = item['nameID'];
+//                        document.getElementById("textName").value = fabricID[fabricCanvas.getObjects().indexOf(this)]['id'];
+                        document.getElementById("textName").value = item['nameID'];
+                        document.getElementById("textHC").value = this.classID;
                     }));
                 }
             });
@@ -411,7 +297,7 @@
     //        }
     //    }
     function newRect() {
-        var classID = document.getElementById('classLabel').innerText;
+        var classID = document.getElementById('textHC').value;
         var nameID = 'Rect' + new Date().getTime();
         fabricCanvas.add(new fabric.Rect({
             width: 50,
@@ -425,13 +311,14 @@
             nameID: nameID,
             objectID: classID + '/' + nameID
         }).on('selected', function (e) {
-            document.getElementById("textID").value = this.nameID;
+            document.getElementById("textHC").value = this.classID;
+            document.getElementById("textName").value = this.nameID;
         }));
-        document.getElementById("textID").value = nameID;
+        document.getElementById("textName").value = nameID;
     }
 
     function newCircle() {
-        var classID = document.getElementById('classLabel').innerText;
+        var classID = document.getElementById('textHC').value;
         var nameID = 'Circle' + new Date().getTime();
         fabricCanvas.add(new fabric.Circle({
             radius: 25,
@@ -449,13 +336,14 @@
             nameID: nameID,
             objectID: classID + '/' + nameID
         }).on('selected', function (e) {
-            document.getElementById("textID").value = this.nameID;
+            document.getElementById("textHC").value = this.classID;
+            document.getElementById("textName").value = this.nameID;
         }));
-        document.getElementById("textID").value = nameID;
+        document.getElementById("textName").value = nameID;
     }
 
     function newTriangle() {
-        var classID = document.getElementById('classLabel').innerText;
+        var classID = document.getElementById('textHC').value;
         var nameID = 'Triangle' + new Date().getTime();
         fabricCanvas.add(new fabric.Triangle({
             width: 71,
@@ -470,9 +358,10 @@
             nameID: nameID,
             objectID: classID + '/' + nameID
         }).on('selected', function (e) {
-            document.getElementById("textID").value = this.nameID;
+            document.getElementById("textHC").value = this.classID;
+            document.getElementById("textName").value = this.nameID;
         }));
-        document.getElementById("textID").value = nameID;
+        document.getElementById("textName").value = nameID;
     }
 
     function remove() {
@@ -506,11 +395,6 @@
     }
 
     function creatMaps() {
-        //cc(fabricCanvas);
-//        cc(fabricCanvas.getObjectsLength());
-//        $.each(fabricCanvas.getObjects(), function (i, o) {
-//            cc(o.id);
-//        });
         var coordinates = [];
         var pieces = [];
         var features = [];
@@ -886,10 +770,11 @@
     }
     // 		})();
 </script>
-<script src="Common/library/Highcharts/highmaps.src.js"></script>
-<script src="Common/library/Highcharts/modules/data.js"></script>
-<script src="Common/library/Highcharts/modules/drilldown.js"></script>
-
-
+<!--<script src="Common/library/Highcharts/highmaps.src.js"></script>-->
+<!--<script src="Common/library/Highcharts/modules/data.js"></script>-->
+<!--<script src="Common/library/Highcharts/modules/drilldown.js"></script>-->
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/maps/modules/map.js"></script>
+<script src="https://code.highcharts.com/maps/modules/drilldown.js"></script>
 </body>
 </html>
