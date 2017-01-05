@@ -57,14 +57,6 @@
         /*!*padding: 30px;*!*/
         /*!*padding-top: 40px;*!*/
         /*}*/
-        #maps_table {
-            /*padding: 30px;*/
-            padding-top: 30px;
-        }
-        #charts {
-            /*padding: 30px;*/
-            padding-top: 50px;
-        }
 
         #__button0, #__button1, #__button2 {
             margin-top: 10px;
@@ -97,20 +89,17 @@
     </script>
 
     <script src="Common/js/default.js"></script>
-    <!--<script src="https://code.highcharts.com/maps/highmaps.js"></script>-->
-
     <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/maps/modules/map.js"></script>
-    <!--<script src="https://code.highcharts.com/maps/modules/data.js"></script>-->
-    <script src="https://code.highcharts.com/maps/modules/drilldown.js"></script>
     <script src="https://code.highcharts.com/highcharts-more.js"></script>
     <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/map.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/drilldown.js"></script>
     <script type="text/javascript" id="app-init">
         // ******************************************************************************************************************************************************************
         // Get Core SAP UI5
         var oCore = sap.ui.getCore();
         // Initialize screen
-        var nrRows = 10;
+        var nrRows = 13;
         var selectedIndex = -1;
         // ******************************************************************************************************************************************************************
         // initialize access
@@ -121,6 +110,8 @@
         var recordID = "";
         // ****************************************************************************************************************************************************
         function roleSecurity() {
+//            alert(document.getElementById("plant_name").value);
+            pageInit(document.getElementById("plant_name").value);
             var myRoles = document.getElementById("user_roles").value;
             var role2Access = "MESM_" + document.getElementById("user_role").value;
             // alert(role2Access);
@@ -537,9 +528,9 @@
         var oMatrixT = new sap.ui.commons.layout.MatrixLayout({
             id: 'MatrixT',
             layoutFixed: true,
-            width: '1200px',
+            width: '1100px',
             columns: 1,
-            widths: ['1200px']
+            widths: ['1100px']
         });
 
         var oLabelPlants = new sap.ui.commons.Label({
@@ -584,16 +575,16 @@
         // ****************************************************************************************************************************************************
         function updateTableConnDiagnostics() {
             cc(oDropdownBoxPlants.getSelectedKey());
-            if (oDropdownBoxPlants.getSelectedKey() == 3000) {
-                $('#maps').slideDown();
-                $('#charts').slideDown();
-
-                //wxy
-//                chartsInit();
-            } else {
-                $('#maps').slideUp();
-                $('#charts').slideUp();
-            }
+//            if (oDropdownBoxPlants.getSelectedKey() == 3000) {
+//                $('#mesm_maps').slideDown();
+//                $('#charts').slideDown();
+//
+//                //wxy
+////                chartsInit();
+//            } else {
+//                $('#mesm_maps').slideUp();
+//                $('#charts').slideUp();
+//            }
             oTable.clearSelection();
             var timestamp = new Date().getTime();
             oModel.loadData("/XMII/Illuminator?QueryTemplate=MESM/DIAGNOSTICS/QUERIES/get_ConnDiag&Param.1=" + oDropdownBoxPlants.getSelectedKey() + "&ts=" + timestamp + "&Content-Type=text/xml", "", false);
@@ -602,6 +593,7 @@
         ;
         // ****************************************************************************************************************************************************
         function createColumnsConnDiagnostics() {
+            oTable.setVisibleRowCount(nrRows);
             //Define the columns and the control templates to be used
             oTable.addColumn(new sap.ui.table.Column({
                 label: new sap.ui.commons.Label({text: "WORK CENTER NAME.."}),
@@ -661,10 +653,10 @@
         // ******************************************************************************************************************************************************************
         //Create an instance of the table control
         var oTable = new sap.ui.table.Table({
-            visibleRowCount: nrRows,
+//            visibleRowCount: nrRows,
             visibleRowCountMode: sap.ui.table.VisibleRowCountMode.Interactive,
             firstVisibleRow: 0,
-            width: "1200px",
+            width: "1100px",
             selectionBehavior: sap.ui.table.SelectionBehavior.Row,
             selectionMode: sap.ui.table.SelectionMode.Single
         });
@@ -696,8 +688,8 @@
 
         $.get('maps/TOLEDO.json', function (data) {
             map0 = Highcharts.geojson(data);
-            mapInit(map0);
-            chartsInit();
+//            mapInit(map0);
+//            chartsInit();
         })
 
         $.get('maps/ALL ASSY.json', function (data) {
@@ -786,254 +778,255 @@
         var chartAnimation = true;
         var animation_duration = 1000;
         var prTitle = [];
-        function mapInit(mapData) {
-
-//            console.log('mapData : ', mapData);
-            $.each(mapData, function (i) {
-                this.drilldown = this.properties['hc-key'];
-                this.value = 50 + Math.round((Math.random() * 50));
-            });
-            var mapName = 'TOLEDO';
+        function mapInit(plant) {
+            $.get('maps/' + plant + '.json', function (data) {
+                var mapData = Highcharts.geojson(data);
+                $.each(mapData, function (i) {
+                    this.drilldown = this.properties['hc-key'];
+                    this.value = 50 + Math.round((Math.random() * 50));
+                });
+                var mapName = plant;
 //            var mapTop = Highcharts.geojson(map0);
-//            var mapTop;
-
-
-            mapChart = new Highcharts.Map('maps', {
-                chart: {
-                    animation: chartAnimation,
-                },
-                chart: {
+//            var mapTop
+                mapChart = new Highcharts.Map('mesm_maps', {
+                    chart: {
+                        animation: chartAnimation,
+                    },
+                    chart: {
 //                    height: ScreenSize()['y'],
-                    animation: false,
-                    height: 450,
-                    events: {
-                        redraw: function () {
+                        animation: false,
+                        height: 450,
+                        events: {
+                            redraw: function () {
 //                                cc('redraw');
-                        },
-                        drilldown: function (e) {
-//                            cc(e.point);
+                            },
+                            _drilldown: function (e) {
+                            },
+                            drilldown: function (e) {
+                                cc(e.point);
+                                cc(e.point.name);
 //                            cc(mapChart.title.textStr + ' 1');
-                            var mapDrilldown = null;
-                            if (mapChart.title.textStr == 'TOLEDO') {
-                                if (e.point.name == 'ALL ASSY') {
-                                    prTitle.push(mapChart.title.textStr);
-                                    var title = {
-                                        text: 'ALL ASSY',
-                                    };
-                                    mapChart.setTitle(title);
-                                    mapDrilldown = map1;
-                                } else if (e.point.name == 'FORD CS1 ASSY') {
-                                    prTitle.push(mapChart.title.textStr);
-                                    var title = {
-                                        text: 'FORD CS1 ASSY',
-                                    };
-                                    mapChart.setTitle(title);
-                                    mapDrilldown = map2;
-                                } else if (e.point.name == 'FRONT CS ASSY' || e.point.name == 'REAR CS ASSY' || e.point.name == 'REAR AXLE ASSY' || e.point.name == 'FRONT AXLE ASSY') {
-                                    prTitle.push(mapChart.title.textStr);
-                                    var title = {
-                                        text: 'JL FRONT_REAR',
-                                    };
-                                    mapChart.setTitle(title);
-                                    mapDrilldown = map3489;
-                                    $.each(mapDrilldown, function (i) {
-                                        this.drilldown = this.properties['hc-key'];
-                                        this.value = 50 + Math.round((Math.random() * 50));
-                                    });
-                                } else if (e.point.name == 'FORD CS2 ASSY' || e.point.name == 'FORD AXLE ASSY') {
-                                    prTitle.push(mapChart.title.textStr);
-                                    var title = {
-                                        text: 'FORD P558',
-                                    };
-                                    mapChart.setTitle(title);
-                                    mapDrilldown = map67;
-                                    $.each(mapDrilldown, function (i) {
-                                        this.drilldown = this.properties['hc-key'];
-                                        this.value = 50 + Math.round((Math.random() * 50));
-                                    });
-                                } else if (e.point.name == 'COMBO CS ASSY' || e.point.name == 'COMBO AXLE ASSY') {
-                                    prTitle.push(mapChart.title.textStr);
-                                    var title = {
-                                        text: 'JT COMBO',
-                                    };
-                                    mapChart.setTitle(title);
-                                    mapDrilldown = map510;
-                                    $.each(mapDrilldown, function (i) {
-                                        this.drilldown = this.properties['hc-key'];
-                                        this.value = 50 + Math.round((Math.random() * 50));
-                                    });
-                                }
-                            } else if (mapChart.title.textStr == 'JL FRONT_REAR') {
-                                if (e.point.drilldown == 'FRONT CS ASSY') {
+                                var mapDrilldown = null;
+                                if (mapChart.title.textStr == 'TOLEDO') {
+                                    if (e.point.name == 'ALL ASSY') {
+                                        prTitle.push(mapChart.title.textStr);
+                                        var title = {
+                                            text: 'ALL ASSY',
+                                        };
+                                        mapChart.setTitle(title);
+                                        mapDrilldown = map1;
+                                    } else if (e.point.name == 'FORD CS1 ASSY') {
+                                        prTitle.push(mapChart.title.textStr);
+                                        var title = {
+                                            text: 'FORD CS1 ASSY',
+                                        };
+                                        mapChart.setTitle(title);
+                                        mapDrilldown = map2;
+                                    } else if (e.point.name == 'FRONT CS ASSY' || e.point.name == 'REAR CS ASSY' || e.point.name == 'REAR AXLE ASSY' || e.point.name == 'FRONT AXLE ASSY') {
+                                        prTitle.push(mapChart.title.textStr);
+                                        var title = {
+                                            text: 'JL FRONT_REAR',
+                                        };
+                                        mapChart.setTitle(title);
+                                        mapDrilldown = map3489;
+                                        $.each(mapDrilldown, function (i) {
+                                            this.drilldown = this.properties['hc-key'];
+                                            this.value = 50 + Math.round((Math.random() * 50));
+                                        });
+                                    } else if (e.point.name == 'FORD CS2 ASSY' || e.point.name == 'FORD AXLE ASSY') {
+                                        prTitle.push(mapChart.title.textStr);
+                                        var title = {
+                                            text: 'FORD P558',
+                                        };
+                                        mapChart.setTitle(title);
+                                        mapDrilldown = map67;
+                                        $.each(mapDrilldown, function (i) {
+                                            this.drilldown = this.properties['hc-key'];
+                                            this.value = 50 + Math.round((Math.random() * 50));
+                                        });
+                                    } else if (e.point.name == 'COMBO CS ASSY' || e.point.name == 'COMBO AXLE ASSY') {
+                                        prTitle.push(mapChart.title.textStr);
+                                        var title = {
+                                            text: 'JT COMBO',
+                                        };
+                                        mapChart.setTitle(title);
+                                        mapDrilldown = map510;
+                                        $.each(mapDrilldown, function (i) {
+                                            this.drilldown = this.properties['hc-key'];
+                                            this.value = 50 + Math.round((Math.random() * 50));
+                                        });
+                                    }
+                                } else if (mapChart.title.textStr == 'JL FRONT_REAR') {
+                                    if (e.point.drilldown == 'FRONT CS ASSY') {
 //                                    console.log('JL FRONT_REAR ', 'FRONT CS ASSY');
-                                    prTitle.push(mapChart.title.textStr);
-                                    var title = {
-                                        text: e.point.drilldown,
-                                    };
-                                    mapChart.setTitle(title);
-                                    mapDrilldown = map3;
-                                    $.each(mapDrilldown, function (i) {
+                                        prTitle.push(mapChart.title.textStr);
+                                        var title = {
+                                            text: e.point.drilldown,
+                                        };
+                                        mapChart.setTitle(title);
+                                        mapDrilldown = map3;
+                                        $.each(mapDrilldown, function (i) {
 //                                        this.drilldown = this.properties['hc-key'];
-                                        this.value = 50 + Math.round((Math.random() * 50));
-                                    });
-                                } else if (e.point.drilldown == 'REAR CS ASSY') {
+                                            this.value = 50 + Math.round((Math.random() * 50));
+                                        });
+                                    } else if (e.point.drilldown == 'REAR CS ASSY') {
 //                                    console.log('JL FRONT_REAR ', 'FRONT CS ASSY');
-                                    prTitle.push(mapChart.title.textStr);
-                                    var title = {
-                                        text: e.point.drilldown
-                                    };
-                                    mapChart.setTitle(title);
-                                    mapDrilldown = map4;
-                                    $.each(mapDrilldown, function (i) {
+                                        prTitle.push(mapChart.title.textStr);
+                                        var title = {
+                                            text: e.point.drilldown
+                                        };
+                                        mapChart.setTitle(title);
+                                        mapDrilldown = map4;
+                                        $.each(mapDrilldown, function (i) {
 //                                        this.drilldown = this.properties['hc-key'];
-                                        this.value = 50 + Math.round((Math.random() * 50));
-                                    });
-                                } else if (e.point.drilldown == 'REAR AXLE ASSY') {
+                                            this.value = 50 + Math.round((Math.random() * 50));
+                                        });
+                                    } else if (e.point.drilldown == 'REAR AXLE ASSY') {
 //                                    console.log('JL FRONT_REAR ', 'FRONT CS ASSY');
-                                    prTitle.push(mapChart.title.textStr);
-                                    var title = {
-                                        text: e.point.drilldown
-                                    };
-                                    mapChart.setTitle(title);
-                                    mapDrilldown = map8;
-                                    $.each(mapDrilldown, function (i) {
+                                        prTitle.push(mapChart.title.textStr);
+                                        var title = {
+                                            text: e.point.drilldown
+                                        };
+                                        mapChart.setTitle(title);
+                                        mapDrilldown = map8;
+                                        $.each(mapDrilldown, function (i) {
 //                                        this.drilldown = this.properties['hc-key'];
-                                        this.value = 50 + Math.round((Math.random() * 50));
-                                    });
-                                } else if (e.point.drilldown == 'FRONT AXLE ASSY') {
+                                            this.value = 50 + Math.round((Math.random() * 50));
+                                        });
+                                    } else if (e.point.drilldown == 'FRONT AXLE ASSY') {
 //                                    console.log('JL FRONT_REAR ', 'FRONT CS ASSY');
-                                    prTitle.push(mapChart.title.textStr);
-                                    var title = {
-                                        text: e.point.drilldown
-                                    };
-                                    mapChart.setTitle(title);
-                                    mapDrilldown = map9;
-                                    $.each(mapDrilldown, function (i) {
+                                        prTitle.push(mapChart.title.textStr);
+                                        var title = {
+                                            text: e.point.drilldown
+                                        };
+                                        mapChart.setTitle(title);
+                                        mapDrilldown = map9;
+                                        $.each(mapDrilldown, function (i) {
 //                                        this.drilldown = this.properties['hc-key'];
-                                        this.value = 50 + Math.round((Math.random() * 50));
-                                    });
-                                }
-                            } else if (mapChart.title.textStr == 'JT COMBO') {
-                                if (e.point.drilldown == 'COMBO CS ASSY') {
+                                            this.value = 50 + Math.round((Math.random() * 50));
+                                        });
+                                    }
+                                } else if (mapChart.title.textStr == 'JT COMBO') {
+                                    if (e.point.drilldown == 'COMBO CS ASSY') {
 //                                    console.log('JL FRONT_REAR ', 'FRONT CS ASSY');
-                                    prTitle.push(mapChart.title.textStr);
-                                    var title = {
-                                        text: e.point.drilldown,
-                                    };
-                                    mapChart.setTitle(title);
-                                    mapDrilldown = map5;
-                                    $.each(mapDrilldown, function (i) {
+                                        prTitle.push(mapChart.title.textStr);
+                                        var title = {
+                                            text: e.point.drilldown,
+                                        };
+                                        mapChart.setTitle(title);
+                                        mapDrilldown = map5;
+                                        $.each(mapDrilldown, function (i) {
 //                                        this.drilldown = this.properties['hc-key'];
-                                        this.value = 50 + Math.round((Math.random() * 50));
-                                    });
-                                } else if (e.point.drilldown == 'COMBO AXLE ASSY') {
+                                            this.value = 50 + Math.round((Math.random() * 50));
+                                        });
+                                    } else if (e.point.drilldown == 'COMBO AXLE ASSY') {
 //                                    console.log('JL FRONT_REAR ', 'FRONT CS ASSY');
-                                    prTitle.push(mapChart.title.textStr);
-                                    var title = {
-                                        text: e.point.drilldown
-                                    };
-                                    mapChart.setTitle(title);
-                                    mapDrilldown = map10;
-                                    $.each(mapDrilldown, function (i) {
+                                        prTitle.push(mapChart.title.textStr);
+                                        var title = {
+                                            text: e.point.drilldown
+                                        };
+                                        mapChart.setTitle(title);
+                                        mapDrilldown = map10;
+                                        $.each(mapDrilldown, function (i) {
 //                                        this.drilldown = this.properties['hc-key'];
-                                        this.value = 50 + Math.round((Math.random() * 50));
-                                    });
-                                }
-                            } else if (mapChart.title.textStr == 'FORD P558') {
+                                            this.value = 50 + Math.round((Math.random() * 50));
+                                        });
+                                    }
+                                } else if (mapChart.title.textStr == 'FORD P558') {
 //                                cc('FORD P558');
-                                if (e.point.drilldown == 'FORD CS2 ASSY') {
+                                    if (e.point.drilldown == 'FORD CS2 ASSY') {
 //                                    console.log('JL FRONT_REAR ', 'FRONT CS ASSY');
-                                    prTitle.push(mapChart.title.textStr);
-                                    var title = {
-                                        text: e.point.drilldown,
-                                    };
-                                    mapChart.setTitle(title);
-                                    mapDrilldown = map6;
-                                    $.each(mapDrilldown, function (i) {
+                                        prTitle.push(mapChart.title.textStr);
+                                        var title = {
+                                            text: e.point.drilldown,
+                                        };
+                                        mapChart.setTitle(title);
+                                        mapDrilldown = map6;
+                                        $.each(mapDrilldown, function (i) {
 //                                        this.drilldown = this.properties['hc-key'];
-                                        this.value = 50 + Math.round((Math.random() * 50));
-                                    });
-                                } else if (e.point.drilldown == 'FORD AXLE ASSY') {
+                                            this.value = 50 + Math.round((Math.random() * 50));
+                                        });
+                                    } else if (e.point.drilldown == 'FORD AXLE ASSY') {
 //                                    console.log('JL FRONT_REAR ', 'FRONT CS ASSY');
-                                    prTitle.push(mapChart.title.textStr);
-                                    var title = {
-                                        text: e.point.drilldown
-                                    };
-                                    mapChart.setTitle(title);
-                                    mapDrilldown = map7;
-                                    $.each(mapDrilldown, function (i) {
+                                        prTitle.push(mapChart.title.textStr);
+                                        var title = {
+                                            text: e.point.drilldown
+                                        };
+                                        mapChart.setTitle(title);
+                                        mapDrilldown = map7;
+                                        $.each(mapDrilldown, function (i) {
 //                                        this.drilldown = this.properties['hc-key'];
-                                        this.value = 50 + Math.round((Math.random() * 50));
-                                    });
+                                            this.value = 50 + Math.round((Math.random() * 50));
+                                        });
+                                    }
                                 }
-                            }
-                            this.addSingleSeriesAsDrilldown(e.point, {
-                                borderWidth: 0,
+                                this.addSingleSeriesAsDrilldown(e.point, {
+                                    borderWidth: 0,
 //                                name: e.point.name,
-                                name: mapChart.title.textStr,
-                                data: mapDrilldown,
-                                dataLabels: {
-                                    enabled: true,
-                                    format: '{point.name}'
-                                }
-                            });
-                            this.applyDrilldown();
-                        },
-                        drillup: function (e) {
-                            drillUp = true;
-                            var title = {
-                                text: prTitle.pop(),
-                            };
+                                    name: mapChart.title.textStr,
+                                    data: mapDrilldown,
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: '{point.name}'
+                                    }
+                                });
+                                this.applyDrilldown();
+                            },
+                            drillup: function (e) {
+                                drillUp = true;
+                                var title = {
+                                    text: prTitle.pop(),
+                                };
 
-                            mapChart.setTitle(title);
+                                mapChart.setTitle(title);
 //                            cc('drillUp = true');
-                        },
-                        load: function () {
+                            },
+                            load: function () {
+                            }
                         }
-                    }
-                },
-                lang: {
-                    drillUpText: " << Back to {series.name}"
+                    },
+                    lang: {
+                        drillUpText: " << Back to {series.name}"
 //                    drillUpText: " << Back"
-                },
-                exporting: {
-                    enabled: false
-                },
-                credits: {
-                    enabled: false,
-                    href: 'http://www.rtsperfectplant.com/',
-                    position: {
-                        align: 'right',
-                        x: -10,
-                        verticalAlign: 'bottom',
-                        y: -5
                     },
-
-                    style: {
-                        cursor: 'pointer',
-                        color: '#999999',
-                        fontSize: '9px'
+                    exporting: {
+                        enabled: false
                     },
+                    credits: {
+                        enabled: false,
+                        href: 'http://www.rtsperfectplant.com/',
+                        position: {
+                            align: 'right',
+                            x: -10,
+                            verticalAlign: 'bottom',
+                            y: -5
+                        },
 
-                    text: 'RTS Consulting Inc.'
-                },
-                title: {
+                        style: {
+                            cursor: 'pointer',
+                            color: '#999999',
+                            fontSize: '9px'
+                        },
+
+                        text: 'RTS Consulting Inc.'
+                    },
+                    title: {
 //                    text: rootNode.getText()
-                    text: mapName
-                },
-                subtitle: {
-                    text: '',
-                    style: {
-                        display: 'none'
-                    }
-                },
+                        text: mapName
+                    },
+                    subtitle: {
+                        text: '',
+                        style: {
+                            display: 'none'
+                        }
+                    },
 
-                legend: {
-                    enabled: false,
-                    layout: 'vertical',
-                    align: 'right',
-                    verticalAlign: 'middle'
-                },
+                    legend: {
+                        enabled: false,
+                        layout: 'vertical',
+                        align: 'right',
+                        verticalAlign: 'middle'
+                    },
 //                xAxis: {
 //                    crosshair: {
 //                        zIndex: 5,
@@ -1051,61 +1044,61 @@
 //                        color: 'gray'
 //                    }
 //                },
-                colorAxis: {
-                    showInLegend: false,
-                    min: 0,
-                    minColor: '#E6E7E8',
-                    maxColor: '#005645'
-                },
-                mapNavigation: {
-                    enabled: true,
-                    buttonOptions: {
-                        verticalAlign: 'bottom'
-                    }
-                },
+                    colorAxis: {
+                        showInLegend: false,
+                        min: 0,
+                        minColor: '#E6E7E8',
+                        maxColor: '#005645'
+                    },
+                    mapNavigation: {
+                        enabled: true,
+                        buttonOptions: {
+                            verticalAlign: 'bottom'
+                        }
+                    },
 
-                plotOptions: {
-                    series: {
-                        events: {
-                            afterAnimate: function () {
-                                cc('afterAnimate');
-                                if (drillUp && mapChart.title.textStr == 'TOLEDO') {
-                                    drillUp = false;
-                                    cc('drillUp');
-                                    chartAnimation = false;
-                                    animation_duration = 0;
-                                    mapInit(map0);
-                                } else {
-                                    drillUp = false;
+                    plotOptions: {
+                        series: {
+                            events: {
+                                afterAnimate: function () {
+                                    cc('afterAnimate');
+                                    if (drillUp && mapChart.title.textStr == 'TOLEDO') {
+                                        drillUp = false;
+                                        cc('drillUp');
+                                        chartAnimation = false;
+                                        animation_duration = 0;
+//                                    mapInit(map0);
+                                    } else {
+                                        drillUp = false;
+                                    }
+
                                 }
+                            }
+                        },
+                        map: {
+                            states: {
+                                hover: {
+                                    color: '#EEDD66'
+                                }
+                            }
+                        },
+                        point: {
+                            events: {
+                                click: function () {
+//                                    mapLevel1Refresh = new Date().getTime();
+                                },
+                                mouseOver: function () {
+                                    //alert('mouseOver');
+//                                    mapLevel1Refresh = new Date().getTime();
 
+                                },
+                                mouseOut: function () {
+                                    //alert('mouseOut');
+//                                    mapLevel1Refresh = new Date().getTime();
+                                }
                             }
                         }
                     },
-                    map: {
-                        states: {
-                            hover: {
-                                color: '#EEDD66'
-                            }
-                        }
-                    },
-                    point: {
-                        events: {
-                            click: function () {
-//                                    mapLevel1Refresh = new Date().getTime();
-                            },
-                            mouseOver: function () {
-                                //alert('mouseOver');
-//                                    mapLevel1Refresh = new Date().getTime();
-
-                            },
-                            mouseOut: function () {
-                                //alert('mouseOut');
-//                                    mapLevel1Refresh = new Date().getTime();
-                            }
-                        }
-                    }
-                },
 
 
 //                plotOptions: {
@@ -1154,38 +1147,41 @@
 //                        }
 //                    }
 //                },
-                series: [{
-                    borderWidth: 0,
-                    animation: {
-                        duration: animation_duration
-                    },
-                    data: mapData,
-                    name: mapName,
-                    dataLabels: {
-                        enabled: true,
-                        align: 'center',
-                        verticalAlign: 'middle',
-                        format: '{point.properties.name}'
-                    }
-                }],
-                drilldown: {
-                    //series: drilldownSeries,
-                    activeDataLabelStyle: {
-                        color: '#FFFFFF',
-                        textDecoration: 'none',
-                        textShadow: '0 0 0px #000000'
-                    },
-                    drillUpButton: {
-                        relativeTo: 'spacingBox',
-                        position: {
-                            x: 0,
-                            y: 60
+                    series: [{
+                        borderWidth: 0,
+                        animation: {
+                            duration: animation_duration
+                        },
+                        data: mapData,
+                        name: mapName,
+                        dataLabels: {
+                            enabled: true,
+                            align: 'center',
+                            verticalAlign: 'middle',
+                            format: '{point.properties.name}'
+                        }
+                    }],
+                    drilldown: {
+                        //series: drilldownSeries,
+                        activeDataLabelStyle: {
+                            color: '#FFFFFF',
+                            textDecoration: 'none',
+                            textShadow: '0 0 0px #000000'
+                        },
+                        drillUpButton: {
+                            relativeTo: 'spacingBox',
+                            position: {
+                                x: 0,
+                                y: 60
+                            }
                         }
                     }
-                }
-            });
-            chartAnimation = true;
-            animation_duration = 1000;
+                });
+                chartAnimation = true;
+                animation_duration = 1000;
+            })
+//            console.log('mapData : ', mapData);
+
         }
 
         function chartsInit() {
@@ -1691,6 +1687,31 @@
             }, 2000);
 //            });
         }
+
+        var pp;
+        function pageInit(plant) {
+            pp = plant;
+
+            if (pp == 'TOLEDO') {
+                nrRows = 9;
+                $("#mesm_maps").show();
+                $("#charts").show();
+                var e = document.getElementById('mesm_container');
+                e.style.width = '60%';
+                e.style.margin = '0 0 0 10%';
+                mapInit('TOLEDO');
+                chartsInit();
+            } else {
+                nrRows = 13;
+                document.getElementById('mesm_maps').style.display = 'none';
+                document.getElementById('charts').style.display = 'none';
+                document.getElementById('mesm_container').style.width = '100%';
+                document.getElementById('mesm_container').style.margin = '0px auto';
+
+                return;
+            }
+
+        }
     </script>
 </head>
 
@@ -1700,6 +1721,7 @@
 
 <input id="user_roles" type="hidden" value="{IllumLoginRoles}" style="display:block;width:1000px;" readonly/>
 <input id="user_role" type="hidden" value="{ROLE}" style="display:block;width:1000px;" readonly/>
+<input id="plant_name" type="hidden" value="{PLANT}" style="display:block;width:1000px;" readonly/>
 <input id="user_name" type="hidden" value="{IllumLoginName}" style="display: block;width:1000px;" readonly/>
 <input id="user_height" type="hidden" value="{HEIGHT}" style="display: block;width:100px;" readonly/>
 <input id="user_address" type="hidden" value="{Machine}" style="display:block;width:1000px;" readonly/>
@@ -1708,20 +1730,23 @@
     <div id="app_menu"></div>
     <div id="page_title">DIAGNOSTICS</div>
 </div>
+<div>
+    <!--<div id="mesm_container" style="width: 1200px; float: left">-->
+    <div id="mesm_container" style="padding-top: 30px; float: left;  width: 60%;  margin: 0 0 0 10%;">
+        <div id="mesm_maps"></div>
+        <div id="mesm_content"></div>
+    </div>
+    <!--<div id="charts"  style="width: 1600px; height: 1000px; float: left">-->
 
-<div id="maps_table" style="width: 1200px; float: left">
-    <div id="maps"></div>
-    <div id="mesm_content"></div>
-</div>
-<!--<div id="charts"  style="width: 1600px; height: 1000px; float: left">-->
-
-<div id="charts" style="width: 1600; height: 1000px; float: left">
-    <div id="products" style="min-width: 310px; max-width: 400px; height: 250px; margin: 0 auto"></div>
-    <div id="parts" style="min-width: 310px; max-width: 400px; height: 200px; margin: 0 auto"></div>
-    <div id="histogram" style="min-width: 310px; max-width: 400px; height: 200px; margin: 0 auto"></div>
-    <div style="width: 400px; height: 400px; margin: 0 auto">
-        <div id="container-speed" style="width: 200px; height: 150px; float: left"></div>
-        <div id="container-rpm" style="width: 200px; height: 150px; float: left"></div>
+    <!--<div id="charts" style="width: 1200px; height: 1000px; float: left">-->
+    <div id="charts" style="padding-top: 50px; margin-left: 70%; width: 20%;">
+        <div id="products" style="min-width: 310px; max-width: 400px; height: 250px; margin: 0 auto"></div>
+        <div id="parts" style="min-width: 310px; max-width: 400px; height: 200px; margin: 0 auto"></div>
+        <div id="histogram" style="min-width: 310px; max-width: 400px; height: 200px; margin: 0 auto"></div>
+        <div style="width: 400px; height: 400px; margin: 0 auto">
+            <div id="container-speed" style="width: 200px; height: 150px; float: left"></div>
+            <div id="container-rpm" style="width: 200px; height: 150px; float: left"></div>
+        </div>
     </div>
 </div>
 </body>

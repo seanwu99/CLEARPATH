@@ -171,6 +171,9 @@
             $.each(items, function (i, item) {
                 if (item['type'] == 'rect') {
 //                    document.getElementById("textName").value = item['nameID'];
+                    document.getElementById("textName").value = item['nameID'];
+                    document.getElementById("textHC").value = item['classID'];
+
                     fabricCanvas.add(new fabric.Rect({
                         width: item['width'],
                         height: item['height'],
@@ -184,11 +187,13 @@
                         objectID: item['classID'] + '/' + item['nameID'],
                     }).on('selected', function (e) {
                         document.getElementById("textHC").value = this.classID;
-                        document.getElementById("textName").value = item['nameID'];
+                        document.getElementById("textName").value = this.nameID;
                     }));
 
 //        cc('addRec')
                 } else if (item['type'] == 'circle') {
+                    document.getElementById("textName").value = item['nameID'];
+                    document.getElementById("textHC").value = item['classID'];
                     var id = item['id'];
                     fabricCanvas.add(new fabric.Circle({
                         'radius': item['radius'],
@@ -209,11 +214,12 @@
                         objectID: item['classID'] + '/' + item['nameID'],
                     }).on('selected', function (e) {
 //                        document.getElementById("textName").value = fabricID[fabricCanvas.getObjects().indexOf(this)]['id'];
-                        document.getElementById("textName").value = item['nameID'];
+                        document.getElementById("textName").value = this.nameID;
                         document.getElementById("textHC").value = this.classID;
                     }));
                 } else if (item['type'] == 'triangle') {
                     document.getElementById("textName").value = item['nameID'];
+                    document.getElementById("textHC").value = item['classID'];
                     fabricCanvas.add(new fabric.Triangle({
                         width: item['width'],
                         height: item['height'],
@@ -228,7 +234,7 @@
                         objectID: item['classID'] + '/' + item['nameID'],
                     }).on('selected', function (e) {
 //                        document.getElementById("textName").value = fabricID[fabricCanvas.getObjects().indexOf(this)]['id'];
-                        document.getElementById("textName").value = item['nameID'];
+                        document.getElementById("textName").value = this.nameID;
                         document.getElementById("textHC").value = this.classID;
                     }));
                 }
