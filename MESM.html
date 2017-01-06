@@ -573,12 +573,13 @@
 
         // ****************************************************************************************************************************************************
         function updateTableConnDiagnostics() {
+//            cc(oDropdownBoxPlants.getLiveValue());
 //            cc(oDropdownBoxPlants.getSelectedKey());
 //            if (oDropdownBoxPlants.getSelectedKey() == 3000) {
 //                $('#mesm_maps').slideDown();
 //                $('#charts').slideDown();
 //
-//                //wxy
+//
 ////                chartsInit();
 //            } else {
 //                $('#mesm_maps').slideUp();
@@ -588,8 +589,15 @@
             var timestamp = new Date().getTime();
             oModel.loadData("/XMII/Illuminator?QueryTemplate=MESM/DIAGNOSTICS/QUERIES/get_ConnDiag&Param.1=" + oDropdownBoxPlants.getSelectedKey() + "&ts=" + timestamp + "&Content-Type=text/xml", "", false);
             oTable.getModel().refresh(true);
+            cc(oTable.getModel());
+            if (oDropdownBoxPlants.getLiveValue() == highchartMap.title.textStr) {
+                getColumnValue = true;
+                columeValue = [];
+                oTable.setSelectedIndex(0);
+            }
         }
-        ;
+        var getColumnValue = false;
+        var columeValue = [];
         // ****************************************************************************************************************************************************
         function createColumnsConnDiagnostics() {
             oTable.setVisibleRowCount(nrRows);
@@ -646,6 +654,14 @@
                 filterProperty: "",
                 width: "125px"
             }));
+            oTable.addColumn(new sap.ui.table.Column({
+                label: new sap.ui.commons.Label({text: "unitType"}),
+                template: new sap.ui.commons.TextView().bindProperty("text", "unitType"),
+                sortProperty: "",
+                filterProperty: "",
+                width: "125px",
+                visible: false
+            }));
         }
         ;
 
@@ -662,9 +678,27 @@
 
         // ******************************************************************************************************************************************************************
         oTable.attachRowSelectionChange(function (oEvent) {
+
             // Retrieve the selected row
             var selIndex = oTable.getSelectedIndex();
             selectedIndex = selIndex;
+            if (getColumnValue) {
+                var selectedRow = oTable.getRows()[selIndex];
+                var selectedRowContext = oEvent.getParameter("rowContext");
+                var _unitName = oModel.getProperty("unitName", selectedRowContext);
+                if (_unitName == null || _unitName.length == 0) {
+                    getColumnValue = false;
+                    chartsUpdate(columeValue);
+                    return;
+                } else if (oModel.getProperty("unitType", selectedRowContext) == '5') {
+//                    cc(_unitName);
+                    columeValue.push(_unitName);
+//                    cc(oModel.getProperty("unitType", selectedRowContext));
+                }
+
+                oTable.setSelectedIndex(oTable.getSelectedIndex() + 1);
+                return;
+            }
             if (selIndex >= 0) {
                 // Retrieve the selected row
                 var selectedRow = oTable.getRows()[selIndex];
@@ -919,6 +953,117 @@
                     }
                 });
             })
+        }
+
+        function chartsUpdate(li) {
+            var categories = [];
+            var goodParts = [];
+            var badParts = [];
+            $.each(li, function (i, _li) {
+                categories.push(_li);
+                goodParts.push(800 + Math.round((Math.random() * 200)));
+                badParts.push(-(80 + Math.round((Math.random() * 20))));
+            });
+//            for (var n = 0; n < 31; n += 2) {
+//                var d = '' + new Date(new Date() - n * 24 * 3600 * 1000);
+//                categories.push(d.substring(3, 10));
+//                goodParts.push(800 + Math.round((Math.random() * 200)));
+//                badParts.push(-(80 + Math.round((Math.random() * 20))));
+//            }
+            highChartSample2 = Highcharts.chart('parts', {
+                legend: {
+                    enabled: false,
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'middle'
+                },
+                chart: {
+                    type: 'bar'
+                },
+                title: {
+                    text: 'Good parts and Bad parts, Daily',
+                    style: {
+                        display: 'none',
+                        fontSize: '12px'
+                    }
+
+                },
+                subtitle: {
+                    text: '',
+                    style: {
+                        display: 'none'
+                    }
+                },
+                xAxis: [{
+                    categories: categories,
+                    reversed: false,
+                    labels: {
+                        step: 1
+                    }
+                },
+//                    { // mirror axis on right side
+//                    opposite: true,
+//                    reversed: false,
+//                    categories: categories,
+//                    linkedTo: 0,
+//                    labels: {
+//                        step: 1
+//                    }
+//                }
+                ],
+                yAxis: {
+                    title: {
+                        text: null
+                    },
+                    labels: {
+                        formatter: function () {
+                            return Math.abs(this.value);
+                        }
+                    }
+                },
+
+                plotOptions: {
+                    series: {
+                        stacking: 'normal'
+                    }
+                },
+
+                tooltip: {
+                    formatter: function () {
+                        return '<b>' + this.point.category + '</b><br/>' +
+                            this.series.name + ': ' + Highcharts.numberFormat(Math.abs(this.point.y), 0);
+                    }
+                },
+
+                series: [{
+                    name: 'Bad parts',
+                    color: 'black',
+                    data: badParts
+                }, {
+                    name: 'Good parts',
+//                    color: 'blue',
+                    data: goodParts
+                }],
+                credits: {
+                    enabled: false,
+                    href: 'http://www.rtsperfectplant.com/',
+                    position: {
+                        align: 'right',
+                        x: -10,
+                        verticalAlign: 'bottom',
+                        y: -5
+                    },
+                    style: {
+                        cursor: 'pointer',
+                        color: '#999999',
+                        fontSize: '9px'
+                    },
+                    text: 'RTS Consulting Inc.'
+                },
+                exporting: {
+                    enabled: false
+                }
+            });
         }
 
         function chartsInit(plant) {
@@ -1415,7 +1560,7 @@
         function pageInit(plant) {
 
             $.get('maps/' + plant + '.json').done(function () {
-                cc('done');
+//                cc('done');
                 nrRows = 9;
                 $("#mesm_maps").show();
                 $("#charts").show();
@@ -1427,7 +1572,7 @@
                 chartsInit(plant);
                 return;
             }).fail(function (error) {
-                cc('fail');
+//                cc('fail');
                 nrRows = 13;
                 document.getElementById('mesm_maps').style.display = 'none';
                 document.getElementById('charts').style.display = 'none';
@@ -1435,7 +1580,7 @@
                 document.getElementById('mesm_container').style.margin = '0px auto';
                 return;
             }).always(function () {
-                cc('always');
+//                cc('always');
             });
         }
 
