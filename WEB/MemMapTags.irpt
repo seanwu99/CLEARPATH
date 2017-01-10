@@ -1,0 +1,1541 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>CT MODULE</title>
+	<style>
+	body{
+		//background-image: url("Common/img/logo.png");
+		background-size: 180px;
+		background-repeat: no-repeat;
+    		background-attachment: fixed;
+    		background-position: right 40px top 30px;
+		font-family: Arial;
+	}
+	#app_header {
+ 		padding: 10px;
+ 		padding-left: 40px;
+ 		padding-top: 15px;
+ 		padding-bottom: 0px;
+		height:80px;
+		width:400px;
+		text-align: center;
+	}
+	#app_title {
+		width:400px;
+		text-align: center;
+		font-family: "Arial Black",Arial,Helvetica,sans-serif;
+		font-size:32px;
+		color: #007dc0;
+		margin-bottom; 20px;
+	}
+	#app_menu {
+		width:400px;
+		text-align: center;
+		font-family: Arial,Helvetica,sans-serif;
+	}
+	#page_title {
+		width:400px;
+		text-align: center;
+		font-family: "Arial Black",Arial,Helvetica,sans-serif;
+		font-size:28px;
+		color: #cfcfcf;
+	}
+	#mesm_content {
+ 		padding: 30px;
+ 		padding-top: 40px;
+	}
+	#__button0, #__button1, #__button2 {
+		margin-top:10px;
+		margin-left:5px;
+		margin-right:5px;
+	}
+	#MatrixT, #MatrixB, #MatrixA, #MatrixE {
+		margin:10px auto;
+	}
+	#__cell1, #__cell2, #__cell3, #__cell4, #__cell5 {
+		text-align:center;
+	} 
+	#B-Add, #B-Edit, #B-Delete {
+		width:100px;
+		height:35px;
+		font-size:14px;
+	}
+	#L-AddTag, #L-EditTag {
+		margin-top:15px;
+		padding:5px;
+		font-family: "Arial Black",Arial,Helvetica,sans-serif;
+		font-size:32px;
+		height:35px;
+		color: #007dc0;
+	}
+	#__cell7, #__cell25, #__cell26, #__cell45 {
+		text-align:center;
+		height: 36px;
+	}
+	#__cell8, #__cell10, #__cell12, #__cell14, #__cell16, #__cell18, #__cell20, #__cell22, #__cell27, #__cell29, #__cell31, #__cell33, #__cell35, #__cell37, #__cell40, #__cell42 {
+		padding:10px;
+		padding-right:20px;
+		text-align:right;
+	}
+	#B-AddTag, #B-EditTag {
+		margin-top:0px;
+		width:100px;
+		height:35px;
+		font-size:14px;
+	}
+	#input_tagname, #input_tagdescr, #input_tagdetail, #input_tagdescre, #input_tagdetaile, #input_tagnamee {
+		width:300px;
+	}
+	#input_ides {
+		width:40px;
+	}
+	</style>
+	<script id="sap-ui-bootstrap"
+		src="/sapui5/resources/sap-ui-core.js"
+		data-sap-ui-theme="sap_goldreflection"
+		data-sap-ui-libs="sap.ui.core,sap.ui.commons,sap.ui.table,sap.ui.ux3"
+		data-sap-ui-language="en" >
+	</script>
+	<script type="text/javascript" src="Common/js/default.js"></script>
+	<script type="text/javascript" id="app-init">
+	// ******************************************************************************************************************************************************************
+	// Get Core SAP UI5
+	var oCore = sap.ui.getCore();
+	// Initialize screen
+	var nrRows = 13;
+	var selectedIndex =  -1;
+	// ******************************************************************************************************************************************************************
+	// initialize access
+	var level2Access = "";
+	var plant2Access = "";
+	// Initialize screen
+	var selectedPlant = 0;
+	var mm_ID = '';
+	var mm_plcID = '';
+	var mm_revision = '';
+	var mm_revisionID = '';
+	var mm_tagName = '';
+	var mm_tagDescription = '';
+	var mm_tagDetail = '';
+	var mm_tagType = '';
+	var mm_tagGroup = '';
+	var mm_tagFunction = '';
+	var mm_tagTypeID = '';
+	var mm_tagGroupID = '';
+	var mm_tagFunctionID = '';
+	var mm_CreatedBy = '';
+	var mm_CreatedOn = '';
+	var mm_ModifiedBy = '';
+	var mm_ModifiedOn = '';
+	// ****************************************************************************************************************************************************
+	function roleSecurity() {
+		var myRoles = document.getElementById("user_roles").value;
+		var role2Access = "MESM_" + document.getElementById("user_role").value;
+		// alert(role2Access);
+ 		if(myRoles.indexOf(role2Access)<0) {
+			window.location.assign("security.irpt");
+		 } else {
+			var roleString = document.getElementById("user_role").value;
+			var roleArray = roleString.split("_");
+			level2Access = roleArray[0]; 
+				// alert("level : " + level2Access);
+			plant2Access =  roleArray[1];
+				// alert("plant : " + plant2Access);
+			//updatePlants(plant2Access); 
+			updateTagRevisionAll();
+			updateTagRevision();
+			updateTagTypes();
+			updateTagGroups();
+			updateTagFunctions();
+			updateTagRevisionE();
+			updateTagTypesE();
+			updateTagGroupsE();
+			updateTagFunctionsE();
+			createTableMemMapTags();
+			document.getElementById("page_title").innerHTML=role2Access;
+
+			// enable homepage
+			oCore.byId("item3-0-3").setEnabled(true);
+			// show menus
+			oMenuButton1.placeAt("app_menu");
+			oMenuButton2.placeAt("app_menu");
+			oMenuButton3.placeAt("app_menu");
+
+			var role_ADM = "MESM_ADM_"+plant2Access;
+			var role_ENG = "MESM_ENG_"+plant2Access;
+			var role_SUP = "MESM_SUP_"+plant2Access;
+			var role_OPS = "MESM_OPS_"+plant2Access;
+
+			switch(role2Access) {
+			case "MESM_ADM_ALL":
+
+				// enable Cfg Hierarchy
+					oCore.byId("item1-0-1").setEnabled(true);
+				// enable Cfg Memory Maps Menu
+					oCore.byId("item1-0-3").setEnabled(true);
+				// enable Cfg Connectivity
+					oCore.byId("item1-0-4").setEnabled(true);
+				// enable Master Data
+					oCore.byId("item1-0-5").setEnabled(true);
+
+				// enable WO Management
+					oCore.byId("item2-0-1").setEnabled(true);
+				// enable Carrier Station Dashboard
+					oCore.byId("item2-0-2").setEnabled(true);
+				// enable Assembly Station Dashboard
+					oCore.byId("item2-0-3").setEnabled(true);
+
+				// enable Production Status Report
+					oCore.byId("item3-0-1").setEnabled(true);
+				// enable Item Traceability Report
+					oCore.byId("item3-0-2").setEnabled(true);
+				// enable Connector Diagnostics
+					oCore.byId("item3-0-3").setEnabled(true);
+
+				// enable Cfg Memory Maps
+					oCore.byId("item1-4-1").setEnabled(true);
+				// enable Cfg Tag Types
+					oCore.byId("item1-4-2").setEnabled(true);
+				// enable Cfg Tag Functions
+					oCore.byId("item1-4-3").setEnabled(true);
+				// enable Cfg Tag Groups
+					oCore.byId("item1-4-4").setEnabled(true);
+				// enable Cfg Memory Map Transactions
+					oCore.byId("item1-4-5").setEnabled(true);
+
+				// enable Cfg Shop Floor Computers
+					oCore.byId("item1-5-1").setEnabled(true);
+				// enable Cfg Shop Floor Printers
+					oCore.byId("item1-5-2").setEnabled(true);
+				// enable Cfg PCo Servers
+					oCore.byId("item1-5-3").setEnabled(true);
+				// enable Cfg PCo Agents
+					oCore.byId("item1-5-4").setEnabled(true);
+				// enable Cfg Sql Servers
+					oCore.byId("item1-5-5").setEnabled(true);
+				// enable Cfg Operators
+					oCore.byId("item1-5-6").setEnabled(true);
+
+				// enable Equipment Hierarchy
+					oCore.byId("item1-6-1").setEnabled(true);
+				// enable Cfg Hierarchy Levels
+					oCore.byId("item1-6-2").setEnabled(true);
+
+				// Enable UOM Maintenance
+					oCore.byId("item1-7-1").setEnabled(true);
+				// Enable Product Maintenance
+					oCore.byId("item1-7-2").setEnabled(true);
+				// Enable BOM Maintenance
+					oCore.byId("item1-7-3").setEnabled(true);
+				// Enable Routing Maintenance
+					oCore.byId("item1-7-4").setEnabled(true);
+
+				// update screen
+				document.getElementById("page_title").innerHTML="ADM ALL PLANTS";
+					oMatrixT.placeAt('mesm_content');
+					oMatrixB.placeAt('mesm_content');
+				break;
+			case role_ADM:
+
+				// enable Cfg Hierarchy
+					oCore.byId("item1-0-1").setEnabled(true);
+				// enable Cfg Memory Maps Menu
+					oCore.byId("item1-0-3").setEnabled(true);
+				// enable Cfg Connectivity
+					oCore.byId("item1-0-4").setEnabled(true);
+				// enable Master Data
+					oCore.byId("item1-0-5").setEnabled(true);
+
+				// enable WO Management
+					oCore.byId("item2-0-1").setEnabled(true);
+				// enable Carrier Station Dashboard
+					oCore.byId("item2-0-2").setEnabled(true);
+				// enable Assembly Station Dashboard
+					oCore.byId("item2-0-3").setEnabled(true);
+
+				// enable Production Status Report
+					oCore.byId("item3-0-1").setEnabled(true);
+				// enable Item Traceability Report
+					oCore.byId("item3-0-2").setEnabled(true);
+				// enable Connector Diagnostics
+					oCore.byId("item3-0-3").setEnabled(true);
+
+				// enable Cfg Memory Maps
+					oCore.byId("item1-4-1").setEnabled(true);
+				// enable Cfg Tag Types
+					oCore.byId("item1-4-2").setEnabled(true);
+				// enable Cfg Tag Functions
+					oCore.byId("item1-4-3").setEnabled(true);
+				// enable Cfg Tag Groups
+					oCore.byId("item1-4-4").setEnabled(true);
+				// enable Cfg Memory Map Transactions
+					oCore.byId("item1-4-5").setEnabled(true);
+
+				// enable Cfg Shop Floor Computers
+					oCore.byId("item1-5-1").setEnabled(true);
+				// enable Cfg Shop Floor Printers
+					oCore.byId("item1-5-2").setEnabled(true);
+				// enable Cfg PCo Servers
+					oCore.byId("item1-5-3").setEnabled(true);
+				// enable Cfg PCo Agents
+					oCore.byId("item1-5-4").setEnabled(true);
+				// enable Cfg Sql Servers
+					oCore.byId("item1-5-5").setEnabled(true);
+				// enable Cfg Operators
+					oCore.byId("item1-5-6").setEnabled(true);
+
+				// enable Equipment Hierarchy
+					oCore.byId("item1-6-1").setEnabled(true);
+				// enable Cfg Hierarchy Levels
+					oCore.byId("item1-6-2").setEnabled(true);
+
+				// Enable UOM Maintenance
+					oCore.byId("item1-7-1").setEnabled(true);
+				// Enable Product Maintenance
+					oCore.byId("item1-7-2").setEnabled(true);
+				// Enable BOM Maintenance
+					oCore.byId("item1-7-3").setEnabled(true);
+				// Enable Routing Maintenance
+					oCore.byId("item1-7-4").setEnabled(true);
+
+				// update screen
+				document.getElementById("page_title").innerHTML="ADM PLANT "+plant2Access;
+				oMatrixT.placeAt('mesm_content');
+				oMatrixB.placeAt('mesm_content');
+				break;
+			case "MESM_OPS_ALL":
+
+				// enable WO Management
+					oCore.byId("item2-0-1").setEnabled(true);
+				// enable Carrier Station Dashboard
+					oCore.byId("item2-0-2").setEnabled(true);
+				// enable Assembly Station Dashboard
+					oCore.byId("item2-0-3").setEnabled(true);
+
+				// enable Production Status Report
+					oCore.byId("item3-0-1").setEnabled(true);
+				// enable Item Traceability Report
+					oCore.byId("item3-0-2").setEnabled(true);
+				// enable Connector Diagnostics
+					oCore.byId("item3-0-3").setEnabled(true);
+
+				document.getElementById("page_title").innerHTML="OPS ALL PLANTS";
+				oMatrixT.placeAt('mesm_content');
+				oMatrixB.placeAt('mesm_content');
+				break;
+			case role_OPS:
+
+				// enable WO Management
+					oCore.byId("item2-0-1").setEnabled(true);
+				// enable Carrier Station Dashboard
+					oCore.byId("item2-0-2").setEnabled(true);
+				// enable Assembly Station Dashboard
+					oCore.byId("item2-0-3").setEnabled(true);
+
+				// enable Production Status Report
+					oCore.byId("item3-0-1").setEnabled(true);
+				// enable Item Traceability Report
+					oCore.byId("item3-0-2").setEnabled(true);
+				// enable Connector Diagnostics
+					oCore.byId("item3-0-3").setEnabled(true);
+
+				document.getElementById("page_title").innerHTML="OPS PLANT "+plant2Access;
+				oMatrixT.placeAt('mesm_content');
+				oMatrixB.placeAt('mesm_content');
+				break;
+			default:
+				alert("MES Module Role Unknown: " + role2Access);
+				break;
+			}
+		  }
+	}
+	// ******************************************************************************************************************************************************************
+	var oMenuButton1 = new sap.ui.commons.MenuButton({text: "Settings", icon: "Common/img/map.png"}); 
+	var oMenuButton2 = new sap.ui.commons.MenuButton({ text: "Dashboards", icon: "Common/img/cloud.png"}); 
+	var oMenuButton3 = new sap.ui.commons.MenuButton({text: "Reports", icon: "Common/img/list.png"});
+
+	// Create the menu
+	var oMenu1 = new sap.ui.commons.Menu("menu1", {ariaDescription: "Application Setup", enabled:true});
+	// Create the items and add them to the menu
+	var oMenuItem1 = new sap.ui.commons.MenuItem("item1-0-1",{text: "Enterprise Hierarchy", enabled: false});
+	oMenu1.addItem(oMenuItem1);
+	var oMenuItem2 = new sap.ui.commons.MenuItem("item1-0-2",{text: " ???", enabled: false});
+	//oMenu1.addItem(oMenuItem2);
+	var oMenuItem3 = new sap.ui.commons.MenuItem("item1-0-3",{text: "MES Memory Maps", enabled: false});
+	oMenu1.addItem(oMenuItem3);
+	var oMenuItem4 = new sap.ui.commons.MenuItem("item1-0-4",{text: "Plant Connectivity", enabled: false});
+	oMenu1.addItem(oMenuItem4);
+	var oMenuItem5 = new sap.ui.commons.MenuItem("item1-0-5",{text: "Master Data Setup", enabled: false});
+	oMenu1.addItem(oMenuItem5);
+
+	var oMenu4 = new sap.ui.commons.Menu("menu4", {ariaDescription: "Memory Maps Setup", enabled:true});
+	oMenuItem3.setSubmenu(oMenu4);
+	//Create the items and add them to the sub menu
+	var oMenuItem41 = new sap.ui.commons.MenuItem("item1-4-1",{text: "Memory Map Tags", enabled: false});
+	oMenu4.addItem(oMenuItem41);
+	var oMenuItem45 = new sap.ui.commons.MenuItem("item1-4-5",{text: "Memory Map Transactions", enabled: false});
+	oMenu4.addItem(oMenuItem45);
+	var oMenuItem44 = new sap.ui.commons.MenuItem("item1-4-4",{text: "PLC Tag Groups", enabled: false});
+	oMenu4.addItem(oMenuItem44);
+	var oMenuItem42 = new sap.ui.commons.MenuItem("item1-4-2",{text: "PLC Tag Types", enabled: false});
+	oMenu4.addItem(oMenuItem42);
+	var oMenuItem43 = new sap.ui.commons.MenuItem("item1-4-3",{text: "PLC Tag Functions", enabled: false});
+	oMenu4.addItem(oMenuItem43);
+
+	var oMenu5 = new sap.ui.commons.Menu("menu5", {ariaDescription: "Connectivity Setup", enabled:true});
+	oMenuItem4.setSubmenu(oMenu5);
+	//Create the items and add them to the sub menu
+	var oMenuItem56 = new sap.ui.commons.MenuItem("item1-5-6",{text: "Shop Floor Operators", enabled: false});
+	oMenu5.addItem(oMenuItem56);
+	var oMenuItem51 = new sap.ui.commons.MenuItem("item1-5-1",{text: "Shop Floor Computers", enabled: false});
+	oMenu5.addItem(oMenuItem51);
+	var oMenuItem52 = new sap.ui.commons.MenuItem("item1-5-2",{text: "Shop Floor Printers", enabled: false});
+	oMenu5.addItem(oMenuItem52);
+	var oMenuItem53 = new sap.ui.commons.MenuItem("item1-5-3",{text: "Plant Connectivity Servers", enabled: false});
+	oMenu5.addItem(oMenuItem53);
+	var oMenuItem54 = new sap.ui.commons.MenuItem("item1-5-4",{text: "Plant Connectivity Agents", enabled: false});
+	oMenu5.addItem(oMenuItem54);
+	var oMenuItem55 = new sap.ui.commons.MenuItem("item1-5-5",{text: "Line Side SQL Servers", enabled: false});
+	oMenu5.addItem(oMenuItem55);
+
+	var oMenu6 = new sap.ui.commons.Menu("menu6", {ariaDescription: "Hierarchy Setup", enabled:true});
+	oMenuItem1.setSubmenu(oMenu6);
+	//Create the items and add them to the sub menu
+	var oMenuItem61 = new sap.ui.commons.MenuItem("item1-6-1",{text: "Hierarchy Management", enabled: false});
+	oMenu6.addItem(oMenuItem61);
+	var oMenuItem62 = new sap.ui.commons.MenuItem("item1-6-2",{text: "Hierarchy Levels Setup", enabled: false});
+	oMenu6.addItem(oMenuItem62);
+
+	var oMenu7 = new sap.ui.commons.Menu("menu7", {ariaDescription: "Master Data", enabled:true});
+	oMenuItem5.setSubmenu(oMenu7);
+	//Create the items and add them to the sub menu
+	var oMenuItem71 = new sap.ui.commons.MenuItem("item1-7-1",{text: "Units Of Measure", enabled: false});
+	oMenu7.addItem(oMenuItem71);
+	var oMenuItem72 = new sap.ui.commons.MenuItem("item1-7-2",{text: "Products Management", enabled: false});
+	oMenu7.addItem(oMenuItem72);
+	var oMenuItem73 = new sap.ui.commons.MenuItem("item1-7-3",{text: "Bills of Materials", enabled: false});
+	oMenu7.addItem(oMenuItem73);
+	var oMenuItem74 = new sap.ui.commons.MenuItem("item1-7-4",{text: "Products Routing", enabled: false});
+	oMenu7.addItem(oMenuItem74);
+
+	// Create the menu
+	var oMenu2 = new sap.ui.commons.Menu("menu2", {ariaDescription: "User Dashboards"});
+	// Create the items and add them to the menu
+	var oMenuItem21 = new sap.ui.commons.MenuItem("item2-0-1",{text: "Work Order Management", enabled:false});
+	oMenu2.addItem(oMenuItem21);
+	var oMenuItem22 = new sap.ui.commons.MenuItem("item2-0-2",{text: "Carrier Station Dashboard", enabled:false});
+	oMenu2.addItem(oMenuItem22);
+	var oMenuItem23 = new sap.ui.commons.MenuItem("item2-0-3",{text: "Assembly Station Dashboard", enabled:false});
+	oMenu2.addItem(oMenuItem23);
+
+	// Create the menu
+	var oMenu3 = new sap.ui.commons.Menu("menu3", {ariaDescription: "User Reports", enabled:true});
+	// Create the items and add them to the menu
+	var oMenuItem31 = new sap.ui.commons.MenuItem("item3-0-1",{text: "Production Status Report", enabled:false});
+	oMenu3.addItem(oMenuItem31);
+	var oMenuItem32 = new sap.ui.commons.MenuItem("item3-0-2",{text: "Item Traceability Report", enabled:false});
+	oMenu3.addItem(oMenuItem32);
+	var oMenuItem33 = new sap.ui.commons.MenuItem("item3-0-3",{text: "Connector Diagnostics", enabled:false});
+	oMenu3.addItem(oMenuItem33);
+
+	//Attach the Menu to the MenuButton
+	oMenuButton1.setMenu(oMenu1);
+	oMenuButton2.setMenu(oMenu2);
+	oMenuButton3.setMenu(oMenu3);
+
+	//Attach an event to raise an alert when an item is selected (Button 1)
+	oMenuButton1.attachItemSelected(function (oEvent){
+	switch( oEvent.getParameter("itemId")) {
+		// Menu Settings 1
+		case "item1-6-1":
+				setTimeout("location.href = '" + "MgtHierarchy.irpt?ROLE=" + document.getElementById("user_role").value + "'",0);
+			break;
+		case "item1-6-2":
+				setTimeout("location.href = '" + "LvlHierarchy.irpt?ROLE=" + document.getElementById("user_role").value + "'",0);
+			break;
+
+		// Menu Settings 2
+		case "item1-4-1":
+				setTimeout("location.href = '" + "MemMapTags.irpt?ROLE=" + document.getElementById("user_role").value + "'",0);
+			break;
+		case "item1-4-5":
+				setTimeout("location.href = '" + "MemMapTrxs.irpt?ROLE=" + document.getElementById("user_role").value + "'",0);
+			break;
+		case "item1-4-4":
+				setTimeout("location.href = '" + "TagCommGroups.irpt?ROLE=" + document.getElementById("user_role").value + "'",0);
+			break;
+		case "item1-4-2":
+				setTimeout("location.href = '" + "TagTypes.irpt?ROLE=" + document.getElementById("user_role").value + "'",0);
+			break;
+		case "item1-4-3":
+				setTimeout("location.href = '" + "TagFunctions.irpt?ROLE=" + document.getElementById("user_role").value + "'",0);
+			break;
+
+		// Menu Settings 3
+		case "item1-5-6":
+				setTimeout("location.href = '" + "Operators.irpt?ROLE=" + document.getElementById("user_role").value + "'",0);
+			break;
+		case "item1-5-1":
+				setTimeout("location.href = '" + "Stations.irpt?ROLE=" + document.getElementById("user_role").value + "'",0);
+			break;
+		case "item1-5-2":
+				setTimeout("location.href = '" + "Printers.irpt?ROLE=" + document.getElementById("user_role").value + "'",0);
+			break;
+		case "item1-5-3":
+				setTimeout("location.href = '" + "PCoServers.irpt?ROLE=" + document.getElementById("user_role").value + "'",0);
+			break;
+		case "item1-5-4":
+				setTimeout("location.href = '" + "PCoAgents.irpt?ROLE=" + document.getElementById("user_role").value + "'",0);
+			break;
+		case "item1-5-5":
+				setTimeout("location.href = '" + "SqlServers.irpt?ROLE=" + document.getElementById("user_role").value + "'",0);
+			break;
+
+		// Menu Settings 4
+		case "item1-7-1":
+			setTimeout("location.href = '" + "UnitsOfMeasure.irpt?ROLE=" + document.getElementById("user_role").value + "'",0);
+			break;
+		case "item1-7-2":
+			setTimeout("location.href = '" + "ProductsMgmt.irpt?ROLE=" + document.getElementById("user_role").value + "'",0);
+			break;
+		case "item1-7-3":
+			setTimeout("location.href = '" + "BomMgmt.irpt?ROLE=" + document.getElementById("user_role").value + "'",0);
+			break;
+		case "item1-7-4":
+			setTimeout("location.href = '" + "RoutingMgmt.irpt?ROLE=" + document.getElementById("user_role").value + "'",0);
+			break;
+
+		// Menu Default
+		default:
+				// alert("Items \"" + oEvent.getParameter("itemId") + "\" was selected.");
+			break;
+	}
+	});
+
+	//Attach an event to raise an alert when an item is selected. (Button 2)
+	oMenuButton2.attachItemSelected(function (oEvent){
+	switch( oEvent.getParameter("itemId")) {
+		case "item2-0-1":
+			setTimeout("location.href = '" + "WorkOrders.irpt?ROLE=" + document.getElementById("user_role").value + "'",0);
+			break;
+		case "item2-0-2":
+			setTimeout("location.href = '" + "CarrierDashboard.irpt?ROLE=" + document.getElementById("user_role").value + "'",0);
+			break;
+		case "item2-0-3":
+			setTimeout("location.href = '" + "AssemblyDashboard.irpt?ROLE=" + document.getElementById("user_role").value + "'",0);
+			break;
+		default:
+				// alert("Items \"" + oEvent.getParameter("itemId") + "\" was selected.");
+			break;
+	}
+	});
+
+	//Attach an event to raise an alert when an item is selected. (Button 3)
+	oMenuButton3.attachItemSelected(function (oEvent){
+	switch( oEvent.getParameter("itemId")) {
+		// Menu Reports
+		case "item3-0-1":
+			setTimeout("location.href = '" + "ProductionStatus.irpt?ROLE=" + document.getElementById("user_role").value + "'",0);
+			break;
+		case "item3-0-2":
+			setTimeout("location.href = '" + "ItemTraceability.irpt?ROLE=" + document.getElementById("user_role").value + "'",0);
+			break;
+		case "item3-0-3":
+			setTimeout("location.href = '" + "MESM.irpt?ROLE=" + document.getElementById("user_role").value + "'",0);
+			break;
+		default:
+				//alert("Items \"" + oEvent.getParameter("itemId") + "\" was selected.");
+			break;
+	}
+	});
+	// ****************************************************************************************************************************************************
+	var oMatrixT = new sap.ui.commons.layout.MatrixLayout({
+		id : 'MatrixT',
+		layoutFixed : true,
+		width: '1200px',
+		columns : 3,
+		widths : ['600px', '350px', '250px'] 
+	});
+
+       	var oDropdownBoxRevision = new sap.ui.commons.DropdownBox({
+		id : "RevisionList",
+		tooltip : 'Revision',
+		editable : true,
+		width : '230px',
+		change: function(oEvent){
+		 //alert(oEvent.oSource.getSelectedItemId());
+		updateTableMemMapTags();
+		}
+	});
+
+	var oButton0 = new sap.ui.commons.Button({
+		id : 'B-AddNewRev',
+		tooltip : "Add New Revison Number",
+		text : 'Add New Revision #',
+		width: '200px',
+		enabled: true
+	});
+	oButton0.attachPress(doOnNewRevisionClick);
+
+	// ******************************************************************************************************************************************************************
+	function doOnNewRevisionClick() {
+		var r = confirm("Add New Revision #");
+		if (r == true) {
+			// all good. Try to write them ..
+			var Param1 = escapeSQLString(document.getElementById("user_name").value);
+       			var oReqData;
+      			if (window.XMLHttpRequest) {
+     	     			oReqData = new XMLHttpRequest();
+      			}
+			if (oReqData != null) {
+				var timestamp = new Date().getTime();
+				var paramStr = "Param.1="+encodeURIComponent(Param1);  
+				// alert(paramStr);
+				var queryStr = "/XMII/Illuminator?QueryTemplate=MESM/MEMMAPTAGS/QUERIES/add_NewRevisionNo&"+paramStr+"&ts="+timestamp+"&Content-Type=text/xml";
+				// alert(queryStr);
+				oReqData.open("GET", queryStr, true); 
+				oReqData.onreadystatechange = function() {
+					if (oReqData.readyState == 4) 
+					if (oReqData.status == 200) {
+						// Successful -- rebuild the screen
+					 	updateTableMemMapTags();
+						updateTagRevisionAll();
+						updateTagRevision();
+						updateTagRevisionE();	
+					} else {
+						alert("Error: " + oReqData.statusText);
+					}
+				}
+				oReqData.send();
+       			} else {
+          				window.alert("Error creating XmlHttpRequest object.");
+       			}
+		 } else {
+		 } 
+	}
+	// ******************************************************************************************************************************************************************
+
+	var oCell01 = new sap.ui.commons.layout.MatrixLayoutCell({
+		id : 'Cell-0-1',
+		hAlign : sap.ui.commons.layout.HAlign.Right,
+		colSpan : 1 });
+	oCell01.addContent(oButton0);
+
+	oMatrixT.createRow( oDropdownBoxRevision, '', oCell01 );
+	// ******************************************************************************************************************************************************************
+
+	// ******************************************************************************************************************************************************************
+	function updateTagRevisionAll() {
+		var timestamp = new Date().getTime();
+		getData("/XMII/Illuminator?QueryTemplate=MESM/MEMMAPTAGS/QUERIES/get_AllRevision&ts="+timestamp+"&Content-Type=text/xml", parseJsonRevision);
+	
+		function parseJsonRevision(jsondata){
+			oDropdownBoxRevision.destroyItems();
+			for (var i=0; i<jsondata.length; i++){
+				//alert(jsondata[i]['revisionID'] + '   ' + jsondata[i]['revisionStr']);
+				item_key = jsondata[i]['revisionID'];
+				item_text = jsondata[i]['revisionStr'];
+				oItem = new sap.ui.core.ListItem({
+					key : item_key,
+					text : item_text });
+				oDropdownBoxRevision.addItem(oItem);
+			}
+		}
+	}
+
+	// ******************************************************************************************************************************************************************
+	function createTableMemMapTags() {
+		// Bind the table rows to this model
+		var timestamp = new Date().getTime();
+ 		oModel.loadData("/XMII/Illuminator?QueryTemplate=MESM/MEMMAPTAGS/QUERIES/get_Tags&Param.1="+oDropdownBoxRevision.getSelectedKey()+"&ts="+timestamp+"&Content-Type=text/xml","",false);
+		// alert(oModel.getXML());
+		createColumnsMemMapTags();
+		oTable.setModel(oModel);
+		oTable.bindRows("/Rowset/Row");
+	}
+
+	// ******************************************************************************************************************************************************************
+	function updateTableMemMapTags() {
+		oTable.clearSelection();
+		var timestamp = new Date().getTime(); 
+ 		oModel.loadData("/XMII/Illuminator?QueryTemplate=MESM/MEMMAPTAGS/QUERIES/get_Tags&Param.1="+oDropdownBoxRevision.getSelectedKey()+"&ts="+timestamp+"&Content-Type=text/xml","",false);
+		oTable.getModel().refresh(true);
+	}
+
+	// ******************************************************************************************************************************************************************
+	function createColumnsMemMapTags() {
+		//Define the columns and the control templates to be used
+		oTable.addColumn(new sap.ui.table.Column({
+			label: new sap.ui.commons.Label({text: "recordID"}),
+			template: new sap.ui.commons.TextView().bindProperty("text", "recordID"),
+			sortProperty: "recordID",
+			filterProperty: "recordID",
+			width: "0px"
+		}));
+		oTable.addColumn(new sap.ui.table.Column({
+			label: new sap.ui.commons.Label({text: "REVISION"}),
+			template: new sap.ui.commons.TextView().bindProperty("text", "revision"),
+			sortProperty: "revision",
+			filterProperty: "revision",
+			width: "200px"
+		}));
+		oTable.addColumn(new sap.ui.table.Column({
+			label: new sap.ui.commons.Label({text: "TAG NAME"}),
+			template: new sap.ui.commons.TextView().bindProperty("text", "tagName"),
+			sortProperty: "tagName",
+			filterProperty: "tagName",
+			width: "200px"
+		}));
+		oTable.addColumn(new sap.ui.table.Column({
+			label: new sap.ui.commons.Label({text: "TAG TYPE"}),
+			template: new sap.ui.commons.TextView().bindProperty("text", "tagType"),
+			sortProperty: "tagType",
+			filterProperty: "tagType",
+			width: "150px"
+		}));
+		oTable.addColumn(new sap.ui.table.Column({
+			label: new sap.ui.commons.Label({text: "TAG GROUP"}),
+			template: new sap.ui.commons.TextView().bindProperty("text", "tagGroup"),
+			sortProperty: "tagGroup",
+			filterProperty: "tagGroup",
+			width: "200px"
+		}));
+		oTable.addColumn(new sap.ui.table.Column({
+			label: new sap.ui.commons.Label({text: "TAG FUNCTION"}),
+			template: new sap.ui.commons.TextView().bindProperty("text", "tagFunction"),
+			sortProperty: "tagFunction",
+			filterProperty: "tagFunction",
+			width: "200px"
+		}));
+	}
+	// ******************************************************************************************************************************************************************
+
+	//Create an instance of the table control
+	var oTable = new sap.ui.table.Table({
+		visibleRowCount: nrRows,
+		visibleRowCountMode: sap.ui.table.VisibleRowCountMode.Interactive,
+		firstVisibleRow: 0,
+		width: "1200px",
+		selectionBehavior: sap.ui.table.SelectionBehavior.Row,
+		selectionMode: sap.ui.table.SelectionMode.Single
+	});
+
+	// ******************************************************************************************************************************************************************
+	oTable.attachRowSelectionChange(function(oEvent) {
+		// Retrieve the selected row
+		var selIndex = oTable.getSelectedIndex();
+		selectedIndex = selIndex;
+		if (selIndex  >= 0) {
+			oButton1.setEnabled(false); 
+			oButton2.setEnabled(true);
+			oButton3.setEnabled(true);
+			// Retrieve the selected row
+			var selectedRow = oTable.getRows()[selIndex];
+			// sap.ui.commons.MessageBox.alert(selectedRow);
+			var selectedRowContext = oEvent.getParameter("rowContext");
+ 	 		mm_ID = oModel.getProperty("recordID", selectedRowContext);
+       	 		mm_plcID = oModel.getProperty("plcID", selectedRowContext);
+       	 		mm_revision = oModel.getProperty("revision", selectedRowContext);
+       	 		mm_revisionID = oModel.getProperty("revisionID", selectedRowContext);
+	 		mm_tagName = oModel.getProperty("tagName", selectedRowContext);
+	 		mm_tagDescription = oModel.getProperty("tagDescription", selectedRowContext);
+	 		mm_tagDetail = oModel.getProperty("tagDetail", selectedRowContext);
+			mm_tagType = oModel.getProperty("tagType", selectedRowContext);
+			mm_tagGroup = oModel.getProperty("tagGroup", selectedRowContext);
+			mm_tagFunction = oModel.getProperty("tagFunction", selectedRowContext);
+			mm_tagTypeID = oModel.getProperty("tagTypeID", selectedRowContext);
+			mm_tagGroupID = oModel.getProperty("tagGroupID", selectedRowContext);
+			mm_tagFunctionID = oModel.getProperty("tagFunctionID", selectedRowContext);
+	  		mm_CreatedBy = oModel.getProperty("CreatedBy", selectedRowContext);
+	  		mm_CreatedOn = oModel.getProperty("CreatedOn", selectedRowContext);
+	  		mm_ModifiedBy = oModel.getProperty("ModifiedBy", selectedRowContext);
+	  		mm_ModifiedOn = oModel.getProperty("ModifiedOn", selectedRowContext);
+		} else {
+			oButton1.setEnabled(true);
+			oButton2.setEnabled(false);
+			oButton3.setEnabled(false);
+			selectedIndex = -1;
+ 	 		mm_ID = '';
+	  		mm_plcID = '';
+       	 		mm_revision = '';
+       	 		mm_revisionID = '';
+	 		mm_tagName = '';
+	 		mm_tagDescription = '';
+	 		mm_tagDetail = '';
+			mm_tagType = '';
+			mm_tagGroup = ''
+			mm_tagFunction = '';
+			mm_tagTypeID = '';
+			mm_tagGroupID = '';
+			mm_tagFunctionID = '';
+			mm_CreatedBy = '';
+			mm_CreatedOn = '';
+			mm_ModifiedBy = '';
+			mm_ModifiedOn = '';
+			// alert ("No Selection ..");
+		}
+	});
+
+	var oModel =  new sap.ui.model.xml.XMLModel();
+
+	//Bring the table onto the UI 
+	var oCellTable = new sap.ui.commons.layout.MatrixLayoutCell({
+		id : 'Cell-Table',
+		colSpan : 3 });
+	oCellTable.addContent(oTable);
+
+	oMatrixT.createRow(oCellTable);
+
+	// build buttons matrix
+	var oMatrixB = new sap.ui.commons.layout.MatrixLayout({
+		id : 'MatrixB',
+		layoutFixed : true,
+		width: '900px',
+		columns : 5,
+		widths : ['150px','200px','200px','200px','150px'] 
+	});
+	var oButton1 = new sap.ui.commons.Button({
+		id : 'B-Add',
+		tooltip : "Add ",
+		text : 'Add',
+		enabled: true
+	});
+	oButton1.attachPress(doAdd);
+	var oButton2 = new sap.ui.commons.Button({
+		id : 'B-Edit',
+		tooltip : "Edit ",
+		text : 'Edit',
+		enabled: false
+	});
+	oButton2.attachPress(doEdit);
+	var oButton3 = new sap.ui.commons.Button({
+		id : 'B-Delete',
+		tooltip : "Delete ",
+		text : 'Delete',
+		enabled: false
+	});
+	oButton3.attachPress(doDelete);
+	oMatrixB.createRow('', oButton1, oButton2, oButton3, '');
+
+	// ******************************************************************************************************************************************************************
+
+	// ******************************************************************************************************************************************************************
+	// Create Add MemMapTags Overlay
+	var oMatrixA = new sap.ui.commons.layout.MatrixLayout({
+		id : 'MatrixA',
+		layoutFixed : true,
+		width: '690px',
+		columns : 1,
+		widths : ['700px'] 
+	});
+
+	var oMatrixAF = new sap.ui.commons.layout.MatrixLayout({
+		id : 'MatrixAF',
+		layoutFixed : true,
+		width: '690px',
+		columns : 2,
+		widths : ['295px','385px'] 
+	});
+
+	var oTitleA = new sap.ui.commons.Label({
+		id : 'L-AddTag',
+		text : 'ADD TAG TO MEMORY MAP'
+	});
+	oMatrixA.createRow( oTitleA );
+
+	var oLabel_PLCID = new sap.ui.commons.Label({
+		id : 'L-PLCID',
+		text : ' PLC ID'
+	});
+
+	var oInput_PLCID = new sap.ui.commons.TextField('input_plcid');
+
+	oMatrixAF.createRow( oLabel_PLCID,oInput_PLCID );
+
+	var oLabel_REVISION = new sap.ui.commons.Label({
+		id : 'L-REVISION',
+		text : ' REVISION'
+	});
+
+       	var oDropdownBox_REVISION = new sap.ui.commons.DropdownBox({
+		id : "dbox_revision",
+		tooltip : 'Revision',
+		editable : true,
+		width : '150px',
+		change: function(oEvent){
+		 //alert(oEvent.oSource.getSelectedKey());
+		}
+	});
+
+	// ******************************************************************************************************************************************************************
+	function updateTagRevision() {
+		var timestamp = new Date().getTime();
+		getData("/XMII/Illuminator?QueryTemplate=MESM/MEMMAPTAGS/QUERIES/get_Revision&ts="+timestamp+"&Content-Type=text/xml", parseJsonRevision);
+	
+		function parseJsonRevision(jsondata){
+			oDropdownBox_REVISION.destroyItems();
+			for (var i=0; i<jsondata.length; i++){
+				//alert(jsondata[i]['revisionID'] + '   ' + jsondata[i]['revisionStr']);
+				item_key = jsondata[i]['revisionID'];
+				item_text = jsondata[i]['revisionStr'];
+				oItem = new sap.ui.core.ListItem({
+					key : item_key,
+					text : item_text });
+				oDropdownBox_REVISION.addItem(oItem);
+			}
+		}
+	}
+	// ******************************************************************************************************************************************************************
+
+	oMatrixAF.createRow( oLabel_REVISION,oDropdownBox_REVISION );
+
+	var oLabel_TAGNAME = new sap.ui.commons.Label({
+		id : 'L-TAGNAME',
+		text : ' TAG NAME'
+	});
+
+	var oInput_TAGNAME = new sap.ui.commons.TextField('input_tagname');
+
+	oMatrixAF.createRow( oLabel_TAGNAME,oInput_TAGNAME );
+
+	var oLabel_TAGDESCR = new sap.ui.commons.Label({
+		id : 'L-TAGDESCR',
+		text : ' TAG DESCRIPTION'
+	});
+
+	var oInput_TAGDESCR = new sap.ui.commons.TextField('input_tagdescr');
+
+	oMatrixAF.createRow( oLabel_TAGDESCR,oInput_TAGDESCR );
+
+	var oLabel_TAGDETAIL = new sap.ui.commons.Label({
+		id : 'L-TAGDETAIL',
+		text : ' TAG DETAIL'
+	});
+
+	var oInput_TAGDETAIL = new sap.ui.commons.TextField('input_tagdetail');
+
+	oMatrixAF.createRow( oLabel_TAGDETAIL,oInput_TAGDETAIL );
+
+	var oLabel_TAGTYPE = new sap.ui.commons.Label({
+		id : 'L-TAGTYPE',
+		text : ' TAG TYPE'
+	});
+
+       	var oDropdownBox_TAGTYPE = new sap.ui.commons.DropdownBox({
+		id : "dbox_tagtype",
+		tooltip : 'Tag Type',
+		editable : true,
+		width : '150px',
+		change: function(oEvent){
+		 //alert(oEvent.oSource.getSelectedKey());
+		//doOnTagTypeChange();
+		}
+	});
+
+	// ****************************************************************************************************************************************************
+	function updateTagTypes() {
+		var timestamp = new Date().getTime();
+		getData("/XMII/Illuminator?QueryTemplate=MESM/MEMMAPTAGS/QUERIES/get_TagTypes&ts="+timestamp+"&Content-Type=text/xml", parseJsonType);
+	
+		function parseJsonType(jsondata){
+			oDropdownBox_TAGTYPE.destroyItems();
+			for (var i=0; i<jsondata.length; i++){
+				//alert(jsondata[i]['recordID'] + '   ' + jsondata[i]['OPC_typeName']);
+				item_key = jsondata[i]['recordID'];
+				item_text = jsondata[i]['OPC_typeName'];
+				oItem = new sap.ui.core.ListItem({
+					key : item_key,
+					text : item_text });
+				oDropdownBox_TAGTYPE.addItem(oItem);
+			}
+		}
+	}
+	// ****************************************************************************************************************************************************
+
+	oMatrixAF.createRow( oLabel_TAGTYPE,oDropdownBox_TAGTYPE );
+
+	var oLabel_TAGGROUP = new sap.ui.commons.Label({
+		id : 'L-TAGGROUP',
+		text : ' TAG GROUP'
+	});
+
+       	var oDropdownBox_TAGGROUP = new sap.ui.commons.DropdownBox({
+		id : "dbox_taggroup",
+		tooltip : 'Tag Group',
+		editable : true,
+		width : '150px',
+		change: function(oEvent){
+		 //alert(oEvent.oSource.getSelectedKey());
+		//doOnTagGroupChange();
+		}
+	});
+
+	// ****************************************************************************************************************************************************
+	function updateTagGroups() {
+		var timestamp = new Date().getTime();
+		getData("/XMII/Illuminator?QueryTemplate=MESM/MEMMAPTAGS/QUERIES/get_TagGroups&ts="+timestamp+"&Content-Type=text/xml", parseJsonGroup);
+	
+		function parseJsonGroup(jsondata){
+			oDropdownBox_TAGGROUP.destroyItems();
+			for (var i=0; i<jsondata.length; i++){
+				//alert(jsondata[i]['recordID'] + '   ' + jsondata[i]['COM_typeName']);
+				item_key = jsondata[i]['recordID'];
+				item_text = jsondata[i]['COM_typeName'];
+				oItem = new sap.ui.core.ListItem({
+					key : item_key,
+					text : item_text });
+				oDropdownBox_TAGGROUP.addItem(oItem);
+			}
+		}
+	}
+	// ****************************************************************************************************************************************************
+
+	oMatrixAF.createRow( oLabel_TAGGROUP,oDropdownBox_TAGGROUP );
+
+	var oLabel_TAGFUNCTION = new sap.ui.commons.Label({
+		id : 'L-TAGFUNCTION',
+		text : ' TAG FUNCTION'
+	});
+
+       	var oDropdownBox_TAGFUNCTION = new sap.ui.commons.DropdownBox({
+		id : "dbox_tagfunction",
+		tooltip : 'Function',
+		editable : true,
+		width : '150px',
+		change: function(oEvent){
+		 //alert(oEvent.oSource.getSelectedKey());
+		//doOnTagFunctionChange();
+		}
+	});
+
+	// ****************************************************************************************************************************************************
+	function updateTagFunctions() {
+		var timestamp = new Date().getTime();
+		getData("/XMII/Illuminator?QueryTemplate=MESM/MEMMAPTAGS/QUERIES/get_TagFunctions&ts="+timestamp+"&Content-Type=text/xml", parseJsonFunction);
+	
+		function parseJsonFunction(jsondata){
+			oDropdownBox_TAGFUNCTION.destroyItems();
+			for (var i=0; i<jsondata.length; i++){
+				//alert(jsondata[i]['recordID'] + '   ' + jsondata[i]['FNC_typeName']);
+				item_key = jsondata[i]['recordID'];
+				item_text = jsondata[i]['FNC_typeName'];
+				oItem = new sap.ui.core.ListItem({
+					key : item_key,
+					text : item_text });
+				oDropdownBox_TAGFUNCTION.addItem(oItem);
+			}
+		}
+	}
+	// ****************************************************************************************************************************************************
+
+	oMatrixAF.createRow( oLabel_TAGFUNCTION,oDropdownBox_TAGFUNCTION );
+
+	oMatrixA.createRow( oMatrixAF );
+
+	var oButton4 = new sap.ui.commons.Button({
+		id : 'B-AddTag',
+		tooltip : "Submit Tag Data",
+		text : 'SUBMIT',
+		enabled: true
+	});
+	oButton4.attachPress(doAddTag);
+
+	oMatrixA.createRow( oButton4 );
+
+	var oOverlayContainerAdd = new sap.ui.ux3.OverlayDialog({openButtonVisible: false});
+	oOverlayContainerAdd.setHeight('450px');
+	oOverlayContainerAdd.setWidth('700px');
+	oOverlayContainerAdd.addContent(oMatrixA);
+	
+	// ******************************************************************************************************************************************************************
+	function doAdd() {
+		if(!oOverlayContainerAdd.isOpen()){
+          			oCore.byId("input_plcid").setValue("");
+          			oCore.byId("dbox_revision").setSelectedKey(0);
+          			oCore.byId("input_tagname").setValue("");
+          			oCore.byId("input_tagdescr").setValue("");
+          			oCore.byId("input_tagdetail").setValue("");
+          			oCore.byId("dbox_tagtype").setSelectedKey(0);
+          			oCore.byId("dbox_taggroup").setSelectedKey(0);
+          			oCore.byId("dbox_tagfunction").setSelectedKey(0);
+			oOverlayContainerAdd.open();
+		}
+	}
+	// ******************************************************************************************************************************************************************
+	function doAddTag() {
+		// retrieve values
+		var input_plcID = oCore.byId("input_plcid").getValue();
+		var input_revision = oCore.byId("dbox_revision").getSelectedKey();
+		var input_tagName = oCore.byId("input_tagname").getValue();
+		var input_tagDescr = oCore.byId("input_tagdescr").getValue();
+		var input_tagDetail = oCore.byId("input_tagdetail").getValue();
+		var input_tagType = oCore.byId("dbox_tagtype").getSelectedKey();
+		var input_tagGroup = oCore.byId("dbox_taggroup").getSelectedKey();
+		var input_tagFunction = oCore.byId("dbox_tagfunction").getSelectedKey();
+		var input_userNAME = document.getElementById("user_name").value;
+		if(input_plcID=="") {
+			alert("Please Input PLC ID ..");
+			oCore.byId("input_plcid").focus();
+		} else {
+			if (!isNumeric(input_plcID)) {
+				alert("Please Input numeric value ..");
+				oCore.byId("input_plcid").focus();
+			} else {
+			if(!(input_revision>0)) {
+				alert("Please Select Revision ..");
+				oCore.byId("dbox_revision").focus();
+			} else {
+				if(input_tagName=="") {
+					alert("Please Input Tag Name ..");
+					oCore.byId("input_tagname").focus();
+				} else {
+					if(input_tagDescr=="") {
+						alert("Please Input Tag Description ..");
+						oCore.byId("input_tagdescr").focus();
+					} else {
+						if(input_tagDetail=="") {
+							alert("Please Input Tag Detail ..");
+							oCore.byId("input_tagdetail").focus();
+						} else {
+							if(!(input_tagType>0)) {
+								alert("Please Select Tag Type ..");
+								oCore.byId("dbox_tagtype").focus();
+							} else {
+								if(!(input_tagGroup>0)) {
+									alert("Please Select Tag Group ..");
+									oCore.byId("dbox_taggroup").focus();
+								} else {
+									if(!(input_tagFunction>0)) {
+										alert("Please Select Tag Function ..");
+										oCore.byId("dbox_tagfunction").focus();
+									} else {
+										// all good. Try to write them ..
+										var Param1 = escapeSQLString(input_plcID);
+										var Param2 = escapeSQLString(input_revision);
+										var Param3 = escapeSQLString(input_tagName);
+										var Param4 = escapeSQLString(input_tagDescr);
+										var Param5 = escapeSQLString(input_tagDetail);
+										var Param6 = escapeSQLString(input_tagType);
+										var Param7 = escapeSQLString(input_tagGroup);
+										var Param8 = escapeSQLString(input_tagFunction);
+										var Param9 = escapeSQLString(input_userNAME);
+										var oReqData;
+										if (window.XMLHttpRequest) {
+													oReqData = new XMLHttpRequest();
+										}
+										if (oReqData != null) {
+													var timestamp = new Date().getTime();
+													var paramStr = "Param.1="+encodeURIComponent(Param1)+"&Param.2="+encodeURIComponent(Param2)+"&Param.3="+encodeURIComponent(Param3)+"&Param.4="+encodeURIComponent(Param4)+"&Param.5="+encodeURIComponent(Param5)+"&Param.6="+encodeURIComponent(Param6)+"&Param.7="+encodeURIComponent(Param7)+"&Param.8="+encodeURIComponent(Param8)+"&Param.9="+encodeURIComponent(Param9);
+													// alert(paramStr);
+													var queryStr = "/XMII/Illuminator?QueryTemplate=MESM/MEMMAPTAGS/QUERIES/add_Tag&"+paramStr+"&ts="+timestamp+"&Content-Type=text/xml";
+													// alert(queryStr);
+													oReqData.open("GET", queryStr, true); 
+													oReqData.onreadystatechange = function() {
+													if (oReqData.readyState == 4) 
+													if (oReqData.status == 200) {
+															// Successful -- rebuild the screen
+																updateTableMemMapTags();	
+																oOverlayContainerAdd.close();
+															} else {
+																alert("Error: " + oReqData.statusText);
+															}
+												}
+												oReqData.send();
+										} else {
+																window.alert("Error creating XmlHttpRequest object.");
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			}
+		}
+	}
+	// ******************************************************************************************************************************************************************
+	// Create Edit MemMapTags Overlay
+	var oMatrixE = new sap.ui.commons.layout.MatrixLayout({
+		id : 'MatrixE',
+		layoutFixed : true,
+		width: '690px',
+		columns : 1,
+		widths : ['700px'] 
+	});
+	var oMatrixEF = new sap.ui.commons.layout.MatrixLayout({
+		id : 'MatrixEF',
+		layoutFixed : true,
+		width: '690px',
+		columns : 2,
+		widths : ['295px','385px'] 
+	});
+
+	var oTitleE = new sap.ui.commons.Label({
+		id : 'L-EditTag',
+		text : 'EDIT TAG TO MEMORY MAP'
+	});
+	oMatrixE.createRow( oTitleE );
+
+	var oLabel_PLCIDE = new sap.ui.commons.Label({
+		id : 'L-PLCIDE',
+		text : ' PLC ID'
+	});
+
+	var oInput_PLCIDE = new sap.ui.commons.TextField('input_plcide');
+
+	oMatrixEF.createRow( oLabel_PLCIDE,oInput_PLCIDE );
+
+	var oLabel_REVISIONE = new sap.ui.commons.Label({
+		id : 'L-REVISIONE',
+		text : ' REVISION'
+	});
+
+       	var oDropdownBox_REVISIONE = new sap.ui.commons.DropdownBox({
+		id : "dbox_revisione",
+		tooltip : 'Revision',
+		editable : true,
+		width : '150px',
+		change: function(oEvent){
+		 //alert(oEvent.oSource.getSelectedKey());
+		}
+	});
+
+	// ******************************************************************************************************************************************************************
+	function updateTagRevisionE() {
+		var timestamp = new Date().getTime();
+		getData("/XMII/Illuminator?QueryTemplate=MESM/MEMMAPTAGS/QUERIES/get_Revision&ts="+timestamp+"&Content-Type=text/xml", parseJsonRevision);
+	
+		function parseJsonRevision(jsondata){
+			oDropdownBox_REVISIONE.destroyItems();
+			for (var i=0; i<jsondata.length; i++){
+				//alert(jsondata[i]['revisionID'] + '   ' + jsondata[i]['revisionStr']);
+				item_key = jsondata[i]['revisionID'];
+				item_text = jsondata[i]['revisionStr'];
+				oItem = new sap.ui.core.ListItem({
+					key : item_key,
+					text : item_text });
+				oDropdownBox_REVISIONE.addItem(oItem);
+			}
+		}
+	}
+	// ******************************************************************************************************************************************************************
+
+	oMatrixEF.createRow( oLabel_REVISIONE,oDropdownBox_REVISIONE );
+
+	var oLabel_TAGNAMEE = new sap.ui.commons.Label({
+		id : 'L-TAGNAMEE',
+		text : ' TAG NAME'
+	});
+
+	var oInput_TAGNAMEE = new sap.ui.commons.TextField('input_tagnamee');
+
+	oMatrixEF.createRow( oLabel_TAGNAMEE,oInput_TAGNAMEE );
+
+	var oLabel_TAGDESCRE = new sap.ui.commons.Label({
+		id : 'L-TAGDESCRE',
+		text : ' TAG DESCRIPTION'
+	});
+
+	var oInput_TAGDESCRE = new sap.ui.commons.TextField('input_tagdescre');
+
+	oMatrixEF.createRow( oLabel_TAGDESCRE,oInput_TAGDESCRE );
+
+	var oLabel_TAGDETAILE = new sap.ui.commons.Label({
+		id : 'L-TAGDETAILE',
+		text : ' TAG DETAIL'
+	});
+
+	var oInput_TAGDETAILE = new sap.ui.commons.TextField('input_tagdetaile');
+
+	oMatrixEF.createRow( oLabel_TAGDETAILE,oInput_TAGDETAILE );
+
+	var oLabel_TAGTYPEE = new sap.ui.commons.Label({
+		id : 'L-TAGTYPEE',
+		text : ' TAG TYPE'
+	});
+
+       	var oDropdownBox_TAGTYPEE = new sap.ui.commons.DropdownBox({
+		id : "dbox_tagtypee",
+		tooltip : 'Tag Type',
+		editable : true,
+		width : '150px',
+		change: function(oEvent){
+		 //alert(oEvent.oSource.getSelectedKey());
+		//doOnTagTypeChangeE();
+		}
+	});
+
+	// ****************************************************************************************************************************************************
+	function updateTagTypesE() {
+		var timestamp = new Date().getTime();
+		getData("/XMII/Illuminator?QueryTemplate=MESM/MEMMAPTAGS/QUERIES/get_TagTypes&ts="+timestamp+"&Content-Type=text/xml", parseJsonType);
+	
+		function parseJsonType(jsondata){
+			oDropdownBox_TAGTYPEE.destroyItems();
+			for (var i=0; i<jsondata.length; i++){
+				//alert(jsondata[i]['recordID'] + '   ' + jsondata[i]['OPC_typeName']);
+				item_key = jsondata[i]['recordID'];
+				item_text = jsondata[i]['OPC_typeName'];
+				oItem = new sap.ui.core.ListItem({
+					key : item_key,
+					text : item_text });
+				oDropdownBox_TAGTYPEE.addItem(oItem);
+			}
+		}
+	}
+	// ****************************************************************************************************************************************************
+
+	oMatrixEF.createRow( oLabel_TAGTYPEE,oDropdownBox_TAGTYPEE );
+
+	oMatrixE.createRow( oMatrixEF );
+
+	var oLabel_TAGGROUPE = new sap.ui.commons.Label({
+		id : 'L-TAGGROUPE',
+		text : ' TAG GROUP'
+	});
+
+       	var oDropdownBox_TAGGROUPE = new sap.ui.commons.DropdownBox({
+		id : "dbox_taggroupe",
+		tooltip : 'Tag Group',
+		editable : true,
+		width : '150px',
+		change: function(oEvent){
+		 //alert(oEvent.oSource.getSelectedKey());
+		//doOnTagGroupChange();
+		}
+	});
+
+	// ****************************************************************************************************************************************************
+	function updateTagGroupsE() {
+		var timestamp = new Date().getTime();
+		getData("/XMII/Illuminator?QueryTemplate=MESM/MEMMAPTAGS/QUERIES/get_TagGroups&ts="+timestamp+"&Content-Type=text/xml", parseJsonGroup);
+	
+		function parseJsonGroup(jsondata){
+			oDropdownBox_TAGGROUPE.destroyItems();
+			for (var i=0; i<jsondata.length; i++){
+				//alert(jsondata[i]['recordID'] + '   ' + jsondata[i]['COM_typeName']);
+				item_key = jsondata[i]['recordID'];
+				item_text = jsondata[i]['COM_typeName'];
+				oItem = new sap.ui.core.ListItem({
+					key : item_key,
+					text : item_text });
+				oDropdownBox_TAGGROUPE.addItem(oItem);
+			}
+		}
+	}
+	// ****************************************************************************************************************************************************
+
+	oMatrixEF.createRow( oLabel_TAGGROUPE,oDropdownBox_TAGGROUPE );
+
+	var oLabel_TAGFUNCTIONE = new sap.ui.commons.Label({
+		id : 'L-TAGFUNCTIONE',
+		text : ' TAG FUNCTION'
+	});
+
+       	var oDropdownBox_TAGFUNCTIONE = new sap.ui.commons.DropdownBox({
+		id : "dbox_tagfunctione",
+		tooltip : 'Tag Function',
+		editable : true,
+		width : '150px',
+		change: function(oEvent){
+		 //alert(oEvent.oSource.getSelectedKey());
+		//doOnTagFunctionChange();
+		}
+	});
+
+	// ****************************************************************************************************************************************************
+	function updateTagFunctionsE() {
+		var timestamp = new Date().getTime();
+		getData("/XMII/Illuminator?QueryTemplate=MESM/MEMMAPTAGS/QUERIES/get_TagFunctions&ts="+timestamp+"&Content-Type=text/xml", parseJsonFunction);
+	
+		function parseJsonFunction(jsondata){
+			oDropdownBox_TAGFUNCTIONE.destroyItems();
+			for (var i=0; i<jsondata.length; i++){
+				//alert(jsondata[i]['recordID'] + '   ' + jsondata[i]['FNC_typeName']);
+				item_key = jsondata[i]['recordID'];
+				item_text = jsondata[i]['FNC_typeName'];
+				oItem = new sap.ui.core.ListItem({
+					key : item_key,
+					text : item_text });
+				oDropdownBox_TAGFUNCTIONE.addItem(oItem);
+			}
+		}
+	}
+	// ****************************************************************************************************************************************************
+
+	oMatrixEF.createRow( oLabel_TAGFUNCTIONE,oDropdownBox_TAGFUNCTIONE );
+
+	oMatrixE.createRow( oMatrixEF );
+
+	var oButton5 = new sap.ui.commons.Button({
+		id : 'B-EditTag',
+		tooltip : "Submit Tag Data",
+		text : 'SUBMIT',
+		enabled: true
+	});
+	oButton5.attachPress(doEditTag);
+
+	oMatrixE.createRow( oButton5 );
+
+	var oOverlayContainerEdit = new sap.ui.ux3.OverlayDialog({openButtonVisible: false});
+	oOverlayContainerEdit.setHeight('450px');
+	oOverlayContainerEdit.setWidth('700px');
+	oOverlayContainerEdit.addContent(oMatrixE);	
+
+	// ******************************************************************************************************************************************************************
+	function doEdit() {
+		if(!oOverlayContainerEdit.isOpen()){
+          			oCore.byId("input_plcide").setValue(mm_plcID);
+          			oCore.byId("dbox_revisione").setSelectedKey(mm_revisionID);
+          			oCore.byId("input_tagnamee").setValue(mm_tagName);
+          			oCore.byId("input_tagdescre").setValue(mm_tagDescription);
+          			oCore.byId("input_tagdetaile").setValue(mm_tagDetail);
+          			oCore.byId("dbox_tagtypee").setSelectedKey(mm_tagTypeID);
+          			oCore.byId("dbox_taggroupe").setSelectedKey(mm_tagGroupID);
+          			oCore.byId("dbox_tagfunctione").setSelectedKey(mm_tagFunctionID);
+			oOverlayContainerEdit.open();
+		}
+	}
+	// ******************************************************************************************************************************************************************
+	function doEditTag() {
+		var input_plcID = oCore.byId("input_plcide").getValue();
+		var input_revision = oCore.byId("dbox_revisione").getSelectedKey();
+		var input_tagName = oCore.byId("input_tagnamee").getValue();
+		var input_tagDescr = oCore.byId("input_tagdescre").getValue();
+		var input_tagDetail = oCore.byId("input_tagdetaile").getValue();
+		var input_tagType = oCore.byId("dbox_tagtypee").getSelectedKey();
+		var input_tagGroup = oCore.byId("dbox_taggroupe").getSelectedKey();
+		var input_tagFunction = oCore.byId("dbox_tagfunctione").getSelectedKey();
+		var input_userNAME = document.getElementById("user_name").value;
+		if(input_plcID=="") {
+			alert("Please Input PLC ID ..");
+			oCore.byId("input_plcide").focus();
+		} else {
+			if (!isNumeric(input_plcID)) {
+				alert("Please Input numeric value ..");
+				oCore.byId("input_plcide").focus();
+			} else {
+			if(!(input_revision>0)) {
+				alert("Please Select Revision ..");
+				oCore.byId("dbox_revisione").focus();
+			} else {
+				if(input_tagName=="") {
+					alert("Please Input Tag Name ..");
+					oCore.byId("input_tagnamee").focus();
+				} else {
+					if(input_tagDescr=="") {
+						alert("Please Input Tag Description ..");
+						oCore.byId("input_tagdescre").focus();
+					} else {
+						if(input_tagDetail=="") {
+							alert("Please Input Tag Detail ..");
+							oCore.byId("input_tagdetaile").focus();
+						} else {
+							if(!(input_tagType>0)) {
+								alert("Please Select Tag Type ..");
+								oCore.byId("dbox_tagtypee").focus();
+							} else {
+								if(!(input_tagGroup>0)) {
+									alert("Please Select Tag Group ..");
+									oCore.byId("dbox_taggroupe").focus();
+								} else {
+									if(!(input_tagFunction>0)) {
+										alert("Please Select Tag Function ..");
+										oCore.byId("dbox_tagfunctione").focus();
+									} else {
+										// all good. Try to write them ..
+										var Param1 = escapeSQLString(mm_ID);
+										var Param2 = escapeSQLString(input_plcID);
+										var Param3 = escapeSQLString(input_revision);
+										var Param4 = escapeSQLString(input_tagName);
+										var Param5 = escapeSQLString(input_tagDescr);
+										var Param6 = escapeSQLString(input_tagDetail);
+										var Param7 = escapeSQLString(input_tagType);
+										var Param8 = escapeSQLString(input_tagGroup);
+										var Param9 = escapeSQLString(input_tagFunction);
+										var Param10 = escapeSQLString(input_userNAME);
+										var oReqData;
+										if (window.XMLHttpRequest) {
+														oReqData = new XMLHttpRequest();
+										}
+										if (oReqData != null) {
+											var timestamp = new Date().getTime();
+											var paramStr = "Param.1="+encodeURIComponent(Param1)+"&Param.2="+encodeURIComponent(Param2)+"&Param.3="+encodeURIComponent(Param3)+"&Param.4="+encodeURIComponent(Param4)+"&Param.5="+encodeURIComponent(Param5)+"&Param.6="+encodeURIComponent(Param6)+"&Param.7="+encodeURIComponent(Param7)+"&Param.8="+encodeURIComponent(Param8)+"&Param.9="+encodeURIComponent(Param9)+"&Param.10="+encodeURIComponent(Param10);
+											// alert(paramStr);
+											var queryStr = "/XMII/Illuminator?QueryTemplate=MESM/MEMMAPTAGS/QUERIES/upd_Tag&"+paramStr+"&ts="+timestamp+"&Content-Type=text/xml";
+											// alert(queryStr);
+											oReqData.open("GET", queryStr, true); 
+											oReqData.onreadystatechange = function() {
+													if (oReqData.readyState == 4) 
+													if (oReqData.status == 200) {
+															// Successful -- rebuild the screen
+																		updateTableMemMapTags();
+																		oOverlayContainerEdit.close();	
+														} else {
+																// Not Successful -- alert the user
+																	alert("Error: " + oReqData.statusText);
+														}
+											}
+											oReqData.send();
+       										} else {
+          														window.alert("Error creating XmlHttpRequest object.");
+       										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			}
+		}
+	}
+	// ******************************************************************************************************************************************************************
+	function doDelete() {
+		// Retrieve the selected row
+		var Param1 = mm_ID;
+       		var oReqData;
+      		if (window.XMLHttpRequest) {
+     	     		oReqData = new XMLHttpRequest();
+      		}
+		if (oReqData != null) {
+			var timestamp = new Date().getTime();
+			var paramStr = "Param.1="+encodeURIComponent(Param1);  
+			// alert(paramStr);
+			var queryStr = "/XMII/Illuminator?QueryTemplate=MESM/MEMMAPTAGS/QUERIES/del_Tag&"+paramStr+"&ts="+timestamp+"&Content-Type=text/xml";
+			// alert(queryStr);
+			oReqData.open("GET", queryStr, true); 
+			oReqData.onreadystatechange = function() {
+				if (oReqData.readyState == 4) 
+				if (oReqData.status == 200) {
+					// Successful -- rebuild the screen
+				 	updateTableMemMapTags();		
+				} else {
+					alert("Error: " + oReqData.statusText);
+				}
+			}
+			oReqData.send();
+       		} else {
+          			window.alert("Error creating XmlHttpRequest object.");
+       		}
+	}
+	// ******************************************************************************************************************************************************************
+	</script>
+</head>
+<body onLoad="roleSecurity()">
+<input id="user_roles" type="hidden" value="{IllumLoginRoles}" style="display:block;width:1000px;" readonly />
+<input id="user_role" type="hidden" value="{ROLE}" style="display:block;width:1000px;" readonly />
+<input id="user_name" type="hidden" value="{IllumLoginName}" style="display: block;width:1000px;" readonly />
+<input id="user_height" type="hidden" value="{HEIGHT}" style="display: block;width:100px;" readonly />
+<input id="user_address" type="hidden" value="{Machine}" style="display:block;width:1000px;" readonly />
+<div id="app_header" >
+<div id="app_title">MEMORY MAP TAGS</div>
+<div id="app_menu"></div>
+<div id="page_title">DEFAULT SCREEN</div>
+</div>
+<div id="mesm_content" ></div>
+</body>
+</html>

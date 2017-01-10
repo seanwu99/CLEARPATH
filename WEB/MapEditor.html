@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <script src="fabric/fabric.js"></script>
+    <title>MapEditor Demo</title>
+
+    <script id="sap-ui-bootstrap"
+            src="https://sapui5.netweaver.ondemand.com/resources/sap-ui-core.js"
+            data-sap-ui-theme="sap_bluecrystal"
+            data-sap-ui-libs="sap.m"
+            data-sap-ui-language="en">
+    </script>
+
+    <script>
+        //        var features;
+
+        $(function () {
+
+
+        });
+
+        //        function mapInit(_myJson) {
+        //            var highchartMap = new Highcharts.Map('container', {
+        //                credits: {
+        //                    enabled: false,
+        //                    href: 'http://www.rtsperfectplant.com/',
+        //                    position: {
+        //                        align: 'right',
+        //                        x: -10,
+        //                        verticalAlign: 'bottom',
+        //                        y: -5
+        //                    },
+        //
+        //                    style: {
+        //                        cursor: 'pointer',
+        //                        color: '#999999',
+        //                        fontSize: '9px'
+        //                    },
+        //
+        //                    text: 'RTS Consulting Inc.'
+        //                },
+        //                chart: {
+        //
+        //
+        //                    events: {
+        //                        drilldown: function () {
+        //                        },
+        //                        drillup: function () {
+        //                        }
+        //                    }
+        //                },
+        //
+        //                title: {
+        //                    text: ''
+        //                },
+        //
+        ////                subtitle: {
+        ////                    text: 'subtitle',
+        ////                    floating: true,
+        ////                    align: 'right',
+        ////                    y: 50,
+        ////                    style: {
+        ////                        fontSize: '16px'
+        ////                    }
+        ////                },
+        //
+        ////                legend: small ? {} : {
+        ////                    layout: 'vertical',
+        ////                    align: 'right',
+        ////                    verticalAlign: 'middle'
+        ////                },
+        //
+        //                colorAxis: {
+        //                    showInLegend: false,
+        //                    min: 0,
+        //                    minColor: '#E6E7E8',
+        //                    maxColor: '#005645'
+        //                },
+        //
+        //                mapNavigation: {
+        //                    enabled: true,
+        //                    buttonOptions: {
+        //                        verticalAlign: 'top'
+        //                    }
+        //                },
+        //
+        ////                plotOptions: {
+        ////                    map: {
+        ////                        states: {
+        ////                            hover: {
+        ////                                color: '#EEDD66'
+        ////                            }
+        ////                        }
+        ////                    }
+        ////                },
+        //
+        //                series: [
+        //                    {
+        //                        borderWidth: 0,
+        //                        data: _myJson,
+        //                        name: 'mapSeries',
+        //                        dataLabels: {
+        //                            enabled: true,
+        //                            align: 'center',
+        //                            verticalAlign: 'middle',
+        //                            format: '{point.properties.name}'
+        //                        }
+        //                    }
+        //                ],
+        //
+        //                drilldown: {
+        ////                    //series: drilldownSeries,
+        //                    activeDataLabelStyle: {
+        //                        color: '#FFFFFF',
+        //                        textDecoration: 'none',
+        //                        textShadow: '0 0 3px #000000'
+        //                    }
+        ////                    drillUpButton: {
+        ////                        relativeTo: 'spacingBox',
+        ////                        position: {
+        ////                            x: 0,
+        ////                            y: 60
+        ////                        }
+        ////                    }
+        //                }
+        //            });
+        //        }
+    </script>
+</head>
+<body>
+
+<!--<output id="list"></output>-->
+
+<script>
+
+
+</script>
+<div id="container" style="display: none;"></div>
+<label id="classLabel"></label>
+<input type="text" id="textID" name="textID" onchange="textInput(this.value)">
+<input id="loadBackgroud" type="file" style="display: none;" onchange="loadBackgroud(this.files)">
+<button id="btnLoadBackgroud">backgroud</button>
+<button id="newRect" onClick="newRect()">Rect</button>
+<button id="newCircle" onClick="newCircle()">Circle</button>
+<button id="newTriangle" onClick="newTriangle()">Triangle</button>
+<button id="remove" onClick="remove()">remove</button>
+
+<button id="maps" onClick="creatMaps()">maps</button>
+
+
+<button id="saveMaps" onclick="saveMaps()">save</button>
+
+<input id="loadMaps" type="file" style="display: none;" onchange="loadMaps(this.files)">
+<button id="btnLoadMaps">load</button>
+
+<button id="clone" onClick="clone()">clone</button>
+
+<button id="place" onClick="place()">place</button>
+
+<canvas id="hCanvas" height="500" ></canvas>
+
+
+<script id="main">
+    var mapsJSONforSave = '';
+    var fabricCanvas = new fabric.Canvas("hCanvas");
+    var fabricID = [];
+    document.getElementById('classLabel').innerText = '_class_';
+    var classLabel = document.getElementById('classLabel').innerText;
+    fabric.Canvas.prototype.getObjectsLength = function () {
+        var object = null,
+            objects = this.getObjects();
+        return objects.length;
+    };
+    //    fabric.Rect.prototype.id = 'idxx';
+    $('#btnLoadBackgroud').click(function () {
+        $('#loadBackgroud').click();
+    });
+    $('#btnLoadMaps').click(function () {
+        $('#loadMaps').click();
+    });
+
+
+    fabricCanvas.on('mouse:down', function (options) {
+//        console.log('canvas event');
+//        console.log(options);
+        if (fabricCanvas.getActiveObject() == null) {
+//            cc('null');
+//            document.getElementById("textID").value = '';
+//            documentt.getElementById('textID').disabled = true;
+        } else {
+            document.getElementById('textID').disabled = false;
+        }
+    });
+
+    function textInput(text) {
+//        var o = fabricCanvas.getActiveObject();
+//        var i = fabricCanvas.getObjects().indexOf(o);
+//        fabricID[i]['id'] = text;
+        if (fabricCanvas.getActiveObject() == null && !fabricCanvas.getActiveGroup()) {
+            cc('getActiveObject() == null');
+            return;
+        }
+        if (fabricCanvas.getActiveGroup()) {
+            cc('Group id');
+            fabricCanvas.getActiveGroup().forEachObject(function (o) {
+                o.id = text;
+//                var i = fabricCanvas.getObjects().indexOf(o);
+//                fabricID[i]['id'] = text;
+            });
+        } else {
+            cc('single id');
+            var o = fabricCanvas.getActiveObject();
+            o.id = text;
+//            var i = fabricCanvas.getObjects().indexOf(o);
+//            fabricID[i]['id'] = text;
+        }
+    }
+    var groupClone;
+
+    function clone() {
+        var activegroup = fabricCanvas.getActiveGroup();
+        var objectsInGroup = activegroup.getObjects();
+        groupClone = [];
+        activegroup.clone(function (newgroup) {
+            fabricCanvas.discardActiveGroup();
+            objectsInGroup.forEach(function (object) {
+//                cc(fabricID[fabricCanvas.getObjects().indexOf(object)]['id']);
+//                groupClone.push({'id': fabricID[fabricCanvas.getObjects().indexOf(object)]['id']});
+//                fabricCanvas.remove(object);
+//                groupID.push({}) ;
+//                fabricID.push({"id": id});
+            });
+            fabricCanvas.add(newgroup);
+
+        });
+    }
+
+    function place() {
+        var activeObject = fabricCanvas.getActiveObject();
+        if (activeObject.type == "group") {
+            var items = activeObject._objects;
+//            $.each(items, function (i, item) {
+//                ss(item);
+//                ss(objectID(item));
+//            });
+//            alert(items);
+            activeObject._restoreObjectsState();
+            fabricCanvas.remove(activeObject);
+            for (var i = 0; i < items.length; i++) {
+                fabricCanvas.add(items[i]);
+                fabricCanvas.item(fabricCanvas.size() - 1).hasControls = true;
+//                var id = 'id' + new Date().getTime();
+//                document.getElementById("textID").value = id;
+//        fabricID.push({"id": id, "type": 'rect', 'width': 100, 'height': 100, 'angle': 0, 'left': 0, 'top': 0});
+                fabricID.push({"id": groupClone[i]['id']});
+            }
+            fabricCanvas.renderAll();
+        }
+    }
+    //    loadMaps
+    function loadMaps(files) {
+//        var fileToLoad = document.getElementById("fileToLoad").files[0];
+//        cc('loadMaps');
+        var fileReader = new FileReader();
+        fileReader.readAsText(files[0], "UTF-8");
+        fileReader.onload = function (fileLoadedEvent) {
+            var textFromFileLoaded = fileLoadedEvent.target.result;
+
+
+            var items = JSON.parse(textFromFileLoaded);
+//            cc(mapObjects.length);
+
+            $.each(items, function (i, item) {
+                if (item['type'] == 'rect') {
+                    document.getElementById("textID").value = item['nameID'];
+                    fabricCanvas.add(new fabric.Rect({
+                        width: item['width'],
+                        height: item['height'],
+                        left: item['left'],
+                        top: item['top'],
+                        angle: item['angle'],
+                        fill: 'rgba(0,200,0,0.80)',
+                        transparentCorners: false,
+                        classID: item['classID'],
+                        nameID: item['nameID'],
+                        objectID: item['classID'] + '/' + item['nameID'],
+                    }).on('selected', function (e) {
+//                        console.log('selected a rectangle');
+//                        console.log(e);
+//                        console.log(this);
+//                        console.log(fabricCanvas.getObjects().indexOf(this));
+//                        document.getElementById("textID").value = fabricID[fabricCanvas.getObjects().indexOf(this)]['id'];
+                        document.getElementById("textID").value = item['nameID'];
+                    }));
+
+//        cc('addRec')
+                } else if (item['type'] == 'circle') {
+                    var id = item['id'];
+                    document.getElementById("textID").value = item['nameID'];
+//                    fabricID.push({
+//                        "id": id,
+////                        "type": 'circle',
+////                        'radius': obj['radius'],
+////                        'width': obj['width'],
+////                        'height': obj['height'],
+////                        'left': obj['left'],
+////                        'top': obj['top'],
+////                        'angle': obj['angle'],
+////                        'originX': obj['originX'],
+////                        'originY': obj['originY'],
+////                        'scaleX': obj['scaleX'],
+////                        'scaleY': obj['scaleY']
+//                    });
+                    fabricCanvas.add(new fabric.Circle({
+                        'radius': item['radius'],
+                        'width': item['width'],
+                        'height': item['height'],
+                        'left': item['left'],
+                        'top': item['top'],
+                        'angle': item['angle'],
+                        'originX': item['originX'],
+                        'originY': item['originY'],
+                        'scaleX': item['scaleX'],
+                        'scaleY': item['scaleY'],
+//            fill: '#aac'
+                        fill: 'rgba(0,200,0,0.80)',
+                        transparentCorners: false,
+                        nameID: item['nameID'],
+                        classID: item['classID'],
+                        objectID: item['classID'] + '/' + item['nameID'],
+                    }).on('selected', function (e) {
+//                        document.getElementById("textID").value = fabricID[fabricCanvas.getObjects().indexOf(this)]['id'];
+                        document.getElementById("textID").value = item['nameID'];
+                    }));
+                } else if (item['type'] == 'triangle') {
+                    document.getElementById("textID").value = item['nameID'];
+                    fabricCanvas.add(new fabric.Triangle({
+                        width: item['width'],
+                        height: item['height'],
+                        left: item['left'],
+                        top: item['top'],
+                        angle: item['angle'],
+//            fill: '#cca'
+                        fill: 'rgba(0,200,0,0.80)',
+                        transparentCorners: false,
+                        nameID: item['nameID'],
+                        classID: item['classID'],
+                        objectID: item['classID'] + '/' + item['nameID'],
+                    }).on('selected', function (e) {
+//                        document.getElementById("textID").value = fabricID[fabricCanvas.getObjects().indexOf(this)]['id'];
+                        document.getElementById("textID").value = item['nameID'];
+                    }));
+                }
+            });
+//            document.getElementById("inputTextToSave").value = textFromFileLoaded;
+        };
+    }
+
+    function loadBackgroud(files) {
+//        var ctx = document.getElementById('c').getContext('2d');
+//        var oldCanvas = canvas.toDataURL("image/png");
+
+//        cc(files[0]);
+        var image = new Image();
+        image.src = window.URL.createObjectURL(files[0]);
+
+
+//        1) time
+//          createObjectURL is synchronously executed
+//          filereader.readasdataurl is asynchronously executed (works with callback)
+
+//        2) memory usage
+//          createObjectURL return url with hash, and store object in memory until document triggers unload event (document close) or execute revokeObjectURL
+//          filereader.readasdataurl return base64, that contains many characters, and use more memory than blob url, but removes from memory when you don't use it (by garbage collector)
+
+//        3) support
+//          createObjectURL from 10 ie and all modern browsers
+//          filereader.readasdataurl from 10 ie and all modern browsers
+
+//          is better to use blob url's (via createObjectURL), it is more efficient and faster, but if you use many object urls, you need to release this urls by revokeObjectURL (for free memmory)
+
+        image.onload = function () {
+            fabricCanvas.setDimensions({width: image.width, height: image.height}, {backstoreOnly: true});
+            fabricCanvas.setDimensions({width: image.width + 'px', height: image.height + 'px'}, {cssOnly: true});
+            fabricCanvas.setBackgroundImage(image.src, fabricCanvas.renderAll.bind(fabricCanvas));
+        };
+
+//        function resizeElementHeight(element) {
+        var element = document.getElementById('container');
+//            var height = 0;
+//            var body = window.document.body;
+//            if (window.innerHeight) {
+//                height = window.innerHeight;
+//            } else if (body.parentElement.clientHeight) {
+//                height = body.parentElement.clientHeight;
+//            } else if (body && body.clientHeight) {
+//                height = body.clientHeight;
+//            }
+        document.getElementById("container").height = image.height + "px";
+        document.getElementById("container").width = image.width + "px";
+//        element.style.height = image.height + "px";
+//        element.style.width = image.width + "px";
+//        element.height = image.height + "px";
+//        element.width = image.width + "px";
+//        }
+    }
+    //    function setBackground(URL) {
+    //        var image = new Image();
+    //        image.src = URL;
+    //        image.onload = function () {
+    ////            var ctx = document.getElementById('c').getContext('2d');
+    ////            var oldCanvas = canvas.toDataURL("image/png");
+    //            fabricCanvas.setDimensions({width: image.width, height: image.height}, {backstoreOnly: true});
+    //            fabricCanvas.setDimensions({width: image.width + 'px', height: image.height + 'px'}, {cssOnly: true});
+    //            fabricCanvas.setBackgroundImage(image.src, fabricCanvas.renderAll.bind(fabricCanvas));
+    //        }
+    //    }
+    function newRect() {
+
+        var rect = new fabric.Rect({
+            width: 50,
+            height: 50,
+            left: 0,
+            top: 0,
+            angle: 0,
+            fill: 'rgba(0,200,0,0.80)',
+            transparentCorners: false,
+            classID: classLabel,
+            nameID: 'Rect_' + new Date().getTime(),
+            objectID: classLabel + '/' + 'Rect_' + new Date().getTime()
+        }).on('selected', function (e) {
+//            console.log('selected a rectangle');
+//            console.log(e);
+//            console.log(this);
+//            console.log(fabricCanvas.getObjects().indexOf(this));
+//            document.getElementById("textID").value = fabricID[fabricCanvas.getObjects().indexOf(this)]['id'];
+            document.getElementById("textID").value = this.nameID;
+        });
+//        rect.id = 'id' + new Date().getTime();
+        fabricCanvas.add(rect);
+//        cc('rect');
+//        cc(rect);
+
+        document.getElementById("textID").value = rect.nameID;
+//        fabricID.push({"id": id, "type": 'rect', 'width': 100, 'height': 100, 'angle': 0, 'left': 0, 'top': 0});
+//        fabricID.push({"id": id});
+
+    }
+    //    $('#Rect').click(function () {
+    //        fabricCanvas.add(new fabric.Rect({
+    //            width: 100,
+    //            height: 100,
+    //            left: 0,
+    //            top: 0,
+    //            angle: 0,
+    //            fill: 'rgba(0,200,0,0.80)',
+    //            transparentCorners: false
+    //        }).on('selected', function (e) {
+    //            console.log('selected a rectangle');
+    //            console.log(e);
+    //            console.log(this);
+    //            console.log(fabricCanvas.getObjects().indexOf(this));
+    //            document.getElementById("textID").value = fabricID[fabricCanvas.getObjects().indexOf(this)]['id'];
+    //        }));
+    ////        cc('addRec')
+    //        var id = 'Unit_' + (fabricCanvas.getObjects().length - 1);
+    //        document.getElementById("textID").value = id;
+    //        fabricID.push({"id": id, "type": 'rect', 'width': 100, 'height': 100, 'left': 0, 'top': 0, 'angle': 0,});
+    //    });
+
+    function newCircle() {
+        var circle = new fabric.Circle({
+            radius: 25,
+            left: 150,
+            top: 25,
+            angle: 0,
+            originX: 'center',
+            originY: 'center',
+            scaleX: 1,
+            scaleY: 1,
+//            fill: '#aac'
+            fill: 'rgba(0,200,0,0.80)',
+            transparentCorners: false,
+            classID: classLabel,
+            nameID: 'Circle_' + new Date().getTime(),
+            objectID: classLabel + '/' + 'Circle_' + new Date().getTime()
+        }).on('selected', function (e) {
+//            console.log('selected a circle');
+//            console.log(e);
+//            console.log(this);
+//            console.log(fabricCanvas.getObjects().indexOf(this));
+//            document.getElementById("textID").value = fabricID[fabricCanvas.getObjects().indexOf(this)]['id'];
+            document.getElementById("textID").value = this.nameID;
+        });
+        fabricCanvas.add(circle);
+        document.getElementById("textID").value = circle.nameID;
+//        fabricID.push({
+//            "id": id,
+////            "type": 'circle',
+////            'radius': 50,
+////            'left': 0,
+////            'top': 0,
+////            'angle': 0,
+////            'originY': 'center',
+////            'originY': 'center',
+////            'scaleX': 1,
+////            'scaleY': 1,
+//        });
+    }
+
+    function newTriangle() {
+        var triangle = new fabric.Triangle({
+            width: 71,
+            height: 35,
+            left: 200,
+            top: 0,
+            angle: 0,
+//            fill: '#cca'
+            fill: 'rgba(0,200,0,0.80)',
+            transparentCorners: false,
+            classID: classLabel,
+            nameID: 'Triangle_' + new Date().getTime(),
+            objectID: classLabel + '/' + 'Triangle_' + new Date().getTime()
+        }).on('selected', function (e) {
+//            console.log('selected a triangle');
+//            console.log(e);
+//            console.log(this);
+//            console.log(fabricCanvas.getObjects().indexOf(this));
+//            document.getElementById("textID").value = fabricID[fabricCanvas.getObjects().indexOf(this)]['id'];
+            document.getElementById("textID").value = this.nameID;
+        });
+        fabricCanvas.add(triangle);
+//        var id = 'id' + new Date().getTime();
+        document.getElementById("textID").value = triangle.nameID;
+//        fabricID.push({"id": id, "type": 'triangle', 'angle': 0, 'width': 100, 'height': 100, 'left': 200, 'top': 0});
+//        fabricID.push({"id": id});
+    }
+
+    function remove() {
+//        cc('remove');
+//        cc(fabricCanvas.getActiveGroup());
+        if (fabricCanvas.getActiveGroup()) {
+            fabricCanvas.getActiveGroup().forEachObject(function (o) {
+//                var i = fabricCanvas.getObjects().indexOf(o);
+//                fabricID.splice(i, 1);
+                fabricCanvas.remove(o)
+            });
+            fabricCanvas.discardActiveGroup().renderAll();
+        } else {
+            var o = fabricCanvas.getActiveObject();
+//            var i = fabricCanvas.getObjects().indexOf(o);
+//            fabricID.splice(i, 1);
+            fabricCanvas.remove(o);
+        }
+    }
+
+    function featureExist(obj, coordinates) {
+        var _Exist = false;
+        $.each(coordinates, function (i, _coordinates) {
+//            if (_coordinates['id'] == fabricID[fabricCanvas.getObjects().indexOf(obj)]['id']) {
+            if (_coordinates['id'] == obj.objectID) {
+                _Exist = true;
+                return false;
+            }
+        });
+        return _Exist;
+    }
+    //    document.querySelector("#load").onclick = function () {
+    ////        var result = copyToClipboard(new Date().toString());
+    //        console.log("load", 'file');
+    //    };
+
+
+    //    $('#Map').click(function () {
+    //    document.querySelector('#Map').onclick = function () {
+    function creatMaps() {
+        //cc(fabricCanvas);
+//        cc(fabricCanvas.getObjectsLength());
+//        $.each(fabricCanvas.getObjects(), function (i, o) {
+//            cc(o.id);
+//        });
+        var coordinates = [];
+        var pieces = [];
+        var features = [];
+        $.each(fabricCanvas.getObjects(), function (i, obj) {
+//            console.log(i, '/', obj.objectID);
+            if (obj.get('type') == 'rect') {
+                var a0 = obj.angle;
+                var x0 = obj.oCoords.bl.x, y0 = obj.oCoords.bl.y;
+                var x1 = obj.oCoords.br.x, y1 = obj.oCoords.br.y;
+                var x2 = obj.oCoords.tr.x, y2 = obj.oCoords.tr.y;
+                var x3 = obj.oCoords.tl.x, y3 = obj.oCoords.tl.y
+                var d0 = [];
+                d0.push([x0, -y0]);
+                d0.push([x1, -y1]);
+                d0.push([x2, -y2]);
+                d0.push([x3, -y3]);
+                d0.push([x0, -y0]);
+                if (!featureExist(obj, coordinates)) {
+                    coordinates.push({
+//                        "id": fabricID[fabricCanvas.getObjects().indexOf(obj)]['id'], "d0": []
+                        "id": obj.objectID, "d0": []
+                    });
+                }
+                $.each(coordinates, function (i, _coordinates) {
+//                    if (_coordinates['id'] == fabricID[fabricCanvas.getObjects().indexOf(obj)]['id']) {
+                    if (_coordinates['id'] == obj.objectID) {
+                        _coordinates['d0'].push(d0);
+                        return false;
+                    }
+                });
+            }
+            if (obj.get('type') == 'circle') {
+                var r = obj.radius;
+                var a0 = obj.angle;
+                var x0 = obj.left;
+                var y0 = obj.top;
+                var scaleX = obj.scaleX;
+                var scaleY = obj.scaleY;
+                var d0 = [];
+                var x1, y1;
+                for (var i = 0; i < 360; i += 5) {
+                    var xx, yy;
+                    xx = scaleX * r * Math.cos(i * Math.PI / 180);
+                    yy = scaleY * r * Math.sin(i * Math.PI / 180);
+                    x1 = xx * Math.cos(a0 * Math.PI / 180) - yy * Math.sin(a0 * Math.PI / 180);
+                    y1 = xx * Math.sin(a0 * Math.PI / 180) + yy * Math.cos(a0 * Math.PI / 180);
+                    d0.push([x0 + x1, -(y0 + y1)]);
+                }
+                if (!featureExist(obj, coordinates)) {
+                    coordinates.push({
+//                        "id": fabricID[fabricCanvas.getObjects().indexOf(obj)]['id'],
+                        "id": obj.objectID,
+                        "d0": []
+                    });
+                }
+                $.each(coordinates, function (i, _coordinates) {
+//                    if (_coordinates['id'] == fabricID[fabricCanvas.getObjects().indexOf(obj)]['id']) {
+                    if (_coordinates['id'] == obj.objectID) {
+                        _coordinates['d0'].push(d0);
+                        return false;
+                    }
+                });
+            }
+            if (obj.get('type') == 'triangle') {
+                var x0 = obj.oCoords.bl.x, y0 = obj.oCoords.bl.y;
+                var x1 = obj.oCoords.br.x, y1 = obj.oCoords.br.y;
+                var x2 = obj.oCoords.mt.x, y2 = obj.oCoords.mt.y;
+                var d0 = [];
+                d0.push([x0, -y0]);
+                d0.push([x1, -y1]);
+                d0.push([x2, -y2]);
+                d0.push([x0, -y0]);
+                if (!featureExist(obj, coordinates)) {
+                    coordinates.push({
+//                        "id": fabricID[fabricCanvas.getObjects().indexOf(obj)]['id'], "d0": []
+                        "id": obj.objectID, "d0": []
+                    });
+                }
+                $.each(coordinates, function (i, _coordinates) {
+//                    if (_coordinates['id'] == fabricID[fabricCanvas.getObjects().indexOf(obj)]['id']) {
+                    if (_coordinates['id'] == obj.objectID) {
+                        _coordinates['d0'].push(d0);
+                        return false;
+                    }
+                });
+            }
+        });
+
+        $.each(coordinates, function (i, _coordinates) {
+//            cc(_coordinates['id']);
+//            cc(_coordinates['d0'].length);
+//            if (_coordinates['type'] == 'rect') {
+            var id = _coordinates['id'];
+            var x = id.indexOf('/');
+            var classID = id.substring(0, x);
+            var nameID = id.substring(x + 1);
+            cc(classID + '-' + nameID);
+
+            features.push({
+                type: "Feature",
+                properties: {
+                    "hc-key": classID,
+                    "name": nameID
+                },
+                geometry: {
+                    type: "Polygon",
+                    coordinates: _coordinates['d0']
+                }
+            });
+//            }
+//            if (_coordinates['type'] == 'triangle') {
+//                features.push({
+//                    type: "Feature",
+//                    properties: {
+//                        "hc-key": _coordinates['id'], "name": _coordinates['id']
+//                    },
+//                    geometry: {
+//                        type: "Polygon",
+//                        coordinates: _coordinates['d0']
+//                    }
+//                });
+//            }
+//            if (_coordinates['type'] == 'circle') {
+//                features.push({
+//                    type: "Feature",
+//                    properties: {
+//                        "hc-key": _coordinates['id'], "name": _coordinates['id']
+//                    },
+//                    geometry: {
+//                        type: "Polygon",
+//                        coordinates: _coordinates['d0']
+//                    }
+//                });
+//            }
+        });
+
+        features = {
+            "type": 'FeatureCollection',
+            "features": features
+        };
+//        cc('features');
+//        cc(features);
+        var mJson = Highcharts.geojson(features);
+        $.each(mJson, function () {
+//            this.value = 60 + Math.round((Math.random() * 40)); // Non-random bogus data
+            this.value = 50; // Non-random bogus data
+        });
+//        cc(JSON.stringify(features));
+//        window.prompt("Copy to clipboard: Ctrl+C, Enter", JSON.stringify(features));
+//        cc(JSON.stringify(mJson));
+//        mapInit(mJson);
+
+//        mJson = Highcharts.geojson(geojson);
+//        $.each(mJson, function () {
+//            this.value = 60 + Math.round((Math.random() * 40)); // Non-random bogus data
+//        });
+        if ($('#container').is(":hidden")) {
+//            $( "div" ).show( "slow" );
+            $('#container').slideDown("slow", function () {
+//            alert('slideDown');
+            }).highcharts('Map', {
+                credits: {
+                    enabled: false,
+                    href: 'http://www.rtsperfectplant.com/',
+                    position: {
+                        align: 'right',
+                        x: -10,
+                        verticalAlign: 'bottom',
+                        y: -5
+                    },
+
+                    style: {
+                        cursor: 'pointer',
+                        color: '#999999',
+                        fontSize: '9px'
+                    },
+
+                    text: 'RTS Consulting Inc.'
+                },
+                chart: {
+
+
+                    events: {
+                        drilldown: function () {
+                        },
+                        drillup: function () {
+                        }
+                    }
+                },
+
+                title: {
+                    text: ''
+                },
+
+//                subtitle: {
+//                    text: 'subtitle',
+//                    floating: true,
+//                    align: 'right',
+//                    y: 50,
+//                    style: {
+//                        fontSize: '16px'
+//                    }
+//                },
+
+//                legend: small ? {} : {
+//                    layout: 'vertical',
+//                    align: 'right',
+//                    verticalAlign: 'middle'
+//                },
+
+                colorAxis: {
+                    showInLegend: false,
+                    min: 0,
+                    minColor: '#E6E7E8',
+                    maxColor: '#005645'
+                },
+
+                mapNavigation: {
+                    enabled: true,
+                    buttonOptions: {
+                        verticalAlign: 'top'
+                    }
+                },
+
+//                plotOptions: {
+//                    map: {
+//                        states: {
+//                            hover: {
+//                                color: '#EEDD66'
+//                            }
+//                        }
+//                    }
+//                },
+
+                series: [
+                    {
+                        borderWidth: 0,
+                        data: mJson,
+                        name: '',
+                        dataLabels: {
+                            enabled: true,
+                            align: 'center',
+                            verticalAlign: 'middle',
+                            format: '{point.properties.name}'
+//                            format: ' '
+                        }
+                    }
+                ],
+
+                drilldown: {
+//                    //series: drilldownSeries,
+//                activeDataLabelStyle: {
+//                    color: '#FFFFFF',
+//                    textDecoration: 'none',
+//                    textShadow: '0 0 3px #000000'
+//                },
+//                    drillUpButton: {
+//                        relativeTo: 'spacingBox',
+//                        position: {
+//                            x: 0,
+//                            y: 60
+//                        }
+//                    }
+                }
+
+            });
+
+        } else {
+            $('#container').slideUp();
+        }
+        mapsJSONforSave = JSON.stringify(features);
+        console.log("copyToClipboard", copyToClipboard(mapsJSONforSave));
+    }
+
+
+    //    document.querySelector("#copy").onclick = function () {
+    //        var result = copyToClipboard(new Date().toString());
+    //        console.log("copied?", result);
+    //    };
+    function copyToClipboard(text) {
+        if (window.clipboardData && window.clipboardData.setData) {
+            // IE specific code path to prevent textarea being shown while dialog is visible.
+            return clipboardData.setData("Text", text);
+
+        } else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+            var textarea = document.createElement("textarea");
+            textarea.textContent = text;
+            textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                return document.execCommand("copy");  // Security exception may be thrown by some browsers.
+            } catch (ex) {
+                console.warn("Copy to clipboard failed.", ex);
+                return false;
+            } finally {
+                document.body.removeChild(textarea);
+            }
+        }
+    }
+
+    function saveMaps() {
+
+        var textToSave;// = mapsJSONforSave;
+        cc('maps.json');
+        var projs = [];
+        $.each(fabricCanvas.getObjects(), function (i, obj) {
+            if (obj.get('type') == 'rect') {
+                projs.push({
+//                    "id": fabricID[i]['id'],
+                    "classID": obj.classID,
+                    "nameID": obj.nameID,
+                    "type": 'rect',
+                    "width": obj.getWidth(),
+                    "height": obj.getHeight(),
+                    "left": obj.left,
+                    "top": obj.top,
+                    "angle": obj.angle
+                });
+            } else if (obj.get('type') == 'circle') {
+                projs.push({
+//                    "id": fabricID[i]['id'],
+                    "classID": obj.classID,
+                    "nameID": obj.nameID,
+                    "type": 'circle',
+                    "radius": obj.radius,
+                    "width": obj.getWidth(),
+                    "height": obj.getHeight(),
+                    "left": obj.left,
+                    "top": obj.top,
+                    "angle": obj.angle,
+                    "originX": obj.originX,
+                    "originY": obj.originY,
+                    "scaleX": obj.scaleX,
+                    "scaleY": obj.scaleY
+                });
+            } else if (obj.get('type') == 'triangle') {
+                projs.push({
+//                    "id": fabricID[i]['id'],
+                    "classID": obj.classID,
+                    "nameID": obj.nameID,
+                    "type": 'triangle',
+                    "width": obj.getWidth(),
+                    "height": obj.getHeight(),
+                    "left": obj.left,
+                    "top": obj.top,
+                    "angle": obj.angle
+                });
+            }
+            cc(JSON.stringify(projs));
+            textToSave = JSON.stringify(projs);
+        });
+//        return;
+
+
+        var textToSaveAsBlob = new Blob([textToSave], {type: "text/plain"});
+        var textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);
+        var fileNameToSaveAs = 'maps.json';
+        var downloadLink = document.createElement("a");
+        downloadLink.download = fileNameToSaveAs;
+        downloadLink.innerHTML = "Download File";
+        downloadLink.href = textToSaveAsURL;
+        downloadLink.onclick = destroyClickedElement;
+        downloadLink.style.display = "none";
+        document.body.appendChild(downloadLink);
+
+        downloadLink.click();
+    }
+    function destroyClickedElement(event) {
+        document.body.removeChild(event.target);
+    }
+
+    function ss(_string) {
+        alert(_string);
+    }
+    function cc(_object) {
+        console.log(_object);
+    }
+    // 		})();
+</script>
+<script src="https://code.highcharts.com/maps/highmaps.js"></script>
+<script src="https://code.highcharts.com/maps/modules/data.js"></script>
+<script src="https://code.highcharts.com/maps/modules/drilldown.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv='Content-Type' content='text/html;charset=UTF-8' />
+
+<script
+	src="https://sapui5.netweaver.ondemand.com/resources/sap-ui-core.js"
+	id="sap-ui-bootstrap" data-sap-ui-libs="sap.m, sap.ui.commons"
+	data-sap-ui-theme="sap_bluecrystal">
+	
+</script>
+<!-- only load the mobile lib "sap.m" and the "sap_bluecrystal" theme -->
+
+<script>
+	sap.m.DateTimePicker("DateTimePicker1", {
+
+		width : "160px",
+		placeholder : "From ...",
+		//value : new Date(),
+		valueFormat : "MM dd, yyyy hh:mm:ss a",
+		displayFormat : "short",
+		//displayFormatType : "Islamic",
+		//secondaryCalendarType : "Gregorian",
+		//change="handleChange"/>
+		change : function(oEvent) {
+			// 			var oText = this.byId("T1");
+			var oDTP = oEvent.oSource;
+			var sValue = oEvent.getParameter("value");
+			var bValid = oEvent.getParameter("valid");
+			// 			this._iEvent++;
+			// 			oText.setText("Change - Event " + this._iEvent
+			// 					+ ": DateTimePicker " + oDTP.getId() + ":" + sValue);
+
+			if (bValid) {
+				oDTP.setValueState(sap.ui.core.ValueState.None);
+				alert(oDTP.getDateValue().getTime());
+			} else {
+				oDTP.setValueState(sap.ui.core.ValueState.Error);
+			}
+		},
+	}).placeAt('content');
+</script>
+
+</head>
+<body class="sapUiBody" role="application">
+	<div id="content"></div>
+</body>
+</html>

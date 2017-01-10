@@ -1,0 +1,66 @@
+<!DOCTYPE html >
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>OEEM - Access Denied</title>
+	<style>
+	body{
+		//background-image: url("Common/img/logo.png");
+		background-size: 120px;
+		background-repeat: no-repeat;
+    		background-attachment: fixed;
+    		background-position: right 40px top 25px;
+	}
+	#app_header {
+ 		padding: 10px;
+ 		padding-left: 40px;
+ 		padding-top: 15px;
+ 		padding-bottom: 0px;
+		height:80px;
+		width:400px;
+		text-align: center;
+	}
+	#app_title {
+		width:400px;
+		text-align: center;
+		font-family: "Arial Black",Arial,Helvetica,sans-serif;
+		font-size:32px;
+		color: #007dc0;
+		margin-bottom; 20px;
+	}
+	#app_menu {
+		width:400px;
+		text-align: center;
+		font-family: Arial,Helvetica,sans-serif;
+	}
+	#page_title {
+		width:400px;
+		text-align: center;
+		font-family: "Arial Black",Arial,Helvetica,sans-serif;
+		font-size:28px;
+		color: #cfcfcf;
+	}
+	#oee_content {
+ 		padding: 30px;
+ 		padding-top: 0px;
+	}
+	</style>
+ <script type="text/javascript">
+	function update_scr() {
+		document.getElementById("app_title").innerHTML = document.getElementById("user_name").value;
+	}
+</script>
+</head>
+<body onload="update_scr()">
+<input id="user_roles" type="hidden" value="{IllumLoginRoles}" style="display:block;width:800px;" readonly />
+<input id="user_plant" type="hidden" value="{PLANT}" style="display:block;width:800px;" readonly />
+<input id="user_name" type="hidden" value="{IllumLoginName}" style="display: block;" readonly />
+<div id="app_header" >
+<div id="app_title">--</div>
+<div id="app_menu">Please update your application role!</div>
+<div id="page_title">ACCESS DENIED</div>
+</div>
+<div id="oeem_content" ></div>
+</body>
+</html>

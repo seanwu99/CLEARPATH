@@ -1,0 +1,3875 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>CT MODULE</title>
+
+<style>
+body { //
+	background-image: url("Common/img/logo.png");
+	background-size: 180px;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: right 40px top 30px;
+	font-family: Arial;
+}
+
+#app_header {
+	padding: 10px;
+	padding-left: 40px;
+	padding-top: 15px;
+	padding-bottom: 0px;
+	height: 80px;
+	width: 400px;
+	text-align: center;
+}
+
+#app_title {
+	width: 400px;
+	text-align: center;
+	font-family: "Arial Black", Arial, Helvetica, sans-serif;
+	font-size: 32px;
+	color: #007dc0;
+	margin-bottom;
+	20
+	px;
+}
+
+#app_menu {
+	width: 400px;
+	text-align: center;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+#page_title {
+	width: 400px;
+	text-align: center;
+	font-family: "Arial Black", Arial, Helvetica, sans-serif;
+	font-size: 28px;
+	color: #cfcfcf;
+}
+
+#mesm_content {
+	padding: 30px;
+	padding-top: 40px;
+}
+
+#__button0, #__button1, #__button2 {
+	margin-top: 10px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+#MatrixT, #MatrixB {
+	margin: 10px auto;
+}
+
+#tbl_tagdef, #tbl_trigger, #tbl_sqltagdef, #tbl_labeltriggers {
+	margin: 2px auto;
+	margin-bottom: 15px;
+}
+
+#B-Add, #B-Edit, #B-Delete, #B-MvUp, #B-MvDn {
+	width: 100px;
+	height: 35px;
+	font-size: 14px;
+}
+
+#__cell2, #__cell3, #__cell4, #__cell5, #__cell6 {
+	text-align: center;
+}
+
+#__cell0 {
+	text-align: right;
+}
+
+#__cell7, #__cell21, #__cell22, #__cell36, /* Connectivity */ #__cell37,
+	#__cell45, /* Define Tags */ #__cell46, #__cell56, #__cell57, #__cell58,
+	#__cell63, #__cell69, #__cell70, #__cell71, #__cell97, #__cell103,
+	#__cell104, #__cell105 {
+	text-align: center;
+	height: 36px;
+}
+
+#__cell76, #__cell90, #__cell91, #__cell92 {
+	text-align: center;
+	height: 36px;
+}
+
+#__cell8, #__cell10, #__cell12, #__cell14, #__cell16, #__cell18,
+	#__cell23, #__cell25, #__cell27, #__cell29, #__cell31, #__cell33,
+	#__cell38, #__cell40, #__cell42, #__cell47, #__cell49, #__cell51,
+	#__cell53, #__cell64 {
+	padding: 10px;
+	padding-right: 20px;
+	text-align: right;
+}
+
+#__cell77, #__cell79, #__cell81, #__cell83, #__cell85, #__cell87,
+	#__cell98, #__cell100 {
+	padding: 10px;
+	padding-right: 20px;
+	text-align: right;
+}
+
+#__cell67 {
+	padding: 10px;
+	padding-left: 20px;
+	text-align: left;
+}
+
+#L-AddHrchy, #L-EditHrchy, #L-Connectivity, #L-DefinedTags,
+	#L-DefinedTriggers, #L-DefinedSql, #L-LabelTriggers {
+	margin-top: 15px;
+	padding: 5px;
+	font-family: "Arial Black", Arial, Helvetica, sans-serif;
+	font-size: 32px;
+	height: 35px;
+	color: #007dc0;
+}
+
+#B-AddHrchy, #B-EditHrchy, #B-AddConnectivity, #B-AddDefined,
+	#B-EditDefined, #B-DeleteDefined, #B-AddTrigger, #B-EditTrigger,
+	#B-DeleteTrigger, #B-AddSqlDefined, #B-EditSqlDefined,
+	#B-DeleteSqlDefined, #B-AddLabelTriggers, #B-EditLabelTriggers,
+	#B-DeleteLabelTriggers {
+	width: 100px;
+	height: 35px;
+	font-size: 14px;
+}
+
+#input_desc, #input_desce {
+	width: 250px;
+}
+
+#B-Connectivity, #B-DefinedTag, #B-DefinedSql, #B-Trigger,
+	#B-LabelTriggers, #dbox_route, #dbox_routee {
+	margin-left: 20px;
+}
+</style>
+
+
+
+<script id="sap-ui-bootstrap" src="/sapui5/resources/sap-ui-core.js"
+	data-sap-ui-theme="sap_goldreflection"
+	data-sap-ui-libs="sap.ui.core,sap.ui.commons,sap.ui.table,sap.ui.ux3"
+	data-sap-ui-language="en">
+	
+</script>
+<script type="text/javascript" src="Common/js/default.js"></script>
+
+<script type="text/javascript" id="app-init">
+	// ******************************************************************************************************************************************************************
+	// Get Core SAP UI5
+	var oCore = sap.ui.getCore();
+	// Initialize screen
+	var nrRows = 13;
+	var selectedIndex = -1;
+	// ******************************************************************************************************************************************************************
+	// initialize access
+	var level2Access = "";
+	var plant2Access = "";
+	// Initialize screen
+	var selectedPlant = 0;
+	var nrRows = 13;
+	var recordID = "";
+	var unitType = "";
+	var unitName = "";
+	var unitDescr = "";
+	var idUnitParent = "";
+	var unitActive = "";
+	var unitSqlServer = "";
+	var unitSAPID = "";
+	var unitPCoServerID = "";
+	var unitPCoAgentID = "";
+	var unitPCoComPort = "";
+	var unitOpcChnName = "";
+	var unitOpcDevName = "";
+	var unitMemMapPlc = "";
+	var unitIPAddress = "";
+	var idUnitRoute = "";
+	var ModifiedBy = "";
+	var ModifiedOn = "";
+	var CreatedBy = "";
+	var CreatedOn = "";
+	// ****************************************************************************************************************************************************
+	function roleSecurity() {
+		var myRoles = document.getElementById("user_roles").value;
+		var role2Access = "OEEM_" + document.getElementById("user_role").value;
+		// alert(role2Access);
+		if (myRoles.indexOf(role2Access) < 0) {
+			window.location.assign("security.irpt");
+		} else {
+			var roleString = document.getElementById("user_role").value;
+			var roleArray = roleString.split("_");
+			level2Access = roleArray[0];
+			// alert("level : " + level2Access);
+			plant2Access = roleArray[1];
+			// alert("plant : " + plant2Access);
+			document.getElementById("page_title").innerHTML = role2Access;
+			//alert(plant2Access);
+			getTreeData(plant2Access);
+			// Update Dropdown with current Level data
+			updateLevels();
+
+			updateLevelsE();
+
+			// Update Dropdown with current Parent data
+			updateParents(0);
+
+			updateParentsE(0);
+			;
+			updatePCoAgents();
+
+			updateSqlServers();
+
+			updateRevisions();
+
+			selectedPlant = plant2Access;
+
+			// enable homepage
+			oCore.byId("item3-0-3").setEnabled(true);
+			// show menus
+			oMenuButton1.placeAt("app_menu");
+			oMenuButton2.placeAt("app_menu");
+			oMenuButton3.placeAt("app_menu");
+
+			var role_ADM = "OEEM_ADM_" + plant2Access;
+			var role_ENG = "OEEM_ENG_" + plant2Access;
+			var role_SUP = "OEEM_SUP_" + plant2Access;
+			var role_OPS = "OEEM_OPS_" + plant2Access;
+
+			switch (role2Access) {
+			case "OEEM_ADM_ALL":
+				//alert( "OEEM_ADM_ALL");
+				// enable Cfg Hierarchy
+				oCore.byId("item1-0-1").setEnabled(true);
+				// enable Cfg Memory Maps Menu
+				oCore.byId("item1-0-3").setEnabled(true);
+				// enable Cfg Connectivity
+				oCore.byId("item1-0-4").setEnabled(true);
+				// enable Master Data
+				oCore.byId("item1-0-5").setEnabled(true);
+
+				// enable WO Management
+				oCore.byId("item2-0-1").setEnabled(true);
+				// enable Carrier Station Dashboard
+				oCore.byId("item2-0-2").setEnabled(true);
+				// enable Assembly Station Dashboard
+				oCore.byId("item2-0-3").setEnabled(true);
+
+				// enable Production Status Report
+				oCore.byId("item3-0-1").setEnabled(true);
+				// enable Item Traceability Report
+				oCore.byId("item3-0-2").setEnabled(true);
+				// enable Connector Diagnostics
+				oCore.byId("item3-0-3").setEnabled(true);
+
+				// enable Cfg Memory Maps
+				oCore.byId("item1-4-1").setEnabled(true);
+				// enable Cfg Tag Types
+				oCore.byId("item1-4-2").setEnabled(true);
+				// enable Cfg Tag Functions
+				oCore.byId("item1-4-3").setEnabled(true);
+				// enable Cfg Tag Groups
+				oCore.byId("item1-4-4").setEnabled(true);
+				// enable Cfg Memory Map Transactions
+				oCore.byId("item1-4-5").setEnabled(true);
+
+				// enable Cfg Shop Floor Computers
+				oCore.byId("item1-5-1").setEnabled(true);
+				// enable Cfg Shop Floor Printers
+				oCore.byId("item1-5-2").setEnabled(true);
+				// enable Cfg PCo Servers
+				oCore.byId("item1-5-3").setEnabled(true);
+				// enable Cfg PCo Agents
+				oCore.byId("item1-5-4").setEnabled(true);
+				// enable Cfg Sql Servers
+				oCore.byId("item1-5-5").setEnabled(true);
+				// enable Cfg Operators
+				oCore.byId("item1-5-6").setEnabled(true);
+
+				// enable Equipment Hierarchy
+				oCore.byId("item1-6-1").setEnabled(true);
+				// enable Cfg Hierarchy Levels
+				oCore.byId("item1-6-2").setEnabled(true);
+
+				// Enable UOM Maintenance
+				oCore.byId("item1-7-1").setEnabled(true);
+				// Enable Product Maintenance
+				oCore.byId("item1-7-2").setEnabled(true);
+				// Enable BOM Maintenance
+				oCore.byId("item1-7-3").setEnabled(true);
+				// Enable Routing Maintenance
+				oCore.byId("item1-7-4").setEnabled(true);
+
+				// update screen
+				document.getElementById("page_title").innerHTML = "ADM ALL PLANTS";
+				oMatrixT.placeAt('OEEM_content');
+				oMatrixB.placeAt('OEEM_content');
+				break;
+			case role_ADM:
+
+				// enable Cfg Hierarchy
+				oCore.byId("item1-0-1").setEnabled(true);
+				// enable Cfg Memory Maps Menu
+				oCore.byId("item1-0-3").setEnabled(true);
+				// enable Cfg Connectivity
+				oCore.byId("item1-0-4").setEnabled(true);
+				// enable Master Data
+				oCore.byId("item1-0-5").setEnabled(true);
+
+				// enable WO Management
+				oCore.byId("item2-0-1").setEnabled(true);
+				// enable Carrier Station Dashboard
+				oCore.byId("item2-0-2").setEnabled(true);
+				// enable Assembly Station Dashboard
+				oCore.byId("item2-0-3").setEnabled(true);
+
+				// enable Production Status Report
+				oCore.byId("item3-0-1").setEnabled(true);
+				// enable Item Traceability Report
+				oCore.byId("item3-0-2").setEnabled(true);
+				// enable Connector Diagnostics
+				oCore.byId("item3-0-3").setEnabled(true);
+
+				// enable Cfg Memory Maps
+				oCore.byId("item1-4-1").setEnabled(true);
+				// enable Cfg Tag Types
+				oCore.byId("item1-4-2").setEnabled(true);
+				// enable Cfg Tag Functions
+				oCore.byId("item1-4-3").setEnabled(true);
+				// enable Cfg Tag Groups
+				oCore.byId("item1-4-4").setEnabled(true);
+				// enable Cfg Memory Map Transactions
+				oCore.byId("item1-4-5").setEnabled(true);
+
+				// enable Cfg Shop Floor Computers
+				oCore.byId("item1-5-1").setEnabled(true);
+				// enable Cfg Shop Floor Printers
+				oCore.byId("item1-5-2").setEnabled(true);
+				// enable Cfg PCo Servers
+				oCore.byId("item1-5-3").setEnabled(true);
+				// enable Cfg PCo Agents
+				oCore.byId("item1-5-4").setEnabled(true);
+				// enable Cfg Sql Servers
+				oCore.byId("item1-5-5").setEnabled(true);
+				// enable Cfg Operators
+				oCore.byId("item1-5-6").setEnabled(true);
+
+				// enable Equipment Hierarchy
+				oCore.byId("item1-6-1").setEnabled(true);
+				// enable Cfg Hierarchy Levels
+				oCore.byId("item1-6-2").setEnabled(true);
+
+				// Enable UOM Maintenance
+				oCore.byId("item1-7-1").setEnabled(true);
+				// Enable Product Maintenance
+				oCore.byId("item1-7-2").setEnabled(true);
+				// Enable BOM Maintenance
+				oCore.byId("item1-7-3").setEnabled(true);
+				// Enable Routing Maintenance
+				oCore.byId("item1-7-4").setEnabled(true);
+
+				// update screen
+				document.getElementById("page_title").innerHTML = "ADM PLANT " + plant2Access;
+				oMatrixT.placeAt('OEEM_content');
+				oMatrixB.placeAt('OEEM_content');
+				break;
+			case "OEEM_OPS_ALL":
+
+				// enable WO Management
+				oCore.byId("item2-0-1").setEnabled(true);
+				// enable Carrier Station Dashboard
+				oCore.byId("item2-0-2").setEnabled(true);
+				// enable Assembly Station Dashboard
+				oCore.byId("item2-0-3").setEnabled(true);
+
+				// enable Production Status Report
+				oCore.byId("item3-0-1").setEnabled(true);
+				// enable Item Traceability Report
+				oCore.byId("item3-0-2").setEnabled(true);
+				// enable Connector Diagnostics
+				oCore.byId("item3-0-3").setEnabled(true);
+
+				document.getElementById("page_title").innerHTML = "OPS ALL PLANTS";
+				oMatrixT.placeAt('OEEM_content');
+				oMatrixB.placeAt('OEEM_content');
+				break;
+			case role_OPS:
+
+				// enable WO Management
+				oCore.byId("item2-0-1").setEnabled(true);
+				// enable Carrier Station Dashboard
+				oCore.byId("item2-0-2").setEnabled(true);
+				// enable Assembly Station Dashboard
+				oCore.byId("item2-0-3").setEnabled(true);
+
+				// enable Production Status Report
+				oCore.byId("item3-0-1").setEnabled(true);
+				// enable Item Traceability Report
+				oCore.byId("item3-0-2").setEnabled(true);
+				// enable Connector Diagnostics
+				oCore.byId("item3-0-3").setEnabled(true);
+
+				document.getElementById("page_title").innerHTML = "OPS PLANT " + plant2Access;
+				oMatrixT.placeAt('OEEM_content');
+				oMatrixB.placeAt('OEEM_content');
+				break;
+			default:
+				alert("MES Module Role Unknown: " + role2Access);
+				break;
+			}
+		}
+	}
+	// ******************************************************************************************************************************************************************
+	var oMenuButton1 = new sap.ui.commons.MenuButton({
+		text : "Settings",
+		icon : "Common/img/map.png"
+	});
+	var oMenuButton2 = new sap.ui.commons.MenuButton({
+		text : "Dashboards",
+		icon : "Common/img/cloud.png"
+	});
+	var oMenuButton3 = new sap.ui.commons.MenuButton({
+		text : "Reports",
+		icon : "Common/img/list.png"
+	});
+
+	// Create the menu
+	var oMenu1 = new sap.ui.commons.Menu("menu1", {
+		ariaDescription : "Application Setup",
+		enabled : true
+	});
+	// Create the items and add them to the menu
+	var oMenuItem1 = new sap.ui.commons.MenuItem("item1-0-1", {
+		text : "Enterprise Hierarchy",
+		enabled : false
+	});
+	oMenu1.addItem(oMenuItem1);
+	var oMenuItem2 = new sap.ui.commons.MenuItem("item1-0-2", {
+		text : " ???",
+		enabled : false
+	});
+	//oMenu1.addItem(oMenuItem2);
+	var oMenuItem3 = new sap.ui.commons.MenuItem("item1-0-3", {
+		text : "MES Memory Maps",
+		enabled : false
+	});
+	oMenu1.addItem(oMenuItem3);
+	var oMenuItem4 = new sap.ui.commons.MenuItem("item1-0-4", {
+		text : "Plant Connectivity",
+		enabled : false
+	});
+	oMenu1.addItem(oMenuItem4);
+	var oMenuItem5 = new sap.ui.commons.MenuItem("item1-0-5", {
+		text : "Master Data Setup",
+		enabled : false
+	});
+	oMenu1.addItem(oMenuItem5);
+
+	var oMenu4 = new sap.ui.commons.Menu("menu4", {
+		ariaDescription : "Memory Maps Setup",
+		enabled : true
+	});
+	oMenuItem3.setSubmenu(oMenu4);
+	//Create the items and add them to the sub menu
+	var oMenuItem41 = new sap.ui.commons.MenuItem("item1-4-1", {
+		text : "Memory Map Tags",
+		enabled : false
+	});
+	oMenu4.addItem(oMenuItem41);
+	var oMenuItem45 = new sap.ui.commons.MenuItem("item1-4-5", {
+		text : "Memory Map Transactions",
+		enabled : false
+	});
+	oMenu4.addItem(oMenuItem45);
+	var oMenuItem44 = new sap.ui.commons.MenuItem("item1-4-4", {
+		text : "PLC Tag Groups",
+		enabled : false
+	});
+	oMenu4.addItem(oMenuItem44);
+	var oMenuItem42 = new sap.ui.commons.MenuItem("item1-4-2", {
+		text : "PLC Tag Types",
+		enabled : false
+	});
+	oMenu4.addItem(oMenuItem42);
+	var oMenuItem43 = new sap.ui.commons.MenuItem("item1-4-3", {
+		text : "PLC Tag Functions",
+		enabled : false
+	});
+	oMenu4.addItem(oMenuItem43);
+
+	var oMenu5 = new sap.ui.commons.Menu("menu5", {
+		ariaDescription : "Connectivity Setup",
+		enabled : true
+	});
+	oMenuItem4.setSubmenu(oMenu5);
+	//Create the items and add them to the sub menu
+	var oMenuItem56 = new sap.ui.commons.MenuItem("item1-5-6", {
+		text : "Shop Floor Operators",
+		enabled : false
+	});
+	oMenu5.addItem(oMenuItem56);
+	var oMenuItem51 = new sap.ui.commons.MenuItem("item1-5-1", {
+		text : "Shop Floor Computers",
+		enabled : false
+	});
+	oMenu5.addItem(oMenuItem51);
+	var oMenuItem52 = new sap.ui.commons.MenuItem("item1-5-2", {
+		text : "Shop Floor Printers",
+		enabled : false
+	});
+	oMenu5.addItem(oMenuItem52);
+	var oMenuItem53 = new sap.ui.commons.MenuItem("item1-5-3", {
+		text : "Plant Connectivity Servers",
+		enabled : false
+	});
+	oMenu5.addItem(oMenuItem53);
+	var oMenuItem54 = new sap.ui.commons.MenuItem("item1-5-4", {
+		text : "Plant Connectivity Agents",
+		enabled : false
+	});
+	oMenu5.addItem(oMenuItem54);
+	var oMenuItem55 = new sap.ui.commons.MenuItem("item1-5-5", {
+		text : "Line Side SQL Servers",
+		enabled : false
+	});
+	oMenu5.addItem(oMenuItem55);
+
+	var oMenu6 = new sap.ui.commons.Menu("menu6", {
+		ariaDescription : "Hierarchy Setup",
+		enabled : true
+	});
+	oMenuItem1.setSubmenu(oMenu6);
+	//Create the items and add them to the sub menu
+	var oMenuItem61 = new sap.ui.commons.MenuItem("item1-6-1", {
+		text : "Hierarchy Management",
+		enabled : false
+	});
+	oMenu6.addItem(oMenuItem61);
+	var oMenuItem62 = new sap.ui.commons.MenuItem("item1-6-2", {
+		text : "Hierarchy Levels Setup",
+		enabled : false
+	});
+	oMenu6.addItem(oMenuItem62);
+
+	var oMenu7 = new sap.ui.commons.Menu("menu7", {
+		ariaDescription : "Master Data",
+		enabled : true
+	});
+	oMenuItem5.setSubmenu(oMenu7);
+	//Create the items and add them to the sub menu
+	var oMenuItem71 = new sap.ui.commons.MenuItem("item1-7-1", {
+		text : "Units Of Measure",
+		enabled : false
+	});
+	oMenu7.addItem(oMenuItem71);
+	var oMenuItem72 = new sap.ui.commons.MenuItem("item1-7-2", {
+		text : "Products Management",
+		enabled : false
+	});
+	oMenu7.addItem(oMenuItem72);
+	var oMenuItem73 = new sap.ui.commons.MenuItem("item1-7-3", {
+		text : "Bills of Materials",
+		enabled : false
+	});
+	oMenu7.addItem(oMenuItem73);
+	var oMenuItem74 = new sap.ui.commons.MenuItem("item1-7-4", {
+		text : "Products Routing",
+		enabled : false
+	});
+	oMenu7.addItem(oMenuItem74);
+
+	// Create the menu
+	var oMenu2 = new sap.ui.commons.Menu("menu2", {
+		ariaDescription : "User Dashboards"
+	});
+	// Create the items and add them to the menu
+	var oMenuItem21 = new sap.ui.commons.MenuItem("item2-0-1", {
+		text : "Work Order Management",
+		enabled : false
+	});
+	oMenu2.addItem(oMenuItem21);
+	var oMenuItem22 = new sap.ui.commons.MenuItem("item2-0-2", {
+		text : "Carrier Station Dashboard",
+		enabled : false
+	});
+	oMenu2.addItem(oMenuItem22);
+	var oMenuItem23 = new sap.ui.commons.MenuItem("item2-0-3", {
+		text : "Assembly Station Dashboard",
+		enabled : false
+	});
+	oMenu2.addItem(oMenuItem23);
+
+	// Create the menu
+	var oMenu3 = new sap.ui.commons.Menu("menu3", {
+		ariaDescription : "User Reports",
+		enabled : true
+	});
+	// Create the items and add them to the menu
+	var oMenuItem31 = new sap.ui.commons.MenuItem("item3-0-1", {
+		text : "Production Status Report",
+		enabled : false
+	});
+	oMenu3.addItem(oMenuItem31);
+	var oMenuItem32 = new sap.ui.commons.MenuItem("item3-0-2", {
+		text : "Item Traceability Report",
+		enabled : false
+	});
+	oMenu3.addItem(oMenuItem32);
+	var oMenuItem33 = new sap.ui.commons.MenuItem("item3-0-3", {
+		text : "Connector Diagnostics",
+		enabled : false
+	});
+	oMenu3.addItem(oMenuItem33);
+
+	//Attach the Menu to the MenuButton
+	oMenuButton1.setMenu(oMenu1);
+	oMenuButton2.setMenu(oMenu2);
+	oMenuButton3.setMenu(oMenu3);
+
+	//Attach an event to raise an alert when an item is selected (Button 1)
+	oMenuButton1.attachItemSelected(function(oEvent) {
+		switch (oEvent.getParameter("itemId")) {
+		// Menu Settings 1
+		case "item1-6-1":
+			setTimeout("location.href = '" + "MgtHierarchy.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item1-6-2":
+			setTimeout("location.href = '" + "LvlHierarchy.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+
+		// Menu Settings 2
+		case "item1-4-1":
+			setTimeout("location.href = '" + "MemMapTags.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item1-4-5":
+			setTimeout("location.href = '" + "MemMapTrxs.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item1-4-4":
+			setTimeout("location.href = '" + "TagCommGroups.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item1-4-2":
+			setTimeout("location.href = '" + "TagTypes.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item1-4-3":
+			setTimeout("location.href = '" + "TagFunctions.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+
+		// Menu Settings 3
+		case "item1-5-6":
+			setTimeout("location.href = '" + "Operators.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item1-5-1":
+			setTimeout("location.href = '" + "Stations.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item1-5-2":
+			setTimeout("location.href = '" + "Printers.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item1-5-3":
+			setTimeout("location.href = '" + "PCoServers.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item1-5-4":
+			setTimeout("location.href = '" + "PCoAgents.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item1-5-5":
+			setTimeout("location.href = '" + "SqlServers.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+
+		// Menu Settings 4
+		case "item1-7-1":
+			setTimeout("location.href = '" + "UnitsOfMeasure.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item1-7-2":
+			setTimeout("location.href = '" + "ProductsMgmt.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item1-7-3":
+			setTimeout("location.href = '" + "BomMgmt.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item1-7-4":
+			setTimeout("location.href = '" + "RoutingMgmt.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+
+		// Menu Default
+		default:
+			// alert("Items \"" + oEvent.getParameter("itemId") + "\" was selected.");
+			break;
+		}
+	});
+
+	//Attach an event to raise an alert when an item is selected. (Button 2)
+	oMenuButton2.attachItemSelected(function(oEvent) {
+		switch (oEvent.getParameter("itemId")) {
+		case "item2-0-1":
+			setTimeout("location.href = '" + "WorkOrders.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item2-0-2":
+			setTimeout("location.href = '" + "CarrierDashboard.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item2-0-3":
+			setTimeout("location.href = '" + "AssemblyDashboard.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+		default:
+			// alert("Items \"" + oEvent.getParameter("itemId") + "\" was selected.");
+			break;
+		}
+	});
+
+	//Attach an event to raise an alert when an item is selected. (Button 3)
+	oMenuButton3.attachItemSelected(function(oEvent) {
+		switch (oEvent.getParameter("itemId")) {
+		// Menu Reports
+		case "item3-0-1":
+			setTimeout("location.href = '" + "ProductionStatus.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item3-0-2":
+			setTimeout("location.href = '" + "ItemTraceability.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item3-0-3":
+			setTimeout("location.href = '" + "OEEM.irpt?ROLE=" + document.getElementById("user_role").value + "'", 0);
+			break;
+		default:
+			//alert("Items \"" + oEvent.getParameter("itemId") + "\" was selected.");
+			break;
+		}
+	});
+	// ****************************************************************************************************************************************************
+	function createColumnsHrchy() {
+		oTable.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "UNIT NAME"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text", "unitName"),
+			sortProperty : "unitName",
+			filterProperty : "unitName",
+			width : "275px"
+		}));
+		oTable.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "UNIT DESCRIPTION"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text", "unitDescr"),
+			sortProperty : "unitDescr",
+			filterProperty : "unitDescr",
+			width : "275px"
+		}));
+		oTable.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "UNIT TYPE"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text", "typeName"),
+			sortProperty : "typeName",
+			filterProperty : "typeName",
+			width : "275px"
+		}));
+		oTable.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "ACTIVE"
+			}),
+			template : new sap.ui.commons.Image().bindProperty("src", "src"),
+			width : "75px",
+			hAlign : "Center"
+		}));
+	}
+
+	// Create a data model for oTable
+	var oModel = new sap.ui.model.json.JSONModel();
+	// ****************************************************************************************************************************************************
+	// Get Tree Data
+	function getTreeData(idPlant) {
+		//alert("getTreeData");
+		oTable.clearSelection();
+		var timestamp = new Date().getTime();
+		oTable.unbindColumns();
+		oTable.removeAllColumns();
+		oTable.destroyColumns();
+		oTable.unbindRows();
+		var xmlHttp = new XMLHttpRequest();
+		var xmlDOM;
+		var http_string = "/XMII/Runner?Transaction=OEEM/MANAGEMENT/TRANSACTIONS/getHierarchyHeaders&SERVER_SQL=OEEM&ts=" + timestamp + "&OutputParameter=HC_OUT&Content-Type=text/xml";
+		xmlHttp.open("GET", http_string, false);
+		xmlHttp.send();
+		xmlDOM = xmlHttp.responseXML.documentElement;
+		try {
+			if (xmlDOM.getElementsByTagName("Row")[0].firstChild) {
+				var opElement = xmlDOM.getElementsByTagName("Row")[0].firstChild;
+				var oDataFLMP = opElement.firstChild.data;
+				var ojsonDataFLMP = eval('(' + oDataFLMP + ')');
+				createColumnsHrchy();
+				oModel.setData(ojsonDataFLMP);
+				oTable.setModel(oModel);
+				oTable.bindRows("/root");
+			}
+		} catch (e) {
+			alert(" Could not retrieve headers ..");
+		}
+	}
+	// ****************************************************************************************************************************************************
+	var oMatrixT = new sap.ui.commons.layout.MatrixLayout({
+		id : 'MatrixT',
+		layoutFixed : true,
+		width : '1200px',
+		columns : 1,
+		widths : [ '1200px' ]
+	});
+
+	var oButton05 = new sap.ui.commons.Button({
+		id : 'B-AndOnBoard',
+		tooltip : "Andon Display",
+		text : 'Andon',
+		width : '100px',
+		enabled : false
+	});
+	oButton05.attachPress(doOnAndOnBoardClick);
+
+	var oButton0 = new sap.ui.commons.Button({
+		id : 'B-Connectivity',
+		tooltip : "Connectivity",
+		text : 'Connectivity',
+		width : '200px',
+		enabled : false
+	});
+	oButton0.attachPress(doOnConnectivityClick);
+
+	var oButton02 = new sap.ui.commons.Button({
+		id : 'B-Trigger',
+		text : 'Additional Triggers',
+		tooltip : "Additional Triggers",
+		width : '200px',
+		enabled : false
+	});
+	oButton02.attachPress(doOnTriggerClick);
+
+	var oButton01 = new sap.ui.commons.Button({
+		id : 'B-DefinedTag',
+		text : 'Configure Definable Tags',
+		tooltip : "Configure Definable Tags",
+		width : '200px',
+		enabled : false
+	});
+	oButton01.attachPress(doOnDefinedTagClick);
+
+	var oButton03 = new sap.ui.commons.Button({
+		id : 'B-DefinedSql',
+		text : 'Definable Sql Params',
+		tooltip : "Definable Sql Parameters",
+		width : '200px',
+		enabled : false
+	});
+	oButton03.attachPress(doOnSqlDefinedClick);
+
+	var oButton04 = new sap.ui.commons.Button({
+		id : 'B-LabelTriggers',
+		text : 'Label Triggers',
+		tooltip : "Label Triggers",
+		width : '200px',
+		enabled : false
+	});
+	oButton04.attachPress(doOnLabelTriggersClick);
+
+	var oLayout = new sap.ui.layout.HorizontalLayout("LayoutBtn", {
+		content : [ oButton05, oButton0, oButton02, oButton01, oButton03, oButton04 ]
+	});
+
+	oMatrixT.createRow(oLayout);
+
+	// ******************************************************************************************************************************************************************
+	// Create an instance of the table control
+	var oTable = new sap.ui.table.TreeTable({
+		columns : [ new sap.ui.table.Column({
+			label : "UNIT NAME",
+			template : "unitName",
+			width : "275px"
+		}), new sap.ui.table.Column({
+			label : "UNIT DESCRIPTION",
+			template : "unitDescr",
+			width : "275px"
+		}), new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "ACTIVE"
+			}),
+			template : new sap.ui.commons.Image().bindProperty("src", "src"),
+			width : "75px",
+			hAlign : sap.ui.commons.layout.HAlign.Center
+		}) ],
+		selectionMode : sap.ui.table.SelectionMode.Single,
+		visibleRowCount : nrRows,
+		visibleRowCountMode : sap.ui.table.VisibleRowCountMode.Interactive,
+		allowColumnReordering : true,
+		expandFirstLevel : true,
+		expandSecondLevel : true,
+		selectionBehavior : sap.ui.table.SelectionBehavior.Row,
+		toggleOpenState : function(oEvent) {
+			var iRowIndex = oEvent.getParameter("rowIndex");
+			var oRowContext = oEvent.getParameter("rowContext");
+			var bExpanded = oEvent.getParameter("expanded");
+		}
+	});
+
+	// ******************************************************************************************************************************************************************
+	oTable.attachRowSelectionChange(function(oEvent) {
+		// Retrieve the selected row
+		var selIndex = oTable.getSelectedIndex();
+		selectedIndex = selIndex;
+		if (selIndex >= 0) {
+			// Retrieve the selected row
+			var selectedRow = oTable.getRows()[selIndex];
+			// sap.ui.commons.MessageBox.alert(selectedRow);
+			var selectedRowContext = oEvent.getParameter("rowContext");
+			recordID = oModel.getProperty("recordID", selectedRowContext);
+			unitType = oModel.getProperty("unitType", selectedRowContext);
+			unitName = oModel.getProperty("unitName", selectedRowContext);
+			unitDescr = oModel.getProperty("unitDescr", selectedRowContext);
+			idUnitParent = oModel.getProperty("idUnitParent", selectedRowContext);
+			unitActive = oModel.getProperty("unitActive", selectedRowContext);
+			unitSqlServer = oModel.getProperty("unitSqlServer", selectedRowContext);
+			unitSAPID = oModel.getProperty("unitSAPID", selectedRowContext);
+			unitPCoServerID = oModel.getProperty("unitPCoServerID", selectedRowContext);
+			unitPCoAgentID = oModel.getProperty("unitPCoAgentID", selectedRowContext);
+			unitPCoComPort = oModel.getProperty("unitPCoComPort", selectedRowContext);
+			unitOpcChnName = oModel.getProperty("unitOpcChnName", selectedRowContext);
+			unitOpcDevName = oModel.getProperty("unitOpcDevName", selectedRowContext);
+			unitMemMapPlc = oModel.getProperty("unitMemMapPlc", selectedRowContext);
+			unitIPAddress = oModel.getProperty("unitPAddress", selectedRowContext);
+			idUnitRoute = oModel.getProperty("routeID", selectedRowContext);
+			ModifiedBy = oModel.getProperty("ModifiedBy", selectedRowContext);
+			ModifiedOn = oModel.getProperty("ModifiedOn", selectedRowContext);
+			CreatedBy = oModel.getProperty("CreatedBy", selectedRowContext);
+			CreatedOn = oModel.getProperty("CreatedOn", selectedRowContext);
+			//alert ("recordID: " + recordID + " unitType " + unitType + " unitName: " + unitName + " idUnitParent: " + idUnitParent + " selected");
+			oButton1.setEnabled(false);
+			oButton2.setEnabled(true);
+			oButton3.setEnabled(true);
+			oButton0.setEnabled(unitType == 6);
+			oButton01.setEnabled(unitType == 6);
+			oButton02.setEnabled(unitType == 6);
+			oButton03.setEnabled(unitType == 6);
+			oButton04.setEnabled(unitType == 6);
+			oButton05.setEnabled(true);
+		} else {
+			oButton1.setEnabled(true);
+			oButton2.setEnabled(false);
+			oButton3.setEnabled(false);
+			selectedIndex = -1;
+			recordID = "";
+			unitType = "";
+			unitName = "";
+			unitDescr = "";
+			idUnitParent = "";
+			unitActive = "";
+			unitSqlServer = "";
+			unitSAPID = "";
+			unitPCoServerID = "";
+			unitPCoAgentID = "";
+			unitPCoComPort = "";
+			unitOpcChnName = "";
+			unitOpcDevName = "";
+			unitMemMapPlc = "";
+			unitIPAddress = "";
+			idUnitRoute = "";
+			ModifiedBy = "";
+			ModifiedOn = "";
+			CreatedBy = "";
+			CreatedOn = "";
+			// alert ("No Selection ..");
+			oButton0.setEnabled(false);
+			oButton01.setEnabled(false);
+			oButton02.setEnabled(false);
+			oButton03.setEnabled(false);
+			oButton04.setEnabled(false);
+			oButton05.setEnabled(false);
+		}
+	});
+	// ******************************************************************************************************************************************************************
+	//Bring the table onto the UI 
+	oMatrixT.createRow(oTable);
+	// ******************************************************************************************************************************************************************
+	var oMatrixB = new sap.ui.commons.layout.MatrixLayout({
+		id : 'MatrixB',
+		layoutFixed : true,
+		width : '1200px',
+		columns : 5,
+		widths : [ '325px', '150px', '150px', '150px', '325px' ]
+	});
+
+	var oButton1 = new sap.ui.commons.Button({
+		id : 'B-Add',
+		text : 'Add',
+		enabled : true
+	});
+	oButton1.attachPress(doAdd);
+	var oButton2 = new sap.ui.commons.Button({
+		id : 'B-Edit',
+		text : 'Edit',
+		enabled : false
+	});
+	oButton2.attachPress(doEdit);
+	var oButton3 = new sap.ui.commons.Button({
+		id : 'B-Delete',
+		text : 'Delete',
+		enabled : false
+	});
+	oButton3.attachPress(doDelete);
+	oMatrixB.createRow('', oButton1, oButton2, oButton3, '');
+	// ******************************************************************************************************************************************************************
+	// Create Add Overlay
+	var oMatrixA = new sap.ui.commons.layout.MatrixLayout({
+		id : 'MatrixA',
+		layoutFixed : true,
+		width : '690px',
+		columns : 1,
+		widths : [ '700px' ]
+	});
+
+	var oMatrixAF = new sap.ui.commons.layout.MatrixLayout({
+		id : 'MatrixAF',
+		layoutFixed : true,
+		width : '690px',
+		columns : 2,
+		widths : [ '295px', '385px' ]
+	});
+
+	var oTitleA = new sap.ui.commons.Label({
+		id : 'L-AddHrchy',
+		text : 'ADD HIERARCHY UNIT'
+	});
+	oMatrixA.createRow(oTitleA);
+
+	var oLabel_NAME = new sap.ui.commons.Label({
+		id : 'L-NAME',
+		text : ' NAME'
+	});
+
+	var oInput_NAME = new sap.ui.commons.TextField('input_name');
+
+	oMatrixAF.createRow(oLabel_NAME, oInput_NAME);
+
+	var oLabel_DESC = new sap.ui.commons.Label({
+		id : 'L-DESC',
+		text : ' DESCRIPTION'
+	});
+
+	var oInput_DESC = new sap.ui.commons.TextField('input_desc');
+
+	oMatrixAF.createRow(oLabel_DESC, oInput_DESC);
+
+	var oLabel_UNITSAPID = new sap.ui.commons.Label({
+		id : 'L-UNITSAPID',
+		text : ' ID'
+	});
+
+	var oInput_UNITSAPID = new sap.ui.commons.TextField('input_unitsapid');
+
+	oMatrixAF.createRow(oLabel_UNITSAPID, oInput_UNITSAPID);
+
+	var oLabel_LEVEL = new sap.ui.commons.Label({
+		id : 'L-LEVEL',
+		visible : true,
+		text : 'HIERARCHY LEVEL'
+	});
+
+	var oDropdownBox_LEVEL = new sap.ui.commons.DropdownBox({
+		id : "dbox_level",
+		tooltip : 'Level Hierarchy',
+		editable : true,
+		width : '230px',
+		change : function(oEvent) {
+			//alert(oEvent.oSource.getSelectedKey());
+			doOnLevelChange();
+		}
+	});
+
+	// ****************************************************************************************************************************************************
+	function updateLevels() {
+		var timestamp = new Date().getTime();
+		ss = "/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/get_Levels&ts=" + timestamp + "&Content-Type=text/xml";
+		//alert(ss);
+		getData("/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/get_Levels&ts=" + timestamp + "&Content-Type=text/xml", parseJsonLevel);
+
+		function parseJsonLevel(jsondata) {
+			oDropdownBox_LEVEL.destroyItems();
+			var parentType;
+			for (var i = 0; i < jsondata.length; i++) {
+				//alert(jsondata[i]['recordID'] + '   ' + jsondata[i]['typeName'] + '   ' + jsondata[i]['parentType']);
+				item_key = jsondata[i]['recordID'];
+				item_text = jsondata[i]['typeName'];
+				oItem = new sap.ui.core.ListItem({
+					key : item_key,
+					text : item_text
+				});
+				if (jsondata[i]['parentType'] == "NA") {
+					parentType = 0;
+				} else {
+					parentType = jsondata[i]['parentType'];
+				}
+				oItem.setAdditionalText(parentType);
+				oDropdownBox_LEVEL.addItem(oItem);
+			}
+		}
+	}
+	// ****************************************************************************************************************************************************
+	function getSelectedParentTypeLevel() {
+		var aItems = oDropdownBox_LEVEL.getItems();
+		for (var i = 0; i < aItems.length; i++) {
+			if (aItems[i].getText() === oDropdownBox_LEVEL.getValue()) {
+				return oDropdownBox_LEVEL.getItems()[i].getAdditionalText();
+			}
+		}
+	}
+	// ****************************************************************************************************************************************************
+	function doOnLevelChange() {
+		oDropdownBox_ROUTE.setVisible(oDropdownBox_LEVEL.getSelectedKey() == 5);
+		var parentLevel = getSelectedParentTypeLevel();
+		//alert(parentLevel);
+		oInput_UNITSAPID.setEnabled(true);
+		oInput_UNITSAPID.setValue("");
+		oDropdownBox_PARENT.setSelectedKey(0);
+		updateParents(parentLevel);
+	}
+	// ****************************************************************************************************************************************************
+
+	oMatrixAF.createRow(oLabel_LEVEL, oDropdownBox_LEVEL);
+
+	var oLabel_PARENT = new sap.ui.commons.Label({
+		id : 'L-PARENT',
+		visible : true,
+		text : 'PARENT UNIT'
+	});
+
+	var oDropdownBox_PARENT = new sap.ui.commons.DropdownBox({
+		id : "dbox_parent",
+		tooltip : 'Parent Hierarchy',
+		editable : true,
+		width : '230px',
+		change : function(oEvent) {
+			//alert(oEvent.oSource.getSelectedKey());
+			doOnParentChange();
+		}
+	});
+
+	// ****************************************************************************************************************************************************
+	function updateParents(idUnitType) {
+		var timestamp = new Date().getTime();
+		getData("/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/getUnitParents&Param.1=" + idUnitType + "&ts=" + timestamp + "&Content-Type=text/xml", parseJsonParent);
+
+		function parseJsonParent(jsondata) {
+			oDropdownBox_PARENT.destroyItems();
+			for (var i = 0; i < jsondata.length; i++) {
+				//alert(jsondata[i]['recordID'] + '   ' + jsondata[i]['unitName'] + '   ' + jsondata[i]['unitType']);
+				item_key = jsondata[i]['recordID'];
+				item_text = jsondata[i]['unitName'];
+				oItem = new sap.ui.core.ListItem({
+					key : item_key,
+					text : item_text
+				});
+				oItem.setAdditionalText(jsondata[i]['unitType']);
+				oDropdownBox_PARENT.addItem(oItem);
+			}
+		}
+	}
+	// ****************************************************************************************************************************************************
+	function getSelectedUnitType() {
+		var aItems = oDropdownBox_PARENT.getItems();
+		for (var i = 0; i < aItems.length; i++) {
+			if (aItems[i].getText() === oDropdownBox_PARENT.getValue()) {
+				return oDropdownBox_PARENT.getItems()[i].getAdditionalText();
+			}
+		}
+	}
+	// ****************************************************************************************************************************************************
+	function updateSAPID(idParentLevel) {
+		var timestamp = new Date().getTime();
+		getData("/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/get_SAPID&Param.1=" + idParentLevel + "&ts=" + timestamp + "&Content-Type=text/xml", parseJsonParent);
+
+		function parseJsonParent(jsondata) {
+			for (var i = 0; i < jsondata.length; i++) {
+				//alert(jsondata[i]['unitSAPID'] + '   ' + jsondata[i]['unitSAPID']);
+				oInput_UNITSAPID.setValue(jsondata[i]['unitSAPID']);
+			}
+		}
+	}
+	// ****************************************************************************************************************************************************
+	function doOnParentChange() {
+		var parentType = getSelectedParentTypeLevel();
+		//alert(parentType);
+		if (oDropdownBox_PARENT.getSelectedKey() != 0) {
+			oInput_UNITSAPID.setEnabled(false);
+		} else {
+			oInput_UNITSAPID.setEnabled(true);
+		}
+		if (parentType != 2) {
+			updateSAPID(oDropdownBox_PARENT.getSelectedKey());
+		}
+	}
+	// ****************************************************************************************************************************************************
+
+	oMatrixAF.createRow(oLabel_PARENT, oDropdownBox_PARENT);
+
+	var oLabel_ACTIVE = new sap.ui.commons.Label({
+		id : 'L-ACTIVE',
+		text : ' ACTIVE'
+	});
+
+	var oCheckbox_ACTIVE = new sap.ui.commons.CheckBox('checkbox_active', {
+		checked : false
+	});
+
+	var oDropdownBox_ROUTE = new sap.ui.commons.DropdownBox({
+		id : "dbox_route",
+		tooltip : 'Route',
+		editable : true,
+		width : '195px',
+		visible : false,
+		change : function(oEvent) {
+			//alert(oEvent.oSource.getSelectedKey());
+		}
+	});
+	// ****************************************************************************************************************************************************
+	function updateRoute() {
+		var timestamp = new Date().getTime();
+		getData("/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/get_Routes&ts=" + timestamp + "&Content-Type=text/xml", parseJsonRoute);
+
+		function parseJsonRoute(jsondata) {
+			oDropdownBox_ROUTE.destroyItems();
+			for (var i = 0; i < jsondata.length; i++) {
+				//alert(jsondata[i]['recordID'] + '   ' + jsondata[i]['routeName'] + '   ' + jsondata[i]['routeSAPID']);
+				item_key = jsondata[i]['recordID'];
+				item_text = jsondata[i]['routeName'];
+				oItem = new sap.ui.core.ListItem({
+					key : item_key,
+					text : item_text
+				});
+				oItem.setAdditionalText(jsondata[i]['routeSAPID']);
+				oDropdownBox_ROUTE.addItem(oItem);
+			}
+		}
+	}
+	// ****************************************************************************************************************************************************
+	var oLayout_ROUTE = new sap.ui.layout.HorizontalLayout("layout_route", {
+		content : [ oCheckbox_ACTIVE, oDropdownBox_ROUTE ]
+	});
+
+	oMatrixAF.createRow(oLabel_ACTIVE, oLayout_ROUTE);
+
+	oMatrixA.createRow(oMatrixAF);
+
+	var oButton4 = new sap.ui.commons.Button({
+		id : 'B-AddHrchy',
+		text : 'SUBMIT',
+		enabled : true
+	});
+	oButton4.attachPress(doAddHrchy);
+
+	oMatrixA.createRow(oButton4);
+
+	var oOverlayContainerAdd = new sap.ui.ux3.OverlayDialog({
+		openButtonVisible : false
+	});
+	oOverlayContainerAdd.setHeight('375px');
+	oOverlayContainerAdd.setWidth('700px');
+	oOverlayContainerAdd.addContent(oMatrixA);
+	// ******************************************************************************************************************************************************************
+	function doAdd() {
+		if (!oOverlayContainerAdd.isOpen()) {
+			oCore.byId("input_name").setValue("");
+			oCore.byId("input_desc").setValue("");
+			oCore.byId("input_unitsapid").setValue("");
+			oCore.byId("dbox_level").setSelectedKey(0);
+			oCore.byId("dbox_parent").setSelectedKey(0);
+			oCore.byId("checkbox_active").setChecked(false);
+			updateRoute();
+			oOverlayContainerAdd.open();
+		}
+	};
+	// ******************************************************************************************************************************************************************
+	function doAddHrchy() {
+		// retrieve values
+		var input_idType = oCore.byId("dbox_level").getSelectedKey();
+		var input_idParent = oCore.byId("dbox_parent").getSelectedKey();
+		var input_NAME = oCore.byId("input_name").getValue();
+		var input_DESC = oCore.byId("input_desc").getValue();
+		var input_unitSAPID = oCore.byId("input_unitsapid").getValue();
+		var input_userNAME = document.getElementById("user_name").value;
+		var input_unitSqlServer = "OEEM";
+		if (oCore.byId("checkbox_active").getChecked()) {
+			var input_ACTIVE = 1;
+		} else {
+			var input_ACTIVE = 0;
+		}
+		var input_idRoute = oCore.byId("dbox_route").getSelectedKey();
+		if (!(input_idType > 0)) {
+			alert("Please Select Hierarchy Unit Level ..");
+			oCore.byId("dbox_level").focus();
+		} else {
+			if (!(input_idParent > 0)) {
+				alert("Please Select Hierarchy Parent Unit ..");
+				oCore.byId("dbox_parent").focus();
+			} else {
+				if (input_NAME == "") {
+					alert("Please Input Hierarchy Unit Name ..");
+					oCore.byId("input_name").focus();
+				} else {
+					if (input_DESC == "") {
+						alert("Please Input Hierarchy Unit Description ..");
+						oCore.byId("input_desc").focus();
+					} else {
+						if (input_unitSAPID == "") {
+							alert("Please Input Unit SAP ID ..");
+							oCore.byId("input_unitsapid").focus();
+						} else {
+							if (!(input_idRoute > 0) && oDropdownBox_ROUTE.getVisible()) {
+								alert("Please Select Route ..");
+								oCore.byId("dbox_route").focus();
+							} else {
+								// all good. Try to write them ..
+								var Param1 = escapeSQLString(input_idType);
+								var Param2 = escapeSQLString(input_NAME);
+								var Param3 = escapeSQLString(input_DESC);
+								var Param4 = escapeSQLString(input_idParent);
+								var Param5 = escapeSQLString(input_ACTIVE);
+								var Param6 = escapeSQLString(input_unitSqlServer);
+								var Param7 = escapeSQLString(input_unitSAPID);
+								var Param8 = escapeSQLString(input_idRoute);
+								var Param9 = escapeSQLString(input_userNAME);
+								var oReqData;
+								if (window.XMLHttpRequest) {
+									oReqData = new XMLHttpRequest();
+								}
+								if (oReqData != null) {
+									var timestamp = new Date().getTime();
+									var paramStr = "Param.1=" + encodeURIComponent(Param1) + "&Param.2=" + encodeURIComponent(Param2) + "&Param.3=" + encodeURIComponent(Param3) + "&Param.4=" + encodeURIComponent(Param4)
+											+ "&Param.5=" + encodeURIComponent(Param5) + "&Param.6=" + encodeURIComponent(Param6) + "&Param.7=" + encodeURIComponent(Param7) + "&Param.8=" + encodeURIComponent(Param8)
+											+ "&Param.9=" + encodeURIComponent(Param9);
+									//alert(paramStr);
+									var queryStr = "/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/add_Hrchy&" + paramStr + "&ts=" + timestamp + "&Content-Type=text/xml";
+									// alert(queryStr);
+									oReqData.open("GET", queryStr, true);
+									oReqData.onreadystatechange = function() {
+										if (oReqData.readyState == 4)
+											if (oReqData.status == 200) {
+												// Successful -- rebuild the screen
+												getTreeData(plant2Access);
+												oOverlayContainerAdd.close();
+											} else {
+												// Not Successful -- alert the user
+												alert("Error: " + oReqData.statusText);
+											}
+									}
+									oReqData.send();
+								} else {
+									window.alert("Error creating XmlHttpRequest object.");
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	};
+	// ******************************************************************************************************************************************************************
+	// Create Edit Overlay
+	var oMatrixE = new sap.ui.commons.layout.MatrixLayout({
+		id : 'MatrixE',
+		layoutFixed : true,
+		width : '690px',
+		columns : 1,
+		widths : [ '700px' ]
+	});
+
+	var oMatrixEF = new sap.ui.commons.layout.MatrixLayout({
+		id : 'MatrixEF',
+		layoutFixed : true,
+		width : '690px',
+		columns : 2,
+		widths : [ '295px', '385px' ]
+	});
+
+	var oTitleE = new sap.ui.commons.Label({
+		id : 'L-EditHrchy',
+		text : 'EDIT HIERARCHY UNIT'
+	});
+	oMatrixE.createRow(oTitleE);
+
+	var oLabel_NAMEE = new sap.ui.commons.Label({
+		id : 'L-NAMEE',
+		text : ' NAME'
+	});
+
+	var oInput_NAMEE = new sap.ui.commons.TextField('input_namee');
+
+	oMatrixEF.createRow(oLabel_NAMEE, oInput_NAMEE);
+
+	var oLabel_DESCE = new sap.ui.commons.Label({
+		id : 'L-DESCE',
+		text : ' DESCRIPTION'
+	});
+
+	var oInput_DESCE = new sap.ui.commons.TextField('input_desce');
+
+	oMatrixEF.createRow(oLabel_DESCE, oInput_DESCE);
+
+	var oLabel_UNITSAPIDE = new sap.ui.commons.Label({
+		id : 'L-UNITSAPIDE',
+		text : ' ID'
+	});
+
+	var oInput_UNITSAPIDE = new sap.ui.commons.TextField('input_unitsapide');
+
+	oMatrixEF.createRow(oLabel_UNITSAPIDE, oInput_UNITSAPIDE);
+
+	var oLabel_LEVELE = new sap.ui.commons.Label({
+		id : 'L-LEVELE',
+		visible : true,
+		text : 'HIERARCHY LEVEL'
+	});
+
+	var oDropdownBox_LEVELE = new sap.ui.commons.DropdownBox({
+		id : "dbox_levele",
+		tooltip : 'Level Hierarchy',
+		editable : true,
+		width : '230px',
+		change : function(oEvent) {
+			//alert(oEvent.oSource.getSelectedKey());
+			doOnLevelChangeE();
+		}
+	});
+
+	// ****************************************************************************************************************************************************
+	function updateLevelsE() {
+		var timestamp = new Date().getTime();
+		getData("/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/get_Levels&ts=" + timestamp + "&Content-Type=text/xml", parseJsonLevel);
+
+		function parseJsonLevel(jsondata) {
+			oDropdownBox_LEVELE.destroyItems();
+			var parentType;
+			for (var i = 0; i < jsondata.length; i++) {
+				//alert(jsondata[i]['recordID'] + '   ' + jsondata[i]['typeName'] + '   ' + jsondata[i]['parentType']);
+				item_key = jsondata[i]['recordID'];
+				item_text = jsondata[i]['typeName'];
+				oItem = new sap.ui.core.ListItem({
+					key : item_key,
+					text : item_text
+				});
+				if (jsondata[i]['parentType'] == "NA") {
+					parentType = 0;
+				} else {
+					parentType = jsondata[i]['parentType'];
+				}
+				oItem.setAdditionalText(parentType);
+				oDropdownBox_LEVELE.addItem(oItem);
+			}
+		}
+	}
+	// ****************************************************************************************************************************************************
+	function getSelectedParentTypeLevelE() {
+		var aItems = oDropdownBox_LEVELE.getItems();
+		for (var i = 0; i < aItems.length; i++) {
+			if (aItems[i].getText() === oDropdownBox_LEVELE.getValue()) {
+				return oDropdownBox_LEVELE.getItems()[i].getAdditionalText();
+			}
+		}
+	}
+	// ****************************************************************************************************************************************************
+	function getSelectedTypeLevelE() {
+		var aItems = oDropdownBox_LEVELE.getItems();
+		for (var i = 0; i < aItems.length; i++) {
+			if (aItems[i].getText() === oDropdownBox_LEVELE.getValue()) {
+				return oDropdownBox_LEVELE.getSelectedKey();
+			}
+		}
+	}
+	// ****************************************************************************************************************************************************
+	function doOnLevelChangeE() {
+		var parentType = getSelectedParentTypeLevelE();
+		//alert(parentType);
+		oInput_UNITSAPIDE.setEnabled(true);
+		oInput_UNITSAPIDE.setValue("");
+		oDropdownBox_PARENTE.setSelectedKey(0);
+		updateParentsE(parentType);
+	}
+	// ****************************************************************************************************************************************************
+
+	oMatrixEF.createRow(oLabel_LEVELE, oDropdownBox_LEVELE);
+
+	var oLabel_PARENTE = new sap.ui.commons.Label({
+		id : 'L-PARENTE',
+		visible : true,
+		text : 'PARENT UNIT'
+	});
+
+	var oDropdownBox_PARENTE = new sap.ui.commons.DropdownBox({
+		id : "dbox_parente",
+		tooltip : 'Parent Hierarchy',
+		editable : true,
+		width : '230px',
+		change : function(oEvent) {
+			//alert(oEvent.oSource.getSelectedKey());
+			doOnParentChangeE();
+		}
+	});
+
+	// ****************************************************************************************************************************************************
+	function updateParentsE(idUnitType) {
+		var timestamp = new Date().getTime();
+		getData("/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/getUnitParents&Param.1=" + idUnitType + "&ts=" + timestamp + "&Content-Type=text/xml", parseJsonParent);
+
+		function parseJsonParent(jsondata) {
+			oDropdownBox_PARENTE.destroyItems();
+			for (var i = 0; i < jsondata.length; i++) {
+				//alert(jsondata[i]['recordID'] + '   ' + jsondata[i]['unitName'] + '   ' + jsondata[i]['unitParent']);
+				item_key = jsondata[i]['recordID'];
+				item_text = jsondata[i]['unitName'];
+				oItem = new sap.ui.core.ListItem({
+					key : item_key,
+					text : item_text
+				});
+				oItem.setAdditionalText(jsondata[i]['unitParent']);
+				oDropdownBox_PARENTE.addItem(oItem);
+			}
+			oCore.byId("dbox_parente").setSelectedKey(idUnitParent);
+		}
+	}
+	// ****************************************************************************************************************************************************
+	function getSelectedUnitParentE() {
+		var aItems = oDropdownBox_PARENTE.getItems();
+		for (var i = 0; i < aItems.length; i++) {
+			if (aItems[i].getText() === oDropdownBox_PARENTE.getValue()) {
+				return oDropdownBox_PARENTE.getItems()[i].getAdditionalText();
+			}
+		}
+	}
+	// ****************************************************************************************************************************************************
+	function updateSAPIDE(idParentLevel) {
+		var timestamp = new Date().getTime();
+		getData("/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/get_SAPID&Param.1=" + idParentLevel + "&ts=" + timestamp + "&Content-Type=text/xml", parseJsonParent);
+
+		function parseJsonParent(jsondata) {
+			for (var i = 0; i < jsondata.length; i++) {
+				//alert(jsondata[i]['unitSAPID'] + '   ' + jsondata[i]['unitSAPID']);
+				oInput_UNITSAPIDE.setValue(jsondata[i]['unitSAPID']);
+			}
+		}
+	}
+	// ****************************************************************************************************************************************************
+	function doOnParentChangeE() {
+		var parentType = getSelectedParentTypeLevelE();
+		if (oDropdownBox_PARENTE.getSelectedKey() != 0) {
+			oInput_UNITSAPIDE.setEnabled(false);
+		} else {
+			oInput_UNITSAPIDE.setEnabled(true);
+		}
+		if (parentType != 2) {
+			updateSAPIDE(oDropdownBox_PARENTE.getSelectedKey());
+		}
+	}
+	// ****************************************************************************************************************************************************
+
+	oMatrixEF.createRow(oLabel_PARENTE, oDropdownBox_PARENTE);
+
+	var oLabel_ACTIVEE = new sap.ui.commons.Label({
+		id : 'L-ACTIVEE',
+		text : ' ACTIVE'
+	});
+
+	var oCheckbox_ACTIVEE = new sap.ui.commons.CheckBox('checkbox_activee', {
+		checked : false
+	});
+
+	var oDropdownBox_ROUTEE = new sap.ui.commons.DropdownBox({
+		id : "dbox_routee",
+		tooltip : 'Route',
+		editable : true,
+		width : '195px',
+		change : function(oEvent) {
+			//alert(oEvent.oSource.getSelectedKey());
+		}
+	});
+	// ****************************************************************************************************************************************************
+	function updateRouteE() {
+		var timestamp = new Date().getTime();
+		getData("/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/get_Routes&ts=" + timestamp + "&Content-Type=text/xml", parseJsonRoute);
+
+		function parseJsonRoute(jsondata) {
+			oDropdownBox_ROUTEE.destroyItems();
+			for (var i = 0; i < jsondata.length; i++) {
+				//alert(jsondata[i]['recordID'] + '   ' + jsondata[i]['routeName'] + '   ' + jsondata[i]['routeSAPID']);
+				item_key = jsondata[i]['recordID'];
+				item_text = jsondata[i]['routeName'];
+				oItem = new sap.ui.core.ListItem({
+					key : item_key,
+					text : item_text
+				});
+				oItem.setAdditionalText(jsondata[i]['routeSAPID']);
+				oDropdownBox_ROUTEE.addItem(oItem);
+			}
+			oCore.byId("dbox_routee").setSelectedKey(idUnitRoute);
+		}
+	}
+	// ****************************************************************************************************************************************************
+	var oLayout_ROUTEE = new sap.ui.layout.HorizontalLayout("layout_routee", {
+		content : [ oCheckbox_ACTIVEE, oDropdownBox_ROUTEE ]
+	});
+
+	oMatrixEF.createRow(oLabel_ACTIVEE, oLayout_ROUTEE);
+
+	oMatrixE.createRow(oMatrixEF);
+
+	var oButton5 = new sap.ui.commons.Button({
+		id : 'B-EditHrchy',
+		text : 'SUBMIT',
+		enabled : true
+	});
+	oButton5.attachPress(doEditHrchy);
+
+	oMatrixE.createRow(oButton5);
+
+	var oOverlayContainerEdit = new sap.ui.ux3.OverlayDialog({
+		openButtonVisible : false
+	});
+	oOverlayContainerEdit.setHeight('350px');
+	oOverlayContainerEdit.setWidth('700px');
+	oOverlayContainerEdit.addContent(oMatrixE);
+	// ******************************************************************************************************************************************************************
+	function doEdit() {
+		if (!oOverlayContainerEdit.isOpen()) {
+			oCore.byId("input_namee").setValue(unitName);
+			oCore.byId("input_desce").setValue(unitDescr);
+			oCore.byId("input_unitsapide").setValue(unitSAPID);
+			oCore.byId("dbox_levele").setSelectedKey(unitType);
+			var parentType = getSelectedParentTypeLevelE();
+			//alert("parentType="+parentType+" "+"idUnitParent="+idUnitParent);
+			updateParentsE(parentType);
+			//oCore.byId("dbox_parente").setSelectedKey(idUnitParent);
+			if (unitActive == 1)
+				oCore.byId("checkbox_activee").setChecked(true);
+			else
+				oCore.byId("checkbox_activee").setChecked(false);
+			var levelType = getSelectedTypeLevelE();
+			oCore.byId("dbox_routee").setVisible(levelType == 5);
+			updateRouteE();
+			oOverlayContainerEdit.open();
+		}
+	};
+	// ******************************************************************************************************************************************************************
+	function doEditHrchy() {
+		// retrieve values
+		var input_RECID = recordID;
+		var input_idType = oCore.byId("dbox_levele").getSelectedKey();
+		var input_idParent = oCore.byId("dbox_parente").getSelectedKey();
+		var input_NAME = oCore.byId("input_namee").getValue();
+		var input_DESC = oCore.byId("input_desce").getValue();
+		var input_unitSAPID = oCore.byId("input_unitsapide").getValue();
+		var input_unitSqlServer = "OEEM";
+		var input_userNAME = document.getElementById("user_name").value;
+		if (oCore.byId("checkbox_activee").getChecked()) {
+			var input_ACTIVE = 1;
+		} else {
+			var input_ACTIVE = 0;
+		}
+		var input_idRoute = oCore.byId("dbox_routee").getSelectedKey();
+		if (!(input_idType > 0)) {
+			alert("Please Select Hierarchy Unit Level ..");
+			oCore.byId("dbox_levele").focus();
+		} else {
+			if (!(input_idParent > 0)) {
+				alert("Please Select Hierarchy Parent Unit ..");
+				oCore.byId("dbox_parente").focus();
+			} else {
+				if (input_NAME == "") {
+					alert("Please Input Hierarchy Unit Name ..");
+					oCore.byId("input_namee").focus();
+				} else {
+					if (input_DESC == "") {
+						alert("Please Input Hierarchy Unit Description ..");
+						oCore.byId("input_desce").focus();
+					} else {
+						if (input_unitSAPID == "") {
+							alert("Please Input Unit SAP ID ..");
+							oCore.byId("input_unitsapide").focus();
+						} else {
+							if (!(input_idRoute > 0) && oDropdownBox_ROUTE.getVisible()) {
+								alert("Please Select Route ..");
+								oCore.byId("dbox_routee").focus();
+							} else {
+								// all good. Try to write them ..
+								var Param1 = escapeSQLString(input_RECID);
+								var Param2 = escapeSQLString(input_idType);
+								var Param3 = escapeSQLString(input_NAME);
+								var Param4 = escapeSQLString(input_DESC);
+								var Param5 = escapeSQLString(input_idParent);
+								var Param6 = escapeSQLString(input_ACTIVE);
+								var Param7 = escapeSQLString(input_unitSqlServer);
+								var Param8 = escapeSQLString(input_unitSAPID);
+								var Param9 = escapeSQLString(input_idRoute);
+								var Param10 = escapeSQLString(input_userNAME);
+								var oReqData;
+								if (window.XMLHttpRequest) {
+									oReqData = new XMLHttpRequest();
+								}
+								if (oReqData != null) {
+									var timestamp = new Date().getTime();
+									var paramStr = "Param.1=" + encodeURIComponent(Param1) + "&Param.2=" + encodeURIComponent(Param2) + "&Param.3=" + encodeURIComponent(Param3) + "&Param.4=" + encodeURIComponent(Param4)
+											+ "&Param.5=" + encodeURIComponent(Param5) + "&Param.6=" + encodeURIComponent(Param6) + "&Param.7=" + encodeURIComponent(Param7) + "&Param.8=" + encodeURIComponent(Param8)
+											+ "&Param.9=" + encodeURIComponent(Param9) + "&Param.10=" + encodeURIComponent(Param10);
+									// alert(paramStr);
+									var queryStr = "/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/upd_Hrchy&" + paramStr + "&ts=" + timestamp + "&Content-Type=text/xml";
+									// alert(queryStr);
+									oReqData.open("GET", queryStr, true);
+									oReqData.onreadystatechange = function() {
+										if (oReqData.readyState == 4)
+											if (oReqData.status == 200) {
+												// Successful -- rebuild the screen
+												getTreeData(plant2Access);
+												oOverlayContainerEdit.close();
+											} else {
+												// Not Successful -- alert the user
+												alert("Error: " + oReqData.statusText);
+											}
+									}
+									oReqData.send();
+								} else {
+									window.alert("Error creating XmlHttpRequest object.");
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	};
+	// ******************************************************************************************************************************************************************
+	function doDelete() {
+		// retrieve values
+		var Param1 = recordID;
+		var oReqData;
+		if (window.XMLHttpRequest) {
+			oReqData = new XMLHttpRequest();
+		}
+		if (oReqData != null) {
+			var timestamp = new Date().getTime();
+			var paramStr = "Param.1=" + encodeURIComponent(Param1);
+			// alert(paramStr);
+			var queryStr = "/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/del_Hrchy&" + paramStr + "&ts=" + timestamp + "&Content-Type=text/xml";
+			// alert(queryStr);
+			oReqData.open("GET", queryStr, true);
+			oReqData.onreadystatechange = function() {
+				if (oReqData.readyState == 4)
+					if (oReqData.status == 200) {
+						//alert(oReqData.responseText);
+						var response = oReqData.responseText;
+						var sMessage = response.match("<Message>(.*)</Message>");
+						if (sMessage != null) {
+							// Successful -- rebuild the screen
+							getTreeData(plant2Access);
+							window.status = "Unit deleted!";
+						} else {
+							var sError = response.match("<FatalError>(.*)</FatalError>")[1];
+							//alert(sError);
+							if (sError.indexOf("Violation of PRIMARY KEY contraint") > -1) {
+								alert("The record already exists.");
+							} else if (sError.indexOf("com.microsoft.sqlserver.jdbc.SQLServerException:") > -1) {
+								alert(sError.replace("com.microsoft.sqlserver.jdbc.SQLServerException:", ""));
+							} else {
+								alert(response.match("<FatalError>(.*)</FatalError>")[1]);
+							}
+						}
+					} else {
+						alert("Error: " + oReqData.statusText);
+					}
+			}
+			oReqData.send();
+		} else {
+			window.alert("Error creating XmlHttpRequest object.");
+		}
+	};
+	// ******************************************************************************************************************************************************************
+	// Create Connectivity Overlay
+	var oMatrixC = new sap.ui.commons.layout.MatrixLayout({
+		id : 'MatrixC',
+		layoutFixed : true,
+		width : '690px',
+		columns : 1,
+		widths : [ '700px' ]
+	});
+
+	var oMatrixCF = new sap.ui.commons.layout.MatrixLayout({
+		id : 'MatrixCF',
+		layoutFixed : true,
+		width : '690px',
+		columns : 2,
+		widths : [ '295px', '385px' ]
+	});
+
+	var oTitleC = new sap.ui.commons.Label({
+		id : 'L-Connectivity',
+		text : 'WORK CENTER CONNECTIVITY'
+	});
+	oMatrixC.createRow(oTitleC);
+
+	var oLabel_PCOAGENT = new sap.ui.commons.Label({
+		id : 'L-PCOAGENT',
+		visible : true,
+		text : 'PCO AGENT'
+	});
+
+	var oDropdownBox_PCOAGENT = new sap.ui.commons.DropdownBox({
+		id : "dbox_pcoagent",
+		tooltip : 'PCo Agent',
+		editable : true,
+		width : '230px',
+		change : function(oEvent) {
+			//alert(oEvent.oSource.getSelectedKey());
+		}
+	});
+
+	oMatrixCF.createRow(oLabel_PCOAGENT, oDropdownBox_PCOAGENT);
+
+	var oLabel_SQLSERVER = new sap.ui.commons.Label({
+		id : 'L-SQLSERVER',
+		visible : true,
+		text : 'SQL SERVER'
+	});
+
+	var oDropdownBox_SQLSERVER = new sap.ui.commons.DropdownBox({
+		id : "dbox_sqlserver",
+		tooltip : 'SQL Server',
+		editable : true,
+		width : '230px',
+		change : function(oEvent) {
+			//alert(oEvent.oSource.getSelectedKey());
+		}
+	});
+
+	oMatrixCF.createRow(oLabel_SQLSERVER, oDropdownBox_SQLSERVER);
+
+	var oLabel_REVISION = new sap.ui.commons.Label({
+		id : 'L-REVISION',
+		visible : true,
+		text : 'MEM MAP VERSION'
+	});
+
+	var oDropdownBox_REVISION = new sap.ui.commons.DropdownBox({
+		id : "dbox_revision",
+		tooltip : 'Mem Map Version',
+		editable : true,
+		width : '230px',
+		change : function(oEvent) {
+			//alert(oEvent.oSource.getSelectedKey());
+		}
+	});
+
+	oMatrixCF.createRow(oLabel_REVISION, oDropdownBox_REVISION);
+
+	oMatrixC.createRow(oMatrixCF);
+
+	var oButton6 = new sap.ui.commons.Button({
+		id : 'B-AddConnectivity',
+		text : 'SUBMIT',
+		enabled : true
+	});
+	oButton6.attachPress(doAddConnectivity);
+
+	oMatrixC.createRow(oButton6);
+
+	// ****************************************************************************************************************************************************
+	function updatePCoAgents() {
+		var timestamp = new Date().getTime();
+		getData("/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/get_PCoAgents&ts=" + timestamp + "&Content-Type=text/xml", parseJsonPCoAgents);
+
+		function parseJsonPCoAgents(jsondata) {
+			oDropdownBox_PCOAGENT.destroyItems();
+			for (var i = 0; i < jsondata.length; i++) {
+				//alert(jsondata[i]['recordID'] + '   ' + jsondata[i]['agentName']);
+				item_key = jsondata[i]['recordID'];
+				item_text = jsondata[i]['agentName'];
+				oItem = new sap.ui.core.ListItem({
+					key : item_key,
+					text : item_text
+				});
+				oDropdownBox_PCOAGENT.addItem(oItem);
+			}
+		}
+	}
+	// ****************************************************************************************************************************************************
+	function updateSqlServers() {
+		var timestamp = new Date().getTime();
+		getData("/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/get_SqlServers&ts=" + timestamp + "&Content-Type=text/xml", parseJsonSqlServer);
+
+		function parseJsonSqlServer(jsondata) {
+			oDropdownBox_SQLSERVER.destroyItems();
+			for (var i = 0; i < jsondata.length; i++) {
+				//alert(jsondata[i]['recordID'] + '   ' + jsondata[i]['serverName']);
+				item_key = jsondata[i]['recordID'];
+				item_text = jsondata[i]['serverName'];
+				oItem = new sap.ui.core.ListItem({
+					key : item_key,
+					text : item_text
+				});
+				oDropdownBox_SQLSERVER.addItem(oItem);
+			}
+		}
+	}
+	// ****************************************************************************************************************************************************
+	function updateRevisions() {
+		var timestamp = new Date().getTime();
+		getData("/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/get_Revisions&ts=" + timestamp + "&Content-Type=text/xml", parseJsonRevision);
+
+		function parseJsonRevision(jsondata) {
+			oDropdownBox_REVISION.destroyItems();
+			for (var i = 0; i < jsondata.length; i++) {
+				//alert(jsondata[i]['revisionID'] + '   ' + jsondata[i]['revisionStr']);
+				item_key = jsondata[i]['revisionID'];
+				item_text = jsondata[i]['revisionStr'];
+				oItem = new sap.ui.core.ListItem({
+					key : item_key,
+					text : item_text
+				});
+				oDropdownBox_REVISION.addItem(oItem);
+			}
+		}
+	}
+	// ****************************************************************************************************************************************************
+	var oOverlayContainerConnectivity = new sap.ui.ux3.OverlayDialog({
+		openButtonVisible : false
+	});
+	oOverlayContainerConnectivity.setHeight('250px');
+	oOverlayContainerConnectivity.setWidth('700px');
+	oOverlayContainerConnectivity.addContent(oMatrixC);
+	// ******************************************************************************************************************************************************************
+	function doOnConnectivityClick() {
+		if (!oOverlayContainerConnectivity.isOpen()) {
+			if (oModel.getProperty("pcoAgentID", oTable.getContextByIndex(oTable.getSelectedIndex())) > 0)
+				oCore.byId("dbox_pcoagent").setSelectedKey(oModel.getProperty("pcoAgentID", oTable.getContextByIndex(oTable.getSelectedIndex())));
+			else
+				oCore.byId("dbox_pcoagent").setSelectedKey(0);
+			if (oModel.getProperty("sqlServerID", oTable.getContextByIndex(oTable.getSelectedIndex())) > 0)
+				oCore.byId("dbox_sqlserver").setSelectedKey(oModel.getProperty("sqlServerID", oTable.getContextByIndex(oTable.getSelectedIndex())));
+			else
+				oCore.byId("dbox_sqlserver").setSelectedKey(0);
+			if (oModel.getProperty("revisionID", oTable.getContextByIndex(oTable.getSelectedIndex())) > 0)
+				oCore.byId("dbox_revision").setSelectedKey(oModel.getProperty("revisionID", oTable.getContextByIndex(oTable.getSelectedIndex())));
+			else
+				oCore.byId("dbox_revision").setSelectedKey(0);
+			oOverlayContainerConnectivity.open();
+		}
+	}
+	// ******************************************************************************************************************************************************************
+	function doAddConnectivity() {
+		// retrieve values
+		var input_pcoAgentID = oCore.byId("dbox_pcoagent").getSelectedKey();
+		var input_sqlServerID = oCore.byId("dbox_sqlserver").getSelectedKey();
+		var input_revisionID = oCore.byId("dbox_revision").getSelectedKey();
+		var input_userNAME = document.getElementById("user_name").value;
+		if (!(input_pcoAgentID > 0)) {
+			alert("Please Select PCO Agent ..");
+			oCore.byId("dbox_pcoagent").focus();
+		} else {
+			if (!(input_revisionID > 0)) {
+				alert("Please Select Revision ..");
+				oCore.byId("dbox_revision").focus();
+			} else {
+				// all good. Try to write them ..
+				var Param1 = escapeSQLString(oModel.getProperty("recordID", oTable.getContextByIndex(oTable.getSelectedIndex())));
+				var Param2 = escapeSQLString(input_pcoAgentID);
+				var Param3 = escapeSQLString(input_sqlServerID);
+				var Param4 = escapeSQLString(input_revisionID);
+				var Param5 = escapeSQLString(input_userNAME);
+				var oReqData;
+				if (window.XMLHttpRequest) {
+					oReqData = new XMLHttpRequest();
+				}
+				if (oReqData != null) {
+					var timestamp = new Date().getTime();
+					var paramStr = "Param.1=" + encodeURIComponent(Param1) + "&Param.2=" + encodeURIComponent(Param2) + "&Param.3=" + encodeURIComponent(Param3) + "&Param.4=" + encodeURIComponent(Param4) + "&Param.5="
+							+ encodeURIComponent(Param5);
+					// alert(paramStr);
+					var queryStr = "/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/add_Connectivity&" + paramStr + "&ts=" + timestamp + "&Content-Type=text/xml";
+					// alert(queryStr);
+					oReqData.open("GET", queryStr, true);
+					oReqData.onreadystatechange = function() {
+						if (oReqData.readyState == 4)
+							if (oReqData.status == 200) {
+								//alert(oReqData.responseText);
+								var response = oReqData.responseText;
+								var sMessage = response.match("<Message>(.*)</Message>");
+								if (sMessage != null) {
+									// Successful -- rebuild the screen
+									getTreeData(plant2Access);
+									oOverlayContainerConnectivity.close();
+									window.status = "Connection added!";
+								} else {
+									var sError = response.match("<FatalError>(.*)</FatalError>")[1];
+									//alert(sError);
+									if (sError.indexOf("Violation of PRIMARY KEY contraint") > -1) {
+										alert("The record already exists.");
+									} else if (sError.indexOf("com.microsoft.sqlserver.jdbc.SQLServerException:") > -1) {
+										alert(sError.replace("com.microsoft.sqlserver.jdbc.SQLServerException:", ""));
+									} else {
+										alert(response.match("<FatalError>(.*)</FatalError>")[1]);
+									}
+								}
+							} else {
+								// Not Successful -- alert the user
+								alert("Error: " + oReqData.statusText);
+							}
+					}
+					oReqData.send();
+				} else {
+					window.alert("Error creating XmlHttpRequest object.");
+				}
+			}
+		}
+	}
+	// ******************************************************************************************************************************************************************
+	// Create Defined Tags Overlay
+	var oMatrixN = new sap.ui.commons.layout.MatrixLayout({
+		id : 'MatrixN',
+		layoutFixed : true,
+		width : '690px',
+		columns : 1,
+		widths : [ '700px' ]
+	});
+	// ******************************************************************************************************************************************************************
+	var oMatrixNF = new sap.ui.commons.layout.MatrixLayout({
+		id : 'MatrixNF',
+		layoutFixed : true,
+		width : '690px',
+		columns : 2,
+		widths : [ '345px', '345px' ]
+	});
+
+	var oTitleN = new sap.ui.commons.Label({
+		id : 'L-DefinedTags',
+		text : 'DEFINE TAGS'
+	});
+	oMatrixN.createRow(oTitleN);
+
+	var oLabel_ALLTAGSREV = new sap.ui.commons.Label({
+		id : 'L-RALLTAGSREV',
+		visible : true,
+		text : ' DEFINABLE DATA ELEMENT'
+	});
+
+	var oDropdownBox_ALLTAGSREV = new sap.ui.commons.DropdownBox({
+		id : "dbox_alltags",
+		tooltip : 'Transaction Tag Name',
+		editable : true,
+		width : '230px',
+		change : function(oEvent) {
+			//alert(oEvent.oSource.getSelectedKey());
+		}
+	});
+
+	oMatrixNF.createRow(oLabel_ALLTAGSREV, oDropdownBox_ALLTAGSREV);
+
+	// ******************************************************************************************************************************************************************
+	function updateTrxTags() {
+		var timestamp = new Date().getTime();
+		getData("/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/get_MemMapTags&Param.1=" + oModel.getProperty("revisionID", oTable.getContextByIndex(oTable.getSelectedIndex())) + "&ts=" + timestamp
+				+ "&Content-Type=text/xml", parseJsonTrxTags);
+
+		function parseJsonTrxTags(jsondata) {
+			oDropdownBox_ALLTAGSREV.destroyItems();
+			for (var i = 0; i < jsondata.length; i++) {
+				//alert(jsondata[i]['recordID'] + '   ' + jsondata[i]['tagName']);
+				item_key = jsondata[i]['recordID'];
+				if (i == 0)
+					item_text = jsondata[i]['tagName'];
+				else
+					item_text = jsondata[i]['tagName'] + " -- " + jsondata[i]['COM_typeName'];
+				oItem = new sap.ui.core.ListItem({
+					key : item_key,
+					text : item_text
+				});
+				oDropdownBox_ALLTAGSREV.addItem(oItem);
+			}
+		}
+	}
+	// ******************************************************************************************************************************************************************
+	var oLabel_NAMEDEF = new sap.ui.commons.Label({
+		id : 'L-NAMEDEF',
+		text : ' NAME'
+	});
+
+	var oInput_NAMEDEF = new sap.ui.commons.TextField('input_namedef');
+
+	oMatrixNF.createRow(oLabel_NAMEDEF, oInput_NAMEDEF);
+
+	var oLabel_DESCDEF = new sap.ui.commons.Label({
+		id : 'L-DESCDEF',
+		text : ' DESCRIPTION'
+	});
+
+	var oInput_DESCDEF = new sap.ui.commons.TextField({
+		id : 'input_descdef',
+		value : '',
+		tooltip : 'Description',
+		width : '230px'
+	});
+
+	oMatrixNF.createRow(oLabel_DESCDEF, oInput_DESCDEF);
+
+	var oLabel_UOMDEF = new sap.ui.commons.Label({
+		id : 'L-UOMDEF',
+		text : ' UOM'
+	});
+
+	var oDropdownBox_UOMDEF = new sap.ui.commons.DropdownBox({
+		id : "dbox_uomdef",
+		tooltip : 'UOM',
+		editable : true,
+		width : '230px',
+		change : function(oEvent) {
+			//alert(oEvent.oSource.getSelectedKey());
+		}
+	});
+
+	oMatrixNF.createRow(oLabel_UOMDEF, oDropdownBox_UOMDEF);
+
+	// ****************************************************************************************************************************************************
+	function updateUomDefined() {
+		var timestamp = new Date().getTime();
+		getData("/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/get_Uom&ts=" + timestamp + "&Content-Type=text/xml", parseJsonUomDef);
+
+		function parseJsonUomDef(jsondata) {
+			oDropdownBox_UOMDEF.destroyItems();
+			for (var i = 0; i < jsondata.length; i++) {
+				//alert(jsondata[i]['idUOM'] + '   ' + jsondata[i]['UOMName']);
+				item_key = jsondata[i]['idUOM'];
+				item_text = jsondata[i]['UOMName'];
+				oItem = new sap.ui.core.ListItem({
+					key : item_key,
+					text : item_text
+				});
+				oDropdownBox_UOMDEF.addItem(oItem);
+			}
+		}
+	}
+
+	// ******************************************************************************************************************************************************************
+	function createTableTagDefined() {
+		// Bind the table rows to this model
+		var timestamp = new Date().getTime();
+		oModelTagDefined.loadData("/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/get_TagDefined&ts=" + timestamp + "&Content-Type=text/xml", "", false);
+		// alert(oModelTagDefined.getXML());
+		createColumnsTagDefined();
+		oTableTagDefined.setModel(oModelTagDefined);
+		oTableTagDefined.bindRows("/Rowset/Row");
+	}
+
+	// ******************************************************************************************************************************************************************
+	function updateTableTagDefined() {
+		oTableTagDefined.clearSelection();
+		var timestamp = new Date().getTime();
+		oModelTagDefined.loadData("/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/get_TagDefined&Param.1=" + oModel.getProperty("recordID", oTable.getContextByIndex(oTable.getSelectedIndex())) + "&ts="
+				+ timestamp + "&Content-Type=text/xml", "", false);
+		oTableTagDefined.getModel().refresh(true);
+	}
+
+	// ******************************************************************************************************************************************************************
+	function createColumnsTagDefined() {
+		//Define the columns and the control templates to be used
+		oTableTagDefined.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "unitID"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text", "unitID"),
+			sortProperty : "unitID",
+			filterProperty : "unitID",
+			width : "0px"
+		}));
+		oTableTagDefined.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "NAME"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text", "nameDefined"),
+			sortProperty : "nameDefined",
+			filterProperty : "nameDefined",
+			width : "150px"
+		}));
+		oTableTagDefined.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "DEFINABLE TAG NAME"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text", "tagName"),
+			sortProperty : "tagName",
+			filterProperty : "tagName",
+			width : "200px"
+		}));
+		oTableTagDefined.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "DESCRIPTION"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text", "descriptionDefined"),
+			sortProperty : "descriptionDefined",
+			filterProperty : "descriptionDefined",
+			width : "150px"
+		}));
+		oTableTagDefined.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "UOM"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text", "UOMName"),
+			sortProperty : "UOMName",
+			filterProperty : "UOMName",
+			width : "100px"
+		}));
+		oTableTagDefined.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "recordID"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text", "recordID"),
+			sortProperty : "recordID",
+			filterProperty : "recordID",
+			width : "0px"
+		}));
+	}
+	// ******************************************************************************************************************************************************************
+	//Create an instance of the table control
+	var oTableTagDefined = new sap.ui.table.Table({
+		id : "tbl_tagdef",
+		visibleRowCount : 7,
+		//visibleRowCountMode: sap.ui.table.VisibleRowCountMode.Interactive,
+		firstVisibleRow : 0,
+		width : "650px",
+		selectionBehavior : sap.ui.table.SelectionBehavior.Row,
+		selectionMode : sap.ui.table.SelectionMode.Single
+	});
+
+	// ******************************************************************************************************************************************************************
+	oTableTagDefined.attachRowSelectionChange(function(oEvent) {
+		// Retrieve the selected row
+		var selIndex = oTableTagDefined.getSelectedIndex();
+		selectedIndex = selIndex;
+		if (selIndex >= 0) {
+			oButton7.setEnabled(false);
+			oButton8.setEnabled(true);
+			oButton9.setEnabled(true);
+			// Retrieve the selected row
+			var selectedRow = oTableTagDefined.getRows()[selIndex];
+			// sap.ui.commons.MessageBox.alert(selectedRow);
+			var selectedRowContext = oEvent.getParameter("rowContext");
+			oCore.byId("dbox_alltags").setSelectedKey(oModelTagDefined.getProperty("memMapID", selectedRowContext));
+			oCore.byId("input_namedef").setValue(oModelTagDefined.getProperty("nameDefined", selectedRowContext));
+			oCore.byId("input_descdef").setValue(oModelTagDefined.getProperty("descriptionDefined", selectedRowContext));
+			oCore.byId("dbox_uomdef").setSelectedKey(oModelTagDefined.getProperty("uomDefinedID", selectedRowContext));
+		} else {
+			oButton7.setEnabled(true);
+			oButton8.setEnabled(false);
+			oButton9.setEnabled(false);
+			selectedIndex = -1;
+			resetTagDefined();
+			// alert ("No Selection ..");
+		}
+	});
+
+	var oModelTagDefined = new sap.ui.model.xml.XMLModel();
+
+	//Bring the table onto the UI
+	createTableTagDefined();
+
+	// ******************************************************************************************************************************************************************
+	// build buttons matrix
+	var oMatrixBDefined = new sap.ui.commons.layout.MatrixLayout({
+		id : 'MatrixBDefined',
+		layoutFixed : true,
+		width : '700px',
+		columns : 5,
+		widths : [ '125px', '150px', '150px', '150px', '125px' ]
+	});
+
+	var oButton7 = new sap.ui.commons.Button({
+		id : 'B-AddDefined',
+		text : 'Add',
+		enabled : true
+	});
+	oButton7.attachPress(doAddDefined);
+
+	var oButton8 = new sap.ui.commons.Button({
+		id : 'B-EditDefined',
+		text : 'Edit',
+		enabled : false
+	});
+	oButton8.attachPress(doEditDefined);
+
+	var oButton9 = new sap.ui.commons.Button({
+		id : 'B-DeleteDefined',
+		text : 'Delete',
+		enabled : false
+	});
+	oButton9.attachPress(doDeleteDefined);
+
+	oMatrixBDefined.createRow('', oButton7, oButton8, oButton9, '');
+
+	oMatrixN.createRow(oMatrixNF);
+
+	oMatrixN.createRow(oTableTagDefined);
+
+	oMatrixN.createRow(oMatrixBDefined);
+	// ****************************************************************************************************************************************************
+	function doAddDefined() {
+		// retrieve values
+		var input_UNITID = oModel.getProperty("recordID", oTable.getContextByIndex(oTable.getSelectedIndex()));
+		var input_MEMMAPID = oCore.byId("dbox_alltags").getSelectedKey();
+		var input_NAME = oCore.byId("input_namedef").getValue();
+		var input_DESC = oCore.byId("input_descdef").getValue();
+		var input_UOM = oCore.byId("dbox_uomdef").getSelectedKey();
+		var input_userNAME = document.getElementById("user_name").value;
+		if (!(input_MEMMAPID > 0)) {
+			alert("Please Select Tag ..");
+			oCore.byId("dbox_alltags").focus();
+		} else {
+			if (input_NAME == "") {
+				alert("Please Input Name Defined ..");
+				oCore.byId("input_namedef").focus();
+			} else {
+				if (input_DESC == "") {
+					alert("Please Input Description Defined ..");
+					oCore.byId("input_descdef").focus();
+				} else {
+					if (!(input_UOM > 0)) {
+						alert("Please Select UOM ..");
+						oCore.byId("dbox_uomdef").focus();
+					} else {
+						// all good. Try to write them ..
+						var Param1 = escapeSQLString(input_UNITID);
+						var Param2 = escapeSQLString(input_MEMMAPID);
+						var Param3 = escapeSQLString(input_NAME);
+						var Param4 = escapeSQLString(input_DESC);
+						var Param5 = escapeSQLString(input_UOM);
+						var Param6 = escapeSQLString(input_userNAME);
+						var oReqData;
+						if (window.XMLHttpRequest) {
+							oReqData = new XMLHttpRequest();
+						}
+						if (oReqData != null) {
+							var timestamp = new Date().getTime();
+							var paramStr = "Param.1=" + encodeURIComponent(Param1) + "&Param.2=" + encodeURIComponent(Param2) + "&Param.3=" + encodeURIComponent(Param3) + "&Param.4=" + encodeURIComponent(Param4)
+									+ "&Param.5=" + encodeURIComponent(Param5) + "&Param.6=" + encodeURIComponent(Param6);
+							// alert(paramStr);
+							var queryStr = "/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/add_TagDefined&" + paramStr + "&ts=" + timestamp + "&Content-Type=text/xml";
+							// alert(queryStr);
+							oReqData.open("GET", queryStr, true);
+							oReqData.onreadystatechange = function() {
+								if (oReqData.readyState == 4)
+									if (oReqData.status == 200) {
+										// Successful -- rebuild the screen
+										updateTableTagDefined();
+										resetTagDefined();
+									} else {
+										// Not Successful -- alert the user
+										alert("Error: " + oReqData.statusText);
+									}
+							}
+							oReqData.send();
+						} else {
+							window.alert("Error creating XmlHttpRequest object.");
+						}
+					}
+				}
+			}
+		}
+	}
+	// ****************************************************************************************************************************************************
+	function doEditDefined() {
+		// retrieve values
+		var input_RECID = oModelTagDefined.getProperty("recordID", oTableTagDefined.getContextByIndex(oTableTagDefined.getSelectedIndex()));
+		var input_UNITID = oModel.getProperty("recordID", oTable.getContextByIndex(oTable.getSelectedIndex()));
+		var input_MEMMAPID = oCore.byId("dbox_alltags").getSelectedKey();
+		var input_NAME = oCore.byId("input_namedef").getValue();
+		var input_DESC = oCore.byId("input_descdef").getValue();
+		var input_UOM = oCore.byId("dbox_uomdef").getSelectedKey();
+		var input_userNAME = document.getElementById("user_name").value;
+		if (!(input_MEMMAPID > 0)) {
+			alert("Please Select Tag ..");
+			oCore.byId("dbox_alltags").focus();
+		} else {
+			if (input_NAME == "") {
+				alert("Please Input Name Defined ..");
+				oCore.byId("input_namedef").focus();
+			} else {
+				if (input_DESC == "") {
+					alert("Please Input Description Defined ..");
+					oCore.byId("input_descdef").focus();
+				} else {
+					if (!(input_UOM > 0)) {
+						alert("Please Select UOM ..");
+						oCore.byId("dbox_uomdef").focus();
+					} else {
+						// all good. Try to write them ..
+						var Param1 = escapeSQLString(input_RECID);
+						var Param2 = escapeSQLString(input_UNITID);
+						var Param3 = escapeSQLString(input_MEMMAPID);
+						var Param4 = escapeSQLString(input_NAME);
+						var Param5 = escapeSQLString(input_DESC);
+						var Param6 = escapeSQLString(input_UOM);
+						var Param7 = escapeSQLString(input_userNAME);
+						var oReqData;
+						if (window.XMLHttpRequest) {
+							oReqData = new XMLHttpRequest();
+						}
+						if (oReqData != null) {
+							var timestamp = new Date().getTime();
+							var paramStr = "Param.1=" + encodeURIComponent(Param1) + "&Param.2=" + encodeURIComponent(Param2) + "&Param.3=" + encodeURIComponent(Param3) + "&Param.4=" + encodeURIComponent(Param4)
+									+ "&Param.5=" + encodeURIComponent(Param5) + "&Param.6=" + encodeURIComponent(Param6) + "&Param.7=" + encodeURIComponent(Param7);
+							// alert(paramStr);
+							var queryStr = "/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/upd_TagDefined&" + paramStr + "&ts=" + timestamp + "&Content-Type=text/xml";
+							// alert(queryStr);
+							oReqData.open("GET", queryStr, true);
+							oReqData.onreadystatechange = function() {
+								if (oReqData.readyState == 4)
+									if (oReqData.status == 200) {
+										// Successful -- rebuild the screen
+										updateTableTagDefined();
+										resetTagDefined();
+									} else {
+										// Not Successful -- alert the user
+										alert("Error: " + oReqData.statusText);
+									}
+							}
+							oReqData.send();
+						} else {
+							window.alert("Error creating XmlHttpRequest object.");
+						}
+					}
+				}
+			}
+		}
+	}
+	// ****************************************************************************************************************************************************
+	function doDeleteDefined() {
+		// retrieve values
+		var Param1 = oModelTagDefined.getProperty("recordID", oTableTagDefined.getContextByIndex(oTableTagDefined.getSelectedIndex()));
+		var oReqData;
+		if (window.XMLHttpRequest) {
+			oReqData = new XMLHttpRequest();
+		}
+		if (oReqData != null) {
+			var timestamp = new Date().getTime();
+			var paramStr = "Param.1=" + encodeURIComponent(Param1);
+			// alert(paramStr);
+			var queryStr = "/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/del_TagDefined&" + paramStr + "&ts=" + timestamp + "&Content-Type=text/xml";
+			// alert(queryStr);
+			oReqData.open("GET", queryStr, true);
+			oReqData.onreadystatechange = function() {
+				if (oReqData.readyState == 4)
+					if (oReqData.status == 200) {
+						// Successful -- rebuild the screen
+						updateTableTagDefined();
+						resetTagDefined();
+					} else {
+						alert("Error: " + oReqData.statusText);
+					}
+			}
+			oReqData.send();
+		} else {
+			window.alert("Error creating XmlHttpRequest object.");
+		}
+	}
+	// ****************************************************************************************************************************************************
+	var oOverlayContainerDefined = new sap.ui.ux3.OverlayDialog({
+		openButtonVisible : false
+	});
+	oOverlayContainerDefined.setHeight('550px');
+	oOverlayContainerDefined.setWidth('700px');
+	oOverlayContainerDefined.addContent(oMatrixN);
+	// ******************************************************************************************************************************************************************
+	function doOnDefinedTagClick() {
+		if (oModel.getProperty("revisionID", oTable.getContextByIndex(oTable.getSelectedIndex())) == "NA") {
+			alert("Please select Memory Map Version using Connectivity dialog...");
+			return;
+		}
+		if (!oOverlayContainerDefined.isOpen()) {
+			oCore.byId("dbox_alltags").setSelectedKey(0);
+			oCore.byId("dbox_uomdef").setSelectedKey(0);
+			updateTrxTags();
+			updateUomDefined();
+			updateTableTagDefined();
+			oTableTagDefined.clearSelection();
+			oOverlayContainerDefined.open();
+		}
+	}
+	// ******************************************************************************************************************************************************************
+	function resetTagDefined() {
+		oCore.byId("dbox_alltags").setSelectedKey(0);
+		oCore.byId("input_namedef").setValue("");
+		oCore.byId("input_descdef").setValue("");
+		oCore.byId("dbox_uomdef").setSelectedKey(0);
+	}
+	// ******************************************************************************************************************************************************************
+	// Create Trigger Overlay
+	var oMatrixG = new sap.ui.commons.layout.MatrixLayout({
+		id : 'MatrixG',
+		layoutFixed : true,
+		width : '690px',
+		columns : 1,
+		widths : [ '700px' ]
+	});
+	// ******************************************************************************************************************************************************************
+	var oMatrixGF = new sap.ui.commons.layout.MatrixLayout({
+		id : 'MatrixGF',
+		layoutFixed : true,
+		width : '690px',
+		columns : 4,
+		widths : [ '175px', '175px', '175px', '175px' ]
+	});
+
+	var oTitleG = new sap.ui.commons.Label({
+		id : 'L-DefinedTriggers',
+		text : 'DEFINE TRIGGERS'
+	});
+	oMatrixG.createRow(oTitleG);
+
+	var oLabel_WORKCENTER = new sap.ui.commons.Label({
+		id : 'L-WORKCENTER',
+		visible : true,
+		text : 'WORK CENTER'
+	});
+
+	var oDropdownBox_WORKCENTER = new sap.ui.commons.DropdownBox({
+		id : "dbox_workcenter",
+		tooltip : 'Work Center',
+		editable : true,
+		width : '170px',
+		change : function(oEvent) {
+			//alert(oEvent.oSource.getSelectedKey());
+		}
+	});
+
+	var oLabel_DELAY = new sap.ui.commons.Label({
+		id : 'L-DELAY',
+		text : 'sequence'
+	});
+
+	var oInput_DELAY = new sap.ui.commons.TextField({
+		id : "input_delay",
+		width : '170px'
+	});
+
+	oMatrixGF.createRow(oLabel_WORKCENTER, oDropdownBox_WORKCENTER, oInput_DELAY, oLabel_DELAY);
+
+	// ******************************************************************************************************************************************************************
+	function updateWorkCenter() {
+		var timestamp = new Date().getTime();
+		getData("/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/get_WorkCenters&ts=" + timestamp + "&Content-Type=text/xml", parseJsonWorkCenter);
+
+		function parseJsonWorkCenter(jsondata) {
+			oDropdownBox_WORKCENTER.destroyItems();
+			for (var i = 0; i < jsondata.length; i++) {
+				//alert(jsondata[i]['recordID'] + '   ' + jsondata[i]['unitName']);
+				item_key = jsondata[i]['recordID'];
+				item_text = jsondata[i]['unitName'];
+				oItem = new sap.ui.core.ListItem({
+					key : item_key,
+					text : item_text
+				});
+				oDropdownBox_WORKCENTER.addItem(oItem);
+			}
+		}
+	}
+	// ******************************************************************************************************************************************************************
+	function createTableTrigger() {
+		// Bind the table rows to this model
+		var timestamp = new Date().getTime();
+		oModelTrigger.loadData("/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/get_Triggers&ts=" + timestamp + "&Content-Type=text/xml", "", false);
+		// alert(oModelTrigger.getXML());
+		createColumnsTrigger();
+		oTableTrigger.setModel(oModelTrigger);
+		oTableTrigger.bindRows("/Rowset/Row");
+	}
+
+	// ******************************************************************************************************************************************************************
+	function updateTableTrigger() {
+		oTableTrigger.clearSelection();
+		var timestamp = new Date().getTime();
+		oModelTrigger.loadData("/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/get_Triggers&Param.1=" + oModel.getProperty("recordID", oTable.getContextByIndex(oTable.getSelectedIndex())) + "&ts=" + timestamp
+				+ "&Content-Type=text/xml", "", false);
+		oTableTrigger.getModel().refresh(true);
+	}
+	// ******************************************************************************************************************************************************************
+	function createColumnsTrigger() {
+		//Define the columns and the control templates to be used
+		oTableTrigger.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "unitID"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text", "unitID"),
+			sortProperty : "unitID",
+			filterProperty : "unitID",
+			width : "0px"
+		}));
+		oTableTrigger.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "UNIT NAME"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text", "unitName"),
+			sortProperty : "unitName",
+			filterProperty : "unitName",
+			width : "150px"
+		}));
+		oTableTrigger.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "UNIT TRIGGER SEQUENCE"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text", "unitTriggerDelay"),
+			sortProperty : "unitTriggerDelay",
+			filterProperty : "unitTriggerDelay",
+			width : "150px"
+		}));
+		oTableTrigger.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "recordID"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text", "recordID"),
+			sortProperty : "recordID",
+			filterProperty : "recordID",
+			width : "0px"
+		}));
+	}
+	// ******************************************************************************************************************************************************************
+	//Create an instance of the table control
+	var oTableTrigger = new sap.ui.table.Table({
+		id : "tbl_trigger",
+		visibleRowCount : 7,
+		//visibleRowCountMode: sap.ui.table.VisibleRowCountMode.Interactive,
+		firstVisibleRow : 0,
+		width : "650px",
+		selectionBehavior : sap.ui.table.SelectionBehavior.Row,
+		selectionMode : sap.ui.table.SelectionMode.Single
+	});
+
+	// ******************************************************************************************************************************************************************
+	oTableTrigger.attachRowSelectionChange(function(oEvent) {
+		// Retrieve the selected row
+		var selIndex = oTableTrigger.getSelectedIndex();
+		selectedIndex = selIndex;
+		if (selIndex >= 0) {
+			oButton10.setEnabled(false);
+			oButton11.setEnabled(true);
+			oButton12.setEnabled(true);
+			// Retrieve the selected row
+			var selectedRow = oTableTrigger.getRows()[selIndex];
+			// sap.ui.commons.MessageBox.alert(selectedRow);
+			var selectedRowContext = oEvent.getParameter("rowContext");
+			oCore.byId("dbox_workcenter").setSelectedKey(oModelTrigger.getProperty("unitTriggerID", selectedRowContext));
+			oCore.byId("input_delay").setValue(oModelTrigger.getProperty("unitTriggerDelay", selectedRowContext));
+		} else {
+			oButton10.setEnabled(true);
+			oButton11.setEnabled(false);
+			oButton12.setEnabled(false);
+			selectedIndex = -1;
+			resetTrigger();
+			// alert ("No Selection ..");
+		}
+	});
+
+	var oModelTrigger = new sap.ui.model.xml.XMLModel();
+
+	//Bring the table onto the UI
+	createTableTrigger();
+
+	// ******************************************************************************************************************************************************************
+	// build buttons matrix
+	var oMatrixBTrigger = new sap.ui.commons.layout.MatrixLayout({
+		id : 'MatrixBTrigger',
+		layoutFixed : true,
+		width : '700px',
+		columns : 5,
+		widths : [ '125px', '150px', '150px', '150px', '125px' ]
+	});
+
+	var oButton10 = new sap.ui.commons.Button({
+		id : 'B-AddTrigger',
+		text : 'Add',
+		enabled : true
+	});
+	oButton10.attachPress(doAddTrigger);
+
+	var oButton11 = new sap.ui.commons.Button({
+		id : 'B-EditTrigger',
+		text : 'Edit',
+		enabled : false
+	});
+	oButton11.attachPress(doEditTrigger);
+
+	var oButton12 = new sap.ui.commons.Button({
+		id : 'B-DeleteTrigger',
+		text : 'Delete',
+		enabled : false
+	});
+	oButton12.attachPress(doDeleteTrigger);
+
+	oMatrixBTrigger.createRow('', oButton10, oButton11, oButton12, '');
+	oMatrixG.createRow(oMatrixGF);
+	oMatrixG.createRow(oTableTrigger);
+	oMatrixG.createRow(oMatrixBTrigger);
+	// ****************************************************************************************************************************************************
+	var oOverlayContainerTrigger = new sap.ui.ux3.OverlayDialog({
+		openButtonVisible : false
+	});
+	oOverlayContainerTrigger.setHeight('450px');
+	oOverlayContainerTrigger.setWidth('700px');
+	oOverlayContainerTrigger.addContent(oMatrixG);
+	// ******************************************************************************************************************************************************************
+	function doOnTriggerClick() {
+		if (!oOverlayContainerTrigger.isOpen()) {
+			updateWorkCenter();
+			updateTableTrigger();
+			oTableTrigger.clearSelection();
+			oOverlayContainerTrigger.open();
+		}
+	}
+	// ****************************************************************************************************************************************************
+	function doAddTrigger() {
+		// retrieve values
+		var input_UNITID = oModel.getProperty("recordID", oTable.getContextByIndex(oTable.getSelectedIndex()));
+		var input_WORKCENTERID = oCore.byId("dbox_workcenter").getSelectedKey();
+		var input_DELAY = oCore.byId("input_delay").getValue();
+		var input_userNAME = document.getElementById("user_name").value;
+		if (!(input_WORKCENTERID > 0)) {
+			alert("Please Select Work Center ..");
+			oCore.byId("dbox_workcenter").focus();
+		} else {
+			if (input_DELAY == "") {
+				alert("Please Input Delay ..");
+				oCore.byId("input_delay").focus();
+			} else {
+				if (!isNumeric(input_DELAY)) {
+					alert("Please Input numeric value ..");
+					oCore.byId("input_delay").focus();
+				} else {
+					// all good. Try to write them ..
+					var Param1 = escapeSQLString(input_UNITID);
+					var Param2 = escapeSQLString(input_WORKCENTERID);
+					var Param3 = escapeSQLString(input_DELAY);
+					var Param4 = escapeSQLString(input_userNAME);
+					var oReqData;
+					if (window.XMLHttpRequest) {
+						oReqData = new XMLHttpRequest();
+					}
+					if (oReqData != null) {
+						var timestamp = new Date().getTime();
+						var paramStr = "Param.1=" + encodeURIComponent(Param1) + "&Param.2=" + encodeURIComponent(Param2) + "&Param.3=" + encodeURIComponent(Param3) + "&Param.4=" + encodeURIComponent(Param4);
+						// alert(paramStr);
+						var queryStr = "/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/add_Trigger&" + paramStr + "&ts=" + timestamp + "&Content-Type=text/xml";
+						// alert(queryStr);
+						oReqData.open("GET", queryStr, true);
+						oReqData.onreadystatechange = function() {
+							if (oReqData.readyState == 4)
+								if (oReqData.status == 200) {
+									// Successful -- rebuild the screen
+									updateTableTrigger();
+									resetTrigger();
+								} else {
+									// Not Successful -- alert the user
+									alert("Error: " + oReqData.statusText);
+								}
+						}
+						oReqData.send();
+					} else {
+						window.alert("Error creating XmlHttpRequest object.");
+					}
+				}
+			}
+		}
+	}
+	// ****************************************************************************************************************************************************
+	function doEditTrigger() {
+		// retrieve values
+		var input_RECID = oModelTrigger.getProperty("recordID", oTableTrigger.getContextByIndex(oTableTrigger.getSelectedIndex()));
+		var input_UNITID = oModel.getProperty("recordID", oTable.getContextByIndex(oTable.getSelectedIndex()));
+		var input_WORKCENTERID = oCore.byId("dbox_workcenter").getSelectedKey();
+		var input_DELAY = oCore.byId("input_delay").getValue();
+		var input_userNAME = document.getElementById("user_name").value;
+		if (!(input_WORKCENTERID > 0)) {
+			alert("Please Select Work Center ..");
+			oCore.byId("dbox_workcenter").focus();
+		} else {
+			if (input_DELAY == "") {
+				alert("Please Input Delay ..");
+				oCore.byId("input_delay").focus();
+			} else {
+				if (!isNumeric(input_DELAY)) {
+					alert("Please Input numeric value ..");
+					oCore.byId("input_delay").focus();
+				} else {
+					// all good. Try to write them ..
+					var Param1 = escapeSQLString(input_RECID);
+					var Param2 = escapeSQLString(input_UNITID);
+					var Param3 = escapeSQLString(input_WORKCENTERID);
+					var Param4 = escapeSQLString(input_DELAY);
+					var Param5 = escapeSQLString(input_userNAME);
+					var oReqData;
+					if (window.XMLHttpRequest) {
+						oReqData = new XMLHttpRequest();
+					}
+					if (oReqData != null) {
+						var timestamp = new Date().getTime();
+						var paramStr = "Param.1=" + encodeURIComponent(Param1) + "&Param.2=" + encodeURIComponent(Param2) + "&Param.3=" + encodeURIComponent(Param3) + "&Param.4=" + encodeURIComponent(Param4)
+								+ "&Param.5=" + encodeURIComponent(Param5);
+						// alert(paramStr);
+						var queryStr = "/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/upd_Trigger&" + paramStr + "&ts=" + timestamp + "&Content-Type=text/xml";
+						// alert(queryStr);
+						oReqData.open("GET", queryStr, true);
+						oReqData.onreadystatechange = function() {
+							if (oReqData.readyState == 4)
+								if (oReqData.status == 200) {
+									// Successful -- rebuild the screen
+									updateTableTrigger();
+									resetTrigger();
+								} else {
+									// Not Successful -- alert the user
+									alert("Error: " + oReqData.statusText);
+								}
+						}
+						oReqData.send();
+					} else {
+						window.alert("Error creating XmlHttpRequest object.");
+					}
+				}
+			}
+		}
+	}
+	// ****************************************************************************************************************************************************
+	function doDeleteTrigger() {
+		// retrieve values
+		var Param1 = oModelTrigger.getProperty("recordID", oTableTrigger.getContextByIndex(oTableTrigger.getSelectedIndex()));
+		var oReqData;
+		if (window.XMLHttpRequest) {
+			oReqData = new XMLHttpRequest();
+		}
+		if (oReqData != null) {
+			var timestamp = new Date().getTime();
+			var paramStr = "Param.1=" + encodeURIComponent(Param1);
+			// alert(paramStr);
+			var queryStr = "/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/del_Trigger&" + paramStr + "&ts=" + timestamp + "&Content-Type=text/xml";
+			// alert(queryStr);
+			oReqData.open("GET", queryStr, true);
+			oReqData.onreadystatechange = function() {
+				if (oReqData.readyState == 4)
+					if (oReqData.status == 200) {
+						// Successful -- rebuild the screen
+						updateTableTrigger();
+						resetTrigger();
+					} else {
+						alert("Error: " + oReqData.statusText);
+					}
+			}
+			oReqData.send();
+		} else {
+			window.alert("Error creating XmlHttpRequest object.");
+		}
+	}
+	// ******************************************************************************************************************************************************************
+	function resetTrigger() {
+		oCore.byId("dbox_workcenter").setSelectedKey(0);
+		oCore.byId("input_delay").setValue("");
+	}
+	// ******************************************************************************************************************************************************************
+	// Create Defined Sql Overlay
+	var oMatrixS = new sap.ui.commons.layout.MatrixLayout({
+		id : 'MatrixS',
+		layoutFixed : true,
+		width : '690px',
+		columns : 1,
+		widths : [ '700px' ]
+	});
+	// ******************************************************************************************************************************************************************
+	var oMatrixSF = new sap.ui.commons.layout.MatrixLayout({
+		id : 'MatrixSF',
+		layoutFixed : true,
+		width : '690px',
+		columns : 2,
+		widths : [ '345px', '345px' ]
+	});
+
+	var oTitleS = new sap.ui.commons.Label({
+		id : 'L-DefinedSql',
+		text : 'DEFINE SQL PARAMETERS'
+	});
+	oMatrixS.createRow(oTitleS);
+
+	var oLabel_SQLTAGS = new sap.ui.commons.Label({
+		id : 'L-SQLTAGS',
+		visible : true,
+		text : 'DEFINABLE DATA ELEMENT'
+	});
+
+	var oDropdownBox_SQLTAGS = new sap.ui.commons.DropdownBox({
+		id : "dbox_sqltags",
+		tooltip : 'Transaction Tag Name',
+		editable : true,
+		width : '230px',
+		change : function(oEvent) {
+			//alert(oEvent.oSource.getSelectedKey());
+		}
+	});
+
+	oMatrixSF.createRow(oLabel_SQLTAGS, oDropdownBox_SQLTAGS);
+
+	// ******************************************************************************************************************************************************************
+	function updateSqlTrxTags() {
+		var timestamp = new Date().getTime();
+		getData("/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/get_MemMapSqlTags&Param.1=" + oModel.getProperty("revisionID", oTable.getContextByIndex(oTable.getSelectedIndex())) + "&ts=" + timestamp
+				+ "&Content-Type=text/xml", parseJsonSqlTrxTags);
+
+		function parseJsonSqlTrxTags(jsondata) {
+			oDropdownBox_SQLTAGS.destroyItems();
+			for (var i = 0; i < jsondata.length; i++) {
+				//alert(jsondata[i]['recordID'] + '   ' + jsondata[i]['tagName']);
+				item_key = jsondata[i]['recordID'];
+				if (i == 0)
+					item_text = jsondata[i]['tagName'];
+				else
+					item_text = jsondata[i]['tagName'] + " -- " + jsondata[i]['COM_typeName'];
+				oItem = new sap.ui.core.ListItem({
+					key : item_key,
+					text : item_text
+				});
+				oDropdownBox_SQLTAGS.addItem(oItem);
+			}
+		}
+	}
+	// ******************************************************************************************************************************************************************
+	var oLabel_TABLESQLDEF = new sap.ui.commons.Label({
+		id : 'L-TABLESQLDEF',
+		text : 'TABLE NAME'
+	});
+
+	var oDropdownBox_TABLESQLDEF = new sap.ui.commons.DropdownBox({
+		id : "dbox_tablesqldef",
+		tooltip : 'Table Name',
+		editable : true,
+		width : '230px',
+		change : function(oEvent) {
+			//alert(oEvent.oSource.getSelectedKey());
+			updateTableColumnsSqlDefined();
+		}
+	});
+
+	oMatrixSF.createRow(oLabel_TABLESQLDEF, oDropdownBox_TABLESQLDEF);
+
+	// ****************************************************************************************************************************************************
+	function updateTablesSqlDefined() {
+		var timestamp = new Date().getTime();
+		var ServerName = escapeSQLString(oModel.getProperty("serverName", oTable.getContextByIndex(oTable.getSelectedIndex())));
+		getData("/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/get_SqlDbTables&Server=" + ServerName + "&ts=" + timestamp + "&Content-Type=text/xml", parseJsonTableSqlDef);
+
+		function parseJsonTableSqlDef(jsondata) {
+			oDropdownBox_TABLESQLDEF.destroyItems();
+			for (var i = 0; i < jsondata.length; i++) {
+				//alert(jsondata[i]['TABLE_NAME'] + '   ' + jsondata[i]['TABLE_NAME']);
+				item_key = jsondata[i]['TABLE_NAME'];
+				item_text = jsondata[i]['TABLE_NAME'];
+				oItem = new sap.ui.core.ListItem({
+					key : item_key,
+					text : item_text
+				});
+				oDropdownBox_TABLESQLDEF.addItem(oItem);
+			}
+			updateTableColumnsSqlDefined();
+		}
+	}
+	// ****************************************************************************************************************************************************
+
+	var oLabel_COLUMNSQLDEF = new sap.ui.commons.Label({
+		id : 'L-COLUMNSQLDEF',
+		text : 'COLUMN NAME'
+	});
+
+	var oDropdownBox_COLUMNSQLDEF = new sap.ui.commons.DropdownBox({
+		id : "dbox_columnsqldef",
+		tooltip : 'Column Name',
+		editable : true,
+		width : '230px',
+		change : function(oEvent) {
+			//alert(oEvent.oSource.getSelectedKey());
+		}
+	});
+
+	oMatrixSF.createRow(oLabel_COLUMNSQLDEF, oDropdownBox_COLUMNSQLDEF);
+
+	// ****************************************************************************************************************************************************
+	function updateTableColumnsSqlDefined() {
+		var timestamp = new Date().getTime();
+		var ServerName = escapeSQLString(oModel.getProperty("serverName", oTable.getContextByIndex(oTable.getSelectedIndex())));
+		getData("/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/get_SqlDbTableColumns&Server=" + ServerName + "&Param.1=" + oDropdownBox_TABLESQLDEF.getSelectedKey() + "&ts=" + timestamp
+				+ "&Content-Type=text/xml", parseJsonTableColumns);
+
+		function parseJsonTableColumns(jsondata) {
+			oDropdownBox_COLUMNSQLDEF.destroyItems();
+			for (var i = 0; i < jsondata.length; i++) {
+				//alert(jsondata[i]['ORDINAL_POSITION'] + '   ' + jsondata[i]['COLUMN_NAME']);
+				item_key = jsondata[i]['COLUMN_NAME'];
+				item_text = jsondata[i]['COLUMN_NAME'];
+				oItem = new sap.ui.core.ListItem({
+					key : item_key,
+					text : item_text
+				});
+				oDropdownBox_COLUMNSQLDEF.addItem(oItem);
+			}
+			oCore.byId("dbox_columnsqldef").setSelectedKey(oModelSqlTagDefined.getProperty("columnID", oTableSqlTagDefined.getContextByIndex(oTableSqlTagDefined.getSelectedIndex())));
+		}
+	}
+	// ****************************************************************************************************************************************************
+
+	var oLabel_NAMESQLDEF = new sap.ui.commons.Label({
+		id : 'L-NAMESQLDEF',
+		text : 'NAME'
+	});
+
+	var oInput_NAMESQLDEF = new sap.ui.commons.TextField('input_namesqldef');
+
+	oMatrixSF.createRow(oLabel_NAMESQLDEF, oInput_NAMESQLDEF);
+
+	var oLabel_DESCSQLDEF = new sap.ui.commons.Label({
+		id : 'L-DESCSQLDEF',
+		text : 'DESCRIPTION'
+	});
+
+	var oInput_DESCSQLDEF = new sap.ui.commons.TextField({
+		id : 'input_descsqldef',
+		value : '',
+		tooltip : 'Description',
+		width : '230px'
+	});
+
+	oMatrixSF.createRow(oLabel_DESCSQLDEF, oInput_DESCSQLDEF);
+
+	var oLabel_UOMSQLDEF = new sap.ui.commons.Label({
+		id : 'L-UOMSQLDEF',
+		text : 'UOM'
+	});
+
+	var oDropdownBox_UOMSQLDEF = new sap.ui.commons.DropdownBox({
+		id : "dbox_uomsqldef",
+		tooltip : 'UOM',
+		editable : true,
+		width : '230px',
+		change : function(oEvent) {
+			//alert(oEvent.oSource.getSelectedKey());
+		}
+	});
+
+	oMatrixSF.createRow(oLabel_UOMSQLDEF, oDropdownBox_UOMSQLDEF);
+
+	// ****************************************************************************************************************************************************
+	function updateSqlUomDefined() {
+		var timestamp = new Date().getTime();
+		getData("/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/get_Uom&ts=" + timestamp + "&Content-Type=text/xml", parseJsonSqlUomDef);
+
+		function parseJsonSqlUomDef(jsondata) {
+			oDropdownBox_UOMSQLDEF.destroyItems();
+			for (var i = 0; i < jsondata.length; i++) {
+				//alert(jsondata[i]['idUOM'] + '   ' + jsondata[i]['UOMName']);
+				item_key = jsondata[i]['idUOM'];
+				item_text = jsondata[i]['UOMName'];
+				oItem = new sap.ui.core.ListItem({
+					key : item_key,
+					text : item_text
+				});
+				oDropdownBox_UOMSQLDEF.addItem(oItem);
+			}
+		}
+	}
+
+	// ******************************************************************************************************************************************************************
+	function createTableSqlTagDefined() {
+		// Bind the table rows to this model
+		var timestamp = new Date().getTime();
+		oModelSqlTagDefined.loadData("/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/get_SqlTagDefined&ts=" + timestamp + "&Content-Type=text/xml", "", false);
+		// alert(oModelSqlTagDefined.getXML());
+		createColumnsSqlTagDefined();
+		oTableSqlTagDefined.setModel(oModelSqlTagDefined);
+		oTableSqlTagDefined.bindRows("/Rowset/Row");
+	}
+
+	// ******************************************************************************************************************************************************************
+	function updateTableSqlTagDefined() {
+		oTableSqlTagDefined.clearSelection();
+		var timestamp = new Date().getTime();
+		oModelSqlTagDefined.loadData("/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/get_SqlTagDefined&Param.1=" + oModel.getProperty("recordID", oTable.getContextByIndex(oTable.getSelectedIndex())) + "&ts="
+				+ timestamp + "&Content-Type=text/xml", "", false);
+		oTableSqlTagDefined.getModel().refresh(true);
+	}
+
+	// ******************************************************************************************************************************************************************
+	function createColumnsSqlTagDefined() {
+		//Define the columns and the control templates to be used
+		oTableSqlTagDefined.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "unitID"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text", "unitID"),
+			sortProperty : "unitID",
+			filterProperty : "unitID",
+			width : "0px"
+		}));
+		oTableSqlTagDefined.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "NAME"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text", "nameDefined"),
+			sortProperty : "nameDefined",
+			filterProperty : "nameDefined",
+			width : "150px"
+		}));
+		oTableSqlTagDefined.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "DEFINABLE TAG NAME"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text", "tagName"),
+			sortProperty : "tagName",
+			filterProperty : "tagName",
+			width : "200px"
+		}));
+		oTableSqlTagDefined.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "DESCRIPTION"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text", "descriptionDefined"),
+			sortProperty : "descriptionDefined",
+			filterProperty : "descriptionDefined",
+			width : "150px"
+		}));
+		oTableSqlTagDefined.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "UOM"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text", "UOMName"),
+			sortProperty : "UOMName",
+			filterProperty : "UOMName",
+			width : "100px"
+		}));
+		oTableSqlTagDefined.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "recordID"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text", "recordID"),
+			sortProperty : "recordID",
+			filterProperty : "recordID",
+			width : "0px"
+		}));
+	}
+	// ******************************************************************************************************************************************************************
+	//Create an instance of the table control
+	var oTableSqlTagDefined = new sap.ui.table.Table({
+		id : "tbl_sqltagdef",
+		visibleRowCount : 7,
+		//visibleRowCountMode: sap.ui.table.VisibleRowCountMode.Interactive,
+		firstVisibleRow : 0,
+		width : "650px",
+		selectionBehavior : sap.ui.table.SelectionBehavior.Row,
+		selectionMode : sap.ui.table.SelectionMode.Single
+	});
+
+	// ******************************************************************************************************************************************************************
+	oTableSqlTagDefined.attachRowSelectionChange(function(oEvent) {
+		// Retrieve the selected row
+		var selIndex = oTableSqlTagDefined.getSelectedIndex();
+		selectedIndex = selIndex;
+		if (selIndex >= 0) {
+			oButton13.setEnabled(false);
+			oButton14.setEnabled(true);
+			oButton15.setEnabled(true);
+			// Retrieve the selected row
+			var selectedRow = oTableSqlTagDefined.getRows()[selIndex];
+			// sap.ui.commons.MessageBox.alert(selectedRow);
+			var selectedRowContext = oEvent.getParameter("rowContext");
+			oCore.byId("dbox_sqltags").setSelectedKey(oModelSqlTagDefined.getProperty("memMapID", selectedRowContext));
+			oCore.byId("dbox_tablesqldef").setSelectedKey(oModelSqlTagDefined.getProperty("tableID", selectedRowContext));
+			updateTableColumnsSqlDefined();
+			oCore.byId("input_namesqldef").setValue(oModelSqlTagDefined.getProperty("nameDefined", selectedRowContext));
+			oCore.byId("input_descsqldef").setValue(oModelSqlTagDefined.getProperty("descriptionDefined", selectedRowContext));
+			oCore.byId("dbox_uomsqldef").setSelectedKey(oModelSqlTagDefined.getProperty("uomDefinedID", selectedRowContext));
+		} else {
+			oButton13.setEnabled(true);
+			oButton14.setEnabled(false);
+			oButton15.setEnabled(false);
+			selectedIndex = -1;
+			resetSqlTagDefined();
+			// alert ("No Selection ..");
+		}
+	});
+
+	var oModelSqlTagDefined = new sap.ui.model.xml.XMLModel();
+
+	//Bring the table onto the UI
+	createTableSqlTagDefined();
+
+	// ******************************************************************************************************************************************************************
+	// build buttons matrix
+	var oMatrixBSqlDefined = new sap.ui.commons.layout.MatrixLayout({
+		id : 'MatrixBSqlDefined',
+		layoutFixed : true,
+		width : '700px',
+		columns : 5,
+		widths : [ '125px', '150px', '150px', '150px', '125px' ]
+	});
+
+	var oButton13 = new sap.ui.commons.Button({
+		id : 'B-AddSqlDefined',
+		text : 'Add',
+		enabled : true
+	});
+	oButton13.attachPress(doAddSqlDefined);
+
+	var oButton14 = new sap.ui.commons.Button({
+		id : 'B-EditSqlDefined',
+		text : 'Edit',
+		enabled : false
+	});
+	oButton14.attachPress(doEditSqlDefined);
+
+	var oButton15 = new sap.ui.commons.Button({
+		id : 'B-DeleteSqlDefined',
+		text : 'Delete',
+		enabled : false
+	});
+	oButton15.attachPress(doDeleteSqlDefined);
+
+	oMatrixBSqlDefined.createRow('', oButton13, oButton14, oButton15, '');
+
+	oMatrixS.createRow(oMatrixSF);
+
+	oMatrixS.createRow(oTableSqlTagDefined);
+
+	oMatrixS.createRow(oMatrixBSqlDefined);
+	// ****************************************************************************************************************************************************
+	function doAddSqlDefined() {
+		// retrieve values
+		var input_UNITID = oModel.getProperty("recordID", oTable.getContextByIndex(oTable.getSelectedIndex()));
+		var input_MEMMAPID = oCore.byId("dbox_sqltags").getSelectedKey();
+		var input_TABLENAME = oCore.byId("dbox_tablesqldef").getSelectedKey();
+		var input_COLUMNNAME = oCore.byId("dbox_columnsqldef").getSelectedKey();
+		var input_NAME = oCore.byId("input_namesqldef").getValue();
+		var input_DESC = oCore.byId("input_descsqldef").getValue();
+		var input_UOM = oCore.byId("dbox_uomsqldef").getSelectedKey();
+		var input_userNAME = document.getElementById("user_name").value;
+		if (!(input_MEMMAPID > 0)) {
+			alert("Please Select Tag ..");
+			oCore.byId("dbox_sqltags").focus();
+		} else {
+			if (input_TABLENAME.indexOf("Please select") > -1) {
+				alert("Please Select Table ..");
+				oCore.byId("dbox_tablesqldef").focus();
+			} else {
+				if (input_COLUMNNAME.indexOf("Please select") > -1) {
+					alert("Please Select Column ..");
+					oCore.byId("dbox_columnsqldef").focus();
+				} else {
+					if (input_NAME == "") {
+						alert("Please Input Name Defined ..");
+						oCore.byId("input_namesqldef").focus();
+					} else {
+						if (input_DESC == "") {
+							alert("Please Input Description Defined ..");
+							oCore.byId("input_descsqldef").focus();
+						} else {
+							if (!(input_UOM > 0)) {
+								alert("Please Select UOM ..");
+								oCore.byId("dbox_uomsqldef").focus();
+							} else {
+								// all good. Try to write them ..
+								var Param1 = escapeSQLString(input_UNITID);
+								var Param2 = escapeSQLString(input_MEMMAPID);
+								var Param3 = escapeSQLString(input_TABLENAME);
+								var Param4 = escapeSQLString(input_COLUMNNAME);
+								var Param5 = escapeSQLString(input_NAME);
+								var Param6 = escapeSQLString(input_DESC);
+								var Param7 = escapeSQLString(input_UOM);
+								var Param8 = escapeSQLString(input_userNAME);
+								var oReqData;
+								if (window.XMLHttpRequest) {
+									oReqData = new XMLHttpRequest();
+								}
+								if (oReqData != null) {
+									var timestamp = new Date().getTime();
+									var paramStr = "Param.1=" + encodeURIComponent(Param1) + "&Param.2=" + encodeURIComponent(Param2) + "&Param.3=" + encodeURIComponent(Param3) + "&Param.4=" + encodeURIComponent(Param4)
+											+ "&Param.5=" + encodeURIComponent(Param5) + "&Param.6=" + encodeURIComponent(Param6) + "&Param.7=" + encodeURIComponent(Param7) + "&Param.8=" + encodeURIComponent(Param8);
+									// alert(paramStr);
+									var queryStr = "/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/add_SqlTagDefined&" + paramStr + "&ts=" + timestamp + "&Content-Type=text/xml";
+									// alert(queryStr);
+									oReqData.open("GET", queryStr, true);
+									oReqData.onreadystatechange = function() {
+										if (oReqData.readyState == 4)
+											if (oReqData.status == 200) {
+												// Successful -- rebuild the screen
+												updateTableSqlTagDefined();
+												resetSqlTagDefined();
+											} else {
+												// Not Successful -- alert the user
+												alert("Error: " + oReqData.statusText);
+											}
+									}
+									oReqData.send();
+								} else {
+									window.alert("Error creating XmlHttpRequest object.");
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	// ****************************************************************************************************************************************************
+	function doEditSqlDefined() {
+		// retrieve values
+		var input_RECID = oModelSqlTagDefined.getProperty("recordID", oTableSqlTagDefined.getContextByIndex(oTableSqlTagDefined.getSelectedIndex()));
+		var input_UNITID = oModel.getProperty("recordID", oTable.getContextByIndex(oTable.getSelectedIndex()));
+		var input_MEMMAPID = oCore.byId("dbox_sqltags").getSelectedKey();
+		var input_TABLENAME = oCore.byId("dbox_tablesqldef").getSelectedKey();
+		var input_COLUMNNAME = oCore.byId("dbox_columnsqldef").getSelectedKey();
+		var input_NAME = oCore.byId("input_namesqldef").getValue();
+		var input_DESC = oCore.byId("input_descsqldef").getValue();
+		var input_UOM = oCore.byId("dbox_uomsqldef").getSelectedKey();
+		var input_userNAME = document.getElementById("user_name").value;
+		if (!(input_MEMMAPID > 0)) {
+			alert("Please Select Tag ..");
+			oCore.byId("dbox_sqltags").focus();
+		} else {
+			if (input_TABLENAME.indexOf("Please select") > -1) {
+				alert("Please Select Table ..");
+				oCore.byId("dbox_tablesqldef").focus();
+			} else {
+				if (input_COLUMNNAME.indexOf("Please select") > -1) {
+					alert("Please Select Column ..");
+					oCore.byId("dbox_columnsqldef").focus();
+				} else {
+					if (input_NAME == "") {
+						alert("Please Input Name Defined ..");
+						oCore.byId("input_namesqldef").focus();
+					} else {
+						if (input_DESC == "") {
+							alert("Please Input Description Defined ..");
+							oCore.byId("input_descsqldef").focus();
+						} else {
+							if (!(input_UOM > 0)) {
+								alert("Please Select UOM ..");
+								oCore.byId("dbox_uomsqldef").focus();
+							} else {
+								// all good. Try to write them ..
+								var Param1 = escapeSQLString(input_RECID);
+								var Param2 = escapeSQLString(input_UNITID);
+								var Param3 = escapeSQLString(input_MEMMAPID);
+								var Param4 = escapeSQLString(input_TABLENAME);
+								var Param5 = escapeSQLString(input_COLUMNNAME);
+								var Param6 = escapeSQLString(input_NAME);
+								var Param7 = escapeSQLString(input_DESC);
+								var Param8 = escapeSQLString(input_UOM);
+								var Param9 = escapeSQLString(input_userNAME);
+								var oReqData;
+								if (window.XMLHttpRequest) {
+									oReqData = new XMLHttpRequest();
+								}
+								if (oReqData != null) {
+									var timestamp = new Date().getTime();
+									var paramStr = "Param.1=" + encodeURIComponent(Param1) + "&Param.2=" + encodeURIComponent(Param2) + "&Param.3=" + encodeURIComponent(Param3) + "&Param.4=" + encodeURIComponent(Param4)
+											+ "&Param.5=" + encodeURIComponent(Param5) + "&Param.6=" + encodeURIComponent(Param6) + "&Param.7=" + encodeURIComponent(Param7) + "&Param.8=" + encodeURIComponent(Param8)
+											+ "&Param.9=" + encodeURIComponent(Param9);
+									// alert(paramStr);
+									var queryStr = "/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/upd_SqlTagDefined&" + paramStr + "&ts=" + timestamp + "&Content-Type=text/xml";
+									// alert(queryStr);
+									oReqData.open("GET", queryStr, true);
+									oReqData.onreadystatechange = function() {
+										if (oReqData.readyState == 4)
+											if (oReqData.status == 200) {
+												// Successful -- rebuild the screen
+												updateTableSqlTagDefined();
+												resetSqlTagDefined();
+											} else {
+												// Not Successful -- alert the user
+												alert("Error: " + oReqData.statusText);
+											}
+									}
+									oReqData.send();
+								} else {
+									window.alert("Error creating XmlHttpRequest object.");
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	// ****************************************************************************************************************************************************
+	function doDeleteSqlDefined() {
+		// retrieve values
+		var Param1 = oModelSqlTagDefined.getProperty("recordID", oTableSqlTagDefined.getContextByIndex(oTableSqlTagDefined.getSelectedIndex()));
+		var oReqData;
+		if (window.XMLHttpRequest) {
+			oReqData = new XMLHttpRequest();
+		}
+		if (oReqData != null) {
+			var timestamp = new Date().getTime();
+			var paramStr = "Param.1=" + encodeURIComponent(Param1);
+			// alert(paramStr);
+			var queryStr = "/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/del_SqlTagDefined&" + paramStr + "&ts=" + timestamp + "&Content-Type=text/xml";
+			// alert(queryStr);
+			oReqData.open("GET", queryStr, true);
+			oReqData.onreadystatechange = function() {
+				if (oReqData.readyState == 4)
+					if (oReqData.status == 200) {
+						// Successful -- rebuild the screen
+						updateTableSqlTagDefined();
+						resetSqlTagDefined();
+					} else {
+						alert("Error: " + oReqData.statusText);
+					}
+			}
+			oReqData.send();
+		} else {
+			window.alert("Error creating XmlHttpRequest object.");
+		}
+	}
+	// ****************************************************************************************************************************************************
+	var oOverlayContainerSqlDefined = new sap.ui.ux3.OverlayDialog({
+		openButtonVisible : false
+	});
+	oOverlayContainerSqlDefined.setHeight('600px');
+	oOverlayContainerSqlDefined.setWidth('700px');
+	oOverlayContainerSqlDefined.addContent(oMatrixS);
+	// ******************************************************************************************************************************************************************
+	function doOnSqlDefinedClick() {
+		if (!(oModel.getProperty("sqlServerID", oTable.getContextByIndex(oTable.getSelectedIndex())) > 0)) {
+			alert("Please select Sql Server using Connectivity dialog...");
+			return;
+		}
+		if (!oOverlayContainerSqlDefined.isOpen()) {
+			oCore.byId("dbox_sqltags").setSelectedKey(0);
+			oCore.byId("dbox_uomsqldef").setSelectedKey(0);
+			updateSqlTrxTags();
+			updateSqlUomDefined();
+			updateTablesSqlDefined();
+			updateTableSqlTagDefined();
+			oTableSqlTagDefined.clearSelection();
+			oOverlayContainerSqlDefined.open();
+		}
+	}
+	// ******************************************************************************************************************************************************************
+	function resetSqlTagDefined() {
+		oCore.byId("dbox_sqltags").setSelectedKey(0);
+		oCore.byId("dbox_tablesqldef").setSelectedKey("Please select...");
+		oCore.byId("dbox_columnsqldef").setSelectedKey("Please select...");
+		oCore.byId("input_namesqldef").setValue("");
+		oCore.byId("input_descsqldef").setValue("");
+		oCore.byId("dbox_uomsqldef").setSelectedKey(0);
+	}
+	// ******************************************************************************************************************************************************************
+	// Create Label Trigger Overlay
+	var oMatrixL = new sap.ui.commons.layout.MatrixLayout({
+		id : 'MatrixL',
+		layoutFixed : true,
+		width : '690px',
+		columns : 1,
+		widths : [ '700px' ]
+	});
+	// ******************************************************************************************************************************************************************
+	var oMatrixLF = new sap.ui.commons.layout.MatrixLayout({
+		id : 'MatrixLF',
+		layoutFixed : true,
+		width : '590px',
+		columns : 4,
+		widths : [ '170px', '170px', '70px', '170px' ]
+	});
+
+	var oTitleL = new sap.ui.commons.Label({
+		id : 'L-LabelTriggers',
+		text : 'LABEL TRIGGERS'
+	});
+	oMatrixL.createRow(oTitleL);
+
+	var oLabel_LABEL = new sap.ui.commons.Label({
+		id : 'L-LABEL',
+		visible : true,
+		text : 'LABEL'
+	});
+
+	var oDropdownBox_LABEL = new sap.ui.commons.DropdownBox({
+		id : "dbox_label",
+		tooltip : 'Label Triggers',
+		editable : true,
+		width : '170px',
+		change : function(oEvent) {
+			//alert(oEvent.oSource.getSelectedKey());
+		}
+	});
+
+	var oLabel_TRX = new sap.ui.commons.Label({
+		id : 'L-TRX',
+		visible : true,
+		text : 'TRX'
+	});
+
+	var oDropdownBox_TRX = new sap.ui.commons.DropdownBox({
+		id : "dbox_trx",
+		tooltip : 'Transaction',
+		editable : true,
+		width : '170px',
+		change : function(oEvent) {
+			//alert(oEvent.oSource.getSelectedKey());
+		}
+	});
+
+	oMatrixLF.createRow(oLabel_LABEL, oDropdownBox_LABEL, oLabel_TRX, oDropdownBox_TRX);
+
+	// ******************************************************************************************************************************************************************
+	function updateLabelsList() {
+		var timestamp = new Date().getTime();
+		getData("/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/get_Labels&ts=" + timestamp + "&Content-Type=text/xml", parseJsonLabels);
+
+		function parseJsonLabels(jsondata) {
+			oDropdownBox_LABEL.destroyItems();
+			for (var i = 0; i < jsondata.length; i++) {
+				//alert(jsondata[i]['recordID'] + '   ' + jsondata[i]['labelName']);
+				item_key = jsondata[i]['recordID'];
+				item_text = jsondata[i]['labelName'];
+				oItem = new sap.ui.core.ListItem({
+					key : item_key,
+					text : item_text
+				});
+				oDropdownBox_LABEL.addItem(oItem);
+			}
+		}
+	}
+	// ******************************************************************************************************************************************************************
+	function updateTrxsList() {
+		var timestamp = new Date().getTime();
+		getData("/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/get_Trxs&Param.1=" + oModel.getProperty("revisionID", oTable.getContextByIndex(oTable.getSelectedIndex())) + "&ts=" + timestamp
+				+ "&Content-Type=text/xml", parseJsonTrxs);
+
+		function parseJsonTrxs(jsondata) {
+			oDropdownBox_TRX.destroyItems();
+			for (var i = 0; i < jsondata.length; i++) {
+				//alert(jsondata[i]['recordID'] + '   ' + jsondata[i]['trxType']);
+				item_key = jsondata[i]['recordID'];
+				item_text = jsondata[i]['trxType'];
+				oItem = new sap.ui.core.ListItem({
+					key : item_key,
+					text : item_text
+				});
+				oDropdownBox_TRX.addItem(oItem);
+			}
+		}
+	}
+	// ******************************************************************************************************************************************************************
+	function createTableLabelTriggers() {
+		// Bind the table rows to this model
+		var timestamp = new Date().getTime();
+		oModelLabelTriggers.loadData("/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/get_LabelTriggers&ts=" + timestamp + "&Content-Type=text/xml", "", false);
+		// alert(oModelTrigger.getXML());
+		createColumnsLabelTriggers();
+		oTableLabelTriggers.setModel(oModelLabelTriggers);
+		oTableLabelTriggers.bindRows("/Rowset/Row");
+	}
+
+	// ******************************************************************************************************************************************************************
+	function updateTableLabelTriggers() {
+		oTableLabelTriggers.clearSelection();
+		var timestamp = new Date().getTime();
+		oModelLabelTriggers.loadData("/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/get_LabelTriggers&Param.1=" + oModel.getProperty("recordID", oTable.getContextByIndex(oTable.getSelectedIndex())) + "&ts="
+				+ timestamp + "&Content-Type=text/xml", "", false);
+		oTableLabelTriggers.getModel().refresh(true);
+	}
+	// ******************************************************************************************************************************************************************
+	function createColumnsLabelTriggers() {
+		//Define the columns and the control templates to be used
+		oTableLabelTriggers.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "unitID"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text", "unitID"),
+			sortProperty : "unitID",
+			filterProperty : "unitID",
+			width : "0px"
+		}));
+		oTableLabelTriggers.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "LABEL"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text", "labelName"),
+			sortProperty : "labelName",
+			filterProperty : "labelName",
+			width : "150px"
+		}));
+		oTableLabelTriggers.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "TRANSACTION"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text", "trxID"),
+			sortProperty : "trxID",
+			filterProperty : "trxID",
+			width : "150px"
+		}));
+		oTableLabelTriggers.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "recordID"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text", "recordID"),
+			sortProperty : "recordID",
+			filterProperty : "recordID",
+			width : "0px"
+		}));
+	}
+	// ******************************************************************************************************************************************************************
+	//Create an instance of the table control
+	var oTableLabelTriggers = new sap.ui.table.Table({
+		id : "tbl_labeltriggers",
+		visibleRowCount : 7,
+		//visibleRowCountMode: sap.ui.table.VisibleRowCountMode.Interactive,
+		firstVisibleRow : 0,
+		width : "650px",
+		selectionBehavior : sap.ui.table.SelectionBehavior.Row,
+		selectionMode : sap.ui.table.SelectionMode.Single
+	});
+
+	// ******************************************************************************************************************************************************************
+	oTableLabelTriggers.attachRowSelectionChange(function(oEvent) {
+		// Retrieve the selected row
+		var selIndex = oTableLabelTriggers.getSelectedIndex();
+		selectedIndex = selIndex;
+		if (selIndex >= 0) {
+			oButton16.setEnabled(false);
+			oButton17.setEnabled(true);
+			oButton18.setEnabled(true);
+			// Retrieve the selected row
+			var selectedRow = oTableLabelTriggers.getRows()[selIndex];
+			// sap.ui.commons.MessageBox.alert(selectedRow);
+			var selectedRowContext = oEvent.getParameter("rowContext");
+			oCore.byId("dbox_label").setSelectedKey(oModelLabelTriggers.getProperty("labelID", selectedRowContext));
+			oCore.byId("dbox_trx").setSelectedKey(oModelLabelTriggers.getProperty("trxLblID", selectedRowContext));
+		} else {
+			oButton16.setEnabled(true);
+			oButton17.setEnabled(false);
+			oButton18.setEnabled(false);
+			selectedIndex = -1;
+			resetLabelTriggers();
+			// alert ("No Selection ..");
+		}
+	});
+
+	var oModelLabelTriggers = new sap.ui.model.xml.XMLModel();
+
+	//Bring the table onto the UI
+	createTableLabelTriggers();
+
+	// ******************************************************************************************************************************************************************
+	// build buttons matrix
+	var oMatrixBLabelTriggers = new sap.ui.commons.layout.MatrixLayout({
+		id : 'MatrixBLabelTriggers',
+		layoutFixed : true,
+		width : '700px',
+		columns : 5,
+		widths : [ '125px', '150px', '150px', '150px', '125px' ]
+	});
+
+	var oButton16 = new sap.ui.commons.Button({
+		id : 'B-AddLabelTriggers',
+		text : 'Add',
+		enabled : true
+	});
+	oButton16.attachPress(doAddLabelTriggers);
+
+	var oButton17 = new sap.ui.commons.Button({
+		id : 'B-EditLabelTriggers',
+		text : 'Edit',
+		enabled : false
+	});
+	oButton17.attachPress(doEditLabelTriggers);
+
+	var oButton18 = new sap.ui.commons.Button({
+		id : 'B-DeleteLabelTriggers',
+		text : 'Delete',
+		enabled : false
+	});
+	oButton18.attachPress(doDeleteLabelTriggers);
+
+	oMatrixBLabelTriggers.createRow('', oButton16, oButton17, oButton18, '');
+	oMatrixL.createRow(oMatrixLF);
+	oMatrixL.createRow(oTableLabelTriggers);
+	oMatrixL.createRow(oMatrixBLabelTriggers);
+	// ****************************************************************************************************************************************************
+	var oOverlayContainerLabelTriggers = new sap.ui.ux3.OverlayDialog({
+		openButtonVisible : false
+	});
+	oOverlayContainerLabelTriggers.setHeight('450px');
+	oOverlayContainerLabelTriggers.setWidth('700px');
+	oOverlayContainerLabelTriggers.addContent(oMatrixL);
+	// ******************************************************************************************************************************************************************
+	function doOnLabelTriggersClick() {
+		if (!oOverlayContainerLabelTriggers.isOpen()) {
+			updateLabelsList();
+			updateTrxsList();
+			updateTableLabelTriggers();
+			oTableLabelTriggers.clearSelection();
+			oOverlayContainerLabelTriggers.open();
+		}
+	}
+	// ****************************************************************************************************************************************************
+	function doAddLabelTriggers() {
+		// retrieve values
+		var input_UNITID = oModel.getProperty("recordID", oTable.getContextByIndex(oTable.getSelectedIndex()));
+		var input_LABELID = oCore.byId("dbox_label").getSelectedKey();
+		var input_TRXID = oCore.byId("dbox_trx").getSelectedKey();
+		var input_userNAME = document.getElementById("user_name").value;
+		if (!(input_LABELID > 0)) {
+			alert("Please Select Label ..");
+			oCore.byId("dbox_label").focus();
+		} else {
+			if (!(input_TRXID > 0)) {
+				alert("Please Select Transaction ..");
+				oCore.byId("dbox_trx").focus();
+			} else {
+				// all good. Try to write them ..
+				var Param1 = escapeSQLString(input_UNITID);
+				var Param2 = escapeSQLString(input_LABELID);
+				var Param3 = escapeSQLString(input_TRXID);
+				var Param4 = escapeSQLString(input_userNAME);
+				var oReqData;
+				if (window.XMLHttpRequest) {
+					oReqData = new XMLHttpRequest();
+				}
+				if (oReqData != null) {
+					var timestamp = new Date().getTime();
+					var paramStr = "Param.1=" + encodeURIComponent(Param1) + "&Param.2=" + encodeURIComponent(Param2) + "&Param.3=" + encodeURIComponent(Param3) + "&Param.4=" + encodeURIComponent(Param4);
+					// alert(paramStr);
+					var queryStr = "/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/add_LabelTriggers&" + paramStr + "&ts=" + timestamp + "&Content-Type=text/xml";
+					// alert(queryStr);
+					oReqData.open("GET", queryStr, true);
+					oReqData.onreadystatechange = function() {
+						if (oReqData.readyState == 4)
+							if (oReqData.status == 200) {
+								// Successful -- rebuild the screen
+								updateTableLabelTriggers();
+								resetLabelTriggers();
+							} else {
+								// Not Successful -- alert the user
+								alert("Error: " + oReqData.statusText);
+							}
+					}
+					oReqData.send();
+				} else {
+					window.alert("Error creating XmlHttpRequest object.");
+				}
+			}
+		}
+	}
+	// ****************************************************************************************************************************************************
+	function doEditLabelTriggers() {
+		// retrieve values
+		var input_RECID = oModelLabelTriggers.getProperty("recordID", oTableLabelTriggers.getContextByIndex(oTableLabelTriggers.getSelectedIndex()));
+		var input_UNITID = oModel.getProperty("recordID", oTable.getContextByIndex(oTable.getSelectedIndex()));
+		var input_LABELID = oCore.byId("dbox_label").getSelectedKey();
+		var input_TRXID = oCore.byId("dbox_trx").getSelectedKey();
+		var input_userNAME = document.getElementById("user_name").value;
+		if (!(input_LABELID > 0)) {
+			alert("Please Select Label ..");
+			oCore.byId("dbox_label").focus();
+		} else {
+			if (!(input_TRXID > 0)) {
+				alert("Please Select Transaction ..");
+				oCore.byId("dbox_trx").focus();
+			} else {
+				// all good. Try to write them ..
+				var Param1 = escapeSQLString(input_RECID);
+				var Param2 = escapeSQLString(input_UNITID);
+				var Param3 = escapeSQLString(input_LABELID);
+				var Param4 = escapeSQLString(input_TRXID);
+				var Param5 = escapeSQLString(input_userNAME);
+				var oReqData;
+				if (window.XMLHttpRequest) {
+					oReqData = new XMLHttpRequest();
+				}
+				if (oReqData != null) {
+					var timestamp = new Date().getTime();
+					var paramStr = "Param.1=" + encodeURIComponent(Param1) + "&Param.2=" + encodeURIComponent(Param2) + "&Param.3=" + encodeURIComponent(Param3) + "&Param.4=" + encodeURIComponent(Param4) + "&Param.5="
+							+ encodeURIComponent(Param5);
+					// alert(paramStr);
+					var queryStr = "/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/upd_LabelTriggers&" + paramStr + "&ts=" + timestamp + "&Content-Type=text/xml";
+					// alert(queryStr);
+					oReqData.open("GET", queryStr, true);
+					oReqData.onreadystatechange = function() {
+						if (oReqData.readyState == 4)
+							if (oReqData.status == 200) {
+								// Successful -- rebuild the screen
+								updateTableLabelTriggers();
+								resetLabelTriggers();
+							} else {
+								// Not Successful -- alert the user
+								alert("Error: " + oReqData.statusText);
+							}
+					}
+					oReqData.send();
+				} else {
+					window.alert("Error creating XmlHttpRequest object.");
+				}
+			}
+		}
+	}
+	// ****************************************************************************************************************************************************
+	function doDeleteLabelTriggers() {
+		// retrieve values
+		var Param1 = oModelLabelTriggers.getProperty("recordID", oTableLabelTriggers.getContextByIndex(oTableLabelTriggers.getSelectedIndex()));
+		var oReqData;
+		if (window.XMLHttpRequest) {
+			oReqData = new XMLHttpRequest();
+		}
+		if (oReqData != null) {
+			var timestamp = new Date().getTime();
+			var paramStr = "Param.1=" + encodeURIComponent(Param1);
+			// alert(paramStr);
+			var queryStr = "/XMII/Illuminator?QueryTemplate=OEEM/MANAGEMENT/QUERIES/del_LabelTriggers&" + paramStr + "&ts=" + timestamp + "&Content-Type=text/xml";
+			// alert(queryStr);
+			oReqData.open("GET", queryStr, true);
+			oReqData.onreadystatechange = function() {
+				if (oReqData.readyState == 4)
+					if (oReqData.status == 200) {
+						// Successful -- rebuild the screen
+						updateTableLabelTriggers();
+						resetLabelTriggers();
+					} else {
+						alert("Error: " + oReqData.statusText);
+					}
+			}
+			oReqData.send();
+		} else {
+			window.alert("Error creating XmlHttpRequest object.");
+		}
+	}
+	// ******************************************************************************************************************************************************************
+	function resetLabelTriggers() {
+		oCore.byId("dbox_label").setSelectedKey(0);
+		oCore.byId("dbox_trx").setSelectedKey(0);
+	}
+	// ******************************************************************************************************************************************************************
+	function doOnAndOnBoardClick() {
+		var input_UNITID = oModel.getProperty("recordID", oTable.getContextByIndex(oTable.getSelectedIndex()));
+		window.open("/XMII/CM/OEEM/AndOnBoard.irpt?ROLE=ADM_ALL&UNIT=" + input_UNITID, "_self")
+	}
+	// ******************************************************************************************************************************************************************
+</script>
+</head>
+
+<body onLoad="roleSecurity()">
+	<input id="user_roles" type="hidden" value="{IllumLoginRoles}"
+		style="display: block; width: 1000px;" readonly />
+	<input id="user_role" type="hidden" value="{ROLE}"
+		style="display: block; width: 1000px;" readonly />
+	<input id="user_name" type="hidden" value="{IllumLoginName}"
+		style="display: block; width: 1000px;" readonly />
+	<input id="user_height" type="hidden" value="{HEIGHT}"
+		style="display: block; width: 100px;" readonly />
+	<input id="user_address" type="hidden" value="{Machine}"
+		style="display: block; width: 1000px;" readonly />
+	<div id="app_header">
+		<div id="app_title">EQUIPMENT MGMT</div>
+		<div id="app_menu"></div>
+		<div id="page_title">DEFAULT SCREEN</div>
+	</div>
+	<div id="OEEM_content"></div>
+</body>
+</html>
