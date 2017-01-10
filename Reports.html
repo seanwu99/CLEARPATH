@@ -9,16 +9,16 @@
             data-sap-ui-theme="sap_bluecrystal" data-sap-ui-libs="sap.ui.core,sap.m,sap.ui.commons,sap.ui.table"
             data-sap-ui-language="en">
     </script>
-    <script src="stimulsoft/stimulsoft.reports.js" type="text/javascript"></script>
-    <script src="stimulsoft/stimulsoft.viewer.js" type="text/javascript"></script>
-    <script src="stimulsoft/stimulsoft.designer.js" type="text/javascript"></script>
-    <script src="stimulsoft/Reports/demo.js" type="text/javascript"></script>
+    <script src="Common/library/stimulsoft/stimulsoft.reports.js" type="text/javascript"></script>
+    <script src="Common/library/stimulsoft/stimulsoft.viewer.js" type="text/javascript"></script>
+    <script src="Common/library/stimulsoft/stimulsoft.designer.js" type="text/javascript"></script>
+    <script src="Common/library/stimulsoft/Reports/demo.js" type="text/javascript"></script>
     <script src="rts.oeem.ApplicationHeader.js"></script>
     <script src="rts.oeem.MenuBar.js"></script>
     <script type="text/javascript" src="Common/js/default.js"></script>
-    <link href="stimulsoft/css/demo.css" rel="stylesheet">
-    <link href="stimulsoft/css/stimulsoft.designer.office2013.whiteteal.css" rel="stylesheet">
-    <link href="stimulsoft/css/stimulsoft.viewer.office2013.whiteteal.css" rel="stylesheet">
+    <link href="Common/library/stimulsoft/css/demo.css" rel="stylesheet">
+    <link href="Common/library/stimulsoft/css/stimulsoft.designer.office2013.whiteteal.css" rel="stylesheet">
+    <link href="Common/library/stimulsoft/css/stimulsoft.viewer.office2013.whiteteal.css" rel="stylesheet">
 
     <script>
         var reportOne;
@@ -623,37 +623,37 @@
 
         // Load first report after the page is loaded
         function showViewer() {
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/ar.xml", false, "Arabic");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/be.xml", false, "Belarusian");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/bg.xml", false, "Bulgarian");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/ca-ES.xml", false, "Catalan");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/cs.xml", false, "Czech");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/de.xml", false, "Deutsch");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/el-GR.xml", false, "Greek");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/es.xml", false, "Spanish");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/eu-ES.xml", false, "Basque");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/fa.xml", false, "Farsi");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/fr.xml", false, "French");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/gl-ES.xml", false, "Galician");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/hr.xml", false, "Croatian");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/hu.xml", false, "Hungarian");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/id.xml", false, "Indonesian");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/it.xml", false, "Italian");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/ka.xml", false, "Georgian");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/Lt-sr-SP.xml", false, "Serbian (Latin)");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/lt.xml", false, "Lithuanian");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/nb-NO.xml", false, "Norwegian (Bokmål)");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/nl.xml", false, "Dutch");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/pl.xml", false, "Polish");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/pt-BR.xml", false, "Portuguese (Brazil)");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/ro.xml", false, "Romanian");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/ru.xml", false, "Russian");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/sk.xml", false, "Slovak");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/sv.xml", false, "Swedish");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/tr.xml", false, "Turkish");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/uk.xml", false, "Ukrainian");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/zh-CHS.xml", false, "Chinese (Simplified)");
-            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("stimulsoft/Localizations/zh-CHT.xml", false, "Chinese (Traditional)");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Common/library/stimulsoft/Localizations/ar.xml", false, "Arabic");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Common/library/stimulsoft/Localizations/be.xml", false, "Belarusian");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Common/library/stimulsoft/Localizations/bg.xml", false, "Bulgarian");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Common/library/stimulsoft/Localizations/ca-ES.xml", false, "Catalan");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Common/library/stimulsoft/Localizations/cs.xml", false, "Czech");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Common/library/stimulsoft/Localizations/de.xml", false, "Deutsch");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Common/library/stimulsoft/Localizations/el-GR.xml", false, "Greek");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Common/library/stimulsoft/Localizations/es.xml", false, "Spanish");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Common/library/stimulsoft/Localizations/eu-ES.xml", false, "Basque");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Common/library/stimulsoft/Localizations/fa.xml", false, "Farsi");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Common/library/stimulsoft/Localizations/fr.xml", false, "French");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Common/library/stimulsoft/Localizations/gl-ES.xml", false, "Galician");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Common/library/stimulsoft/Localizations/hr.xml", false, "Croatian");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Common/library/stimulsoft/Localizations/hu.xml", false, "Hungarian");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Common/library/stimulsoft/Localizations/id.xml", false, "Indonesian");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Common/library/stimulsoft/Localizations/it.xml", false, "Italian");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Common/library/stimulsoft/Localizations/ka.xml", false, "Georgian");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Common/library/stimulsoft/Localizations/Lt-sr-SP.xml", false, "Serbian (Latin)");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Common/library/stimulsoft/Localizations/lt.xml", false, "Lithuanian");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Common/library/stimulsoft/Localizations/nb-NO.xml", false, "Norwegian (Bokmål)");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Common/library/stimulsoft/Localizations/nl.xml", false, "Dutch");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Common/library/stimulsoft/Localizations/pl.xml", false, "Polish");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Common/library/stimulsoft/Localizations/pt-BR.xml", false, "Portuguese (Brazil)");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Common/library/stimulsoft/Localizations/ro.xml", false, "Romanian");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Common/library/stimulsoft/Localizations/ru.xml", false, "Russian");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Common/library/stimulsoft/Localizations/sk.xml", false, "Slovak");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Common/library/stimulsoft/Localizations/sv.xml", false, "Swedish");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Common/library/stimulsoft/Localizations/tr.xml", false, "Turkish");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Common/library/stimulsoft/Localizations/uk.xml", false, "Ukrainian");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Common/library/stimulsoft/Localizations/zh-CHS.xml", false, "Chinese (Simplified)");
+            Stimulsoft.Base.Localization.StiLocalization.addLocalizationFile("Common/library/stimulsoft/Localizations/zh-CHT.xml", false, "Chinese (Traditional)");
 
             // Create new DataSet object
 //            demoDataSet = new Stimulsoft.System.Data.DataSet("DEMO");
@@ -672,7 +672,7 @@
             //selectedButton = document.getElementById("SimpleList");
             // 		onButtonClick(selectedButton, SimpleList);
 //            setReport('report_0');
-            setReport('stimulsoft/Reports/report_0.mrt');
+            setReport('Common/library/stimulsoft/Reports/report_0.mrt');
         }
 
         function centerWheel(show) {
