@@ -1,64 +1,71 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
-
-    <script id="sap-ui-bootstrap"
-            src="https://sapui5.netweaver.ondemand.com/resources/sap-ui-core.js"
-            data-sap-ui-theme="sap_bluecrystal"
-            data-sap-ui-libs="sap.m,sap.ui.commons,sap.ui.table,sap.ui.core"
-            data-sap-ui-language="en">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta charset="UTF-8"/>
+    <title>Library</title>
+    <script id='sap-ui-bootstrap'
+            src='/sap/ui5/1/resources/sap-ui-core.js'
+            data-sap-ui-theme='sap_goldreflection'
+            data-sap-ui-libs='sap.ui.core,sap.ui.commons,sap.ui.table'>
     </script>
-    <script src="lib.js"></script>
-    <script src="lib/fabric.js"></script>
-    <!-- only load the mobile lib "sap.m" and the "sap_bluecrystal" theme -->
 
-    <script>
-        //        (function() {
-        var canvas = this.__canvas = new fabric.Canvas('c');
-        fabric.Object.prototype.transparentCorners = false;
-        fabric.Object.prototype.originX = fabric.Object.prototype.originY = 'center';
-
-        fabric.Canvas.prototype.getAbsoluteCoords = function (object) {
-            return {
-                left: object.left + this._offset.left,
-                top: object.top + this._offset.top
-            };
-        }
-
-        var btn = document.getElementById('inline-btn'),
-            btnWidth = 85,
-            btnHeight = 18;
-
-        function positionBtn(obj) {
-            var absCoords = canvas.getAbsoluteCoords(obj);
-
-            btn.style.left = (absCoords.left - btnWidth / 2) + 'px';
-            btn.style.top = (absCoords.top - btnHeight / 2) + 'px';
-        }
-
-        fabric.Image.fromURL('../lib/pug.jpg', function (img) {
-
-            canvas.add(img.set({left: 250, top: 250, angle: 30}).scale(0.25));
-
-            img.on('moving', function () {
-                positionBtn(img)
-            });
-            positionBtn(img);
+    <SCRIPT language="JavaScript">
+        var aData;
+        $.ajax({
+            type: "GET",
+            url: "/codejam/services/library.xsodata/library/?$format=json",
+            dataType: 'json',
+            async: false,
+            success: function (data, status) {
+                aData = data.d.results;
+            }
         });
-        //        })();
+        //Create an instance of the table control
+        var oTable = new sap.ui.table.Table({
+            title: "My Library",
+            visibleRowCount: 7,
+            firstVisibleRow: 3,
+            selectionMode: sap.ui.table.SelectionMode.Single
+        });
+
+        //Define the columns and the control templates to be used
+        var oColumn = new sap.ui.table.Column({
+            label: new sap.ui.commons.Label({text: "Genre"}),
+            template: new sap.ui.commons.TextView().bindProperty("text", "GENRE"),
+            sortProperty: "GENRE",
+            filterProperty: "GENRE",
+            width: "100px"
+        });
+        oTable.addColumn(oColumn);
+
+        //Define the columns and the control templates to be used
+        var oColumn = new sap.ui.table.Column({
+            label: new sap.ui.commons.Label({text: "Name"}),
+            template: new sap.ui.commons.TextView().bindProperty("text", "NAME"),
+            sortProperty: "NAME",
+            filterProperty: "NAME",
+            width: "100px"
+        });
+        oTable.addColumn(oColumn);
+
+        //Create a model and bind the table rows to this model
+        var oModel = new sap.ui.model.json.JSONModel();
+        oModel.setData({modelData: aData});
+        oTable.setModel(oModel);
+        oTable.bindRows("/modelData");
+
+        //Initially sort the table
+        oTable.sort(oTable.getColumns()[2]);
+
+        //Bring the table onto the UI
+        oTable.placeAt("ctable");
+
 
     </script>
-
 </head>
+<body>
+<div id="ctable"/>
 
-<body class="sapUiBody" role="application">
-<div class="canvas-container" style="width: 500px; height: 500px; position: relative; user-select: none;">
-    <canvas id="c" width="500" height="500" class="lower-canvas"
-            style="position: absolute; width: 500px; height: 500px; left: 0px; top: 0px; user-select: none;"></canvas>
-    <canvas class="upper-canvas " width="500" height="500"
-            style="position: absolute; width: 500px; height: 500px; left: 0px; top: 0px; user-select: none; cursor: default;"></canvas>
-</div>
 </body>
 </html>
