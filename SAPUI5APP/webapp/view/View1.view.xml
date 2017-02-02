@@ -1,0 +1,29 @@
+<mvc:View controllerName="SAPUI5APP.controller.View1" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"
+	displayBlock="true" xmlns="sap.m">
+	<App>
+		<pages>
+			<Page title="{i18n>title}">
+				<subHeader>
+					<Bar>
+						<contentLeft>
+							<SearchField search="handleSearch"/>
+						</contentLeft>
+					</Bar>
+				</subHeader>
+				<content>
+					<List id="List" items="{/Products}">
+						<ObjectListItem type="Navigation" press="handleListItemPress" title="{ProductName}" number="{= ((${UnitPrice} * 100) / 100).toFixed(2) }"
+							numberUnit="{i18n>currency}">
+							<attributes>
+								<ObjectAttribute text="{QuantityPerUnit}"/>
+							</attributes>
+							<firstStatus>
+								<ObjectStatus text="{= ${Discontinued}? 'Discontinued' : 'Available' }" state="{= ${Discontinued}? 'Error' : 'Success' }"/>
+							</firstStatus>
+						</ObjectListItem>
+					</List>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

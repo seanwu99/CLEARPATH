@@ -121,11 +121,11 @@
         var recordID = "";
         // *****************************************************************************************************************
 
-        var plant = '';  // name of map file e.g. plant TOLEDO
+        var plant =  '' ;  // name of map file e.g. plant TOLEDO
 
         function roleSecurity() {
 
-            plant = document.getElementById("plant_name").value;
+            plant = document.getElementById("plant_name").value ;
 
             var myRoles = document.getElementById("user_roles").value;
             var role2Access = "MESM_" + document.getElementById("user_role").value;
@@ -259,8 +259,8 @@
         // Create an instance of the table control
         var oTable = new sap.ui.table.TreeTable({
             columns: [
-                new sap.ui.table.Column({label: "UNIT NAME", template: "unitName", width: "235px"}),
-                new sap.ui.table.Column({label: "UNIT DESCRIPTION", template: "unitDescr", width: "235px"}),
+                new sap.ui.table.Column({label: "UNIT NAME", template: "unitName",width:"235px"}),
+                new sap.ui.table.Column({label: "UNIT DESCRIPTION", template: "unitDescr",width:"235px"}),
                 new sap.ui.table.Column({
                     label: new sap.ui.commons.Label({text: "ACTIVE"}),
                     template: new sap.ui.commons.Image().bindProperty("src", "src"),
@@ -272,9 +272,9 @@
             visibleRowCountMode: sap.ui.table.VisibleRowCountMode.Interactive,
             allowColumnReordering: true,
             expandFirstLevel: true,
-            expandSecondLevel: true,
+            expandSecondLevel:true,
             selectionBehavior: sap.ui.table.SelectionBehavior.Row,
-            toggleOpenState: function (oEvent) {
+            toggleOpenState: function(oEvent) {
                 var iRowIndex = oEvent.getParameter("rowIndex");
                 var oRowContext = oEvent.getParameter("rowContext");
                 var bExpanded = oEvent.getParameter("expanded");
@@ -282,7 +282,7 @@
         });
 
 
-        function createColumnsHrchy() {
+        function createColumnsHrchy(){
             oTable.addColumn(new sap.ui.table.Column({
                 label: new sap.ui.commons.Label({text: "UNIT NAME"}),
                 template: new sap.ui.commons.TextView().bindProperty("text", "unitName"),
@@ -328,12 +328,12 @@
             oTable.unbindRows();
             var xmlHttp = new XMLHttpRequest();
             var xmlDOM;
-            var http_string = "/XMII/Runner?Transaction=MESM/MANAGEMENT/TRANSACTIONS/getHierarchyHeaders&IDPLANT=1006&SERVER_SQL=MESM&ts=" + timestamp + "&OutputParameter=HC_OUT&Content-Type=text/xml";
-            xmlHttp.open("GET", http_string, false);
+            var http_string = "/XMII/Runner?Transaction=MESM/MANAGEMENT/TRANSACTIONS/getHierarchyHeaders&IDPLANT=1006&SERVER_SQL=MESM&ts="+timestamp+"&OutputParameter=HC_OUT&Content-Type=text/xml";
+            xmlHttp.open("GET",http_string, false);
             xmlHttp.send();
             xmlDOM = xmlHttp.responseXML.documentElement;
             try {
-                if (xmlDOM.getElementsByTagName("Row")[0].firstChild) {
+                if(xmlDOM.getElementsByTagName("Row")[0].firstChild) {
                     var opElement = xmlDOM.getElementsByTagName("Row")[0].firstChild;
                     var oDataFLMP = opElement.firstChild.data;
                     var ojsonDataFLMP = eval('(' + oDataFLMP + ')');
@@ -342,7 +342,7 @@
                     oTable.setModel(oModel);
                     oTable.bindRows("/root");
                 }
-            } catch (e) {
+            } catch(e) {
                 alert(" Could not retrieve headers ..");
             }
         }
@@ -375,11 +375,11 @@
 
         // ******************		MAPS		**********************************************************************************************************************************
 
-        var colors_in = [];
+        var colors_in =  [] ;
 
         function getMapStatus() {
-            var idPlant = selectedPlant;
-            colors_in = [];
+            var idPlant = selectedPlant ;
+            colors_in =  [];
             var timestamp = new Date().getTime();
             getData("/XMII/Illuminator?QueryTemplate=MESM/ANDM/QUERIES/getMapStatus&Param.1=" + idPlant + "&ts=" + timestamp + "&Content-Type=text/xml", parseJsonMapStatus);
             function parseJsonMapStatus(jsondata) {
@@ -389,28 +389,31 @@
                     var map_parent_name = jsondata[i]['parentName'];
                     var map_key = map_parent_name + "_" + map_name
                     // alert (map_key);
-                    colors_in[map_key] = map_status;
+                    colors_in[map_key] = map_status ;
                 }
             }
-
-//            console.log('highchartMap.title.textStr', highchartMap.title.textStr);
-
             mapTitle = [];
 
-            setTimeout(mapsInit, 300);
+            setTimeout (mapsInit, 300);
 
 
         }
         //wxy
         $(document).ready(function () {
             $('.seleMenu').click(function () {
+                if ($('#app_header').is(":hidden")) {
+                    document.getElementById("seleMenu").innerHTML = '\&nbsp' + ' MENU ' + '&#x2191' + '\&nbsp';
+                } else {
+                    document.getElementById("seleMenu").innerHTML = '\&nbsp' + ' MENU ' + '&#x2193' + '\&nbsp';
+                }
                 $('.app_header').slideToggle(300);
+
             });
         });
 
 
         var mapTitle = [];
-        var highchartMap = null;
+        var highchartMap;
         var highChartSample1;
         var highChartSample2;
         var highChartSample3;
@@ -418,7 +421,7 @@
         var highChartSample5;
 
         function mapsInit() {
-            var plant = document.getElementById("plant_name").value;
+            var plant = document.getElementById("plant_name").value ;
             if (highchartMap != null) {
                 plant = highchartMap.title.textStr;
             }
@@ -430,26 +433,26 @@
                     //  this.value = 50 + Math.round((Math.random() * 50));
 
                     var this_name = this.properties['name'];
-                    var this_key = this.properties['hc-key'];
+                    var this_key  = this.properties['hc-key'] ;
                     var this_2keys = this_key + "_" + this_name;
                     //alert(this_2keys);
-                    var color_id = colors_in    [this_2keys];
-                    var color_value = '#dcf5f7'
-                    switch (Number(color_id)) {
+                    var color_id = colors_in    [this_2keys] ;
+                    var color_value ='#dcf5f7'
+                    switch (  Number(color_id)) {
                         case 0 :
-                            color_value = '#d8ddde';
+                            color_value ='#d8ddde';
                             break;
                         case 1:
-                            color_value = '#a6f68f';
+                            color_value ='#a6f68f';
                             break;
                         case 2:
-                            color_value = '#fe4822';
+                            color_value ='#fe4822';
                             break;
                         default :
-                            color_value = '#dcf5f7';
+                            color_value ='#dcf5f7';
                             break;
                     }
-                    this.color = color_value;
+                    this.color = color_value ;
                     //	alert(this.color);
                 });
                 var mapName = plant;
@@ -470,7 +473,6 @@
                                 cc(e.point);
                                 //    cc(e.point.name);
                                 var _drilldown = e.point.drilldown;
-                                cc('_drilldown: ' + _drilldown);
                                 $.get('maps/' + _drilldown + '.json', function (data) {
                                     var mapDrilldown = Highcharts.geojson(data);
                                     $.each(mapDrilldown, function (i) {
@@ -479,27 +481,27 @@
                                         }
 
                                         var this_name = this.properties['name'];
-                                        var this_key = this.properties['hc-key'];
+                                        var this_key  = this.properties['hc-key'] ;
                                         var this_2keys = this_key + "_" + this_name
-                                        var color_id = colors_in    [this_2keys];
+                                        var color_id = colors_in    [this_2keys] ;
 
-                                        var color_value = '#dcf5f7'
+                                        var color_value ='#dcf5f7'
 
-                                        switch (Number(color_id)) {
+                                        switch (  Number(color_id)) {
                                             case 0 :
-                                                color_value = '#d8ddde';
+                                                color_value ='#d8ddde';
                                                 break;
                                             case 1:
-                                                color_value = '#a6f68f';
+                                                color_value ='#a6f68f';
                                                 break;
                                             case 2:
-                                                color_value = '#fe4822';
+                                                color_value ='#fe4822';
                                                 break;
                                             default :
-                                                color_value = '#dcf5f7';
+                                                color_value ='#dcf5f7';
                                                 break;
                                         }
-                                        this.color = color_value;
+                                        this.color = color_value ;
                                     });
                                     mapTitle.push(highchartMap.title.textStr);
                                     highchartMap.setTitle({text: _drilldown});
@@ -547,7 +549,7 @@
                         text: 'RTS Consulting Inc.'
                     },
                     title: {
-//                               text: rootNode.getText()
+                        //       text: rootNode.getText()
                         text: mapName,
                         style: {
                             display: 'none'
@@ -611,9 +613,6 @@
                     },
                     series: [{
                         borderWidth: 0,
-//                        animation: {
-//                            duration: 1000
-//                        },
                         animation: false,
                         data: mapData,
                         name: mapName,
@@ -646,12 +645,12 @@
         // ******************		INIT CHARTS		****************
 
 
-        function getChartsData() {
-            getProductionData();
-            getQualityData();
+        function getChartsData(){
+            getProductionData ();
+            getQualityData ();
             getHistogramData();
-            chartRPMChart();
-            chartSpeedChart();
+            chartRPMChart ();
+            chartSpeedChart ();
         }
 
 
@@ -661,25 +660,25 @@
         var ranges = [];
         var averages = [];
 
-        function getProductionData() {
-            var str_url = "/XMII/Runner?Transaction=MESM/ANDM/TRANSACTIONS/getProductionRepChartData&ID_LINE=" + document.getElementById('line').value + "&TS_ENDING=" + document.getElementById('dateend').value + "&TS_STARTING=" + document.getElementById('datestart').value + "&OutputParameter=HC_OUT&Content-Type=text/xml";
+        function getProductionData (){
+            var str_url = "/XMII/Runner?Transaction=MESM/ANDM/TRANSACTIONS/getProductionRepChartData&ID_LINE="+document.getElementById('line').value+"&TS_ENDING="+document.getElementById('dateend').value+"&TS_STARTING="+document.getElementById('datestart').value+"&OutputParameter=HC_OUT&Content-Type=text/xml";
             // alert(str_url);
             var xmlHttp = new XMLHttpRequest();
             var xmlDOM;
-            xmlHttp.open("GET", str_url, false);
+            xmlHttp.open("GET",str_url, false);
             xmlHttp.send();
             // alert(xmlHttp.responseText)
             xmlDOM = xmlHttp.responseXML.documentElement;
             var opElement = xmlDOM.getElementsByTagName("Row")[0].firstChild;
-            if (opElement.firstChild != null) {
-                if (opElement.firstChild.data.indexOf(",") == 0) var aData = ""
+            if(opElement.firstChild!=null) {
+                if(opElement.firstChild.data.indexOf(",")==0) var aData = ""
                 else var aData = eval(opElement.firstChild.data);
                 chartProductionData(aData);
             }
         }
 
 
-        function chartProductionData(data) {
+        function chartProductionData (data){
             // alert(data);
             highChartSample1 = new Highcharts.chart('products', {
                 title: {
@@ -738,28 +737,28 @@
 
         //**************************		QUALITY	**********************************
 
-        var categories = ['1003217', '1003217-1', '1003217-2', '1003217-3', '1003217-4'];
+        var categories = ['1003217','1003217-1','1003217-2','1003217-3','1003217-4'];
         var goodParts = [];
         var badParts = [];
 
-        function getQualityData() {
-            var str_url = "/XMII/Runner?Transaction=MESM/ANDM/TRANSACTIONS/getQualityRepChartData&ID_LINE=" + document.getElementById('line').value + "&TS_ENDING=" + document.getElementById('dateend').value + "&TS_STARTING=" + document.getElementById('datestart').value + "&OutputParameter=HC_OUT&Content-Type=text/xml";
+        function getQualityData (){
+            var str_url = "/XMII/Runner?Transaction=MESM/ANDM/TRANSACTIONS/getQualityRepChartData&ID_LINE="+document.getElementById('line').value+"&TS_ENDING="+document.getElementById('dateend').value+"&TS_STARTING="+document.getElementById('datestart').value+"&OutputParameter=HC_OUT&Content-Type=text/xml";
             // alert(str_url);
             var xmlHttp = new XMLHttpRequest();
             var xmlDOM;
-            xmlHttp.open("GET", str_url, false);
+            xmlHttp.open("GET",str_url, false);
             xmlHttp.send();
             // alert(xmlHttp.responseText)
             xmlDOM = xmlHttp.responseXML.documentElement;
             var opElement = xmlDOM.getElementsByTagName("Row")[0].firstChild;
-            if (opElement.firstChild != null) {
-                if (opElement.firstChild.data.indexOf(",") == 0) var aData = ""
+            if(opElement.firstChild!=null) {
+                if(opElement.firstChild.data.indexOf(",")==0) var aData = ""
                 else var aData = eval(opElement.firstChild.data);
                 chartQualityData(aData);
             }
         }
 
-        function chartQualityData(data) {
+        function chartQualityData (data){
             //alert(data);
             highChartSample2 = Highcharts.chart('parts', {
                 legend: {
@@ -791,15 +790,6 @@
                         step: 1
                     }
                 }
-//                , { // mirror axis on right side
-//                    opposite: true,
-//                    reversed: false,
-//                    categories: categories,
-//                    linkedTo: 0,
-//                    labels: {
-//                        step: 1
-//                    }
-//                }
                 ],
                 yAxis: {
                     title: {
@@ -833,7 +823,7 @@
                  data: goodParts
                  }],
                  */
-                series: data,
+                series: data ,
                 credits: {
                     enabled: false,
                     href: 'http://www.rtsperfectplant.com/',
@@ -859,189 +849,99 @@
         // ******************		HISTOGRAM		******************************************
 
 
-        var data = [];
-
-
-        function getHistogramData() {
-
-            data = [];
-
-            data = [[161.2, 51.6], [167.5, 59.0], [159.5, 49.2], [157.0, 63.0], [155.8, 53.6],
-                [170.0, 59.0], [159.1, 47.6], [166.0, 69.8], [176.2, 66.8], [160.2, 75.2],
-                [172.5, 55.2], [170.9, 54.2], [172.9, 62.5], [153.4, 42.0], [160.0, 50.0],
-                [147.2, 49.8], [168.2, 49.2], [175.0, 73.2], [157.0, 47.8], [167.6, 68.8],
-                [159.5, 50.6], [175.0, 82.5], [166.8, 57.2], [176.5, 87.8], [170.2, 72.8],
-                [174.0, 54.5], [173.0, 59.8], [179.9, 67.3], [170.5, 67.8], [160.0, 47.0],
-                [154.4, 46.2], [162.0, 55.0], [176.5, 83.0], [160.0, 54.4], [152.0, 45.8],
-                [162.1, 53.6], [170.0, 73.2], [160.2, 52.1], [161.3, 67.9], [166.4, 56.6],
-                [168.9, 62.3], [163.8, 58.5], [167.6, 54.5], [160.0, 50.2], [161.3, 60.3],
-                [167.6, 58.3], [165.1, 56.2], [160.0, 50.2], [170.0, 72.9], [157.5, 59.8],
-                [167.6, 61.0], [160.7, 69.1], [163.2, 55.9], [152.4, 46.5], [157.5, 54.3],
-                [168.3, 54.8], [180.3, 60.7], [165.5, 60.0], [165.0, 62.0], [164.5, 60.3],
-                [156.0, 52.7], [160.0, 74.3], [163.0, 62.0], [165.7, 73.1], [161.0, 80.0],
-                [162.0, 54.7], [166.0, 53.2], [174.0, 75.7], [172.7, 61.1], [167.6, 55.7],
-                [151.1, 48.7], [164.5, 52.3], [163.5, 50.0], [152.0, 59.3], [169.0, 62.5],
-                [164.0, 55.7], [161.2, 54.8], [155.0, 45.9], [170.0, 70.6], [176.2, 67.2],
-                [170.0, 69.4], [162.5, 58.2], [170.3, 64.8], [164.1, 71.6], [169.5, 52.8],
-                [163.2, 59.8], [154.5, 49.0], [159.8, 50.0], [173.2, 69.2], [170.0, 55.9],
-                [161.4, 63.4], [169.0, 58.2], [166.2, 58.6], [159.4, 45.7], [162.5, 52.2],
-                [159.0, 48.6], [162.8, 57.8], [159.0, 55.6], [179.8, 66.8], [162.9, 59.4],
-                [161.0, 53.6], [151.1, 73.2], [168.2, 53.4], [168.9, 69.0], [173.2, 58.4],
-                [171.8, 56.2], [178.0, 70.6], [164.3, 59.8], [163.0, 72.0], [168.5, 65.2],
-                [166.8, 56.6], [172.7, 105.2], [163.5, 51.8], [169.4, 63.4], [167.8, 59.0],
-                [159.5, 47.6], [167.6, 63.0], [161.2, 55.2], [160.0, 45.0], [163.2, 54.0],
-                [162.2, 50.2], [161.3, 60.2], [149.5, 44.8], [157.5, 58.8], [163.2, 56.4],
-                [172.7, 62.0], [155.0, 49.2], [156.5, 67.2], [164.0, 53.8], [160.9, 54.4],
-                [162.8, 58.0], [167.0, 59.8], [160.0, 54.8], [160.0, 43.2], [168.9, 60.5],
-                [158.2, 46.4], [156.0, 64.4], [160.0, 48.8], [167.1, 62.2], [158.0, 55.5],
-                [167.6, 57.8], [156.0, 54.6], [162.1, 59.2], [173.4, 52.7], [159.8, 53.2],
-                [170.5, 64.5], [159.2, 51.8], [157.5, 56.0], [161.3, 63.6], [162.6, 63.2],
-                [160.0, 59.5], [168.9, 56.8], [165.1, 64.1], [162.6, 50.0], [165.1, 72.3],
-                [166.4, 55.0], [160.0, 55.9], [152.4, 60.4], [170.2, 69.1], [162.6, 84.5],
-                [170.2, 55.9], [158.8, 55.5], [172.7, 69.5], [167.6, 76.4], [162.6, 61.4],
-                [167.6, 65.9], [156.2, 58.6], [175.2, 66.8], [172.1, 56.6], [162.6, 58.6],
-                [160.0, 55.9], [165.1, 59.1], [182.9, 81.8], [166.4, 70.7], [165.1, 56.8],
-                [177.8, 60.0], [165.1, 58.2], [175.3, 72.7], [154.9, 54.1], [158.8, 49.1],
-                [172.7, 75.9], [168.9, 55.0], [161.3, 57.3], [167.6, 55.0], [165.1, 65.5],
-                [175.3, 65.5], [157.5, 48.6], [163.8, 58.6], [167.6, 63.6], [165.1, 55.2],
-                [165.1, 62.7], [168.9, 56.6], [162.6, 53.9], [164.5, 63.2], [176.5, 73.6],
-                [168.9, 62.0], [175.3, 63.6], [159.4, 53.2], [160.0, 53.4], [170.2, 55.0],
-                [162.6, 70.5], [167.6, 54.5], [162.6, 54.5], [160.7, 55.9], [160.0, 59.0],
-                [157.5, 63.6], [162.6, 54.5], [152.4, 47.3], [170.2, 67.7], [165.1, 80.9],
-                [172.7, 70.5], [165.1, 60.9], [170.2, 63.6], [170.2, 54.5], [170.2, 59.1],
-                [161.3, 70.5], [167.6, 52.7], [167.6, 62.7], [165.1, 86.3], [162.6, 66.4],
-                [152.4, 67.3], [168.9, 63.0], [170.2, 73.6], [175.2, 62.3], [175.2, 57.7],
-                [160.0, 55.4], [165.1, 104.1], [174.0, 55.5], [170.2, 77.3], [160.0, 80.5],
-                [167.6, 64.5], [167.6, 72.3], [167.6, 61.4], [154.9, 58.2], [162.6, 81.8],
-                [175.3, 63.6], [171.4, 53.4], [157.5, 54.5], [165.1, 53.6], [160.0, 60.0],
-                [174.0, 73.6], [162.6, 61.4], [174.0, 55.5], [162.6, 63.6], [161.3, 60.9],
-                [156.2, 60.0], [149.9, 46.8], [169.5, 57.3], [160.0, 64.1], [175.3, 63.6],
-                [169.5, 67.3], [160.0, 75.5], [172.7, 68.2], [162.6, 61.4], [157.5, 76.8],
-                [176.5, 71.8], [164.4, 55.5], [160.7, 48.6], [174.0, 66.4], [163.8, 67.3]];
-
-            chartHistogram();
-        }
-
-        function histogram(data, step) {
-            var histo = {},
-                x,
-                i,
-                arr = [];
-            // Group down
-            for (i = 0; i < data.length; i++) {
-                x = Math.floor(data[i][0] / step) * step;
-                if (!histo[x]) {
-                    histo[x] = 0;
-                }
-                histo[x]++;
-            }
-            // Make the histo group into an array
-            for (x in histo) {
-                if (histo.hasOwnProperty((x))) {
-                    arr.push([parseFloat(x), histo[x]]);
-                }
-            }
-            // Finally, sort the array
-            arr.sort(function (a, b) {
-                return a[0] - b[0];
-            });
-            return arr;
-        }
-
-
-        function chartHistogram() {
-
-            highChartSample3 = Highcharts.chart('histogram', {
-                legend: {
-                    enabled: false,
-                    layout: 'vertical',
-                    align: 'right',
-                    verticalAlign: 'middle'
-                },
-                chart: {
-                    type: 'column'
-                },
-                title: {
-                    text: 'Highcharts Histogram',
-                    style: {display: 'none', fontSize: '12px'}
-                },
-                xAxis: {
-                    gridLineWidth: 1
-                },
-                yAxis: [{
-                    title: {
-                        text: 'Histogram Count'
-                    }
-                }, {
-                    opposite: true,
-                    title: {
-                        text: 'Y value'
-                    }
-                }],
-                series: [{
-                    name: 'Histogram',
-                    type: 'column',
-                    data: histogram(data, 10),
-                    pointPadding: 0,
-                    groupPadding: 0,
-                    pointPlacement: 'between'
-                }, {
-                    name: 'XY data',
-                    type: 'scatter',
-                    data: data,
-                    yAxis: 1,
-                    marker: {
-                        radius: 1.5
-                    }
-                }],
-                credits: {
-                    enabled: false,
-                    href: 'http://www.rtsperfectplant.com/',
-                    position: {
-                        align: 'right',
-                        x: -10,
-                        verticalAlign: 'bottom',
-                        y: -5
-                    },
-                    style: {
-                        cursor: 'pointer',
-                        color: '#999999',
-                        fontSize: '9px'
-                    },
-                    text: 'RTS Consulting Inc.'
-                },
-                exporting: {
-                    enabled: false
-                }
-            });
-        }
-
+        var data =[];
 
         /*
 
+         function getHistogramData() {
 
-         var RejectPart = [];
-         var defectPart = [];
+         data =[];
 
-         function getHistogramData (){
-         var str_url = "/XMII/Runner?Transaction=MESM/ANDM/TRANSACTIONS/getHistogramRepChartData&ID_LINE="+document.getElementById('line').value+"&TS_ENDING="+document.getElementById('dateend').value+"&TS_STARTING="+document.getElementById('datestart').value+"&OutputParameter=HC_OUT&Content-Type=text/xml";
-         // alert(str_url);
-         var xmlHttp = new XMLHttpRequest();
-         var xmlDOM;
-         xmlHttp.open("GET",str_url, false);
-         xmlHttp.send();
-         // alert(xmlHttp.responseText)
-         xmlDOM = xmlHttp.responseXML.documentElement;
-         var opElement = xmlDOM.getElementsByTagName("Row")[0].firstChild;
-         if(opElement.firstChild!=null) {
-         if(opElement.firstChild.data.indexOf(",")==0) var aData = ""
-         else var aData = eval(opElement.firstChild.data);
-         chartHistogramData(aData);
+         data = [[161.2, 51.6], [167.5, 59.0], [159.5, 49.2], [157.0, 63.0], [155.8, 53.6],
+         [170.0, 59.0], [159.1, 47.6], [166.0, 69.8], [176.2, 66.8], [160.2, 75.2],
+         [172.5, 55.2], [170.9, 54.2], [172.9, 62.5], [153.4, 42.0], [160.0, 50.0],
+         [147.2, 49.8], [168.2, 49.2], [175.0, 73.2], [157.0, 47.8], [167.6, 68.8],
+         [159.5, 50.6], [175.0, 82.5], [166.8, 57.2], [176.5, 87.8], [170.2, 72.8],
+         [174.0, 54.5], [173.0, 59.8], [179.9, 67.3], [170.5, 67.8], [160.0, 47.0],
+         [154.4, 46.2], [162.0, 55.0], [176.5, 83.0], [160.0, 54.4], [152.0, 45.8],
+         [162.1, 53.6], [170.0, 73.2], [160.2, 52.1], [161.3, 67.9], [166.4, 56.6],
+         [168.9, 62.3], [163.8, 58.5], [167.6, 54.5], [160.0, 50.2], [161.3, 60.3],
+         [167.6, 58.3], [165.1, 56.2], [160.0, 50.2], [170.0, 72.9], [157.5, 59.8],
+         [167.6, 61.0], [160.7, 69.1], [163.2, 55.9], [152.4, 46.5], [157.5, 54.3],
+         [168.3, 54.8], [180.3, 60.7], [165.5, 60.0], [165.0, 62.0], [164.5, 60.3],
+         [156.0, 52.7], [160.0, 74.3], [163.0, 62.0], [165.7, 73.1], [161.0, 80.0],
+         [162.0, 54.7], [166.0, 53.2], [174.0, 75.7], [172.7, 61.1], [167.6, 55.7],
+         [151.1, 48.7], [164.5, 52.3], [163.5, 50.0], [152.0, 59.3], [169.0, 62.5],
+         [164.0, 55.7], [161.2, 54.8], [155.0, 45.9], [170.0, 70.6], [176.2, 67.2],
+         [170.0, 69.4], [162.5, 58.2], [170.3, 64.8], [164.1, 71.6], [169.5, 52.8],
+         [163.2, 59.8], [154.5, 49.0], [159.8, 50.0], [173.2, 69.2], [170.0, 55.9],
+         [161.4, 63.4], [169.0, 58.2], [166.2, 58.6], [159.4, 45.7], [162.5, 52.2],
+         [159.0, 48.6], [162.8, 57.8], [159.0, 55.6], [179.8, 66.8], [162.9, 59.4],
+         [161.0, 53.6], [151.1, 73.2], [168.2, 53.4], [168.9, 69.0], [173.2, 58.4],
+         [171.8, 56.2], [178.0, 70.6], [164.3, 59.8], [163.0, 72.0], [168.5, 65.2],
+         [166.8, 56.6], [172.7, 105.2], [163.5, 51.8], [169.4, 63.4], [167.8, 59.0],
+         [159.5, 47.6], [167.6, 63.0], [161.2, 55.2], [160.0, 45.0], [163.2, 54.0],
+         [162.2, 50.2], [161.3, 60.2], [149.5, 44.8], [157.5, 58.8], [163.2, 56.4],
+         [172.7, 62.0], [155.0, 49.2], [156.5, 67.2], [164.0, 53.8], [160.9, 54.4],
+         [162.8, 58.0], [167.0, 59.8], [160.0, 54.8], [160.0, 43.2], [168.9, 60.5],
+         [158.2, 46.4], [156.0, 64.4], [160.0, 48.8], [167.1, 62.2], [158.0, 55.5],
+         [167.6, 57.8], [156.0, 54.6], [162.1, 59.2], [173.4, 52.7], [159.8, 53.2],
+         [170.5, 64.5], [159.2, 51.8], [157.5, 56.0], [161.3, 63.6], [162.6, 63.2],
+         [160.0, 59.5], [168.9, 56.8], [165.1, 64.1], [162.6, 50.0], [165.1, 72.3],
+         [166.4, 55.0], [160.0, 55.9], [152.4, 60.4], [170.2, 69.1], [162.6, 84.5],
+         [170.2, 55.9], [158.8, 55.5], [172.7, 69.5], [167.6, 76.4], [162.6, 61.4],
+         [167.6, 65.9], [156.2, 58.6], [175.2, 66.8], [172.1, 56.6], [162.6, 58.6],
+         [160.0, 55.9], [165.1, 59.1], [182.9, 81.8], [166.4, 70.7], [165.1, 56.8],
+         [177.8, 60.0], [165.1, 58.2], [175.3, 72.7], [154.9, 54.1], [158.8, 49.1],
+         [172.7, 75.9], [168.9, 55.0], [161.3, 57.3], [167.6, 55.0], [165.1, 65.5],
+         [175.3, 65.5], [157.5, 48.6], [163.8, 58.6], [167.6, 63.6], [165.1, 55.2],
+         [165.1, 62.7], [168.9, 56.6], [162.6, 53.9], [164.5, 63.2], [176.5, 73.6],
+         [168.9, 62.0], [175.3, 63.6], [159.4, 53.2], [160.0, 53.4], [170.2, 55.0],
+         [162.6, 70.5], [167.6, 54.5], [162.6, 54.5], [160.7, 55.9], [160.0, 59.0],
+         [157.5, 63.6], [162.6, 54.5], [152.4, 47.3], [170.2, 67.7], [165.1, 80.9],
+         [172.7, 70.5], [165.1, 60.9], [170.2, 63.6], [170.2, 54.5], [170.2, 59.1],
+         [161.3, 70.5], [167.6, 52.7], [167.6, 62.7], [165.1, 86.3], [162.6, 66.4],
+         [152.4, 67.3], [168.9, 63.0], [170.2, 73.6], [175.2, 62.3], [175.2, 57.7],
+         [160.0, 55.4], [165.1, 104.1], [174.0, 55.5], [170.2, 77.3], [160.0, 80.5],
+         [167.6, 64.5], [167.6, 72.3], [167.6, 61.4], [154.9, 58.2], [162.6, 81.8],
+         [175.3, 63.6], [171.4, 53.4], [157.5, 54.5], [165.1, 53.6], [160.0, 60.0],
+         [174.0, 73.6], [162.6, 61.4], [174.0, 55.5], [162.6, 63.6], [161.3, 60.9],
+         [156.2, 60.0], [149.9, 46.8], [169.5, 57.3], [160.0, 64.1], [175.3, 63.6],
+         [169.5, 67.3], [160.0, 75.5], [172.7, 68.2], [162.6, 61.4], [157.5, 76.8],
+         [176.5, 71.8], [164.4, 55.5], [160.7, 48.6], [174.0, 66.4], [163.8, 67.3]];
+
+         chartHistogram ();
+         }
+
+         function histogram(data, step) {
+         var histo = {},
+         x,
+         i,
+         arr = [];
+         // Group down
+         for (i = 0; i < data.length; i++) {
+         x = Math.floor(data[i][0] / step) * step;
+         if (!histo[x]) {
+         histo[x] = 0;
+         }
+         histo[x]++;
+         }
+         // Make the histo group into an array
+         for (x in histo) {
+         if (histo.hasOwnProperty((x))) {
+         arr.push([parseFloat(x), histo[x]]);
          }
          }
+         // Finally, sort the array
+         arr.sort(function (a, b) {
+         return a[0] - b[0];
+         });
+         return arr;
+         }
 
-         function chartHistogramData (data){
-         //alert(data);
+
+         function chartHistogram () {
+
          highChartSample3 = Highcharts.chart('histogram', {
          legend: {
          enabled: false,
@@ -1069,7 +969,22 @@
          text: 'Y value'
          }
          }],
-         series: data ,
+         series: [{
+         name: 'Histogram',
+         type: 'column',
+         data: histogram(data, 10),
+         pointPadding: 0,
+         groupPadding: 0,
+         pointPlacement: 'between'
+         }, {
+         name: 'XY data',
+         type: 'scatter',
+         data: data,
+         yAxis: 1,
+         marker: {
+         radius: 1.5
+         }
+         }],
          credits: {
          enabled: false,
          href: 'http://www.rtsperfectplant.com/',
@@ -1092,7 +1007,114 @@
          });
          }
 
+
          */
+
+
+        var RejectPart = [];
+        var defectPart = [];
+
+
+        function histogram(data, step) {
+            var histo = {},
+                x,
+                i,
+                arr = [];
+            // Group down
+            for (i = 0; i < data.length; i++) {
+                x = Math.floor(data[i][0] / step) * step;
+                if (!histo[x]) {
+                    histo[x] = 0;
+                }
+                histo[x]++;
+            }
+            // Make the histo group into an array
+            for (x in histo) {
+                if (histo.hasOwnProperty((x))) {
+                    arr.push([parseFloat(x), histo[x]]);
+                }
+            }
+            // Finally, sort the array
+            arr.sort(function (a, b) {
+                return a[0] - b[0];
+            });
+            return arr;
+        }
+
+        function getHistogramData (){
+            var str_url = "/XMII/Runner?Transaction=MESM/ANDM/TRANSACTIONS/getHistogramRepChartData&ID_LINE="+document.getElementById('line').value+"&TS_ENDING="+document.getElementById('dateend').value+"&TS_STARTING="+document.getElementById('datestart').value+"&OutputParameter=HC_OUT&Content-Type=text/xml";
+            // alert(str_url);
+            var xmlHttp = new XMLHttpRequest();
+            var xmlDOM;
+            xmlHttp.open("GET",str_url, false);
+            xmlHttp.send();
+            // alert(xmlHttp.responseText)
+            xmlDOM = xmlHttp.responseXML.documentElement;
+            var opElement = xmlDOM.getElementsByTagName("Row")[0].firstChild;
+            if(opElement.firstChild!=null) {
+                if(opElement.firstChild.data.indexOf(",")==0) var aData = ""
+                else var aData = eval(opElement.firstChild.data);
+                chartHistogramData(aData);
+            }
+        }
+
+        function chartHistogramData (data){
+            //alert(data);
+            highChartSample3 = Highcharts.chart('histogram', {
+                legend: {
+                    enabled: false,
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'middle'
+                },
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Highcharts Histogram',
+                    style: {display: 'none', fontSize: '12px'}
+                },
+                xAxis: {
+                    gridLineWidth: 1,
+                    plotBands: [{
+                        color: 'lime', // Color value
+                        from: -1, // Start of the plot band
+                        to: 1 // End of the plot band
+                    }]
+                },
+                yAxis: [{
+                    title: {
+                        text: 'Histogram Count'
+                    }
+                }, {
+                    opposite: true,
+                    title: {
+                        text: 'Y value'
+                    }
+                }],
+                series:data,
+                credits: {
+                    enabled: false,
+                    href: 'http://www.rtsperfectplant.com/',
+                    position: {
+                        align: 'right',
+                        x: -10,
+                        verticalAlign: 'bottom',
+                        y: -5
+                    },
+                    style: {
+                        cursor: 'pointer',
+                        color: '#999999',
+                        fontSize: '9px'
+                    },
+                    text: 'RTS Consulting Inc.'
+                },
+                exporting: {
+                    enabled: false
+                }
+            });
+        }
+
 
 
         //*********************	SPEED  &  RPM	**************************************************
@@ -1149,7 +1171,7 @@
         };
 
 
-        function chartSpeedChart() {
+        function chartSpeedChart () {
             // The speed gauge
             highChartSample4 = Highcharts.chart('container-speed', Highcharts.merge(gaugeOptions, {
                 yAxis: {
@@ -1181,7 +1203,7 @@
             }));
         }
 
-        function chartRPMChart() {
+        function chartRPMChart () {
 
             // The RPM gauge
             highChartSample5 = Highcharts.chart('container-rpm', Highcharts.merge(gaugeOptions, {
@@ -1210,9 +1232,10 @@
             }));
         }
 
-
+//wxy
         // Bring life to the dials
         setInterval(function () {
+            cc("title : "+highchartMap.title.textStr);
             // Speed
             var point,
                 newVal,
@@ -1242,7 +1265,6 @@
 
                 point.update(newVal);
             }
-            //console.log(' highchartMap.title.textStr :', highchartMap.title.textStr);
         }, 2000);
 
 
@@ -1281,7 +1303,7 @@
         }
 
 
-        window.setInterval(getMapStatus, 10 * 1000);
+        window.setInterval(getMapStatus, 10*1000);
 
         //window.setInterval(mapsInit, 60*1000);
 
@@ -1305,11 +1327,11 @@
 
 <input id="plant_name" type="hidden" value="{PLANT}" style="display:block;width:1000px;" readonly/>
 
-<div class="app_header" style="display: none;">
+<div id="app_header" class="app_header" style="display: none;">
     <div id="app_title">CORE TRACEABILITY</div>
     <div id="page_title">DIAGNOSTICS</div>
 </div>
-<div class="seleMenu"> &nbsp; MENU &#x2191; &#x2193; &nbsp; </div>
+<div id="seleMenu" class="seleMenu"> &nbsp; MENU &#x2193; &nbsp; </div>
 <div>
     <div id="mesm_container" style="padding-top: 30px;">
         <div id="mesm_maps"></div>
