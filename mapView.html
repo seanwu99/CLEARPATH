@@ -21,7 +21,7 @@
 
 </head>
 <body>
-<script src="Highcharts/highmaps.src.js"></script>
+<script src="Common/library/Highcharts/highmaps.src.js"></script>
 
 <div id="container"></div>
 <textarea id="geojson" placeholder="Paste your GeoJSON here to test your map"
@@ -31,20 +31,29 @@
 
 <script>
     $('#slideup').click(function () {
-        $('#container').slideUp("slow", function () {
-        })
+//        $('#container').slideUp("slow", function () {
+//        })
+        cc(highchartMap);
+//        cc(highchartMap.series[0].data[0]);
+        var color = "#FF0000";
+        var data = highchartMap.series[0].data[2];
+        data.update({
+            color: 'red'
+        });
+        highchartMap.reflow();
     });
-
+    var highchartMap;
+    function cc(obj) {
+        console.log(obj);
+    }
     $('#run').click(function () {
         var geojson = JSON.parse($('#geojson').val());
         // Initiate the chart
         mJson = Highcharts.geojson(geojson);
-        console.log('mJson : '+JSON.stringify(mJson));
+        console.log('mJson : ' + JSON.stringify(mJson));
         mJson.push();
-        $('#container').slideDown("slow", function () {
 
-//            alert('slideDown');
-        }).highcharts('Map', {
+        highchartMap = new Highcharts.Map('container', {
             credits: {
                 enabled: false,
                 href: 'http://www.rtsperfectplant.com/',
@@ -108,15 +117,14 @@
                 }
             },
 
-//                plotOptions: {
-//                    map: {
-//                        states: {
-//                            hover: {
-//                                color: '#EEDD66'
-//                            }
-//                        }
-//                    }
-//                },
+            plotOptions: {
+                series: {
+                    tooltip: {
+                        headerFormat: '',
+                        pointFormat: '{point.properties.KEY}'
+                    }
+                }
+            },
 
             series: [
                 {
@@ -128,7 +136,7 @@
                         enabled: true,
                         align: 'center',
                         verticalAlign: 'middle',
-                        format: '{point.properties.name}',
+                        format: '{point.properties.KEY}',
                     },
                     enableMouseTracking: true
                 }
@@ -149,10 +157,23 @@
 //                        }
 //                    }
             }
-
         });
-    });
 
+        $('#container').slideDown("slow", function () {
+
+//            alert('slideDown');
+        }).highchartMap;
+    });
+    var a = '#7cb5ec';
+    var a = '#434348';
+    var a = '#90ed7d';
+    var a = '#f7a35c';
+    var a = '#8085e9';
+    var a = '#f15c80';
+    var a = '#e4d354';
+    var a = '#2b908f';
+    var a = '#f45b5b';
+    var a = '#91e8e1';
 </script>
 
 </body>

@@ -52,7 +52,7 @@
     var mapsJSONforSave = '';
     var fabricCanvas = new fabric.Canvas("hCanvas");
     //    var fabricID = [];
-    document.getElementById('i_NAME').value = '';
+    document.getElementById('i_KEY').value = '';
     fabric.Canvas.prototype.getObjectsLength = function () {
         var object = null,
             objects = this.getObjects();
@@ -72,41 +72,41 @@
     //            return;
     //
     //        } else {
-    //            document.getElementById('i_KEY').disabled = false;
+    //            document.getElementById('i_NAME').disabled = false;
     //        }
     //    });
-    function i_NAME(text) {
-        if (fabricCanvas.getActiveObject() == null && !fabricCanvas.getActiveGroup()) {
-            return;
-        }
-        if (fabricCanvas.getActiveGroup()) {
-            fabricCanvas.getActiveGroup().forEachObject(function (o) {
-                o.s_KEY = document.getElementById('i_KEY').value;
-                o.s_NAME = text;
-                o.objectID = text + '/' + document.getElementById('i_KEY').value;
-            });
-        } else {
-            var o = fabricCanvas.getActiveObject();
-            o.s_KEY = document.getElementById('i_KEY').value;
-            o.s_NAME = text;
-            o.objectID = text + '/' + document.getElementById('i_KEY').value;
-        }
-    }
     function i_KEY(text) {
         if (fabricCanvas.getActiveObject() == null && !fabricCanvas.getActiveGroup()) {
             return;
         }
         if (fabricCanvas.getActiveGroup()) {
             fabricCanvas.getActiveGroup().forEachObject(function (o) {
-                o.s_KEY = text;
                 o.s_NAME = document.getElementById('i_NAME').value;
-                o.objectID = document.getElementById('i_NAME').value + '/' + text;
+                o.s_KEY = text;
+                o.objectID = text + '/' + document.getElementById('i_NAME').value;
             });
         } else {
             var o = fabricCanvas.getActiveObject();
-            o.s_KEY = text;
             o.s_NAME = document.getElementById('i_NAME').value;
-            o.objectID = document.getElementById('i_NAME').value + '/' + text;
+            o.s_KEY = text;
+            o.objectID = text + '/' + document.getElementById('i_NAME').value;
+        }
+    }
+    function i_NAME(text) {
+        if (fabricCanvas.getActiveObject() == null && !fabricCanvas.getActiveGroup()) {
+            return;
+        }
+        if (fabricCanvas.getActiveGroup()) {
+            fabricCanvas.getActiveGroup().forEachObject(function (o) {
+                o.s_NAME = text;
+                o.s_KEY = document.getElementById('i_KEY').value;
+                o.objectID = document.getElementById('i_KEY').value + '/' + text;
+            });
+        } else {
+            var o = fabricCanvas.getActiveObject();
+            o.s_NAME = text;
+            o.s_KEY = document.getElementById('i_KEY').value;
+            o.objectID = document.getElementById('i_KEY').value + '/' + text;
         }
     }
     var groupID;
@@ -118,7 +118,7 @@
         activegroup.clone(function (newgroup) {
             fabricCanvas.discardActiveGroup();
             objectsInGroup.forEach(function (object) {
-                groupID.push({s_NAME: object.s_NAME, s_KEY: object.s_KEY, objectID: object.objectID});
+                groupID.push({s_KEY: object.s_KEY, s_NAME: object.s_NAME, objectID: object.objectID});
             });
             fabricCanvas.add(newgroup);
 
@@ -138,16 +138,16 @@
             fabricCanvas.remove(activeObject);
             for (var i = 0; i < items.length; i++) {
                 cc(items[i]);
-                items[i].s_NAME = groupID[i].s_NAME;
                 items[i].s_KEY = groupID[i].s_KEY;
+                items[i].s_NAME = groupID[i].s_NAME;
                 items[i].objectID = groupID[i].objectID;
-//                cc(items[i].s_NAME);
 //                cc(items[i].s_KEY);
+//                cc(items[i].s_NAME);
 //                cc(items[i].objectID);
                 fabricCanvas.add(items[i]);
 //                fabricCanvas.item(fabricCanvas.size() - 1).hasControls = true;
 //                var id = 'id' + new Date().getTime();
-//                document.getElementById("i_KEY").value = id;
+//                document.getElementById("i_NAME").value = id;
 //        fabricID.push({"id": id, "type": 'rect', 'width': 100, 'height': 100, 'angle': 0, 'left': 0, 'top': 0});
 //                fabricID.push({"id": groupClone[i]['id']});
             }
@@ -169,9 +169,9 @@
 
             $.each(items, function (i, item) {
                 if (item['type'] == 'rect') {
-//                    document.getElementById("i_KEY").value = item['s_KEY'];
-                    document.getElementById("i_KEY").value = item['s_KEY'];
+//                    document.getElementById("i_NAME").value = item['s_NAME'];
                     document.getElementById("i_NAME").value = item['s_NAME'];
+                    document.getElementById("i_KEY").value = item['s_KEY'];
                     fabricCanvas.add(new fabric.Rect({
                         width: item['width'],
                         height: item['height'],
@@ -180,18 +180,18 @@
                         angle: item['angle'],
                         fill: 'rgba(0,200,0,0.80)',
                         transparentCorners: false,
-                        s_NAME: item['s_NAME'],
                         s_KEY: item['s_KEY'],
-                        objectID: item['s_NAME'] + '/' + item['s_KEY'],
+                        s_NAME: item['s_NAME'],
+                        objectID: item['s_KEY'] + '/' + item['s_NAME'],
                     }).on('selected', function (e) {
-                        document.getElementById("i_NAME").value = this.s_NAME;
                         document.getElementById("i_KEY").value = this.s_KEY;
+                        document.getElementById("i_NAME").value = this.s_NAME;
                     }));
 
 //        cc('addRec')
                 } else if (item['type'] == 'circle') {
-                    document.getElementById("i_KEY").value = item['s_KEY'];
                     document.getElementById("i_NAME").value = item['s_NAME'];
+                    document.getElementById("i_KEY").value = item['s_KEY'];
                     var id = item['id'];
                     fabricCanvas.add(new fabric.Circle({
                         'radius': item['radius'],
@@ -207,17 +207,17 @@
 //            fill: '#aac'
                         fill: 'rgba(0,200,0,0.80)',
                         transparentCorners: false,
-                        s_KEY: item['s_KEY'],
                         s_NAME: item['s_NAME'],
-                        objectID: item['s_NAME'] + '/' + item['s_KEY'],
+                        s_KEY: item['s_KEY'],
+                        objectID: item['s_KEY'] + '/' + item['s_NAME'],
                     }).on('selected', function (e) {
-//                        document.getElementById("i_KEY").value = fabricID[fabricCanvas.getObjects().indexOf(this)]['id'];
-                        document.getElementById("i_KEY").value = this.s_KEY;
+//                        document.getElementById("i_NAME").value = fabricID[fabricCanvas.getObjects().indexOf(this)]['id'];
                         document.getElementById("i_NAME").value = this.s_NAME;
+                        document.getElementById("i_KEY").value = this.s_KEY;
                     }));
                 } else if (item['type'] == 'triangle') {
-                    document.getElementById("i_KEY").value = item['s_KEY'];
                     document.getElementById("i_NAME").value = item['s_NAME'];
+                    document.getElementById("i_KEY").value = item['s_KEY'];
                     fabricCanvas.add(new fabric.Triangle({
                         width: item['width'],
                         height: item['height'],
@@ -227,13 +227,13 @@
 //            fill: '#cca'
                         fill: 'rgba(0,200,0,0.80)',
                         transparentCorners: false,
-                        s_KEY: item['s_KEY'],
                         s_NAME: item['s_NAME'],
-                        objectID: item['s_NAME'] + '/' + item['s_KEY'],
+                        s_KEY: item['s_KEY'],
+                        objectID: item['s_KEY'] + '/' + item['s_NAME'],
                     }).on('selected', function (e) {
-//                        document.getElementById("i_KEY").value = fabricID[fabricCanvas.getObjects().indexOf(this)]['id'];
-                        document.getElementById("i_KEY").value = this.s_KEY;
+//                        document.getElementById("i_NAME").value = fabricID[fabricCanvas.getObjects().indexOf(this)]['id'];
                         document.getElementById("i_NAME").value = this.s_NAME;
+                        document.getElementById("i_KEY").value = this.s_KEY;
                     }));
                 }
             });
@@ -301,8 +301,8 @@
     //        }
     //    }
     function newRect() {
-        var s_NAME = document.getElementById('i_NAME').value;
-        var s_KEY = 'Rect' + new Date().getTime();
+        var s_KEY = document.getElementById('i_KEY').value;
+        var s_NAME = 'Rect' + new Date().getTime();
         fabricCanvas.add(new fabric.Rect({
             width: 50,
             height: 50,
@@ -311,20 +311,20 @@
             angle: 0,
             fill: 'rgba(0,200,0,0.80)',
             transparentCorners: false,
-            s_NAME: s_NAME,
             s_KEY: s_KEY,
-            objectID: s_NAME + '/' + s_KEY
+            s_NAME: s_NAME,
+            objectID: s_KEY + '/' + s_NAME
         }).on('selected', function (e) {
-            document.getElementById("i_NAME").value = this.s_NAME;
             document.getElementById("i_KEY").value = this.s_KEY;
+            document.getElementById("i_NAME").value = this.s_NAME;
             console.log(this.width, this.height);
         }));
-        document.getElementById("i_KEY").value = s_KEY;
+        document.getElementById("i_NAME").value = s_NAME;
     }
 
     function newCircle() {
-        var s_NAME = document.getElementById('i_NAME').value;
-        var s_KEY = 'Circle' + new Date().getTime();
+        var s_KEY = document.getElementById('i_KEY').value;
+        var s_NAME = 'Circle' + new Date().getTime();
         fabricCanvas.add(new fabric.Circle({
             radius: 25,
             left: 150,
@@ -337,19 +337,19 @@
 //            fill: '#aac'
             fill: 'rgba(0,200,0,0.80)',
             transparentCorners: false,
-            s_NAME: s_NAME,
             s_KEY: s_KEY,
-            objectID: s_NAME + '/' + s_KEY
+            s_NAME: s_NAME,
+            objectID: s_KEY + '/' + s_NAME
         }).on('selected', function (e) {
-            document.getElementById("i_NAME").value = this.s_NAME;
             document.getElementById("i_KEY").value = this.s_KEY;
+            document.getElementById("i_NAME").value = this.s_NAME;
         }));
-        document.getElementById("i_KEY").value = s_KEY;
+        document.getElementById("i_NAME").value = s_NAME;
     }
 
     function newTriangle() {
-        var s_NAME = document.getElementById('i_NAME').value;
-        var s_KEY = 'Triangle' + new Date().getTime();
+        var s_KEY = document.getElementById('i_KEY').value;
+        var s_NAME = 'Triangle' + new Date().getTime();
         fabricCanvas.add(new fabric.Triangle({
             width: 71,
             height: 35,
@@ -359,14 +359,14 @@
 //            fill: '#cca'
             fill: 'rgba(0,200,0,0.80)',
             transparentCorners: false,
-            s_NAME: s_NAME,
             s_KEY: s_KEY,
-            objectID: s_NAME + '/' + s_KEY
+            s_NAME: s_NAME,
+            objectID: s_KEY + '/' + s_NAME
         }).on('selected', function (e) {
-            document.getElementById("i_NAME").value = this.s_NAME;
             document.getElementById("i_KEY").value = this.s_KEY;
+            document.getElementById("i_NAME").value = this.s_NAME;
         }));
-        document.getElementById("i_KEY").value = s_KEY;
+        document.getElementById("i_NAME").value = s_NAME;
     }
 
     function remove() {
@@ -493,15 +493,16 @@
 //            if (_coordinates['type'] == 'rect') {
             var id = _coordinates['id'];
             var x = id.indexOf('/');
-            var s_NAME = id.substring(0, x);
-            var s_KEY = id.substring(x + 1);
-//            cc(s_NAME + '-' + s_KEY);
+            var s_KEY = id.substring(0, x);
+            var s_NAME = id.substring(x + 1);
+//            cc(s_KEY + '-' + s_NAME);
 
             features.push({
                 type: "Feature",
                 properties: {
                     "KEY": s_KEY,
-                    "NAME": s_NAME
+                    "NAME": s_NAME,
+                    "PARAM3": 'TOLEDO'
                 },
                 geometry: {
                     type: "Polygon",
@@ -633,7 +634,7 @@
                     }, series: {
                         tooltip: {
                             headerFormat: '',
-                            pointFormat: '{point.properties.KEY}'
+                            pointFormat: '{point.properties.NAME}' + '@' + '{point.properties.KEY}'
                         }
                     }
                 },
@@ -646,7 +647,7 @@
                             enabled: true,
                             align: 'center',
                             verticalAlign: 'middle',
-                            format: '{point.properties.KEY}'
+                            format: '{point.properties.NAME}'
 //                            format: ' '
                         }
                     }
@@ -713,8 +714,8 @@
                 cc(obj.angle);
                 projs.push({
 //                    "id": fabricID[i]['id'],
-                    "s_NAME": obj.s_NAME,
                     "s_KEY": obj.s_KEY,
+                    "s_NAME": obj.s_NAME,
                     "type": 'rect',
                     "width": obj.getWidth() - 1,
                     "height": obj.getHeight() - 1,
@@ -725,8 +726,8 @@
             } else if (obj.get('type') == 'circle') {
                 projs.push({
 //                    "id": fabricID[i]['id'],
-                    "s_NAME": obj.s_NAME,
                     "s_KEY": obj.s_KEY,
+                    "s_NAME": obj.s_NAME,
                     "type": 'circle',
                     "radius": obj.radius,
                     "width": obj.getWidth(),
@@ -742,8 +743,8 @@
             } else if (obj.get('type') == 'triangle') {
                 projs.push({
 //                    "id": fabricID[i]['id'],
-                    "s_NAME": obj.s_NAME,
                     "s_KEY": obj.s_KEY,
+                    "s_NAME": obj.s_NAME,
                     "type": 'triangle',
                     "width": obj.getWidth(),
                     "height": obj.getHeight(),
