@@ -1,7 +1,7 @@
 [
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
     "width": 35.788720933747335,
     "height": 293.1505826113239,
@@ -10,8 +10,8 @@
     "angle": 0.0671293418105141
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
     "width": 873.8092974247173,
     "height": 35.78872093374738,
@@ -20,18 +20,18 @@
     "angle": 0.0671293418105141
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
     "width": 874.4545515935666,
     "height": 35.788720933747385,
     "left": 74.30438383831546,
-    "top": 914.0245103224779,
+    "top": 914.0245103224781,
     "angle": 0.0671293418105141
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
     "width": 35.788720933747335,
     "height": 295.2962497695113,
@@ -40,8 +40,8 @@
     "angle": 0.0671293418105141
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
     "width": 35.788720933747335,
     "height": 146.43902435438378,
@@ -50,18 +50,18 @@
     "angle": 0.0671293418105141
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
     "width": 35.788720933747335,
     "height": 145.6608601585668,
-    "left": 330.42915958386743,
+    "left": 330.42915958386754,
     "top": 654.2936854560807,
     "angle": 0.0671293418105141
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
     "width": 35.788720933747335,
     "height": 148.27686347344343,
@@ -70,8 +70,8 @@
     "angle": 0.0671293418105141
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
     "width": 35.788720933747335,
     "height": 147.7536628104681,
@@ -80,8 +80,8 @@
     "angle": 0.0671293418105141
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
     "width": 75.37172801846839,
     "height": 35.78872093374739,
@@ -90,28 +90,28 @@
     "angle": 0.0671293418105141
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
-    "width": 76.63503079935825,
+    "width": 76.63503079935823,
     "height": 110.50247633100112,
-    "left": 161.86364729050106,
-    "top": 725.8790971772136,
+    "left": 161.863647290501,
+    "top": 725.8790971772133,
     "angle": 0.07720024399243214
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
-    "width": 76.63562396815058,
+    "width": 76.63562396815057,
     "height": 112.3075535789818,
     "left": 241.3894804828294,
-    "top": 726.5879431878964,
+    "top": 726.5879431878966,
     "angle": 0.07720024399243214
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
     "width": 148.9277960117232,
     "height": 57.90518345476285,
@@ -120,58 +120,58 @@
     "angle": 0.06783320322574969
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
     "width": 49.8102865325624,
     "height": 63.33302867417625,
     "left": 436.0707086240676,
     "top": 845.9698317958716,
-    "angle": 0.06933650468450164
+    "angle": 0.06933650468450167
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
-    "width": 73.43206485204556,
+    "width": 73.43206485204554,
     "height": 88.18951570138228,
-    "left": 847.5679787306563,
+    "left": 847.5679787306561,
     "top": 818.9999870477666,
     "angle": 0.06200328407236976
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
-    "width": 72.91633580835298,
+    "width": 72.91633580835297,
     "height": 87.2372199712784,
     "left": 771.7872298184534,
     "top": 819.3941281541719,
     "angle": 0.06200328407236976
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
-    "width": 68.36667019089673,
+    "width": 68.36667019089671,
     "height": 86.76107210622648,
     "left": 700.5559373398859,
     "top": 819.7931925088886,
     "angle": 0.06200328407236981
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
-    "width": 64.14252817293094,
+    "width": 64.14252817293092,
     "height": 42.36110034370446,
     "left": 631.5770972511463,
     "top": 819.2423980940029,
     "angle": 0.06200328407236976
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
     "width": 43.999968514033284,
     "height": 64.91302574450538,
@@ -180,28 +180,28 @@
     "angle": 0.06933650468450167
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
-    "width": 217.9734653468243,
+    "width": 217.97346534682424,
     "height": 48.50041037077023,
     "left": 436.0266407925084,
-    "top": 726.0662317439368,
-    "angle": 0.05667251835310681
+    "top": 726.066231743937,
+    "angle": 0.0566725183531068
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
     "width": 75.55197131987238,
     "height": 35.788720933747385,
-    "left": 344.41090063175375,
+    "left": 344.41090063175386,
     "top": 777.7855080737212,
     "angle": 0.0671293418105141
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
     "width": 320.9997803660635,
     "height": 13.339775185521148,
@@ -210,28 +210,28 @@
     "angle": 0.0671293418105141
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
     "width": 49.80707581964651,
     "height": 62.970443795723796,
-    "left": 537.194480792348,
+    "left": 537.1944807923478,
     "top": 846.9718163293962,
     "angle": 0.06783320322574969
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
     "width": 64.13942240390146,
-    "height": 43.96708323604629,
+    "height": 43.967083236046314,
     "left": 630.4906176679267,
     "top": 863.960201602751,
-    "angle": 0.06398660532301106
+    "angle": 0.06398660532301104
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
     "width": 102.23520513161418,
     "height": 47.822336182180024,
@@ -240,8 +240,8 @@
     "angle": 0.0671293418105141
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
     "width": 107.99041242434281,
     "height": 49.10015318598512,
@@ -250,18 +250,18 @@
     "angle": 0.0671293418105141
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
-    "width": 49.42957891619062,
+    "width": 49.42957891619061,
     "height": 113.5109384109689,
     "left": 106.92945437307542,
     "top": 723.9999999999999,
     "angle": 0.07720024399243214
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
     "width": 67.71129284781783,
     "height": 64.4986018822342,
@@ -270,28 +270,28 @@
     "angle": 0.06399744431292058
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
     "width": 67.71414191301713,
     "height": 89.93693867362104,
     "left": 322.90168962284343,
-    "top": 818.5699875462377,
+    "top": 818.5699875462379,
     "angle": 0.06399744431292058
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
     "width": 67.71129284781783,
     "height": 64.4986018822342,
-    "left": 177.94679169557682,
+    "left": 177.94679169557685,
     "top": 843.8464304295527,
     "angle": 0.06399744431292058
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
     "width": 67.71129284781783,
     "height": 64.4986018822342,
@@ -300,8 +300,8 @@
     "angle": 0.06399744431292058
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
     "width": 58.28936713456768,
     "height": 56.509718445723415,
@@ -310,18 +310,18 @@
     "angle": 0.06504866937246047
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
     "width": 46.08561904286,
     "height": 56.50971844572343,
     "left": 762.0317077344907,
-    "top": 667.0713951382319,
+    "top": 667.0713951382321,
     "angle": 0.06504866937246047
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
     "width": 52.89357915865555,
     "height": 56.509718445723436,
@@ -330,8 +330,8 @@
     "angle": 0.06504866937246048
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
     "width": 52.348103911055496,
     "height": 56.509718445723436,
@@ -340,18 +340,18 @@
     "angle": 0.06504866937246045
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
     "width": 222.99820055089873,
     "height": 41.02072654977962,
     "left": 698.0460474060675,
-    "top": 726.9213599071456,
+    "top": 726.9213599071459,
     "angle": 0.0683568195519732
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
     "width": 223.00440827841362,
     "height": 41.02072654977962,
@@ -360,48 +360,48 @@
     "angle": 0.0683568195519732
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
-    "width": 59.978271592989195,
+    "width": 59.97827159298918,
     "height": 48.938233971685555,
-    "left": 369.04741675607977,
+    "left": 369.0474167560799,
     "top": 725.9999810955701,
-    "angle": 0.05667251835310681
+    "angle": 0.0566725183531068
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
     "width": 112.70532534758514,
-    "height": 36.26917527108081,
+    "height": 36.269175271080826,
     "left": 542.3081312233367,
     "top": 666.6760512604733,
     "angle": 0.06234397376711158
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
     "width": 61.96314081257,
     "height": 36.43991540892122,
     "left": 367.55156128887427,
     "top": 665.9999945081227,
-    "angle": 0.056491536668037974
+    "angle": 0.056491536668037995
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
     "width": 104.00685070559445,
     "height": 36.43991540892122,
     "left": 434.0182345899593,
     "top": 666.5058189439776,
-    "angle": 0.056491536668037974
+    "angle": 0.056491536668037995
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -415,8 +415,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -430,8 +430,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -445,8 +445,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -460,8 +460,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -475,8 +475,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -490,8 +490,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -505,8 +505,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -520,8 +520,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -535,8 +535,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -550,8 +550,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -565,8 +565,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -580,8 +580,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -595,8 +595,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -610,8 +610,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -625,8 +625,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -640,8 +640,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -655,8 +655,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -670,8 +670,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -685,8 +685,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -700,8 +700,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -715,8 +715,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -730,8 +730,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -745,8 +745,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -760,8 +760,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "circle",
     "radius": 25,
     "width": 29.36613230528725,
@@ -775,8 +775,8 @@
     "scaleY": 0.5758065157899462
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "circle",
     "radius": 25,
     "width": 29.36613230528725,
@@ -790,8 +790,8 @@
     "scaleY": 0.5758065157899462
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "circle",
     "radius": 25,
     "width": 29.36613230528725,
@@ -805,8 +805,8 @@
     "scaleY": 0.5758065157899462
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "circle",
     "radius": 25,
     "width": 29.36613230528725,
@@ -820,8 +820,8 @@
     "scaleY": 0.5758065157899462
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "circle",
     "radius": 25,
     "width": 29.36613230528725,
@@ -835,8 +835,8 @@
     "scaleY": 0.5758065157899462
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "circle",
     "radius": 25,
     "width": 29.36613230528725,
@@ -850,8 +850,8 @@
     "scaleY": 0.5758065157899462
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "circle",
     "radius": 25,
     "width": 29.36613230528725,
@@ -865,8 +865,8 @@
     "scaleY": 0.5758065157899462
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO CS ASSY",
+    "s_NAME": "COMBO CS ASSY",
     "type": "circle",
     "radius": 25,
     "width": 29.36613230528725,
@@ -880,8 +880,8 @@
     "scaleY": 0.5758065157899462
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 15.001121132986292,
     "height": 569.8201874197256,
@@ -890,8 +890,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 11.009161969061745,
     "height": 565.111976271925,
@@ -900,8 +900,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 13.805081525039206,
     "height": 563.9402629611448,
@@ -910,8 +910,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 11.009161969061745,
     "height": 565.3661088249039,
@@ -920,8 +920,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 311.60210854801835,
     "height": 16.11363328373399,
@@ -930,8 +930,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 291.9734884883298,
     "height": 13.804298494335953,
@@ -940,8 +940,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 312.1332294891783,
     "height": 11.275530312945062,
@@ -950,8 +950,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 311.2662159295408,
     "height": 11.275530312945062,
@@ -960,8 +960,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 310.3992023699031,
     "height": 11.275530312945062,
@@ -970,8 +970,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 270.98466559917694,
     "height": 11.275530312945062,
@@ -980,8 +980,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 311.10351124216896,
     "height": 15.583553437669856,
@@ -990,8 +990,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 11.541898656828375,
     "height": 500.59417802659425,
@@ -1000,8 +1000,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 70.2850182901967,
     "height": 11.275530312945062,
@@ -1010,8 +1010,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 68.87314899818995,
     "height": 11.275530312945062,
@@ -1020,8 +1020,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 68.87314899818995,
     "height": 11.275530312945062,
@@ -1030,8 +1030,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 67.78587373930446,
     "height": 11.275530312945062,
@@ -1040,8 +1040,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 67.78587373930446,
     "height": 11.275530312945062,
@@ -1050,8 +1050,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 67.78587373930446,
     "height": 11.275530312945062,
@@ -1060,8 +1060,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 67.78587373930446,
     "height": 11.275530312945062,
@@ -1070,8 +1070,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 67.78587373930446,
     "height": 11.275530312945062,
@@ -1080,8 +1080,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 70.2850182901967,
     "height": 11.275530312945062,
@@ -1090,8 +1090,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 70.2850182901967,
     "height": 11.275530312945062,
@@ -1100,8 +1100,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "circle",
     "radius": 25,
     "width": 13.830651293155965,
@@ -1115,8 +1115,8 @@
     "scaleY": 0.2711892410422738
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "circle",
     "radius": 25,
     "width": 13.830651293155965,
@@ -1130,8 +1130,8 @@
     "scaleY": 0.2711892410422738
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "circle",
     "radius": 25,
     "width": 13.830651293155965,
@@ -1145,8 +1145,8 @@
     "scaleY": 0.2711892410422738
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "circle",
     "radius": 25,
     "width": 13.830651293155965,
@@ -1160,8 +1160,8 @@
     "scaleY": 0.2711892410422738
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "circle",
     "radius": 25,
     "width": 13.830651293155965,
@@ -1175,8 +1175,8 @@
     "scaleY": 0.2711892410422738
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "circle",
     "radius": 25,
     "width": 13.830651293155965,
@@ -1190,8 +1190,8 @@
     "scaleY": 0.2711892410422738
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "circle",
     "radius": 25,
     "width": 13.830651293155965,
@@ -1205,8 +1205,8 @@
     "scaleY": 0.2711892410422738
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "circle",
     "radius": 25,
     "width": 13.830651293155965,
@@ -1220,8 +1220,8 @@
     "scaleY": 0.2711892410422738
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "circle",
     "radius": 25,
     "width": 13.830651293155965,
@@ -1235,8 +1235,8 @@
     "scaleY": 0.2711892410422738
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "circle",
     "radius": 25,
     "width": 13.830651293155965,
@@ -1250,8 +1250,8 @@
     "scaleY": 0.2711892410422738
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "circle",
     "radius": 25,
     "width": 13.830651293155965,
@@ -1265,8 +1265,8 @@
     "scaleY": 0.2711892410422738
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "circle",
     "radius": 25,
     "width": 13.830651293155965,
@@ -1280,8 +1280,8 @@
     "scaleY": 0.2711892410422738
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "circle",
     "radius": 25,
     "width": 13.830651293155965,
@@ -1295,8 +1295,8 @@
     "scaleY": 0.2566674386527025
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "circle",
     "radius": 25,
     "width": 13.830651293155965,
@@ -1310,8 +1310,8 @@
     "scaleY": 0.2566674386527025
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "circle",
     "radius": 25,
     "width": 13.830651293155965,
@@ -1325,8 +1325,8 @@
     "scaleY": 0.2566674386527025
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "circle",
     "radius": 25,
     "width": 13.830651293155965,
@@ -1340,8 +1340,8 @@
     "scaleY": 0.2566674386527025
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 119.00416621766115,
     "height": 73.08622706183485,
@@ -1350,8 +1350,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 48.89290428080809,
     "height": 127.39776799883373,
@@ -1360,8 +1360,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 117.0292010926794,
     "height": 100.73573881157972,
@@ -1370,8 +1370,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 47.411680437071745,
     "height": 103.6981864990524,
@@ -1380,8 +1380,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 47.90542171831721,
     "height": 75.55493346806207,
@@ -1390,8 +1390,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 115.54797724894306,
     "height": 125.42280287385195,
@@ -1400,8 +1400,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 46.91793915582631,
     "height": 29.14325303099032,
@@ -1410,8 +1410,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 46.42419787458087,
     "height": 89.37968934293451,
@@ -1420,8 +1420,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 114.06675340520673,
     "height": 87.89846549919818,
@@ -1430,8 +1430,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 14.331014593626993,
     "height": 60.742695030698755,
@@ -1440,8 +1440,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 13.837273312381551,
     "height": 68.14881424938041,
@@ -1450,8 +1450,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 137.2725936237426,
     "height": 15.318497156117882,
@@ -1460,8 +1460,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 27.168287906008544,
     "height": 150.10986693612415,
@@ -1470,8 +1470,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 120.97913134264294,
     "height": 151.09734949861505,
@@ -1480,8 +1480,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 158.5034687172967,
     "height": 27.168287906008544,
@@ -1490,8 +1490,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 133.81640465502448,
     "height": 13.837273312381553,
@@ -1500,8 +1500,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 179.8480017346833,
     "height": 11.917864761591831,
@@ -1510,8 +1510,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 9.570469042560937,
     "height": 139.68442695923477,
@@ -1520,8 +1520,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 10.119838078896699,
     "height": 139.68442695923477,
@@ -1530,8 +1530,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 180.63197927671746,
     "height": 10.676566986704213,
@@ -1540,8 +1540,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 73.08622706183485,
     "height": 100.2419975303343,
@@ -1550,8 +1550,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 70.12377937436219,
     "height": 100.2419975303343,
@@ -1560,8 +1560,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 137.766334904988,
     "height": 68.64255553062586,
@@ -1570,8 +1570,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 43.4617501871082,
     "height": 26.6745466247631,
@@ -1580,8 +1580,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "JT COMBO",
     "s_KEY": "COMBO AXLE ASSY",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 48.89290428080809,
     "height": 26.6745466247631,

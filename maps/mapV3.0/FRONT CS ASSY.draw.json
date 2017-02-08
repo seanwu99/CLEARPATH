@@ -1,7 +1,7 @@
 [
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 30.788720933747353,
     "height": 288.1505826113239,
@@ -10,8 +10,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 868.8092974247178,
     "height": 30.788720933747378,
@@ -20,8 +20,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 869.4545515935671,
     "height": 30.78872093374738,
@@ -30,8 +30,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 30.788720933747353,
     "height": 290.2962497695113,
@@ -40,8 +40,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 30.788720933747353,
     "height": 141.43902435438378,
@@ -50,8 +50,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 30.788720933747353,
     "height": 140.6608601585668,
@@ -60,8 +60,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 30.788720933747353,
     "height": 143.27686347344343,
@@ -70,8 +70,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 30.788720933747353,
     "height": 142.7536628104681,
@@ -80,8 +80,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 70.37172801846842,
     "height": 30.788720933747392,
@@ -90,8 +90,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": "OP60",
+    "s_KEY": "OP060",
+    "s_NAME": "OP060",
     "type": "rect",
     "width": 75.64535651645892,
     "height": 109.31138279442897,
@@ -100,8 +100,8 @@
     "angle": -179.92258023445632
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": "OP50",
+    "s_KEY": "OP050",
+    "s_NAME": "OP050",
     "type": "rect",
     "width": 75.64593186620021,
     "height": 111.19427749229553,
@@ -110,8 +110,8 @@
     "angle": -179.92258023445632
   },
   {
-    "s_NAME": "FRONT CS ASSY",
     "s_KEY": "OP150",
+    "s_NAME": "OP150",
     "type": "rect",
     "width": 150.60167275509787,
     "height": 54.85595143061258,
@@ -120,8 +120,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "FRONT CS ASSY",
     "s_KEY": "OP130",
+    "s_NAME": "OP130",
     "type": "rect",
     "width": 47.00794148598256,
     "height": 59.04155673441524,
@@ -130,8 +130,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "FRONT CS ASSY",
     "s_KEY": "OP180",
+    "s_NAME": "OP180",
     "type": "rect",
     "width": 69.50556999392175,
     "height": 92.00319850186105,
@@ -140,8 +140,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "FRONT CS ASSY",
     "s_KEY": "OP175",
+    "s_NAME": "OP175",
     "type": "rect",
     "width": 68.98236933094643,
     "height": 90.9567971759104,
@@ -150,8 +150,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "FRONT CS ASSY",
     "s_KEY": "OP170",
+    "s_NAME": "OP170",
     "type": "rect",
     "width": 67.41276734202044,
     "height": 90.43359651293505,
@@ -160,8 +160,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "FRONT CS ASSY",
     "s_KEY": "OP160",
+    "s_NAME": "OP160",
     "type": "rect",
     "width": 60.08795806036582,
     "height": 47.00794148598263,
@@ -170,8 +170,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "FRONT CS ASSY",
     "s_KEY": "OP135",
+    "s_NAME": "OP135",
     "type": "rect",
     "width": 47.00794148598257,
     "height": 59.04155673441523,
@@ -180,8 +180,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "FRONT CS ASSY",
     "s_KEY": "OP250",
+    "s_NAME": "OP250",
     "type": "rect",
     "width": 217.5713576159401,
     "height": 52.76314877871126,
@@ -190,8 +190,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 70.55197131987241,
     "height": 30.788720933747385,
@@ -200,8 +200,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 324.01046840720534,
     "height": 7.138643055100886,
@@ -210,23 +210,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
-    "type": "circle",
-    "radius": 25,
-    "width": 46.957259502035896,
-    "height": 46.95725950203586,
-    "left": 506.5270446308339,
-    "top": 371.3351338141164,
-    "angle": -179.93189434644518,
-    "originX": "center",
-    "originY": "center",
-    "scaleX": 0.920730578471292,
-    "scaleY": 0.9207305784712914
-  },
-  {
-    "s_NAME": "FRONT CS ASSY",
     "s_KEY": "OP140",
+    "s_NAME": "OP140",
     "type": "rect",
     "width": 47.00794148598257,
     "height": 60.08795806036589,
@@ -235,8 +220,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "FRONT CS ASSY",
     "s_KEY": "OP155",
+    "s_NAME": "OP155",
     "type": "rect",
     "width": 60.08795806036582,
     "height": 42.29913551920466,
@@ -245,33 +230,18 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
-    "type": "circle",
-    "radius": 25,
-    "width": 39.76325038612513,
-    "height": 39.7632503861251,
-    "left": 506.46187781104635,
-    "top": 371.138855965149,
-    "angle": -179.93189434644518,
-    "originX": "center",
-    "originY": "center",
-    "scaleX": 0.779671576198532,
-    "scaleY": 0.7796715761985313
-  },
-  {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": "OP40",
+    "s_KEY": "OP040",
+    "s_NAME": "OP040",
     "type": "rect",
-    "width": 99.41300602948071,
-    "height": 46.01854887930104,
-    "left": 798.7845662654278,
-    "top": 344.60441978183877,
+    "width": 106.6014767831748,
+    "height": 47.47874328013075,
+    "left": 805.9712094352212,
+    "top": 346.0735826097767,
     "angle": -179.92850798146853
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": "OP70",
+    "s_KEY": "OP070",
+    "s_NAME": "OP070",
     "type": "rect",
     "width": 105.29564227747886,
     "height": 47.38956435876888,
@@ -280,18 +250,18 @@
     "angle": -179.92850798146853
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": "OP80",
+    "s_KEY": "OP080",
+    "s_NAME": "OP080",
     "type": "rect",
-    "width": 46.93589488620556,
+    "width": 51.64264287228957,
     "height": 112.44954062420656,
-    "left": 918.5737781678757,
-    "top": 294,
+    "left": 918.5737781678756,
+    "top": 294.0000000000004,
     "angle": -179.92258023445632
   },
   {
-    "s_NAME": "FRONT CS ASSY",
     "s_KEY": "OP110",
+    "s_NAME": "OP110",
     "type": "rect",
     "width": 66.22781649019396,
     "height": 67.17743136385697,
@@ -300,8 +270,8 @@
     "angle": -179.93092998853373
   },
   {
-    "s_NAME": "FRONT CS ASSY",
     "s_KEY": "OP120",
+    "s_NAME": "OP120",
     "type": "rect",
     "width": 57.75043753531395,
     "height": 89.38719518698441,
@@ -310,8 +280,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "FRONT CS ASSY",
     "s_KEY": "OP100",
+    "s_NAME": "OP100",
     "type": "rect",
     "width": 66.22781649019396,
     "height": 67.17743136385697,
@@ -320,8 +290,8 @@
     "angle": -179.93092998853373
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": "OP90",
+    "s_KEY": "OP090",
+    "s_NAME": "OP090",
     "type": "rect",
     "width": 66.22781649019396,
     "height": 67.17743136385697,
@@ -330,8 +300,8 @@
     "angle": -179.93092998853373
   },
   {
-    "s_NAME": "FRONT CS ASSY",
     "s_KEY": "OP235",
+    "s_NAME": "OP235",
     "type": "rect",
     "width": 54.33275076763719,
     "height": 54.33275076763726,
@@ -340,8 +310,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "FRONT CS ASSY",
     "s_KEY": "OP230",
+    "s_NAME": "OP230",
     "type": "rect",
     "width": 54.33275076763719,
     "height": 54.33275076763726,
@@ -350,8 +320,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "FRONT CS ASSY",
     "s_KEY": "OP225",
+    "s_NAME": "OP225",
     "type": "rect",
     "width": 54.33275076763719,
     "height": 54.33275076763726,
@@ -360,8 +330,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "FRONT CS ASSY",
     "s_KEY": "OP220",
+    "s_NAME": "OP220",
     "type": "rect",
     "width": 54.33275076763719,
     "height": 54.33275076763726,
@@ -370,8 +340,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "FRONT CS ASSY",
     "s_KEY": "OP200",
+    "s_NAME": "OP200",
     "type": "rect",
     "width": 227.51217021247137,
     "height": 36.02072756350069,
@@ -380,8 +350,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "FRONT CS ASSY",
     "s_KEY": "OP190",
+    "s_NAME": "OP190",
     "type": "rect",
     "width": 225.94256822354538,
     "height": 36.02072756350069,
@@ -390,8 +360,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": "OP20",
+    "s_KEY": "OP020",
+    "s_NAME": "OP020",
     "type": "rect",
     "width": 59.04155673441516,
     "height": 53.286349441686596,
@@ -400,8 +370,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "FRONT CS ASSY",
     "s_KEY": "OP240",
+    "s_NAME": "OP240",
     "type": "rect",
     "width": 107.69921839112082,
     "height": 38.113530215402015,
@@ -410,8 +380,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": "OP30",
+    "s_KEY": "OP030",
+    "s_NAME": "OP030",
     "type": "rect",
     "width": 56.948754082513844,
     "height": 38.113530215402015,
@@ -420,18 +390,18 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": "OP10",
+    "s_KEY": "OP010",
+    "s_NAME": "OP010",
     "type": "rect",
-    "width": 58.51835607143983,
+    "width": 102.44401220084876,
     "height": 38.113530215402015,
-    "left": 589.4167993772694,
+    "left": 589.416799377269,
     "top": 347.95501591283556,
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -445,8 +415,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -460,8 +430,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -475,8 +445,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -490,8 +460,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -505,8 +475,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -520,8 +490,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -535,8 +505,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -550,8 +520,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -565,8 +535,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -580,8 +550,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -595,8 +565,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -610,8 +580,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -625,8 +595,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -640,8 +610,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -655,8 +625,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -670,8 +640,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -685,8 +655,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -700,8 +670,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -715,8 +685,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -730,8 +700,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -745,8 +715,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -760,8 +730,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -775,8 +745,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -790,8 +760,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.36613230528724,
@@ -805,8 +775,8 @@
     "scaleY": 0.5758065157899459
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.36613230528724,
@@ -820,8 +790,8 @@
     "scaleY": 0.5758065157899459
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.36613230528724,
@@ -835,8 +805,8 @@
     "scaleY": 0.5758065157899459
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.36613230528724,
@@ -850,8 +820,8 @@
     "scaleY": 0.5758065157899459
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.36613230528724,
@@ -865,8 +835,8 @@
     "scaleY": 0.5758065157899459
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.36613230528724,
@@ -880,8 +850,8 @@
     "scaleY": 0.5758065157899459
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.36613230528724,
@@ -895,8 +865,8 @@
     "scaleY": 0.5758065157899459
   },
   {
-    "s_NAME": "FRONT CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.36613230528724,

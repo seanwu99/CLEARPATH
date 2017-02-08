@@ -1,7 +1,7 @@
 [
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 31.788720933747342,
     "height": 289.1505826113239,
@@ -10,8 +10,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 869.8092974247176,
     "height": 31.788720933747378,
@@ -20,8 +20,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 870.4545515935669,
     "height": 31.788720933747385,
@@ -30,8 +30,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 31.788720933747342,
     "height": 291.2962497695113,
@@ -40,8 +40,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 31.788720933747342,
     "height": 142.43902435438378,
@@ -50,8 +50,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 31.788720933747342,
     "height": 141.6608601585668,
@@ -60,8 +60,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 31.788720933747342,
     "height": 144.27686347344343,
@@ -70,8 +70,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 31.788720933747342,
     "height": 143.7536628104681,
@@ -80,8 +80,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 71.3717280184684,
     "height": 31.788720933747392,
@@ -90,8 +90,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": "OP60",
+    "s_KEY": "OP060",
+    "s_NAME": "OP060",
     "type": "rect",
     "width": 74.64677013951872,
     "height": 98.66563718137303,
@@ -100,8 +100,8 @@
     "angle": -179.92894690973154
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": "OP50",
+    "s_KEY": "OP050",
+    "s_NAME": "OP050",
     "type": "rect",
     "width": 74.64693969164459,
     "height": 100.34851984407304,
@@ -110,8 +110,8 @@
     "angle": -179.92894690973154
   },
   {
-    "s_NAME": "REAR CS ASSY",
     "s_KEY": "OP150",
+    "s_NAME": "OP150",
     "type": "rect",
     "width": 151.60167275509784,
     "height": 60.28160206248935,
@@ -120,8 +120,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "REAR CS ASSY",
     "s_KEY": "OP130",
+    "s_NAME": "OP130",
     "type": "rect",
     "width": 48.02106631310556,
     "height": 65.33059527221673,
@@ -130,8 +130,8 @@
     "angle": -179.92599322534176
   },
   {
-    "s_NAME": "REAR CS ASSY",
     "s_KEY": "OP180",
+    "s_NAME": "OP180",
     "type": "rect",
     "width": 70.50556999392174,
     "height": 93.00319850186105,
@@ -140,8 +140,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "REAR CS ASSY",
     "s_KEY": "OP175",
+    "s_NAME": "OP175",
     "type": "rect",
     "width": 69.98236933094641,
     "height": 91.9567971759104,
@@ -150,8 +150,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "REAR CS ASSY",
     "s_KEY": "OP170",
+    "s_NAME": "OP170",
     "type": "rect",
     "width": 68.41276734202043,
     "height": 91.43359651293505,
@@ -160,8 +160,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "REAR CS ASSY",
     "s_KEY": "OP160",
+    "s_NAME": "OP160",
     "type": "rect",
     "width": 61.08795806036581,
     "height": 48.00794148598263,
@@ -170,8 +170,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "REAR CS ASSY",
     "s_KEY": "OP135",
+    "s_NAME": "OP135",
     "type": "rect",
     "width": 48.021066313105564,
     "height": 65.33059527221671,
@@ -180,8 +180,8 @@
     "angle": -179.92599322534176
   },
   {
-    "s_NAME": "REAR CS ASSY",
     "s_KEY": "OP250",
+    "s_NAME": "OP250",
     "type": "rect",
     "width": 218.57135761594003,
     "height": 53.76314877871126,
@@ -190,8 +190,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 71.5519713198724,
     "height": 31.788720933747385,
@@ -200,8 +200,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 308.0045363725855,
     "height": 10.121999589110375,
@@ -210,23 +210,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
-    "type": "circle",
-    "radius": 25,
-    "width": 46.957259502035896,
-    "height": 46.957259502035846,
-    "left": 512.5270446308339,
-    "top": 786.3351338141163,
-    "angle": -179.93189434644518,
-    "originX": "center",
-    "originY": "center",
-    "scaleX": 0.920730578471292,
-    "scaleY": 0.9207305784712911
-  },
-  {
-    "s_NAME": "REAR CS ASSY",
     "s_KEY": "OP140",
+    "s_NAME": "OP140",
     "type": "rect",
     "width": 48.02129119738133,
     "height": 66.46766363280804,
@@ -235,8 +220,8 @@
     "angle": -179.92599322534176
   },
   {
-    "s_NAME": "REAR CS ASSY",
     "s_KEY": "OP155",
+    "s_NAME": "OP155",
     "type": "rect",
     "width": 61.08795806036581,
     "height": 43.29913551920466,
@@ -245,23 +230,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
-    "type": "circle",
-    "radius": 25,
-    "width": 39.76325038612513,
-    "height": 39.7632503861251,
-    "left": 512.4618778110463,
-    "top": 786.1388559651489,
-    "angle": -179.93189434644518,
-    "originX": "center",
-    "originY": "center",
-    "scaleX": 0.779671576198532,
-    "scaleY": 0.7796715761985313
-  },
-  {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": "OP40",
+    "s_KEY": "OP040",
+    "s_NAME": "OP040",
     "type": "rect",
     "width": 98.23520513161421,
     "height": 43.822336182180024,
@@ -270,8 +240,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": "OP70",
+    "s_KEY": "OP070",
+    "s_NAME": "OP070",
     "type": "rect",
     "width": 108.70231523453505,
     "height": 45.100155921007335,
@@ -280,18 +250,18 @@
     "angle": -179.9348167455831
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": "OP80",
+    "s_KEY": "OP080",
+    "s_NAME": "OP080",
     "type": "rect",
-    "width": 48.814677438211326,
+    "width": 54.56573450826864,
     "height": 101.47044823613871,
-    "left": 924.5052418452764,
+    "left": 924.5052418452765,
     "top": 706.0000004309586,
     "angle": -179.93199578251534
   },
   {
-    "s_NAME": "REAR CS ASSY",
     "s_KEY": "OP110",
+    "s_NAME": "OP110",
     "type": "rect",
     "width": 65.5200242621099,
     "height": 74.93534853541749,
@@ -300,8 +270,8 @@
     "angle": -179.92222646885685
   },
   {
-    "s_NAME": "REAR CS ASSY",
     "s_KEY": "OP120",
+    "s_NAME": "OP120",
     "type": "rect",
     "width": 56.74330694256196,
     "height": 90.38719518698441,
@@ -310,8 +280,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "REAR CS ASSY",
     "s_KEY": "OP100",
+    "s_NAME": "OP100",
     "type": "rect",
     "width": 65.5200242621099,
     "height": 74.93534853541749,
@@ -320,8 +290,8 @@
     "angle": -179.92222646885685
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": "OP90",
+    "s_KEY": "OP090",
+    "s_NAME": "OP090",
     "type": "rect",
     "width": 68.49330881687888,
     "height": 74.93535441030741,
@@ -330,8 +300,8 @@
     "angle": -179.92556371367476
   },
   {
-    "s_NAME": "REAR CS ASSY",
     "s_KEY": "OP235",
+    "s_NAME": "OP235",
     "type": "rect",
     "width": 55.33275076763717,
     "height": 55.33275076763726,
@@ -340,8 +310,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "REAR CS ASSY",
     "s_KEY": "OP230",
+    "s_NAME": "OP230",
     "type": "rect",
     "width": 55.33275076763717,
     "height": 55.33275076763726,
@@ -350,8 +320,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "REAR CS ASSY",
     "s_KEY": "OP225",
+    "s_NAME": "OP225",
     "type": "rect",
     "width": 55.33275076763717,
     "height": 55.33275076763726,
@@ -360,8 +330,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "REAR CS ASSY",
     "s_KEY": "OP220",
+    "s_NAME": "OP220",
     "type": "rect",
     "width": 55.33275076763717,
     "height": 55.33275076763726,
@@ -370,8 +340,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "REAR CS ASSY",
     "s_KEY": "OP200",
+    "s_NAME": "OP200",
     "type": "rect",
     "width": 228.51217021247132,
     "height": 37.02072756350069,
@@ -380,8 +350,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "REAR CS ASSY",
     "s_KEY": "OP190",
+    "s_NAME": "OP190",
     "type": "rect",
     "width": 226.94256822354532,
     "height": 39.77573034962904,
@@ -390,8 +360,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": "OP20",
+    "s_KEY": "OP020",
+    "s_NAME": "OP020",
     "type": "rect",
     "width": 60.041556734415146,
     "height": 54.286349441686596,
@@ -400,8 +370,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "REAR CS ASSY",
     "s_KEY": "OP240",
+    "s_NAME": "OP240",
     "type": "rect",
     "width": 108.6992183911208,
     "height": 39.113530215402015,
@@ -410,8 +380,8 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": "OP30",
+    "s_KEY": "OP030",
+    "s_NAME": "OP030",
     "type": "rect",
     "width": 57.94875408251383,
     "height": 39.113530215402015,
@@ -420,18 +390,18 @@
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": "OP10",
+    "s_KEY": "OP010",
+    "s_NAME": "OP010",
     "type": "rect",
-    "width": 59.51835607143982,
+    "width": 105.43450074054141,
     "height": 39.113530215402015,
-    "left": 595.4167993772694,
+    "left": 595.4167993772692,
     "top": 762.9550159128355,
     "angle": -179.93189434644518
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -445,8 +415,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -460,8 +430,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -475,8 +445,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -490,8 +460,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -505,8 +475,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -520,8 +490,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -535,8 +505,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -550,8 +520,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -565,8 +535,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -580,8 +550,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -595,8 +565,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -610,8 +580,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -625,8 +595,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -640,8 +610,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -655,8 +625,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -670,8 +640,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -685,8 +655,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -700,8 +670,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -715,8 +685,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -730,8 +700,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -745,8 +715,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -760,8 +730,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -775,8 +745,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.227102890104533,
@@ -790,8 +760,8 @@
     "scaleY": 0.5730804488255791
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.36613230528724,
@@ -805,8 +775,8 @@
     "scaleY": 0.5758065157899459
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.36613230528724,
@@ -820,8 +790,8 @@
     "scaleY": 0.5758065157899459
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.36613230528724,
@@ -835,8 +805,8 @@
     "scaleY": 0.5758065157899459
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.36613230528724,
@@ -850,8 +820,8 @@
     "scaleY": 0.5758065157899459
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.36613230528724,
@@ -865,8 +835,8 @@
     "scaleY": 0.5758065157899459
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.36613230528724,
@@ -880,8 +850,8 @@
     "scaleY": 0.5758065157899459
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.36613230528724,
@@ -895,8 +865,8 @@
     "scaleY": 0.5758065157899459
   },
   {
-    "s_NAME": "REAR CS ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 29.36613230528724,

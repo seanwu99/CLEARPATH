@@ -1,7 +1,7 @@
 [
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 53.437352368033814,
     "height": 526.4612742856568,
@@ -10,8 +10,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 53.437352368033814,
     "height": 526.2348667990342,
@@ -20,8 +20,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 53.437352368033814,
     "height": 534.6471023534527,
@@ -30,8 +30,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 53.437352368033814,
     "height": 524.1224662662867,
@@ -40,8 +40,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 53.437352368033814,
     "height": 517.1060422081762,
@@ -50,8 +50,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 53.437352368033814,
     "height": 524.1224662662867,
@@ -60,8 +60,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 348.1271628086791,
     "height": 54.60675637771891,
@@ -70,8 +70,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 53.437352368033814,
     "height": 528.2153803001846,
@@ -80,8 +80,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 53.437352368033814,
     "height": 535.2318043582951,
@@ -90,8 +90,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 1805.2045588763142,
     "height": 54.606756377718916,
@@ -100,8 +100,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 53.437352368033814,
     "height": 531.72359232924,
@@ -110,8 +110,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 43.118131451731,
@@ -125,8 +125,8 @@
     "scaleY": 0.8454535578770784
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 43.118131451731,
@@ -140,8 +140,8 @@
     "scaleY": 0.8454535578770784
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 43.118131451731,
@@ -155,8 +155,8 @@
     "scaleY": 0.8454535578770784
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 43.118131451731,
@@ -170,8 +170,8 @@
     "scaleY": 0.8454535578770784
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 43.118131451731,
@@ -185,8 +185,8 @@
     "scaleY": 0.8454535578770784
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 43.118131451731,
@@ -200,8 +200,8 @@
     "scaleY": 0.8454535578770784
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 43.118131451731,
@@ -215,8 +215,8 @@
     "scaleY": 0.8454535578770784
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 43.118131451731,
@@ -230,8 +230,8 @@
     "scaleY": 0.8454535578770784
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "FRONT CS ASSY",
     "type": "rect",
     "width": 154.86231884057975,
     "height": 33.09565981568206,
@@ -240,8 +240,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "FRONT CS ASSY",
     "type": "rect",
     "width": 100.01103567357873,
     "height": 67.03181352046684,
@@ -250,8 +250,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "FRONT CS ASSY",
     "type": "rect",
     "width": 62.928238861391,
     "height": 79.10897461877907,
@@ -260,8 +260,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "FRONT CS ASSY",
     "type": "rect",
     "width": 99.15917171498255,
     "height": 67.35762256543428,
@@ -270,8 +270,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "FRONT CS ASSY",
     "type": "rect",
     "width": 45.48546921208454,
     "height": 60.27486664124082,
@@ -280,8 +280,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "FRONT CS ASSY",
     "type": "rect",
     "width": 58.1372839634739,
     "height": 55.987581284346746,
@@ -290,8 +290,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 337.6025267215132,
     "height": 52.85265036319127,
@@ -300,68 +300,68 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "FORD P558",
+    "s_NAME": "FORD CS2 ASSY",
     "type": "rect",
-    "width": 37.218688488706654,
+    "width": 37.21868848870664,
     "height": 155.50058829861052,
     "left": 917.7783129886708,
     "top": 427.9539736648476,
-    "angle": 0.0007414185048619234
+    "angle": 0.0007414185048619238
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "FORD P558",
+    "s_NAME": "FORD CS2 ASSY",
     "type": "rect",
-    "width": 94.81082139200103,
+    "width": 94.81082139200099,
     "height": 73.99996117313862,
-    "left": 860.1867752044656,
+    "left": 860.1867752044653,
     "top": 346.9994330483693,
-    "angle": 0.0007414185048619234
+    "angle": 0.0007414185048619238
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "FORD P558",
+    "s_NAME": "FORD CS2 ASSY",
     "type": "rect",
-    "width": 37.71534153856424,
+    "width": 37.715341538564225,
     "height": 214.83768041081538,
     "left": 917.2848833190981,
     "top": 125.99999999999996,
-    "angle": 0.0007414185048619234
+    "angle": 0.0007414185048619238
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "FORD P558",
+    "s_NAME": "FORD CS2 ASSY",
     "type": "rect",
-    "width": 122.61422194640684,
+    "width": 122.61422194640679,
     "height": 148.62648520572932,
     "left": 816.0017803185369,
     "top": 126.53803284821748,
-    "angle": 0.0007414185048619234
+    "angle": 0.0007414185048619238
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "FORD P558",
+    "s_NAME": "FORD CS2 ASSY",
     "type": "rect",
-    "width": 91.50466727849641,
+    "width": 91.50466727849637,
     "height": 206.00002479950203,
-    "left": 816.4966655621723,
+    "left": 816.4966655621724,
     "top": 283.9993487811968,
-    "angle": 0.0007414185048619234
+    "angle": 0.0007414185048619238
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "FORD P558",
+    "s_NAME": "FORD CS2 ASSY",
     "type": "rect",
-    "width": 118.64215970440688,
+    "width": 118.64215970440682,
     "height": 86.17280054633869,
     "left": 816.9909940283922,
     "top": 497.8256636764982,
-    "angle": 0.0007414185048619234
+    "angle": 0.0007414185048619238
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "FORD P558",
+    "s_NAME": "FORD AXLE ASSY",
     "type": "rect",
     "width": 98.97284518339018,
     "height": 320.9999999999999,
@@ -370,38 +370,28 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "FORD P558",
-    "type": "triangle",
-    "width": 111.72674076539425,
-    "height": 57.873742074929595,
-    "left": 1168.700136784727,
-    "top": 228.842107158043,
-    "angle": 90
-  },
-  {
-    "s_NAME": "TOLEDO",
-    "s_KEY": "FORD P558",
+    "s_NAME": "FORD AXLE ASSY",
     "type": "rect",
-    "width": 57.53985415795766,
-    "height": 163.99999999999991,
+    "width": 59.596255832329014,
+    "height": 161.99999999999991,
     "left": 1116.403744167671,
-    "top": 285,
+    "top": 287,
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "FORD P558",
+    "s_NAME": "FORD CS1 ASSY",
     "type": "rect",
     "width": 172.32775806832393,
     "height": 32.82729424209282,
     "left": 376.1727853075903,
-    "top": 434.922766204258,
+    "top": 434.92276620425775,
     "angle": -90.12084374913081
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "FORD P558",
+    "s_NAME": "FORD CS1 ASSY",
     "type": "rect",
     "width": 97.90240046676314,
     "height": 83.51412232344326,
@@ -410,18 +400,18 @@
     "angle": -90.09011754043655
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "FORD P558",
+    "s_NAME": "FORD CS1 ASSY",
     "type": "rect",
     "width": 76.35085371132702,
-    "height": 104.39049148494985,
-    "left": 286.87566901261954,
+    "height": 104.39049148494995,
+    "left": 286.8756690126196,
     "top": 390.61404584434257,
     "angle": -90.07816700152723
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "FORD P558",
+    "s_NAME": "FORD CS1 ASSY",
     "type": "rect",
     "width": 107.94018071153812,
     "height": 82.282086041454,
@@ -430,8 +420,8 @@
     "angle": -90.08229696469732
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "FORD P558",
+    "s_NAME": "FORD CS1 ASSY",
     "type": "rect",
     "width": 46.91546631991137,
     "height": 68.57650042550061,
@@ -440,8 +430,8 @@
     "angle": -90.08660154803532
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "FORD P558",
+    "s_NAME": "FORD CS1 ASSY",
     "type": "rect",
     "width": 64.50070948714325,
     "height": 62.85197061182069,
@@ -450,28 +440,18 @@
     "angle": -90.0790860961386
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "FORD P558",
+    "s_NAME": "FORD AXLE ASSY",
     "type": "rect",
-    "width": 43,
-    "height": 112.40411809755972,
+    "width": 45,
+    "height": 102.4041180975597,
     "left": 1130,
     "top": 129.59588190244028,
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": "FORD P558",
-    "type": "triangle",
-    "width": 62.283905062360866,
-    "height": 33.91094019219053,
-    "left": 1151.6631832715004,
-    "top": 213.8929323957266,
-    "angle": 44.0842526651381
-  },
-  {
-    "s_NAME": "TOLEDO",
     "s_KEY": "ALL ASSY",
+    "s_NAME": "ALL ASSY",
     "type": "rect",
     "width": 31.25783170552559,
     "height": 88.73948637977215,
@@ -480,8 +460,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "ALL ASSY",
+    "s_NAME": "ALL ASSY",
     "type": "rect",
     "width": 37.087482428831656,
     "height": 50.37113691869944,
@@ -490,8 +470,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "ALL ASSY",
+    "s_NAME": "ALL ASSY",
     "type": "circle",
     "radius": 25,
     "width": 48.582021367453436,
@@ -505,8 +485,8 @@
     "scaleY": 0.9882177079538507
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "ALL ASSY",
+    "s_NAME": "ALL ASSY",
     "type": "circle",
     "radius": 25,
     "width": 48.582021367453436,
@@ -520,8 +500,8 @@
     "scaleY": 0.9882177079538507
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "ALL ASSY",
+    "s_NAME": "ALL ASSY",
     "type": "circle",
     "radius": 25,
     "width": 48.582021367453436,
@@ -535,8 +515,8 @@
     "scaleY": 0.9882177079538507
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "ALL ASSY",
+    "s_NAME": "ALL ASSY",
     "type": "circle",
     "radius": 25,
     "width": 48.582021367453436,
@@ -550,8 +530,8 @@
     "scaleY": 0.9882177079538507
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "ALL ASSY",
+    "s_NAME": "ALL ASSY",
     "type": "rect",
     "width": 75.54557374487219,
     "height": 42.56740482492193,
@@ -560,8 +540,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "ALL ASSY",
+    "s_NAME": "ALL ASSY",
     "type": "rect",
     "width": 31.49503652152731,
     "height": 38.596706488981866,
@@ -570,8 +550,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "ALL ASSY",
+    "s_NAME": "ALL ASSY",
     "type": "rect",
     "width": 31.401623075783206,
     "height": 88.66795216891256,
@@ -580,8 +560,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "ALL ASSY",
+    "s_NAME": "ALL ASSY",
     "type": "rect",
     "width": 38.73498295892177,
     "height": 50.527211560575,
@@ -590,8 +570,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "ALL ASSY",
+    "s_NAME": "ALL ASSY",
     "type": "circle",
     "radius": 25,
     "width": 48.594558663290194,
@@ -605,8 +585,8 @@
     "scaleY": 0.9884727318784843
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "ALL ASSY",
+    "s_NAME": "ALL ASSY",
     "type": "circle",
     "radius": 25,
     "width": 48.594558663290194,
@@ -620,8 +600,8 @@
     "scaleY": 0.9884727318784843
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "ALL ASSY",
+    "s_NAME": "ALL ASSY",
     "type": "circle",
     "radius": 25,
     "width": 48.594558663290194,
@@ -635,8 +615,8 @@
     "scaleY": 0.9884727318784843
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "ALL ASSY",
+    "s_NAME": "ALL ASSY",
     "type": "circle",
     "radius": 25,
     "width": 48.594558663290194,
@@ -650,8 +630,8 @@
     "scaleY": 0.9884727318784843
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "ALL ASSY",
+    "s_NAME": "ALL ASSY",
     "type": "rect",
     "width": 75.40178237461457,
     "height": 42.56740482492194,
@@ -660,8 +640,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "ALL ASSY",
+    "s_NAME": "ALL ASSY",
     "type": "rect",
     "width": 33.65439559779401,
     "height": 35.92058047756977,
@@ -670,8 +650,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "ALL ASSY",
+    "s_NAME": "ALL ASSY",
     "type": "rect",
     "width": 31.401623075783206,
     "height": 88.66795216891256,
@@ -680,8 +660,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "ALL ASSY",
+    "s_NAME": "ALL ASSY",
     "type": "rect",
     "width": 38.73498295892177,
     "height": 50.527211560575,
@@ -690,8 +670,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "ALL ASSY",
+    "s_NAME": "ALL ASSY",
     "type": "circle",
     "radius": 25,
     "width": 48.594558663290194,
@@ -705,8 +685,8 @@
     "scaleY": 0.9884727318784843
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "ALL ASSY",
+    "s_NAME": "ALL ASSY",
     "type": "circle",
     "radius": 25,
     "width": 48.594558663290194,
@@ -720,8 +700,8 @@
     "scaleY": 0.9884727318784843
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "ALL ASSY",
+    "s_NAME": "ALL ASSY",
     "type": "circle",
     "radius": 25,
     "width": 48.594558663290194,
@@ -735,8 +715,8 @@
     "scaleY": 0.9884727318784843
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "ALL ASSY",
+    "s_NAME": "ALL ASSY",
     "type": "circle",
     "radius": 25,
     "width": 48.594558663290194,
@@ -750,8 +730,8 @@
     "scaleY": 0.9884727318784843
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "ALL ASSY",
+    "s_NAME": "ALL ASSY",
     "type": "rect",
     "width": 75.40178237461457,
     "height": 42.56740482492194,
@@ -760,8 +740,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "ALL ASSY",
+    "s_NAME": "ALL ASSY",
     "type": "rect",
     "width": 33.37775858713247,
     "height": 37.64842082679268,
@@ -770,8 +750,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "ALL ASSY",
+    "s_NAME": "ALL ASSY",
     "type": "rect",
     "width": 31.401623075783206,
     "height": 88.66795216891256,
@@ -780,8 +760,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "ALL ASSY",
+    "s_NAME": "ALL ASSY",
     "type": "rect",
     "width": 38.73498295892177,
     "height": 50.527211560575,
@@ -790,8 +770,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "ALL ASSY",
+    "s_NAME": "ALL ASSY",
     "type": "circle",
     "radius": 25,
     "width": 48.594558663290194,
@@ -805,8 +785,8 @@
     "scaleY": 0.9884727318784843
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "ALL ASSY",
+    "s_NAME": "ALL ASSY",
     "type": "circle",
     "radius": 25,
     "width": 48.594558663290194,
@@ -820,8 +800,8 @@
     "scaleY": 0.9884727318784843
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "ALL ASSY",
+    "s_NAME": "ALL ASSY",
     "type": "circle",
     "radius": 25,
     "width": 48.594558663290194,
@@ -835,8 +815,8 @@
     "scaleY": 0.9884727318784843
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "ALL ASSY",
+    "s_NAME": "ALL ASSY",
     "type": "circle",
     "radius": 25,
     "width": 48.594558663290194,
@@ -850,8 +830,8 @@
     "scaleY": 0.9884727318784843
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "ALL ASSY",
+    "s_NAME": "ALL ASSY",
     "type": "rect",
     "width": 75.40178237461457,
     "height": 42.56740482492194,
@@ -860,8 +840,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "ALL ASSY",
+    "s_NAME": "ALL ASSY",
     "type": "rect",
     "width": 32.95981872861603,
     "height": 35.58530125350939,
@@ -870,8 +850,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 45.89910738014019,
@@ -885,8 +865,8 @@
     "scaleY": 0.8999824976498076
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 45.89910738014019,
@@ -900,8 +880,8 @@
     "scaleY": 0.8999824976498076
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 45.89910738014019,
@@ -915,8 +895,8 @@
     "scaleY": 0.8999824976498076
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 45.89910738014019,
@@ -930,8 +910,8 @@
     "scaleY": 0.8999824976498076
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 1806.9586648908419,
     "height": 46.48405666833879,
@@ -940,8 +920,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 47.06851138982529,
@@ -955,8 +935,8 @@
     "scaleY": 0.92291198803579
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 47.06851138982529,
@@ -970,8 +950,8 @@
     "scaleY": 0.92291198803579
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 47.06851138982529,
@@ -985,8 +965,8 @@
     "scaleY": 0.92291198803579
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 47.06851138982529,
@@ -1000,28 +980,8 @@
     "scaleY": 0.92291198803579
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
-    "type": "rect",
-    "width": 179.73298541402465,
-    "height": 11.923510024212751,
-    "left": 230.5422827217944,
-    "top": 96.1968552542339,
-    "angle": 0
-  },
-  {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
-    "type": "rect",
-    "width": 175.6400713801268,
-    "height": 28.295166159804158,
-    "left": 229.9575807169518,
-    "top": 592.608857365559,
-    "angle": 0
-  },
-  {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 33.145275316140555,
     "height": 27.857881394553942,
@@ -1030,8 +990,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 33.145275316140555,
     "height": 27.857881394553942,
@@ -1040,8 +1000,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 33.145275316140555,
     "height": 27.857881394553942,
@@ -1050,8 +1010,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 33.145275316140555,
     "height": 27.857881394553942,
@@ -1060,8 +1020,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 33.225463838826336,
     "height": 27.92299475902927,
@@ -1070,8 +1030,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 33.225463838826336,
     "height": 27.92299475902927,
@@ -1080,8 +1040,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 33.225463838826336,
     "height": 27.92299475902927,
@@ -1090,8 +1050,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 33.225463838826336,
     "height": 27.92299475902927,
@@ -1100,8 +1060,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 33.225463838826336,
     "height": 27.92299475902927,
@@ -1110,8 +1070,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 33.225463838826336,
     "height": 27.92299475902927,
@@ -1120,8 +1080,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 33.225463838826336,
     "height": 27.92299475902927,
@@ -1130,8 +1090,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 33.225463838826336,
     "height": 27.92299475902927,
@@ -1140,8 +1100,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 33.225463838826336,
     "height": 27.92299475902927,
@@ -1150,8 +1110,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 33.225463838826336,
     "height": 27.92299475902927,
@@ -1160,8 +1120,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 33.225463838826336,
     "height": 27.92299475902927,
@@ -1170,8 +1130,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 33.225463838826336,
     "height": 27.92299475902927,
@@ -1180,8 +1140,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 27.278327074059305,
     "height": 22.252077721923747,
@@ -1190,8 +1150,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 27.278327074059305,
     "height": 22.252077721923747,
@@ -1200,8 +1160,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 27.278327074059305,
     "height": 22.252077721923747,
@@ -1210,8 +1170,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 27.655957813537064,
     "height": 22.252077721923747,
@@ -1220,18 +1180,18 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 27.655957813537064,
     "height": 22.252077721923747,
-    "left": 318.8942842108673,
+    "left": 318.89428421086734,
     "top": 154.02484624137583,
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 27.655957813537064,
     "height": 22.252077721923747,
@@ -1240,8 +1200,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 27.655957813537064,
     "height": 22.252077721923747,
@@ -1250,18 +1210,18 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 27.655957813537064,
     "height": 22.252077721923747,
-    "left": 349.71191436197347,
+    "left": 349.7119143619735,
     "top": 154.02484624137583,
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 27.655957813537064,
     "height": 22.252077721923747,
@@ -1270,8 +1230,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 27.655957813537064,
     "height": 22.252077721923747,
@@ -1280,18 +1240,18 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 27.655957813537064,
     "height": 22.252077721923747,
-    "left": 381.3440421864629,
+    "left": 381.34404218646284,
     "top": 154.02484624137583,
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 27.655957813537064,
     "height": 22.252077721923747,
@@ -1300,48 +1260,48 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 27.785917352015424,
     "height": 21.5788702371436,
-    "left": 286.00000000000006,
+    "left": 286.00000000000017,
     "top": 561.4211297628565,
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 27.785917352015424,
     "height": 21.5788702371436,
-    "left": 286.4093055132501,
+    "left": 286.4093055132502,
     "top": 537.3571809219292,
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 27.785917352015424,
     "height": 21.5788702371436,
-    "left": 286.00000000000006,
+    "left": 286.00000000000017,
     "top": 513.0000000000001,
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 28.249796933698843,
     "height": 21.5788702371436,
-    "left": 318.0622652045893,
+    "left": 318.06226520458944,
     "top": 561.4211297628565,
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 28.249796933698843,
     "height": 21.5788702371436,
@@ -1350,18 +1310,18 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 28.249796933698843,
     "height": 21.5788702371436,
-    "left": 318.0622652045893,
+    "left": 318.06226520458944,
     "top": 513.0000000000001,
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 28.249796933698843,
     "height": 21.5788702371436,
@@ -1370,18 +1330,18 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 28.249796933698843,
     "height": 21.5788702371436,
-    "left": 349.6970335397841,
+    "left": 349.6970335397843,
     "top": 537.3571809219292,
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 28.249796933698843,
     "height": 21.5788702371436,
@@ -1390,38 +1350,38 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 28.249796933698843,
     "height": 21.5788702371436,
-    "left": 381.3408975530511,
+    "left": 381.3408975530512,
     "top": 561.4211297628565,
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 28.249796933698843,
     "height": 21.5788702371436,
-    "left": 381.7502030663012,
+    "left": 381.75020306630125,
     "top": 537.3571809219292,
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 28.249796933698843,
     "height": 21.5788702371436,
-    "left": 381.3408975530511,
+    "left": 381.3408975530512,
     "top": 513.0000000000001,
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "REAR CS ASSY",
     "type": "rect",
     "width": 158,
     "height": 30,
@@ -1430,8 +1390,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "REAR CS ASSY",
     "type": "rect",
     "width": 101.47283409167994,
     "height": 68.80256271177045,
@@ -1440,8 +1400,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "REAR CS ASSY",
     "type": "rect",
     "width": 57.99999999999999,
     "height": 81.30444647651522,
@@ -1450,8 +1410,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "REAR CS ASSY",
     "type": "rect",
     "width": 99.79008172090559,
     "height": 69.07450488797775,
@@ -1460,8 +1420,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "REAR CS ASSY",
     "type": "rect",
     "width": 45.637173898667776,
     "height": 59.55782927545878,
@@ -1470,8 +1430,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "REAR CS ASSY",
     "type": "rect",
     "width": 55.38267148014438,
     "height": 55.31339213640182,
@@ -1480,18 +1440,18 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JT COMBO",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
     "width": 156.99853889237508,
     "height": 29.893371495990436,
     "left": 683.9813417196422,
-    "top": 504.10448140379333,
+    "top": 504.1044814037933,
     "angle": -179.92420564334986
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JT COMBO",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
     "width": 102.21161446828113,
     "height": 74.20778754779123,
@@ -1500,8 +1460,8 @@
     "angle": -179.92766252813877
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JT COMBO",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
     "width": 56.00260421616815,
     "height": 87.70758677748832,
@@ -1510,8 +1470,8 @@
     "angle": -179.92395648925103
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JT COMBO",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
     "width": 104.90790476522301,
     "height": 74.50143663301984,
@@ -1520,8 +1480,8 @@
     "angle": -179.92766252813877
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JT COMBO",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
     "width": 45.8358708995257,
     "height": 60.46645379653471,
@@ -1530,8 +1490,8 @@
     "angle": -179.92789953954758
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JT COMBO",
+    "s_NAME": "COMBO CS ASSY",
     "type": "rect",
     "width": 58.54299658514997,
     "height": 56.148652464685384,
@@ -1540,8 +1500,8 @@
     "angle": -179.92789953954758
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "REAR AXLE ASSY",
     "type": "rect",
     "width": 32.821591616517885,
     "height": 87.37893331839419,
@@ -1550,8 +1510,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "REAR AXLE ASSY",
     "type": "rect",
     "width": 32.821591616517885,
     "height": 38.08066402104533,
@@ -1560,8 +1520,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "REAR AXLE ASSY",
     "type": "rect",
     "width": 32.748667384312036,
     "height": 87.25317242732952,
@@ -1570,8 +1530,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "REAR AXLE ASSY",
     "type": "rect",
     "width": 32.748667384312036,
     "height": 37.995146615121364,
@@ -1580,8 +1540,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "REAR AXLE ASSY",
     "type": "rect",
     "width": 32.748667384312036,
     "height": 87.25317242732952,
@@ -1590,8 +1550,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "REAR AXLE ASSY",
     "type": "rect",
     "width": 32.748667384312036,
     "height": 87.25317242732952,
@@ -1600,8 +1560,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "REAR AXLE ASSY",
     "type": "rect",
     "width": 74.89398692394032,
     "height": 87.25317242732953,
@@ -1610,8 +1570,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "REAR AXLE ASSY",
     "type": "rect",
     "width": 74.89398692394032,
     "height": 37.995146615121364,
@@ -1620,8 +1580,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "REAR AXLE ASSY",
     "type": "rect",
     "width": 74.89398692394032,
     "height": 87.25317242732953,
@@ -1630,18 +1590,18 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "REAR AXLE ASSY",
     "type": "rect",
     "width": 71.48687681618328,
     "height": 37.995146615121364,
     "left": 1279.2758249401536,
-    "top": 544.5018098206201,
+    "top": 544.5018098206202,
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "REAR AXLE ASSY",
     "type": "rect",
     "width": 71.48687681618328,
     "height": 87.25317242732953,
@@ -1650,8 +1610,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "REAR AXLE ASSY",
     "type": "rect",
     "width": 71.48687681618328,
     "height": 87.25317242732953,
@@ -1660,8 +1620,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "REAR AXLE ASSY",
     "type": "rect",
     "width": 32.748667384312036,
     "height": 87.25317242732952,
@@ -1670,8 +1630,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "REAR AXLE ASSY",
     "type": "rect",
     "width": 32.748667384312036,
     "height": 37.995146615121364,
@@ -1680,8 +1640,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "REAR AXLE ASSY",
     "type": "rect",
     "width": 32.748667384312036,
     "height": 87.25317242732952,
@@ -1690,8 +1650,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "REAR AXLE ASSY",
     "type": "rect",
     "width": 32.748667384312036,
     "height": 37.995146615121364,
@@ -1700,8 +1660,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "REAR AXLE ASSY",
     "type": "rect",
     "width": 32.748667384312036,
     "height": 87.25317242732952,
@@ -1710,8 +1670,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "REAR AXLE ASSY",
     "type": "rect",
     "width": 32.748667384312036,
     "height": 87.25317242732952,
@@ -1720,8 +1680,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "FRONT AXLE ASSY",
     "type": "rect",
     "width": 33.70547820706345,
     "height": 87.94522274457938,
@@ -1730,8 +1690,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "FRONT AXLE ASSY",
     "type": "rect",
     "width": 33.70547820706345,
     "height": 38.42460575113618,
@@ -1740,8 +1700,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "FRONT AXLE ASSY",
     "type": "rect",
     "width": 33.70547820706345,
     "height": 87.94522274457938,
@@ -1750,8 +1710,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "FRONT AXLE ASSY",
     "type": "rect",
     "width": 33.70547820706345,
     "height": 38.42460575113618,
@@ -1760,8 +1720,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "FRONT AXLE ASSY",
     "type": "rect",
     "width": 33.70547820706345,
     "height": 87.94522274457938,
@@ -1770,8 +1730,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "FRONT AXLE ASSY",
     "type": "rect",
     "width": 33.70547820706345,
     "height": 87.94522274457938,
@@ -1780,8 +1740,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "FRONT AXLE ASSY",
     "type": "rect",
     "width": 76.78912450302643,
     "height": 87.94522274457938,
@@ -1790,18 +1750,18 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "FRONT AXLE ASSY",
     "type": "rect",
     "width": 76.78912450302643,
     "height": 38.42460575113618,
     "left": 1493.1986802894646,
-    "top": 127.99999999999999,
+    "top": 128,
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "FRONT AXLE ASSY",
     "type": "rect",
     "width": 76.78912450302643,
     "height": 87.94522274457938,
@@ -1810,8 +1770,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "FRONT AXLE ASSY",
     "type": "rect",
     "width": 74.33514175575156,
     "height": 38.42460575113618,
@@ -1820,8 +1780,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "FRONT AXLE ASSY",
     "type": "rect",
     "width": 74.33514175575156,
     "height": 87.94522274457938,
@@ -1830,8 +1790,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "FRONT AXLE ASSY",
     "type": "rect",
     "width": 74.33514175575156,
     "height": 87.94522274457938,
@@ -1840,8 +1800,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "FRONT AXLE ASSY",
     "type": "rect",
     "width": 33.70547820706345,
     "height": 87.94522274457938,
@@ -1850,8 +1810,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "FRONT AXLE ASSY",
     "type": "rect",
     "width": 33.70547820706345,
     "height": 38.42460575113618,
@@ -1860,8 +1820,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "FRONT AXLE ASSY",
     "type": "rect",
     "width": 33.70547820706345,
     "height": 87.94522274457938,
@@ -1870,8 +1830,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "FRONT AXLE ASSY",
     "type": "rect",
     "width": 33.70547820706345,
     "height": 38.42460575113618,
@@ -1880,8 +1840,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "FRONT AXLE ASSY",
     "type": "rect",
     "width": 33.70547820706345,
     "height": 87.94522274457938,
@@ -1890,8 +1850,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JL FRONT_REAR",
+    "s_NAME": "FRONT AXLE ASSY",
     "type": "rect",
     "width": 33.70547820706345,
     "height": 87.94522274457938,
@@ -1900,183 +1860,203 @@
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JT COMBO",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 32.619386776492746,
-    "height": 88.13524907510967,
+    "height": 87.74516045771313,
     "left": 1673.421931783242,
-    "top": 170.63643207433535,
+    "top": 172.44108663856144,
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JT COMBO",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 32.619386776492746,
-    "height": 38.50535576013077,
+    "height": 38.33246580056783,
     "left": 1673.421931783242,
-    "top": 126.50131205368663,
+    "top": 128.49911812784995,
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JT COMBO",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 32.619386776492746,
-    "height": 88.13524907510967,
+    "height": 87.74516045771313,
     "left": 1672.9999999999998,
-    "top": 263.4774584874817,
+    "top": 264.87580659038116,
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JT COMBO",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 32.619386776492746,
-    "height": 38.50535576013077,
+    "height": 38.33246580056783,
     "left": 1673.8530359965546,
-    "top": 543.4946442398692,
+    "top": 543.6675341994321,
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JT COMBO",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 32.619386776492746,
-    "height": 88.13524907510967,
+    "height": 87.74516045771313,
     "left": 1673.8530359965546,
-    "top": 357.82242106168803,
+    "top": 358.8078809257506,
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JT COMBO",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 32.619386776492746,
-    "height": 88.13524907510967,
+    "height": 87.74516045771313,
     "left": 1673.8530359965546,
-    "top": 450.66344747483436,
+    "top": 451.2426008775703,
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JT COMBO",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 74.25304686639635,
-    "height": 88.13524907510968,
+    "height": 87.74516045771314,
     "left": 1708.9467534462062,
-    "top": 170.1351200206487,
+    "top": 171.94196851071152,
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JT COMBO",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 74.25304686639635,
-    "height": 38.50535576013076,
+    "height": 38.332465800567824,
     "left": 1708.9467534462062,
-    "top": 125.99999999999999,
+    "top": 128.00000000000003,
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JT COMBO",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 74.25304686639635,
-    "height": 88.13524907510968,
+    "height": 87.74516045771314,
     "left": 1707.9010964181718,
-    "top": 262.9663167856836,
+    "top": 264.3669018325734,
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JT COMBO",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 72.09779184785495,
-    "height": 38.50535576013076,
+    "height": 38.332465800567824,
     "left": 1709.9924104742413,
-    "top": 542.9933321861826,
+    "top": 543.1684160715821,
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JT COMBO",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 72.09779184785495,
-    "height": 88.13524907510968,
+    "height": 87.74516045771314,
     "left": 1710.0013168562903,
-    "top": 357.3211090080015,
+    "top": 358.30876279790084,
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JT COMBO",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 72.09779184785495,
-    "height": 88.13524907510968,
+    "height": 87.74516045771314,
     "left": 1710.0013168562903,
-    "top": 450.1621354211477,
+    "top": 450.74348274972033,
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JT COMBO",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 32.619386776492746,
-    "height": 88.13524907510967,
+    "height": 87.74516045771313,
     "left": 1784.9495090101946,
-    "top": 170.64626172244687,
+    "top": 172.45087326851927,
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JT COMBO",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 32.619386776492746,
-    "height": 38.50535576013077,
+    "height": 38.33246580056783,
     "left": 1784.9495090101946,
-    "top": 126.51114170179815,
+    "top": 128.5089047578078,
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JT COMBO",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 32.619386776492746,
-    "height": 88.13524907510967,
+    "height": 87.74516045771313,
     "left": 1784.5275772269526,
-    "top": 263.4774584874817,
+    "top": 264.87580659038116,
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JT COMBO",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 32.619386776492746,
-    "height": 38.50535576013077,
+    "height": 38.33246580056783,
     "left": 1785.380613223507,
-    "top": 543.4946442398692,
+    "top": 543.6675341994321,
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JT COMBO",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 32.619386776492746,
-    "height": 88.13524907510967,
+    "height": 87.74516045771313,
     "left": 1785.380613223507,
-    "top": 357.82242106168803,
+    "top": 358.8078809257506,
     "angle": 0
   },
   {
-    "s_NAME": "TOLEDO",
     "s_KEY": "JT COMBO",
+    "s_NAME": "COMBO AXLE ASSY",
     "type": "rect",
     "width": 32.619386776492746,
-    "height": 88.13524907510967,
+    "height": 87.74516045771313,
     "left": 1785.380613223507,
-    "top": 450.66344747483436,
+    "top": 451.2426008775703,
     "angle": 0
+  },
+  {
+    "s_KEY": "FORD P558",
+    "s_NAME": "FORD AXLE ASSY",
+    "type": "triangle",
+    "width": 117.42705568863707,
+    "height": 59.21352784431855,
+    "left": 1176.5939947778124,
+    "top": 228.5965749886362,
+    "angle": 90.12417160521706
+  },
+  {
+    "s_KEY": "FORD P558",
+    "s_NAME": "FORD AXLE ASSY",
+    "type": "triangle",
+    "width": 90.27764314322516,
+    "height": 45.63882157161258,
+    "left": 1129.5995589913705,
+    "top": 274.77339538348645,
+    "angle": -90.05675576746034
   }
 ]

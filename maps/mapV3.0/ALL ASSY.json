@@ -4,8 +4,9 @@
     {
       "type": "Feature",
       "properties": {
-        "KEY": "ALL ASSY",
-        "NAME": "ALL ASSY"
+        "KEY": "",
+        "NAME": "",
+        "PARAM3": "ALL ASSY"
       },
       "geometry": {
         "type": "Polygon",

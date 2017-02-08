@@ -4,8 +4,9 @@
     {
       "type": "Feature",
       "properties": {
-        "KEY": " ",
-        "NAME": "FORD AXLE ASSY"
+        "KEY": "",
+        "NAME": "",
+        "PARAM3": "FORD AXLE ASSY"
       },
       "geometry": {
         "type": "Polygon",
@@ -6261,7 +6262,8 @@
       "type": "Feature",
       "properties": {
         "KEY": "OP050",
-        "NAME": "FORD AXLE ASSY"
+        "NAME": "OP050",
+        "PARAM3": "FORD AXLE ASSY"
       },
       "geometry": {
         "type": "Polygon",
@@ -6295,7 +6297,8 @@
       "type": "Feature",
       "properties": {
         "KEY": "OP010",
-        "NAME": "FORD AXLE ASSY"
+        "NAME": "OP010",
+        "PARAM3": "FORD AXLE ASSY"
       },
       "geometry": {
         "type": "Polygon",
@@ -6329,7 +6332,8 @@
       "type": "Feature",
       "properties": {
         "KEY": "OP030",
-        "NAME": "FORD AXLE ASSY"
+        "NAME": "OP030",
+        "PARAM3": "FORD AXLE ASSY"
       },
       "geometry": {
         "type": "Polygon",
@@ -6363,7 +6367,8 @@
       "type": "Feature",
       "properties": {
         "KEY": "OP060",
-        "NAME": "FORD AXLE ASSY"
+        "NAME": "OP060",
+        "PARAM3": "FORD AXLE ASSY"
       },
       "geometry": {
         "type": "Polygon",
@@ -6397,7 +6402,8 @@
       "type": "Feature",
       "properties": {
         "KEY": "OP020",
-        "NAME": "FORD AXLE ASSY"
+        "NAME": "OP020",
+        "PARAM3": "FORD AXLE ASSY"
       },
       "geometry": {
         "type": "Polygon",
@@ -6431,7 +6437,8 @@
       "type": "Feature",
       "properties": {
         "KEY": "OP040",
-        "NAME": "FORD AXLE ASSY"
+        "NAME": "OP040",
+        "PARAM3": "FORD AXLE ASSY"
       },
       "geometry": {
         "type": "Polygon",
@@ -6465,7 +6472,8 @@
       "type": "Feature",
       "properties": {
         "KEY": "OP100",
-        "NAME": "FORD AXLE ASSY"
+        "NAME": "OP100",
+        "PARAM3": "FORD AXLE ASSY"
       },
       "geometry": {
         "type": "Polygon",
@@ -6499,7 +6507,8 @@
       "type": "Feature",
       "properties": {
         "KEY": "OP070",
-        "NAME": "FORD AXLE ASSY"
+        "NAME": "OP070",
+        "PARAM3": "FORD AXLE ASSY"
       },
       "geometry": {
         "type": "Polygon",
@@ -6533,7 +6542,8 @@
       "type": "Feature",
       "properties": {
         "KEY": "OP110",
-        "NAME": "FORD AXLE ASSY"
+        "NAME": "OP110",
+        "PARAM3": "FORD AXLE ASSY"
       },
       "geometry": {
         "type": "Polygon",
@@ -6567,7 +6577,8 @@
       "type": "Feature",
       "properties": {
         "KEY": "OP080",
-        "NAME": "FORD AXLE ASSY"
+        "NAME": "OP080",
+        "PARAM3": "FORD AXLE ASSY"
       },
       "geometry": {
         "type": "Polygon",
@@ -6601,7 +6612,8 @@
       "type": "Feature",
       "properties": {
         "KEY": "OP090",
-        "NAME": "FORD AXLE ASSY"
+        "NAME": "OP090",
+        "PARAM3": "FORD AXLE ASSY"
       },
       "geometry": {
         "type": "Polygon",

@@ -1,7 +1,7 @@
 [
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 20.805139024941386,
     "height": 330,
@@ -10,8 +10,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 1500.0000000000002,
     "height": 21.111898123728423,
@@ -20,8 +20,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 1502.9999999999995,
     "height": 19,
@@ -30,8 +30,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 18.513224323713985,
     "height": 326,
@@ -40,8 +40,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 18.999999999999996,
     "height": 172.49280385803627,
@@ -50,8 +50,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 19.113254464622287,
     "height": 160.05892547660312,
@@ -60,8 +60,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 18.43832416547366,
     "height": 156.97505839801067,
@@ -70,8 +70,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 18.450380528973255,
     "height": 161.5419335392962,
@@ -80,8 +80,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 79,
     "height": 20,
@@ -90,8 +90,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "rect",
     "width": 93.00000000000001,
     "height": 21.39605154095398,
@@ -100,8 +100,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
     "s_KEY": "OP100",
+    "s_NAME": "OP100",
     "type": "rect",
     "width": 63.29615259740976,
     "height": 129.2965888660865,
@@ -110,8 +110,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": "OP90",
+    "s_KEY": "OP090",
+    "s_NAME": "OP090",
     "type": "rect",
     "width": 60.77150198523767,
     "height": 129.14840533900906,
@@ -120,8 +120,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": "OP80",
+    "s_KEY": "OP080",
+    "s_NAME": "OP080",
     "type": "rect",
     "width": 61.22026745527174,
     "height": 127.65881627902695,
@@ -130,8 +130,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": "OP40",
+    "s_KEY": "OP040",
+    "s_NAME": "OP040",
     "type": "rect",
     "width": 88.42642105121126,
     "height": 72.63846153846153,
@@ -140,58 +140,28 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": "OP20",
+    "s_KEY": "OP030",
+    "s_NAME": "OP030",
     "type": "rect",
-    "width": 85.4324925988691,
-    "height": 93.22692519902273,
-    "left": 520.0181591436535,
-    "top": 210,
-    "angle": 0
-  },
-  {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": "OP30",
-    "type": "rect",
-    "width": 56.13733706436935,
-    "height": 127.81294964028774,
-    "left": 648.073444698803,
+    "width": 54.8939066021043,
+    "height": 165.99999999999994,
+    "left": 647.1196035589028,
     "top": 136.00000000000003,
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": "OP520",
+    "s_KEY": "OP010",
+    "s_NAME": "OP010",
     "type": "rect",
-    "width": 124.99999999999999,
-    "height": 104.25774414755256,
-    "left": 611,
-    "top": 270.74225585244744,
-    "angle": 0
-  },
-  {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": "OP10",
-    "type": "rect",
-    "width": 85.04520565121315,
+    "width": 147.5405242120662,
     "height": 65.92578873247818,
     "left": 519.4594757879338,
     "top": 308,
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": "OP230",
-    "type": "rect",
-    "width": 91.36432686058151,
-    "height": 80.30889887286207,
-    "left": 741.6356731394185,
-    "top": 226,
-    "angle": 0
-  },
-  {
-    "s_NAME": "FORD CS2 ASSY",
     "s_KEY": "OP180",
+    "s_NAME": "OP180",
     "type": "rect",
     "width": 73.0115916111678,
     "height": 53.73185150153704,
@@ -200,8 +170,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
     "s_KEY": "OP190",
+    "s_NAME": "OP190",
     "type": "rect",
     "width": 72.28008234407113,
     "height": 50.415070544652025,
@@ -210,8 +180,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": "OP2100",
+    "s_KEY": "OP210",
+    "s_NAME": "OP210",
     "type": "rect",
     "width": 71.89691082321106,
     "height": 50.41507054465203,
@@ -220,8 +190,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
     "s_KEY": "OP200",
+    "s_NAME": "OP200",
     "type": "rect",
     "width": 67.9955280653624,
     "height": 53.068495310160024,
@@ -230,28 +200,28 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
     "s_KEY": "OP220",
+    "s_NAME": "OP220",
     "type": "rect",
-    "width": 86.28516622856762,
+    "width": 152.99999999999977,
     "height": 63.92578873247817,
-    "left": 743.7148337714323,
+    "left": 677,
     "top": 310,
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
     "s_KEY": "OP390",
+    "s_NAME": "OP390",
     "type": "rect",
-    "width": 49.042914085897614,
+    "width": 59.883480292236655,
     "height": 155.25034013605435,
-    "left": 1196.169936163582,
+    "left": 1158.3804309064474,
     "top": 213.12000000000012,
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
     "s_KEY": "OP440",
+    "s_NAME": "OP440",
     "type": "rect",
     "width": 165.00000000000014,
     "height": 79.34289765525989,
@@ -260,8 +230,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
     "s_KEY": "OP410",
+    "s_NAME": "OP410",
     "type": "rect",
     "width": 162.59792586638923,
     "height": 70.25312896070967,
@@ -270,8 +240,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
     "s_KEY": "OP280",
+    "s_NAME": "OP280",
     "type": "rect",
     "width": 125.47708335920238,
     "height": 61.1733333333333,
@@ -280,8 +250,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
     "s_KEY": "OP290",
+    "s_NAME": "OP290",
     "type": "rect",
     "width": 127.00492541278203,
     "height": 87.88,
@@ -290,48 +260,38 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
     "s_KEY": "OP310",
+    "s_NAME": "OP310",
     "type": "rect",
-    "width": 51.19126135978769,
+    "width": 62.49721415046588,
     "height": 156.33918367346942,
-    "left": 1080.677153097213,
+    "left": 1086.0000000000002,
     "top": 212.84598639455788,
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": "OP370",
-    "type": "rect",
-    "width": 49.19758173701456,
-    "height": 155.84705400696876,
-    "left": 1138.6834567563458,
-    "top": 213.82666666666665,
-    "angle": 0
-  },
-  {
-    "s_NAME": "FORD CS2 ASSY",
     "s_KEY": "OP420",
+    "s_NAME": "OP420",
     "type": "rect",
-    "width": 57,
+    "width": 69.56427311344066,
     "height": 158.29333333333338,
-    "left": 1307,
+    "left": 1294.4357268865595,
     "top": 211,
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
     "s_KEY": "OP400",
+    "s_NAME": "OP400",
     "type": "rect",
-    "width": 47.84859793098821,
+    "width": 58.43044492432595,
     "height": 159,
-    "left": 1254.0215721715977,
+    "left": 1228.7642006190158,
     "top": 211,
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
     "s_KEY": "OP300",
+    "s_NAME": "OP300",
     "type": "rect",
     "width": 89.72792792792781,
     "height": 60.179999999999986,
@@ -340,8 +300,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
     "s_KEY": "OP270",
+    "s_NAME": "OP270",
     "type": "rect",
     "width": 90.55675675675684,
     "height": 60.17999999999997,
@@ -350,8 +310,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
     "s_KEY": "OP260",
+    "s_NAME": "OP260",
     "type": "rect",
     "width": 92.36396396396412,
     "height": 60.17999999999997,
@@ -360,8 +320,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
     "s_KEY": "OP250",
+    "s_NAME": "OP250",
     "type": "rect",
     "width": 89.8149272349272,
     "height": 60.179999999999964,
@@ -370,8 +330,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
     "s_KEY": "OP240",
+    "s_NAME": "OP240",
     "type": "rect",
     "width": 85,
     "height": 129.86,
@@ -380,8 +340,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
     "s_KEY": "OP380",
+    "s_NAME": "OP380",
     "type": "rect",
     "width": 79.25581395348836,
     "height": 68.65341647181084,
@@ -390,8 +350,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
     "s_KEY": "OP430",
+    "s_NAME": "OP430",
     "type": "rect",
     "width": 85,
     "height": 68.65341647181084,
@@ -400,8 +360,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
     "s_KEY": "OP450",
+    "s_NAME": "OP450",
     "type": "rect",
     "width": 87.77325581395327,
     "height": 68.65341647181084,
@@ -410,8 +370,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
     "s_KEY": "OP460",
+    "s_NAME": "OP460",
     "type": "rect",
     "width": 86.65116279069798,
     "height": 66.69810340348143,
@@ -420,8 +380,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
     "s_KEY": "OP470",
+    "s_NAME": "OP470",
     "type": "rect",
     "width": 90.00581395348854,
     "height": 68.65341647181084,
@@ -430,8 +390,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
     "s_KEY": "OP480",
+    "s_NAME": "OP480",
     "type": "rect",
     "width": 88.1220930232562,
     "height": 68.65341647181086,
@@ -440,28 +400,28 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
     "s_KEY": "OP500",
+    "s_NAME": "OP500",
     "type": "rect",
-    "width": 82,
-    "height": 141.00000000000003,
-    "left": 837,
+    "width": 83,
+    "height": 139,
+    "left": 835,
     "top": 136,
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
     "s_KEY": "OP510",
+    "s_NAME": "OP510",
     "type": "rect",
-    "width": 123.99999999999999,
-    "height": 54.115191270960544,
-    "left": 709,
-    "top": 137.01438848920864,
+    "width": 121.27973308227456,
+    "height": 70.45428288035782,
+    "left": 706.7202669177254,
+    "top": 137.31510751186818,
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": "OP60",
+    "s_KEY": "OP060",
+    "s_NAME": "OP060",
     "type": "rect",
     "width": 88.97448314167099,
     "height": 56.0410625345877,
@@ -470,18 +430,18 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": "OP50",
+    "s_KEY": "OP050",
+    "s_NAME": "OP050",
     "type": "rect",
-    "width": 124.58195888180533,
-    "height": 54.115191270960544,
-    "left": 518.1259051979481,
-    "top": 137.01438848920864,
+    "width": 121.8490272961307,
+    "height": 70.45428288035782,
+    "left": 519.9999999999999,
+    "top": 137.31510751186818,
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
     "s_KEY": "OP170",
+    "s_NAME": "OP170",
     "type": "rect",
     "width": 91.99999999999999,
     "height": 132,
@@ -490,8 +450,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
     "s_KEY": "OP160",
+    "s_NAME": "OP160",
     "type": "rect",
     "width": 60.792398299939286,
     "height": 89.76840659340658,
@@ -500,8 +460,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
     "s_KEY": "OP150",
+    "s_NAME": "OP150",
     "type": "rect",
     "width": 60.792398299939286,
     "height": 89.76840659340658,
@@ -510,8 +470,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
     "s_KEY": "OP140",
+    "s_NAME": "OP140",
     "type": "rect",
     "width": 60.792398299939286,
     "height": 89.76840659340658,
@@ -520,8 +480,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
     "s_KEY": "OP130",
+    "s_NAME": "OP130",
     "type": "rect",
     "width": 60.792398299939286,
     "height": 89.76840659340658,
@@ -530,8 +490,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
     "s_KEY": "OP120",
+    "s_NAME": "OP120",
     "type": "rect",
     "width": 61.14467213114753,
     "height": 129.34739815637784,
@@ -540,8 +500,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
     "s_KEY": "OP110",
+    "s_NAME": "OP110",
     "type": "rect",
     "width": 133.63114754098362,
     "height": 54.27857142857142,
@@ -550,8 +510,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": "OP70",
+    "s_KEY": "OP070",
+    "s_NAME": "OP070",
     "type": "rect",
     "width": 132.5081967213115,
     "height": 54.27857142857142,
@@ -560,8 +520,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 25,
@@ -575,8 +535,8 @@
     "scaleY": 0.49019607843137253
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 25,
@@ -590,8 +550,8 @@
     "scaleY": 0.49019607843137253
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 25,
@@ -605,8 +565,8 @@
     "scaleY": 0.49019607843137253
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 25,
@@ -620,8 +580,8 @@
     "scaleY": 0.49019607843137253
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 22,
@@ -635,8 +595,8 @@
     "scaleY": 0.4313725490196078
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 22,
@@ -650,8 +610,8 @@
     "scaleY": 0.4313725490196078
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 22,
@@ -665,8 +625,8 @@
     "scaleY": 0.4313725490196078
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 22,
@@ -680,8 +640,8 @@
     "scaleY": 0.4313725490196078
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 22.5,
@@ -695,8 +655,8 @@
     "scaleY": 0.4411764705882353
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 22.5,
@@ -710,8 +670,8 @@
     "scaleY": 0.4411764705882353
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 22.5,
@@ -725,8 +685,8 @@
     "scaleY": 0.4411764705882353
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 22.5,
@@ -740,28 +700,28 @@
     "scaleY": 0.4411764705882353
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
     "s_KEY": "OP230",
+    "s_NAME": "OP230",
     "type": "rect",
-    "width": 122.43789220475496,
-    "height": 68,
-    "left": 710.4868892833001,
-    "top": 198,
+    "width": 119.75162008828815,
+    "height": 84.56593130410499,
+    "left": 708.174798315204,
+    "top": 216.38011728567437,
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": "OP20",
+    "s_KEY": "OP020",
+    "s_NAME": "OP020",
     "type": "rect",
-    "width": 122.9379819206051,
-    "height": 66,
-    "left": 520.0620180793949,
-    "top": 197,
+    "width": 120.24082678405891,
+    "height": 85.86238480871263,
+    "left": 521.8939789308836,
+    "top": 215.0836637810667,
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 23.5,
@@ -775,8 +735,8 @@
     "scaleY": 0.46078431372549017
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 23.5,
@@ -790,8 +750,8 @@
     "scaleY": 0.46078431372549017
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 23.5,
@@ -805,8 +765,8 @@
     "scaleY": 0.46078431372549017
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 23.5,
@@ -820,8 +780,8 @@
     "scaleY": 0.46078431372549017
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 22.5,
@@ -835,8 +795,8 @@
     "scaleY": 0.4411764705882353
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 22.5,
@@ -850,8 +810,8 @@
     "scaleY": 0.4411764705882353
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 22.5,
@@ -865,8 +825,8 @@
     "scaleY": 0.4411764705882353
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 22.5,
@@ -880,8 +840,8 @@
     "scaleY": 0.4411764705882353
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 23.5,
@@ -895,8 +855,8 @@
     "scaleY": 0.46078431372549017
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 23.5,
@@ -910,8 +870,8 @@
     "scaleY": 0.46078431372549017
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 23.5,
@@ -925,8 +885,8 @@
     "scaleY": 0.46078431372549017
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 23.5,
@@ -940,8 +900,8 @@
     "scaleY": 0.46078431372549017
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
     "s_KEY": "OP490",
+    "s_NAME": "OP490",
     "type": "rect",
     "width": 86.38799571665548,
     "height": 68.65341647181084,
@@ -950,8 +910,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
     "s_KEY": "OP340",
+    "s_NAME": "OP340",
     "type": "rect",
     "width": 82.21981981981979,
     "height": 60.17999999999997,
@@ -960,8 +920,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
     "s_KEY": "OP330",
+    "s_NAME": "OP330",
     "type": "rect",
     "width": 86.39639639639653,
     "height": 60.17999999999997,
@@ -970,8 +930,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
     "s_KEY": "OP320",
+    "s_NAME": "OP320",
     "type": "rect",
     "width": 88.89909909909966,
     "height": 60.17999999999997,
@@ -980,8 +940,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
     "s_KEY": "OP360",
+    "s_NAME": "OP360",
     "type": "rect",
     "width": 45.22641509433962,
     "height": 75.4199911447973,
@@ -990,8 +950,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
     "s_KEY": "OP350",
+    "s_NAME": "OP350",
     "type": "rect",
     "width": 45.22641509433962,
     "height": 74.38684058116993,
@@ -1000,8 +960,8 @@
     "angle": 0
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 24.5,
@@ -1015,8 +975,8 @@
     "scaleY": 0.4803921568627451
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 24.5,
@@ -1030,8 +990,8 @@
     "scaleY": 0.4803921568627451
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 24.5,
@@ -1045,8 +1005,8 @@
     "scaleY": 0.4803921568627451
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 24.5,
@@ -1060,8 +1020,8 @@
     "scaleY": 0.4803921568627451
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 24.5,
@@ -1075,8 +1035,8 @@
     "scaleY": 0.4803921568627451
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 24,
@@ -1090,8 +1050,8 @@
     "scaleY": 0.47058823529411764
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 24,
@@ -1105,8 +1065,8 @@
     "scaleY": 0.47058823529411764
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 24,
@@ -1120,8 +1080,8 @@
     "scaleY": 0.47058823529411764
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 24,
@@ -1135,8 +1095,8 @@
     "scaleY": 0.47058823529411764
   },
   {
-    "s_NAME": "FORD CS2 ASSY",
-    "s_KEY": " ",
+    "s_KEY": "",
+    "s_NAME": "",
     "type": "circle",
     "radius": 25,
     "width": 24,

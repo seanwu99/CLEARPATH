@@ -68,6 +68,7 @@
             text-align: right;
         }
 
+
         #PlantsList {
             margin-left: 20px;
         }
@@ -92,6 +93,18 @@
             font-size:12px;
             font-family: Arial,Helvetica,sans-serif;
             /*	color: #007dc0;	*/
+        }
+
+        #L-SelectedUnit {
+            text-align: center;
+            font-family: "Arial Black", Arial, Helvetica, sans-serif;
+            font-size: 20px;
+            color: #cfcfcf;
+        }
+
+
+        #__cell9 {
+            text-align: center;
         }
 
     </style>
@@ -226,8 +239,10 @@
         oMenuItem2.setSubmenu(oMenu2);
         oMenu1.addItem(oMenuItem2);
         //***************************************
-        var oMenuItem3 = new sap.ui.commons.MenuItem("item1-0-3",{text: "FORD P558", enabled: true});
+        var oMenuItem3 = new sap.ui.commons.MenuItem("item1-0-31",{text: "FORD P558", enabled: true});
         var oMenu3 = new sap.ui.commons.Menu("menu3", {ariaDescription: "FORD P558", enabled:true});
+        var oMenuItem30 = new sap.ui.commons.MenuItem("item1-0-3",{text: "FORD P558", enabled: true});
+        oMenu3.addItem(oMenuItem30);
         var oMenuItem31 = new sap.ui.commons.MenuItem("item1-1-3",{text: "FORD AXLE ASSY", enabled: true});
         oMenu3.addItem(oMenuItem31);
         var oMenuItem32 = new sap.ui.commons.MenuItem("item1-2-3",{text: "FORD CS1 ASSY", enabled: true});
@@ -237,8 +252,10 @@
         oMenuItem3.setSubmenu(oMenu3);
         oMenu1.addItem(oMenuItem3);
         //***************************************
-        var oMenuItem4 = new sap.ui.commons.MenuItem("item1-0-4",{text: "JL FRONT_REAR", enabled: true});
+        var oMenuItem4 = new sap.ui.commons.MenuItem("item1-0-41",{text: "JL FRONT_REAR", enabled: true});
         var oMenu4 = new sap.ui.commons.Menu("menu4", {ariaDescription: "JL FRONT_REAR", enabled:true});
+        var oMenuItem40 = new sap.ui.commons.MenuItem("item1-0-4",{text: "JL FRONT_REAR", enabled: true});
+        oMenu4.addItem(oMenuItem40);
         var oMenuItem41 = new sap.ui.commons.MenuItem("item1-1-4",{text: "FRONT CS ASSY", enabled: true});
         oMenu4.addItem(oMenuItem41);
         var oMenuItem42 = new sap.ui.commons.MenuItem("item1-2-4",{text: "REAR CS ASSY", enabled: true});
@@ -250,8 +267,10 @@
         oMenuItem4.setSubmenu(oMenu4);
         oMenu1.addItem(oMenuItem4);
         //***************************************
-        var oMenuItem5 = new sap.ui.commons.MenuItem("item1-0-5",{text: "JT COMBO", enabled: true});
+        var oMenuItem5 = new sap.ui.commons.MenuItem("item1-01-5",{text: "JT COMBO", enabled: true});
         var oMenu5 = new sap.ui.commons.Menu("menu5", {ariaDescription: "JT COMBO", enabled:true});
+        var oMenuItem50 = new sap.ui.commons.MenuItem("item1-0-5",{text: "JT COMBO", enabled: true});
+        oMenu5.addItem(oMenuItem50);
         var oMenuItem51 = new sap.ui.commons.MenuItem("item1-1-5",{text: "COMBO CS ASSY", enabled: true});
         oMenu5.addItem(oMenuItem51);
         var oMenuItem52 = new sap.ui.commons.MenuItem("item1-2-5",{text: "COMBO AXLE ASSY", enabled: true});
@@ -460,6 +479,22 @@
             }
         }
 
+
+        // ****************************************************************************************************************************************************
+        var oLabelSelectedUnit = new sap.ui.commons.Label({
+            id: 'L-SelectedUnit',
+            visible: true,
+            text: 'SELECTED UNIT ',
+        });
+
+        oCell_SU = new sap.ui.commons.layout.MatrixLayoutCell({height : '30px'});
+
+        oCell_SU.addContent(oLabelSelectedUnit);
+
+        oMatrixT.createRow(oCell_SU);
+
+        // oMatrixT.createRow(oLabelSelectedUnit );
+
         // ****************************************************************************************************************************************************
 
         // Create an instance of the table control
@@ -611,12 +646,44 @@
                     var map_name = jsondata[i]['unitMap'];
                     var map_status = jsondata[i]['statusValue'];
                     var map_parent_name = jsondata[i]['parentName'];
-                    var map_key = map_parent_name + "_" + map_name
+                    var map_key = map_parent_name + "_" + map_name;
+
+                    //	alert (map_key);
+
                     colors_in[map_key] = map_status ;
                 }
             }
+
+            // selectedMapStatusID =  1- Alerts, 2- OEE, 3- Availability, 4- Performance, 5 - Quality
+
+            var selectedStatusName = '';
+
+            switch (  Number(selectedMapStatusID)) {
+                case 1 :
+                    selectedStatusName =' [Alerts]';
+                    break;
+                case 2:
+                    selectedStatusName =' [OEE]';
+                    break;
+                case 3:
+                    selectedStatusName =' [Availability]';
+                    break;
+                case 4:
+                    selectedStatusName =' [Performance]';
+                    break;
+                case 5:
+                    selectedStatusName =' [Quality]';
+                    break;
+                default :
+                    selectedStatusName =' [Alerts]';
+                    break;
+            }
+
+
+            oCore.byId('L-SelectedUnit').setText(selectedUnitName +  selectedStatusName )
+
             mapTitle = [];
-            setTimeout (mapsInit, 300);
+            setTimeout (mapsInit, 600);
         }
 
         //wxy
@@ -637,6 +704,8 @@
 
         function mapsInit() {
 
+            // alert(colors_in.toString());
+
             //	alert("mapsInit");
 
             //	var unit = document.getElementById("unit_name").value ;
@@ -655,22 +724,22 @@
                     var this_key  = this.properties['KEY'] ;
                     var this_2keys = this_param3 + "_" + this_key;
 
-                    //alert(this_2keys);
+                    // alert(this_2keys);
 
                     var color_id = colors_in    [this_2keys] ;
-                    var color_value ='#dcf5f7'
+                    var color_value ='#7cb5ec'
                     switch (  Number(color_id)) {
                         case 0 :
                             color_value ='#d8ddde';
                             break;
                         case 1:
-                            color_value ='lime';
+                            color_value ='#90ed7d';
                             break;
                         case 2:
-                            color_value ='#fe4822';
+                            color_value ='#f45b5b';
                             break;
                         default :
-                            color_value ='#dcf5f7';
+                            color_value ='#7cb5ec';
                             break;
                     }
                     this.color = color_value ;
@@ -707,20 +776,20 @@
 
                                         var color_id = colors_in    [this_2keys] ;
 
-                                        var color_value ='#dcf5f7'
+                                        var color_value ='#7cb5ec'
 
                                         switch (  Number(color_id)) {
                                             case 0 :
                                                 color_value ='#d8ddde';
                                                 break;
                                             case 1:
-                                                color_value ='lime';
+                                                color_value ='#90ed7d';
                                                 break;
                                             case 2:
-                                                color_value ='#fe4822';
+                                                color_value ='#f45b5b';
                                                 break;
                                             default :
-                                                color_value ='#dcf5f7';
+                                                color_value ='#7cb5ec';
                                                 break;
                                         }
                                         this.color = color_value ;
@@ -1133,7 +1202,7 @@
                     type: 'column'
                 },
                 title: {
-                    text: 'QUALITY TEST : RING GROOVE SPAN',
+                    text: 'QUALITY TEST : RING GROOVE SPAN (x 1000)',
                     style: {
                         display: 'block',
                         font: 'Arial Black',
@@ -1144,8 +1213,8 @@
                     gridLineWidth: 1,
                     plotBands: [{
                         color: 'lime', // Color value
-                        from: -1, // Start of the plot band
-                        to: 1 // End of the plot band
+                        from: -0.07, // Start of the plot band
+                        to: 0.35 // End of the plot band
                     }]
                 },
                 yAxis: [{
@@ -1430,11 +1499,11 @@
         }
 
 
-        window.setInterval(getMapStatus, 10*1000);
+        window.setInterval(getMapStatus, 15*1000);
 
-        window.setInterval(getTreeData, 15*1000);
+        window.setInterval(getTreeData, 20*1000);
 
-        window.setInterval(getChartsData, 20*1000);
+        window.setInterval(getChartsData, 25*1000);
 
 
     </script>
