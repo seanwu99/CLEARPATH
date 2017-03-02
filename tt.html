@@ -20,7 +20,7 @@
             padding-left: 40px;
             padding-top: 15px;
             padding-bottom: 0px;
-            height: 90px;
+            height: 80px;
             width: 400px;
             text-align: center;
             display: none;
@@ -53,9 +53,9 @@
         }
 
         #mesm_maps {
-            /*border-size: 0px;*/
-            /*border-style: solid;*/
-            /*border-color: black;*/
+        / / border-size: 0 px;
+        / / border-style: solid;
+        / / border-color: black;
         }
 
         #L-Roles {
@@ -114,7 +114,7 @@
             text-align: center;
             font-family: "Arial Black", Arial, Helvetica, sans-serif;
             font-size: 20px;
-            /*color: #cfcfcf;*/
+        / / color: #cfcfcf;
             color: #007dc0;
         }
 
@@ -162,7 +162,7 @@
         // Get Core SAP UI5
         var oCore = sap.ui.getCore();
         // Initialize screen
-        var nrRows = 8;
+        var nrRows = 10;
         var selectedIndex = -1;
         // *********************************************************************************************************************
         // initialize access
@@ -206,10 +206,11 @@
 
                 selectedPlant = '1006';			//   SETING
                 getUnitID(selectedUnitName);			//   SETING	selectedParentID = 0;
-                selectedUnitID = 268	// SETING ; - hardcoded to get charts which have data only for unit 268
+                selectedUnitID = 268		// SETING ; - hardcoded to get charts which have data only for unit 268
 
                 setTimeout(getTreeData, 1000);
-                setTimeout(pageInit, 2000);
+                setTimeout(pageInit, 2000)
+
                 var role_ADM = "MESM_ADM_" + plant2Access;
                 var role_ENG = "MESM_ENG_" + plant2Access;
                 var role_SUP = "MESM_SUP_" + plant2Access;
@@ -350,8 +351,6 @@
             selectedIndex: 0,
             select: function () {
                 selectedMapStatusID = oRBG2.getSelectedItem().getKey();
-                getMapStatus();
-                getTreeData();
             }
         });
 
@@ -527,14 +526,14 @@
                 template: new sap.ui.commons.TextView().bindProperty("text", "unitName"),
                 sortProperty: "unitName",
                 filterProperty: "unitName",
-                width: "20%"
+                width: "30%"
             }));
             oTable.addColumn(new sap.ui.table.Column({
                 label: new sap.ui.commons.Label({text: "UNIT DESCRIPTION"}),
                 template: new sap.ui.commons.TextView().bindProperty("text", "unitDescr"),
                 sortProperty: "unitDescr",
                 filterProperty: "unitDescr",
-                width: "20%"
+                width: "30%"
             }));
             oTable.addColumn(new sap.ui.table.Column({
                 label: new sap.ui.commons.Label({text: "UNIT TYPE"}),
@@ -553,7 +552,7 @@
             oTable.addColumn(new sap.ui.table.Column({
                 label: new sap.ui.commons.Label({text: "ACTIVE"}),
                 template: new sap.ui.commons.Image().bindProperty("src", "src"),
-                width: "5%",
+                width: "10%",
                 hAlign: "Center"
             }));
         }
@@ -623,7 +622,7 @@
         // ******************		MAPS		**********************************************************************************************************************************
 
         var colors_in = [];
-        var StatusColors = [];
+
         var selectedStatusName = '';
 
         function getMapStatus() {
@@ -672,77 +671,61 @@
             setTimeout(mapsInit, 600);
         }
 
-        //todo
+        //wxy
         $(document).ready(function () {
             $('.seleMenu').click(function () {
-//                console.log($('#app_header').is(":hidden"));
                 $('.app_header').slideToggle(300);
             });
         });
 
 
         var mapTitle = [];
-        var highchartMap = null;
-        var highChartSample1 = null;
-        var highChartSample2 = null;
-        var highChartSample3 = null;
-        var highChartSample4 = null;
-        var highChartSample5 = null;
-        var broswerHeigh = 0;
-        var sized = true;
+        var highchartMap;
+        var highChartSample1;
+        var highChartSample2;
+        var highChartSample3;
+        var highChartSample4;
+        var highChartSample5;
+
         function mapsInit() {
-            getANDMStatusColor();
+
             $.get('maps/' + selectedUnitName + '.json', function (data) {
                 var mapData = Highcharts.geojson(data);
 
                 $.each(mapData, function (i) {
-                    if (this.properties['KEY'] == "") {
-                        this.value = colors_in    ['_TOLEDO'];
-                        ;
-                    } else {
-                        this.drilldown = this.properties['KEY'];
-                        var this_param3 = this.properties['PARAM3'];
-                        var this_key = this.properties['KEY'];
-                        var this_2keys = this_param3 + "_" + this_key;
-                        // alert(this_2keys);
-                        var color_id = colors_in    [this_2keys];
-                        this.value = Number(color_id);
+
+                    this.drilldown = this.properties['KEY'];
+                    var this_param3 = this.properties['PARAM3'];
+                    var this_key = this.properties['KEY'];
+                    var this_2keys = this_param3 + "_" + this_key;
+                    // alert(this_2keys);
+                    var color_id = colors_in    [this_2keys];
+                    var color_value = '#dcf5f7'
+
+                    var status_value = 99;
+                    switch (Number(color_id)) {
+                        case 0 :
+                            color_value = '#d8ddde';
+                            status_value = 0;
+                            break;
+                        case 1:
+                            color_value = '#42f453';
+                            status_value = 90;
+                            break;
+                        case 2:
+                            color_value = '#fe4822';
+                            status_value = 60;
+                            break;
+                        default :
+                            color_value = '#dcf5f7';
+                            status_value = 90;
+                            break;
                     }
+                    this.color = color_value;
+                    this.value = status_value;
+                    //	alert(this.color);
                 });
                 var mapName = selectedUnitName;
-                var outerHeight = window.outerHeight;
-
-                var winW, winH;
-                if (document.body && document.body.offsetWidth) {
-                    winW = document.body.offsetWidth;
-                    winH = document.body.offsetHeight;
-                }
-                if (document.compatMode == 'CSS1Compat' &&
-                    document.documentElement &&
-                    document.documentElement.offsetWidth) {
-                    winW = document.documentElement.offsetWidth;
-                    winH = document.documentElement.offsetHeight;
-                }
-                if (window.innerWidth && window.innerHeight) {
-                    winW = window.innerWidth;
-                    winH = window.innerHeight;
-                }
-                if (!$('#app_header').is(":hidden")) {
-                    winH -= 95;
-                }
-                cc(winH);
-                if (broswerHeigh != winH) {
-                    broswerHeigh = winH;
-                    sized = true;
-                }
-
-                //todo
-                document.getElementById('products').setAttribute("style", "height:" + (winH - 205) / 3 + "px");
-                document.getElementById('parts').setAttribute("style", "height:" + (winH - 205) / 3 + "px");
-                document.getElementById('histogram').setAttribute("style", "height:" + (winH - 205) / 3 + "px");
-//                document.getElementById('gear').setAttribute("style", "height:" + winH * 3 / 9 + "px");
-//                document.getElementById('container-shift').setAttribute("style", "height:" + winH * 2 / 9 + "px");
-//                document.getElementById('container-compare').setAttribute("style", "height:" + winH * 2 / 9 + "px");
                 highchartMap = new Highcharts.Map('mesm_maps', {
                     chart: {
                         animation: false,
@@ -750,7 +733,7 @@
                     chart: {
                         //    height: ScreenSize()['y'],
                         animation: false,
-                        height: winH - 320,
+                        height: 450,
                         events: {
                             redraw: function () {
                                 //    cc('redraw');
@@ -770,6 +753,21 @@
                                         var this_key = this.properties['KEY'];
                                         var this_2keys = this_param3 + "_" + this_key;
                                         var color_id = colors_in    [this_2keys];
+                                        var color_value = '#dcf5f7'
+                                        switch (Number(color_id)) {
+                                            case 0 :
+                                                color_value = '#d8ddde';
+                                                break;
+                                            case 1:
+                                                color_value = '#42f453';
+                                                break;
+                                            case 2:
+                                                color_value = '#fe4822';
+                                                break;
+                                            default :
+                                                color_value = '#dcf5f7';
+                                                break;
+                                        }
                                         this.color = color_value;
                                     });
                                     mapTitle.push(highchartMap.title.textStr);
@@ -834,27 +832,18 @@
                             display: 'none'
                         }
                     },
-//                    legend: {
-//                        enabled: false,
-//                        layout: 'vertical',
-//                        align: 'right',
-//                        verticalAlign: 'middle'
-//                    },
-                    colorAxis: {
-                        min: 1,
-                        //	 type: 'logarithmic',
-                        minColor: StatusColors['minColor'],//'#d2d6d1',
-                        maxColor: StatusColors['maxColor'],//'#31ed23',
-                        stops: [
-                            [parseFloat(StatusColors['ValueStep1']), StatusColors['ColorStep1']],//[0, '#d2d6d1'],
-                            [parseFloat(StatusColors['ValueStep2']), StatusColors['ColorStep2']],//[0.67, '#76ef6e'],
-                            [parseFloat(StatusColors['ValueStep3']), StatusColors['ColorStep3']],//[1, '#31ed23']
-                            //	[0, '#d2d6d1'],
-                            // 	[0.60, '#76ef6e'],
-                            //	[1, '#31ed23']
-                        ]
+                    legend: {
+                        enabled: false,
+                        layout: 'vertical',
+                        align: 'right',
+                        verticalAlign: 'middle'
                     },
-
+                    colorAxis: {
+                        showInLegend: false,
+                        min: 0,
+                        minColor: '#E6E7E8',
+                        maxColor: '#005645'
+                    },
                     mapNavigation: {
                         enabled: false,
                         buttonOptions: {
@@ -893,65 +882,6 @@
                             }
                         }
                     },
-
-                    legend: {
-                        layout: 'horizontal',
-                        borderWidth: 0,
-                        // backgroundColor: 'rgba(255,255,255,0.85)',
-                        floating: false,
-                        verticalAlign: 'bottom',
-                        symbolHeight: 12,
-                        symbolWidth: 600,
-                        //width:800,
-                        y: 10
-                    },
-//                    legend: {
-//                        align: "center"
-//                        backgroundColor: undefined
-//                        borderColor: "#999999"
-//                        borderRadius: 0
-//                        borderWidth: 0
-//                        enabled: true
-//                        floating: false
-//                        itemDistance: 8
-//                        itemHiddenStyle: { "color": "#cccccc" }
-//                        itemHoverStyle: { "color": "#000000" }
-//                        itemMarginBottom: 0
-//                        itemMarginTop: 0
-//                        itemStyle: { "color": "#333333", "cursor": "pointer", "fontSize": "12px", "fontWeight": "bold" }
-//                        itemWidth: undefined
-//                        labelFormat: "{name}"
-//                        labelFormatter: undefined
-//                        layout: "horizontal"
-//                        margin: 12
-//                        maxHeight: undefined
-//                        navigation: {
-//                            activeColor: "#003399"
-//                            animation: true
-//                            arrowSize: 12
-//                            enabled: true
-//                            inactiveColor: "##cccccc"
-//                            style: undefined
-//                        }
-//                        padding: 8
-//                        reversed: false
-//                        rtl: false
-//                        shadow: false
-//                        squareSymbol: true
-//                        symbolHeight: undefined
-//                        symbolPadding: 5
-//                        symbolRadius: undefined
-//                        symbolWidth: undefined
-//                        title: {
-//                            style: {"fontWeight":"bold"}
-//                            text: null
-//                        }
-//                        useHTML: false
-//                        verticalAlign: "bottom"
-//                        width: undefined
-//                        x: 0
-//                        y: 0
-//                    }
                     series: [{
                         borderWidth: 0,
                         animation: false,
@@ -1023,18 +953,7 @@
 
         function chartProductionData(data) {
             // alert(data);
-            if (highChartSample1 != null && !sized) {
-                $.each(highChartSample1.series, function (i, _series) {
-                    _series.update({
-                        data: data[i]
-                    }, true);
-                });
-                return;
-            }
             highChartSample1 = new Highcharts.chart('products', {
-                chart: {
-                    animation: false
-                },
                 title: {
                     text: 'OEE WITH RANGES',
                     style: {
@@ -1064,7 +983,7 @@
                     plotLines: [{
                         color: 'red', // Color value
                         //dashStyle: 'longdashdot', // Style of the plot line. Default to solid
-                        value: 82, // Value of where the line will appear
+                        value: 92, // Value of where the line will appear
                         width: 2 // Width of the line
                     }]
                 },
@@ -1146,14 +1065,6 @@
         }
 
         function chartQualityData(data) {
-            if (highChartSample2 != null && !sized) {
-                $.each(highChartSample2.series, function (i, _series) {
-                    _series.update({
-                        data: data[i]
-                    }, true);
-                });
-                return;
-            }
             //alert(data);
             highChartSample2 = Highcharts.chart('parts', {
                 legend: {
@@ -1287,14 +1198,6 @@
         }
 
         function chartHistogramData(data) {
-            if (highChartSample3 != null && !sized) {
-                $.each(highChartSample3.series, function (i, _series) {
-                    _series.update({
-                        data: data[i]
-                    }, true);
-                });
-                return;
-            }
             //alert(data);
             highChartSample3 = Highcharts.chart('histogram', {
                 legend: {
@@ -1320,7 +1223,7 @@
                     plotBands: [{
                         color: '#42f453', // Color value
                         from: -0.07, // Start of the plot band
-                        to: 0.38 // End of the plot band
+                        to: 0.35 // End of the plot band
                     }],
                     plotLines: [{
                         color: 'red', // Color value
@@ -1591,7 +1494,6 @@
                     }
                 }]
             }));
-            sized = false;
         }
 
         // ******************		SHOW ONLY MAP		*****************************************************************************
@@ -1624,7 +1526,7 @@
         function pageInit() {
             $.get('maps/' + selectedUnitName + '.json').done(function () {
                 //   cc('done');
-//                nrRows = 7;
+                nrRows = 7;
                 $("#mesm_maps").show();
                 $("#charts").show();
                 var e = document.getElementById('mesm_container');
@@ -1635,7 +1537,7 @@
                 getChartsData();
                 return;
             }).fail(function (error) {
-//                nrRows = 7;
+                nrRows = 7;
                 document.getElementById('mesm_maps').style.display = 'none';
                 document.getElementById('charts').style.display = 'none';
                 document.getElementById('mesm_container').style.width = '100%';
@@ -1645,24 +1547,8 @@
 
             });
         }
-        function getANDMStatusColor() {
-            var url = "/XMII/Illuminator?QueryTemplate=MESM/ANDM/QUERIES/get_StatusColorsData&Param.1=" + selectedMapStatusID + "&Content-Type=text/xml";
-            getData(url, parseJsonParent);
-            function parseJsonParent(jsondata) {
-                cc(StatusColors['recordID']);
-                StatusColors['recordID'] = jsondata[0]['recordID'];
-                StatusColors['statusPropertyID'] = jsondata[0]['statusPropertyID'];
-                StatusColors['minColor'] = jsondata[0]['minColor'];
-                StatusColors['maxColor'] = jsondata[0]['maxColor'];
-                StatusColors['ValueStep1'] = jsondata[0]['ValueStep1'];
-                StatusColors['ColorStep1'] = jsondata[0]['ColorStep1'];
-                StatusColors['ValueStep2'] = jsondata[0]['ValueStep2'];
-                StatusColors['ColorStep2'] = jsondata[0]['ColorStep2'];
-                StatusColors['ValueStep3'] = jsondata[0]['ValueStep3'];
-                StatusColors['ColorStep3'] = jsondata[0]['ColorStep3'];
-            }
-        }
-        window.setInterval(getMapStatus, 5 * 1000);
+
+        window.setInterval(getMapStatus, 15 * 1000);
 
         window.setInterval(getTreeData, 20 * 1000);
 
@@ -1683,7 +1569,7 @@
 <input id="unit_name" type="hidden" value="{UNIT}" style="display:block;width:1000px;" readonly/>
 <input id="status_id" type="hidden" value="{STATUS}" style="display:block;width:1000px;" readonly/>
 
-<div id="app_header" class="app_header" style="display: none;">
+<div class="app_header" style="display: none;">
     <div id="app_title">CORE TRACEABILITY</div>
     <div id="page_title"></div>
     <div id="app_menu"></div>
@@ -1697,11 +1583,11 @@
         <div id="mesm_content"></div>
     </div>
 
-    <div id="charts" style="padding-top: 20px; margin-left: 75%; width: 20%;">
+    <div id="charts" style="padding-top: 20px; margin-left: 70%; width: 20%;">
         <div id="products" style="min-width: 310px; max-width: 380px; height: 200px; margin: 0 auto"></div>
         <div id="parts" style="min-width: 310px; max-width: 380px; height: 200px; margin: 0 auto"></div>
         <div id="histogram" style="min-width: 310px; max-width: 380px; height: 200px; margin: 0 auto"></div>
-        <div id="gear" style="width: 400px; height: 150px; margin: 0 auto">
+        <div style="width: 400px; height: 300px; margin: 0 auto">
             <div id="container-shift" style="width: 200px; height: 150px; float: left"></div>
             <div id="container-compare" style="width: 200px; height: 150px; float: left"></div>
         </div>

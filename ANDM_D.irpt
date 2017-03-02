@@ -728,7 +728,7 @@
                     winH = window.innerHeight;
                 }
                 if (!$('#app_header').is(":hidden")) {
-                    winH -= 95;
+                    winH -= 100;
                 }
                 cc(winH);
                 if (broswerHeigh != winH) {
@@ -737,9 +737,9 @@
                 }
 
                 //todo
-                document.getElementById('products').setAttribute("style", "height:" + (winH - 205) / 3 + "px");
-                document.getElementById('parts').setAttribute("style", "height:" + (winH - 205) / 3 + "px");
-                document.getElementById('histogram').setAttribute("style", "height:" + (winH - 205) / 3 + "px");
+                document.getElementById('products').setAttribute("style", "height:" + (winH - 208) / 3 + "px");
+                document.getElementById('parts').setAttribute("style", "height:" + (winH - 208) / 3 + "px");
+                document.getElementById('histogram').setAttribute("style", "height:" + (winH - 208) / 3 + "px");
 //                document.getElementById('gear').setAttribute("style", "height:" + winH * 3 / 9 + "px");
 //                document.getElementById('container-shift').setAttribute("style", "height:" + winH * 2 / 9 + "px");
 //                document.getElementById('container-compare').setAttribute("style", "height:" + winH * 2 / 9 + "px");

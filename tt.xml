@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Servers Version="15.0.4.11">
+    <Server Connector="AggregateConnector" ConnectorID="0" ConnectorType="AGG"
+            Description="Default Aggregate Query Server" Enabled="T" Name="AggregateConnector"
+            ServerPackage="com.sap.xmii.Illuminator.connectors.AggregateQuery"/>
+    <Server AllowDynamicQuery="1" Connector="IDBC" ConnectorID="2" ConnectorType="SQL" DatePrefix="'" DateSuffix="'"
+            DaysRetention="7" Description="CRPM database" Enabled="T" InitCommand=""
+            InternalDateFormat="yyyy-MM-dd HH:mm:ss" JDBCDriver="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+            MaxRetryCount="5" Name="CLEARPATH" Password="YWRtaW4=" PoolMax="100" PoolSize="25" RetryInterval="60000"
+            ServerPackage="com.sap.xmii.Illuminator.connectors.IDBC"
+            ServerURL="jdbc:sqlserver://10.0.0.40:1433;database=CRPM" Timeout="15" UseCount="256" UserName="sa"
+            ValidationQuery="SELECT GETDATE()" WaitTime="30"/>
+    <Server CatalogInstanceName="DefaultPlantInformationCatalog" Connector="CatalogConnector" ConnectorID="25"
+            ConnectorType="PIC" Description="Default Plant Information Catalog Server" Enabled="T"
+            Name="CatalogConnector" ServerPackage="com.sap.xmii.Illuminator.connectors.ETCConnector"/>
+    <Server AllowDynamicQuery="1" Connector="IDBC" ConnectorID="2" ConnectorType="SQL" DatePrefix="'" DateSuffix="'"
+            DaysRetention="7" Description="DSHM database" Enabled="T" InitCommand=""
+            InternalDateFormat="yyyy-MM-dd HH:mm:ss" JDBCDriver="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+            MaxRetryCount="5" Name="DSHM" Password="YWRtaW4=" PoolMax="100" PoolSize="25" RetryInterval="60000"
+            ServerPackage="com.sap.xmii.Illuminator.connectors.IDBC"
+            ServerURL="jdbc:sqlserver://10.0.0.40:1433;database=DSHM" Timeout="15" UseCount="256" UserName="sa"
+            ValidationQuery="SELECT GETDATE()" WaitTime="30"/>
+    <Server AllowDynamicQuery="1" Connector="IDBC" ConnectorID="2" ConnectorType="SQL" DatePrefix="'" DateSuffix="'"
+            DaysRetention="7" Description="PYXIS DANA FortWayne ASSEMBLY Database" Enabled="T" InitCommand=""
+            InternalDateFormat="yyyy-MM-dd HH:mm:ss" JDBCDriver="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+            MaxRetryCount="5" Name="D_FW_11509" Password="MTFEYW5za0NvdXJ0" PoolMax="100" PoolSize="25"
+            RetryInterval="60000" ServerPackage="com.sap.xmii.Illuminator.connectors.IDBC"
+            ServerURL="jdbc:sqlserver://10.0.0.41:1433;database=Dana_FortWayne_11509" Timeout="15" UseCount="256"
+            UserName="MII_USER" ValidationQuery="SELECT GETDATE()" WaitTime="30"/>
+    <Server AllowDynamicQuery="1" Connector="IDBC" ConnectorID="2" ConnectorType="SQL" DatePrefix="'" DateSuffix="'"
+            DaysRetention="7" Description="GENM database" Enabled="T" InitCommand=""
+            InternalDateFormat="yyyy-MM-dd HH:mm:ss" JDBCDriver="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+            MaxRetryCount="5" Name="GENM" Password="YWRtaW4=" PoolMax="100" PoolSize="25" RetryInterval="60000"
+            ServerPackage="com.sap.xmii.Illuminator.connectors.IDBC"
+            ServerURL="jdbc:sqlserver://10.0.0.40:1433;database=GENM" Timeout="15" UseCount="256" UserName="sa"
+            ValidationQuery="SELECT GETDATE()" WaitTime="30"/>
+    <Server AllowDynamicQuery="1" Connector="IDBC" ConnectorID="2" ConnectorType="SQL" DatePrefix="'" DateSuffix="'"
+            DaysRetention="7" Description="PLT DB database" Enabled="T" InitCommand=""
+            InternalDateFormat="yyyy-MM-dd HH:mm:ss" JDBCDriver="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+            MaxRetryCount="5" Name="KL_PLT_DB" Password="YWRtaW4=" PoolMax="100" PoolSize="5" RetryInterval="60000"
+            ServerPackage="com.sap.xmii.Illuminator.connectors.IDBC"
+            ServerURL="jdbc:sqlserver://10.0.0.40:1433;database=MII_KL_PLT_PRD" Timeout="15" UseCount="256"
+            UserName="sa" ValidationQuery="SELECT GETDATE()" WaitTime="30"/>
+    <Server AllowDynamicQuery="false" Connector="KPIConnector" ConnectorID="27" ConnectorType="KPI" DatePrefix="'"
+            DateSuffix="'" DaysRetention="7" Description="Default KPI Server" Enabled="T"
+            InternalDateFormat="yyyy-MM-dd HH:mm:ss" MaxRetryCount="5" Name="KPIConnector" RetryInterval="60000"
+            ServerPackage="com.sap.xmii.Illuminator.connectors.KPI"/>
+    <Server AllowDynamicQuery="false" Connector="MDOConnector" ConnectorID="21" ConnectorType="MDO" DatePrefix="'"
+            DateSuffix="'" DaysRetention="7" Description="MDO Connector" Enabled="T"
+            InternalDateFormat="yyyy-MM-dd HH:mm:ss" MaxRetryCount="5" Name="MDOConnector" RetryInterval="60000"
+            ServerPackage="com.sap.xmii.Illuminator.connectors.MDO"/>
+    <Server AllowDynamicQuery="1" Connector="IDBC" ConnectorID="2" ConnectorType="SQL" DatePrefix="'" DateSuffix="'"
+            DaysRetention="7" Description="MES database" Enabled="T" InitCommand=""
+            InternalDateFormat="yyyy-MM-dd HH:mm:ss" JDBCDriver="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+            MaxRetryCount="5" Name="MES" Password="YWRtaW4=" PoolMax="100" PoolSize="25" RetryInterval="60000"
+            ServerPackage="com.sap.xmii.Illuminator.connectors.IDBC"
+            ServerURL="jdbc:sqlserver://10.0.0.40:1433;database=MES" Timeout="15" UseCount="256" UserName="sa"
+            ValidationQuery="SELECT GETDATE()" WaitTime="30"/>
+    <Server AllowDynamicQuery="1" Connector="IDBC" ConnectorID="2" ConnectorType="SQL" DatePrefix="'" DateSuffix="'"
+            DaysRetention="7" Description="MESM database" Enabled="T" InitCommand=""
+            InternalDateFormat="yyyy-MM-dd HH:mm:ss" JDBCDriver="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+            MaxRetryCount="5" Name="MESM" Password="YWRtaW4=" PoolMax="100" PoolSize="25" RetryInterval="60000"
+            ServerPackage="com.sap.xmii.Illuminator.connectors.IDBC"
+            ServerURL="jdbc:sqlserver://10.0.0.40:1433;database=MESM" Timeout="15" UseCount="256" UserName="sa"
+            ValidationQuery="SELECT GETDATE()" WaitTime="30"/>
+    <Server AgentIP="sappco15" AgentName="MES_STA_2310" AgentPort="9002" CertificateKeyStore="" CertificateName=""
+            Connector="PCoConnector" ConnectorID="22" ConnectorType="PCo" DatePrefix="'" DateSuffix="'"
+            DaysRetention="7" Description="Duplicate L63B PLC local" Enabled="T"
+            InternalDateFormat="yyyy-MM-dd HH:mm:ss" MaxRetryCount="5" Name="MES_STA_2310"
+            PCoMgmtServicePassword="MTFEYW5za0NvdXJ0" PCoMgmtServiceURL="http://SAPPCO15:50050/PCoManagement"
+            PCoMgmtServiceUser="MII_PCO" QueryTimeout="60" RetryInterval="60000"
+            ServerPackage="com.sap.xmii.Illuminator.connectors.PCo" UseSSL="false" WebSocketPort="" Writable="true"/>
+    <Server AgentIP="sappco15" AgentName="MES_Sta_XX_TRACE" AgentPort="9001" CertificateKeyStore="" CertificateName=""
+            Connector="PCoConnector" ConnectorID="22" ConnectorType="PCo" DatePrefix="'" DateSuffix="'"
+            DaysRetention="7" Description="Trace Station L63B PLC Local" Enabled="T"
+            InternalDateFormat="yyyy-MM-dd HH:mm:ss" MaxRetryCount="5" Name="MES_Sta_XX_TRACE"
+            PCoMgmtServicePassword="MTFEYW5za0NvdXJ0" PCoMgmtServiceURL="http://SAPPCO15:50050/PCoManagement"
+            PCoMgmtServiceUser="MII_PCO" QueryTimeout="60" RetryInterval="60000"
+            ServerPackage="com.sap.xmii.Illuminator.connectors.PCo" UseSSL="false" WebSocketPort="" Writable="true"/>
+    <Server AllowDynamicQuery="1" Connector="IDBC" ConnectorID="2" ConnectorType="SQL" DatePrefix="'" DateSuffix="'"
+            DaysRetention="7" Description="NRG DB at 10.0.0.40 with SA user" Enabled="T" InitCommand=""
+            InternalDateFormat="yyyy-MM-dd HH:mm:ss" JDBCDriver="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+            MaxRetryCount="5" Name="NRG" Password="YWRtaW4=" PoolMax="100" PoolSize="10" RetryInterval="60000"
+            ServerPackage="com.sap.xmii.Illuminator.connectors.IDBC"
+            ServerURL="jdbc:sqlserver://10.0.0.40:1433;database=NRGM" Timeout="15" UseCount="256" UserName="sa"
+            ValidationQuery="SELECT GETDATE()" WaitTime="30"/>
+    <Server AllowDynamicQuery="1" Connector="IDBC" ConnectorID="2" ConnectorType="SQL" DatePrefix="'" DateSuffix="'"
+            DaysRetention="7" Description="OEEM database" Enabled="T" InitCommand=""
+            InternalDateFormat="yyyy-MM-dd HH:mm:ss" JDBCDriver="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+            MaxRetryCount="5" Name="OEEM" Password="YWRtaW4=" PoolMax="100" PoolSize="25" RetryInterval="60000"
+            ServerPackage="com.sap.xmii.Illuminator.connectors.IDBC"
+            ServerURL="jdbc:sqlserver://10.0.0.40:1433;database=OEEM" Timeout="15" UseCount="256" UserName="sa"
+            ValidationQuery="SELECT GETDATE()" WaitTime="30"/>
+    <Server AllowDynamicQuery="1" Connector="IDBC" ConnectorID="2" ConnectorType="SQL" DatePrefix="'" DateSuffix="'"
+            DaysRetention="7" Description="OPERATORS Plant 1001 - SPCM Database" Enabled="T" InitCommand=""
+            InternalDateFormat="yyyy-MM-dd HH:mm:ss" JDBCDriver="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+            MaxRetryCount="5" Name="OPS_1001" Password="YWRtaW4=" PoolMax="100" PoolSize="15" RetryInterval="60000"
+            ServerPackage="com.sap.xmii.Illuminator.connectors.IDBC"
+            ServerURL="jdbc:sqlserver://10.0.0.35:1433;database=RTS_SPCM" Timeout="15" UseCount="256" UserName="sa"
+            ValidationQuery="SELECT GETDATE()" WaitTime="30"/>
+    <Server Connector="PCoSimulator" ConnectorID="28" ConnectorType="PCo" Description="Default PCo Simulation Server"
+            Enabled="T" Name="PCoSimulator" ServerPackage="com.sap.xmii.Illuminator.connectors.Simulator"
+            SimulatorInstanceName="DefaultPCoSimulator"/>
+    <Server AllowDynamicQuery="1" Connector="IDBC" ConnectorID="2" ConnectorType="SQL" DatePrefix="'" DateSuffix="'"
+            DaysRetention="7" Description="SPCM database" Enabled="T" InitCommand=""
+            InternalDateFormat="yyyy-MM-dd HH:mm:ss" JDBCDriver="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+            MaxRetryCount="5" Name="SPCM" Password="YWRtaW4=" PoolMax="100" PoolSize="25" RetryInterval="60000"
+            ServerPackage="com.sap.xmii.Illuminator.connectors.IDBC"
+            ServerURL="jdbc:sqlserver://10.0.0.40:1433;database=SPCM" Timeout="15" UseCount="256" UserName="sa"
+            ValidationQuery="SELECT GETDATE()" WaitTime="30"/>
+    <Server Connector="Simulator" ConnectorID="9" ConnectorType="TAG" Description="Default Simulation Server"
+            Enabled="T" Name="Simulator" ServerPackage="com.sap.xmii.Illuminator.connectors.Simulator"
+            SimulatorInstanceName="DefaultSimulator"/>
+    <Server AllowDynamicQuery="1" Connector="IDBC" ConnectorID="2" ConnectorType="SQL" DatePrefix="'" DateSuffix="'"
+            DaysRetention="7" Description="Test Bed Module Database" Enabled="T" InitCommand=""
+            InternalDateFormat="yyyy-MM-dd HH:mm:ss" JDBCDriver="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+            MaxRetryCount="5" Name="TSTM" Password="YWRtaW4=" PoolMax="100" PoolSize="25" RetryInterval="60000"
+            ServerPackage="com.sap.xmii.Illuminator.connectors.IDBC"
+            ServerURL="jdbc:sqlserver://10.0.0.40:1433;database=TSTM" Timeout="15" UseCount="256" UserName="sa"
+            ValidationQuery="SELECT GETDATE()" WaitTime="30"/>
+    <Server Connector="XMLConnector" ConnectorID="11" ConnectorType="XML" Description="Default XMLConnector Server"
+            Enabled="T" Name="XMLConnector" ServerPackage="com.sap.xmii.Illuminator.connectors.XML"/>
+    <Server AutoBind="true" Connector="XacuteConnector" ConnectorID="12" ConnectorType="XCT"
+            Description="Illuminator Xacute" Enabled="T" Name="XacuteConnector"
+            ServerPackage="com.sap.xmii.Illuminator.connectors.Xacute"/>
+</Servers>

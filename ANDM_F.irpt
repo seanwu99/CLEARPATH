@@ -347,6 +347,7 @@
                     // alert("Items \"" + oEvent.getParameter("itemId") + "\" was selected.");
                     break;
             }
+            getMapStatus();
         });
 
         // **************************		BUTTONS MATRIX		***********************************************************************************************
@@ -413,7 +414,19 @@
             selectedMapStatusID = 2;
         }
 
-        // ****************************************************************************************************************************************************
+        function doResetMapAVLB() {
+            selectedMapStatusID = 3 ;
+        }
+
+        function doResetMapPERF() {
+            selectedMapStatusID = 4 ;
+        }
+
+        function doResetMapQLT() {
+            selectedMapStatusID = 5 ;
+        }
+
+        // ******************************************************************************************************************
 
         var oMatrixT = new sap.ui.commons.layout.MatrixLayout({
             id: 'MatrixT',
@@ -485,8 +498,7 @@
             text: 'SELECTED UNIT ',
         });
 
-        oCell_SU = new sap.ui.commons.layout.MatrixLayoutCell({height: '30px'});
-
+        oCell_SU = new sap.ui.commons.layout.MatrixLayoutCell({height : '30px'});
         oCell_SU.addContent(oLabelSelectedUnit);
 
         oMatrixT.createRow(oCell_SU);
@@ -520,8 +532,7 @@
             }
         });
 
-
-        function createColumnsHrchy() {
+        function createColumnsHrchy(){
             oTable.addColumn(new sap.ui.table.Column({
                 label: new sap.ui.commons.Label({text: "UNIT NAME"}),
                 template: new sap.ui.commons.TextView().bindProperty("text", "unitName"),
@@ -649,7 +660,6 @@
                     //	alert (map_key);
 
                     colors_in[map_key] = map_status;
-//                    cc(i + '_colors_>>' + map_key + '<<_' + map_status);
                 }
             }
 
@@ -701,8 +711,8 @@
         var highChartSample4;
         var highChartSample5;
         var theMapsName = '';
-        function mapsInit() {
 
+        function mapsInit() {
             if (theMapsName == selectedUnitName) {
                 var mapsData = highchartMap.series[0].data;
                 $.each(mapsData, function (i, iData) {
@@ -733,15 +743,12 @@
                         color: color_value
                     });
                     highchartMap.reflow();
-//                if (_data.drilldown = '') {
-//                }
-
                 });
                 return;
             }
 
             $.get('maps/' + selectedUnitName + '.json', function (data) {
-                console.log(theMapsName, ' / ', selectedUnitName);
+//                console.log(theMapsName, ' / ', selectedUnitName);
                 theMapsName = selectedUnitName;
                 var mapData = Highcharts.geojson(data);
 
@@ -793,9 +800,9 @@
                                 $.get('maps/' + _drilldown + '.json', function (data) {
                                     var mapDrilldown = Highcharts.geojson(data);
                                     $.each(mapDrilldown, function (i) {
-                                        if (this.properties['hc-key'] != _drilldown) {
-                                            this.drilldown = this.properties['hc-key'];
-                                        }
+//                                        if (this.properties['hc-key'] != _drilldown) {
+                                        this.drilldown = this.properties['KEY'];
+//                                        }
 
                                         var this_param3 = this.properties['PARAM3'];
                                         var this_key = this.properties['KEY'];

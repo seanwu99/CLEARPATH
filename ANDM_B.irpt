@@ -32,6 +32,8 @@
             font-family: "Arial Black", Arial, Helvetica, sans-serif;
             font-size: 32px;
             color: #007dc0;
+            padding-bottom: 5px;
+            padding-top: 0px;
             /*margin-bottom;*/
             /*20px;*/
         }
@@ -50,6 +52,20 @@
             color: #cfcfcf;
         }
 
+        #mesm_maps {
+            /*border-size: 0px;*/
+            /*border-style: solid;*/
+            /*border-color: black;*/
+        }
+
+        #L-Roles {
+            text-align: center;
+            font-family: "Arial Black", Arial, Helvetica, sans-serif;
+            font-size: 28px;
+            color: #cfcfcf;
+            height: 35px;
+        }
+
         #__button0, #__button1, #__button2 {
             margin-top: 10px;
             margin-left: 5px;
@@ -58,14 +74,6 @@
 
         #MatrixT, #MatrixB {
             margin: 10px auto;
-        }
-
-        #__cell2, #__cell3, #__cell4, #__cell5, #__cell6 {
-            text-align: center;
-        }
-
-        #__cell0 {
-            text-align: right;
         }
 
         #PlantsList {
@@ -86,12 +94,48 @@
             cursor: pointer;
         }
 
-        #B-Alerts,#B-OEE,#B-Availability,#B-Performance,#B-Quality,#B-Settings  {
-            width:140px;
-            height:25px;
-            font-size:12px;
-            font-family: Arial,Helvetica,sans-serif;
+        #B-Alerts, #B-OEE, #B-Availability, #B-Performance, #B-Quality, #B-Settings {
+            width: 140px;
+            height: 25px;
+            font-size: 12px;
+            font-family: Arial, Helvetica, sans-serif;
             /*	color: #007dc0;	*/
+        }
+
+        #RB-Options {
+            width: 600px;
+            height: 20px;
+            font-size: 14px;
+            font-family: "Arial Black", Arial, Helvetica, sans-serif;
+            color: #007dc0;
+        }
+
+        #L-SelectedUnit {
+            text-align: center;
+            font-family: "Arial Black", Arial, Helvetica, sans-serif;
+            font-size: 20px;
+            /*color: #cfcfcf;*/
+            color: #007dc0;
+        }
+
+        #__cell0 {
+            text-align: right;
+        }
+
+        #__cell1 {
+            height: 40px;
+        }
+
+        #__cell2, #__cell3, #__cell5, #__cell6 {
+            text-align: center;
+        }
+
+        #__cell4 {
+            text-align: left;
+        }
+
+        #__cell9 {
+            text-align: center;
         }
 
     </style>
@@ -104,7 +148,6 @@
     </script>
 
     <script src="Common/js/default.js"></script>
-
 
     <script src="Common/js/highcharts/highcharts.js"></script>
     <script src="Common/js/highcharts/highcharts-more.js"></script>
@@ -119,7 +162,7 @@
         // Get Core SAP UI5
         var oCore = sap.ui.getCore();
         // Initialize screen
-        var nrRows = 10;
+        var nrRows = 8;
         var selectedIndex = -1;
         // *********************************************************************************************************************
         // initialize access
@@ -129,30 +172,31 @@
         // ***************************  SELECTION TRACKING  & UPDATE PARAMETERS**************************************************************************************
 
         var selectedPlant = '';
-        var selectedUnitName = '' ;			// TOLEDO
-        var selectedUnitID =0;
+        var selectedUnitName = '';			// TOLEDO
+        var selectedUnitID = 0;
         var selectedParentID = 0;
-        var  selectedMapStatusID = 1 ;	// 1- Alerts, 2- OEE, 3- Availability, 4- Performance, 5 - Quality
+        var selectedMapStatusID = 1;	// 1- Alerts, 2- OEE, 3- Availability, 4- Performance, 5 - Quality
         var selectedTimeFrom = '';
         var selectedTimeTo = '';
         var selectedTestID = '0';
 
+        var role2Access = "";
+
         function roleSecurity() {
 
-            selectedUnitName = document.getElementById("unit_name").value ;				//   SETING
-            selectedMapStatusID = document.getElementById("status_id").value ;				//   SETING
+            selectedUnitName = document.getElementById("unit_name").value;				//   SETING
+            selectedMapStatusID = document.getElementById("status_id").value;				//   SETING
 
             selectedTimeFrom = '01-01-2017 00:00';								//   SETING
-            selectedTimeTo = '01-21-2017 00:00';																					//   SETING
+            selectedTimeTo = '01-21-2017 00:00';								//   SETING
 
             var myRoles = document.getElementById("user_roles").value;
-            var role2Access = "MESM_" + document.getElementById("user_role").value;
+            role2Access = "MESM_" + document.getElementById("user_role").value;
             // alert(role2Access);
 
             if (myRoles.indexOf(role2Access) < 0) {
                 window.location.assign("security.irpt");
             } else {
-
                 var roleString = document.getElementById("user_role").value;
                 var roleArray = roleString.split("_");
                 level2Access = roleArray[0];
@@ -160,50 +204,39 @@
 
                 updatePlants(plant2Access);
 
-                selectedPlant = '1006';								//   SETING
-                selectedUnitID = 268;			//   SETING
-                selectedParentID = 0;			//   SETING
+                selectedPlant = '1006';			//   SETING
+                getUnitID(selectedUnitName);			//   SETING	selectedParentID = 0;
+                selectedUnitID = 268	// SETING ; - hardcoded to get charts which have data only for unit 268
 
-                getTreeData();
-                pageInit();
-
-                document.getElementById("page_title").innerHTML = role2Access;
-
+                setTimeout(getTreeData, 1000);
+                setTimeout(pageInit, 2000);
                 var role_ADM = "MESM_ADM_" + plant2Access;
                 var role_ENG = "MESM_ENG_" + plant2Access;
                 var role_SUP = "MESM_SUP_" + plant2Access;
                 var role_OPS = "MESM_OPS_" + plant2Access;
 
                 switch (role2Access) {
-
                     case "MESM_ADM_ALL":
-
                         // update screen
-                        document.getElementById("page_title").innerHTML = "ADM ALL PLANTS";
-                        //oMenuButton1.placeAt("app_menu");
+                        oCore.byId('L-Roles').setText("ADM ALL PLANTS");
+                        oMatrixT.placeAt('mesm_content');
+                        oMatrixB.placeAt('page_title');
+                        break;
+                    case role_ADM:
+                        // update screen
                         oMatrixT.placeAt('mesm_content');
                         oMatrixB.placeAt('app_menu');
                         break;
-
-                    case role_ADM:
-
-                        // update screen
-                        document.getElementById("page_title").innerHTML = "ADM PLANT " + plant2Access;
-                        oMatrixT.placeAt('mesm_content');
-                        break;
-
                     case "MESM_OPS_ALL":
-
-                        document.getElementById("page_title").innerHTML = "OPS ALL PLANTS";
+                        // update screen
                         oMatrixT.placeAt('mesm_content');
+                        oMatrixB.placeAt('app_menu');
                         break;
-
                     case role_OPS:
-
-                        document.getElementById("page_title").innerHTML = "OPS PLANT " + plant2Access;
+                        // update screen
                         oMatrixT.placeAt('mesm_content');
+                        oMatrixB.placeAt('app_menu');
                         break;
-
                     default:
                         alert("MES Module Role Unknown: " + role2Access);
                         break;
@@ -213,197 +246,193 @@
 
         //*************************************************************************************************
 
-        var oMenuButton1 = new sap.ui.commons.MenuButton( "B-Settings",{text: "Maps"});
-        var oMenu1 = new sap.ui.commons.Menu("menu1", {ariaDescription: "Map Setup", enabled:true});
+        var oMenuButton1 = new sap.ui.commons.MenuButton("B-Settings", {text: "Maps"});
+        var oMenu1 = new sap.ui.commons.Menu("menu1", {ariaDescription: "Map Setup", enabled: true});
 
-        var oMenuItem1 = new sap.ui.commons.MenuItem("item1-0-1",{text: "TOLEDO", enabled: true});
+        var oMenuItem1 = new sap.ui.commons.MenuItem("item1-0-1", {text: "TOLEDO", enabled: true});
         oMenu1.addItem(oMenuItem1);
         //***************************************
-        var oMenuItem2 = new sap.ui.commons.MenuItem("item1-0-2",{text: " ALL ASSY", enabled: true});
-        var oMenu2 = new sap.ui.commons.Menu("menu2", {ariaDescription: "ALL ASSY", enabled:true});
-        var oMenuItem21 = new sap.ui.commons.MenuItem("item1-1-2",{text: "ALL ASSY", enabled: true});
+
+        var oMenuItem2 = new sap.ui.commons.MenuItem("item1-0-2", {text: " ALL ASSY", enabled: true});
+        var oMenu2 = new sap.ui.commons.Menu("menu2", {ariaDescription: "ALL ASSY", enabled: true});
+        var oMenuItem21 = new sap.ui.commons.MenuItem("item1-1-2", {text: "ALL ASSY", enabled: true});
         oMenu2.addItem(oMenuItem21);
         oMenuItem2.setSubmenu(oMenu2);
         oMenu1.addItem(oMenuItem2);
         //***************************************
-        var oMenuItem3 = new sap.ui.commons.MenuItem("item1-0-3",{text: "FORD P558", enabled: true});
-        var oMenu3 = new sap.ui.commons.Menu("menu3", {ariaDescription: "FORD P558", enabled:true});
-        var oMenuItem31 = new sap.ui.commons.MenuItem("item1-1-3",{text: "FORD AXLE ASSY", enabled: true});
+
+        var oMenuItem3 = new sap.ui.commons.MenuItem("item1-0-31", {text: "FORD P558", enabled: true});
+        var oMenu3 = new sap.ui.commons.Menu("menu3", {ariaDescription: "FORD P558", enabled: true});
+        var oMenuItem30 = new sap.ui.commons.MenuItem("item1-0-3", {text: "FORD P558", enabled: true});
+        oMenu3.addItem(oMenuItem30);
+        var oMenuItem31 = new sap.ui.commons.MenuItem("item1-1-3", {text: "FORD AXLE ASSY", enabled: true});
         oMenu3.addItem(oMenuItem31);
-        var oMenuItem32 = new sap.ui.commons.MenuItem("item1-2-3",{text: "FORD CS1 ASSY", enabled: true});
+        var oMenuItem32 = new sap.ui.commons.MenuItem("item1-2-3", {text: "FORD CS1 ASSY", enabled: true});
         oMenu3.addItem(oMenuItem32);
-        var oMenuItem33 = new sap.ui.commons.MenuItem("item1-3-3",{text: "FORD CS2 ASSY", enabled: true});
+        var oMenuItem33 = new sap.ui.commons.MenuItem("item1-3-3", {text: "FORD CS2 ASSY", enabled: true});
         oMenu3.addItem(oMenuItem33);
         oMenuItem3.setSubmenu(oMenu3);
         oMenu1.addItem(oMenuItem3);
         //***************************************
-        var oMenuItem4 = new sap.ui.commons.MenuItem("item1-0-4",{text: "JL FRONT_REAR", enabled: true});
-        var oMenu4 = new sap.ui.commons.Menu("menu4", {ariaDescription: "JL FRONT_REAR", enabled:true});
-        var oMenuItem41 = new sap.ui.commons.MenuItem("item1-1-4",{text: "FRONT CS ASSY", enabled: true});
+
+        var oMenuItem4 = new sap.ui.commons.MenuItem("item1-0-41", {text: "JL FRONT_REAR", enabled: true});
+        var oMenu4 = new sap.ui.commons.Menu("menu4", {ariaDescription: "JL FRONT_REAR", enabled: true});
+        var oMenuItem40 = new sap.ui.commons.MenuItem("item1-0-4", {text: "JL FRONT_REAR", enabled: true});
+        oMenu4.addItem(oMenuItem40);
+        var oMenuItem41 = new sap.ui.commons.MenuItem("item1-1-4", {text: "FRONT CS ASSY", enabled: true});
         oMenu4.addItem(oMenuItem41);
-        var oMenuItem42 = new sap.ui.commons.MenuItem("item1-2-4",{text: "REAR CS ASSY", enabled: true});
+        var oMenuItem42 = new sap.ui.commons.MenuItem("item1-2-4", {text: "REAR CS ASSY", enabled: true});
         oMenu4.addItem(oMenuItem42);
-        var oMenuItem43 = new sap.ui.commons.MenuItem("item1-3-4",{text: "FRONT AXLE ASSY", enabled: true});
+        var oMenuItem43 = new sap.ui.commons.MenuItem("item1-3-4", {text: "FRONT AXLE ASSY", enabled: true});
         oMenu4.addItem(oMenuItem43);
-        var oMenuItem44 = new sap.ui.commons.MenuItem("item1-4-4",{text: "REAR AXLE ASSY", enabled: true});
+        var oMenuItem44 = new sap.ui.commons.MenuItem("item1-4-4", {text: "REAR AXLE ASSY", enabled: true});
         oMenu4.addItem(oMenuItem44);
         oMenuItem4.setSubmenu(oMenu4);
         oMenu1.addItem(oMenuItem4);
         //***************************************
-        var oMenuItem5 = new sap.ui.commons.MenuItem("item1-0-5",{text: "JT COMBO", enabled: true});
-        var oMenu5 = new sap.ui.commons.Menu("menu5", {ariaDescription: "JT COMBO", enabled:true});
-        var oMenuItem51 = new sap.ui.commons.MenuItem("item1-1-5",{text: "COMBO CS ASSY", enabled: true});
+
+        var oMenuItem5 = new sap.ui.commons.MenuItem("item1-01-5", {text: "JT COMBO", enabled: true});
+        var oMenu5 = new sap.ui.commons.Menu("menu5", {ariaDescription: "JT COMBO", enabled: true});
+        var oMenuItem50 = new sap.ui.commons.MenuItem("item1-0-5", {text: "JT COMBO", name: "JT COMBO", enabled: true});
+        oMenu5.addItem(oMenuItem50);
+        var oMenuItem51 = new sap.ui.commons.MenuItem("item1-1-5", {text: "COMBO CS ASSY", enabled: true});
         oMenu5.addItem(oMenuItem51);
-        var oMenuItem52 = new sap.ui.commons.MenuItem("item1-2-5",{text: "COMBO AXLE ASSY", enabled: true});
+        var oMenuItem52 = new sap.ui.commons.MenuItem("item1-2-5", {text: "COMBO AXLE ASSY", enabled: true});
         oMenu5.addItem(oMenuItem52);
         oMenuItem5.setSubmenu(oMenu5);
         oMenu1.addItem(oMenuItem5);
 
         oMenuButton1.setMenu(oMenu1);
 
-
-        oMenuButton1.attachItemSelected(function (oEvent){
-
-            switch( oEvent.getParameter("itemId")) {
-                case "item1-0-1":
-                    selectedUnitName = "TOLEDO" ;
-                    selectedParentID = 0;
-                    break;
-                case "item1-0-2":
-                    selectedUnitName = "ALL ASSY" ;
-                    selectedParentID = 279;
-                    break;
-                case "item1-1-2":
-                    selectedUnitName = "ALL ASSY" ;
-                    selectedParentID = 269;
-                    break;
-                case "item1-0-3":
-                    selectedUnitName = "FORD P558" ;
-                    selectedParentID = 282;
-                    break;
-                case "item1-1-3":
-                    selectedUnitName = "FORD AXLE ASSY" ;
-                    selectedParentID = 276;
-                    break;
-                case "item1-2-3":
-                    selectedUnitName = "FORD CS1 ASSY" ;
-                    selectedParentID = 270;
-                    break;
-                case "item1-3-3":
-                    selectedUnitName = "FORD CS2 ASSY" ;
-                    selectedParentID = 275;
-                    break;
-                case "item1-0-4":
-                    selectedUnitName = "JL FRONT_REAR" ;
-                    selectedParentID = 280;
-                    break;
-                case "item1-1-4":
-                    selectedUnitName = "FRONT CS ASSY" ;
-                    selectedParentID = 271;
-                    break;
-                case "item1-2-4":
-                    selectedUnitName = "REAR CS ASSY" ;
-                    selectedParentID = 272;
-                    break;
-                case "item1-3-4":
-                    selectedUnitName = "FRONT AXLE ASSY" ;
-                    selectedParentID = 274;
-                    break;
-                case "item1-4-4":
-                    selectedUnitName = "REAR AXLE ASSY" ;
-                    selectedParentID = 273;
-                    break;
-                case "item1-0-5":
-                    selectedUnitName = "JT COMBO" ;
-                    selectedParentID = 281;
-                    break;
-                case "item1-1-5":
-                    selectedUnitName = "COMBO CS ASSY" ;
-                    selectedParentID = 278;
-                    break;
-                case "item1-2-5":
-                    selectedUnitName = "COMBO AXLE ASSY" ;
-                    selectedParentID = 278;
-                    break;
-                // Menu Default
-                default:
-                    // alert("Items \"" + oEvent.getParameter("itemId") + "\" was selected.");
-                    break;
-            }
+        oMenuButton1.attachItemSelected(function (oEvent) {
+            selectedUnitName = oCore.byId(oEvent.getParameter("itemId")).getText();
+            getUnitID(selectedUnitName);
+            // showOnlyMap();
         });
+
+
+        // ****************************************************************************************************************************************************
+
+        function getUnitID(unitName) {
+            var timestamp = new Date().getTime();
+            var unit_name = escapeSQLString(unitName);
+            getData("/XMII/Illuminator?QueryTemplate=MESM/ANDM/QUERIES/get_UnitID_byName&Param.1=" + unit_name + "&ts=" + timestamp + "&Content-Type=text/xml", parseJsonUnitID);
+            function parseJsonUnitID(jsondata) {
+                for (var i = 0; i < jsondata.length; i++) {
+                    selectedParentID = jsondata[i]['recordID'];
+                    // alert(selectedParentID);
+                }
+            }
+        }
 
         // **************************		BUTTONS MATRIX		***********************************************************************************************
 
         var oMatrixB = new sap.ui.commons.layout.MatrixLayout({
-            id : 'MatrixB',
-            layoutFixed : true,
-            width: '1440px',
-            columns : 9,
-            widths : ['160px','160px','160px','160px','160px','160px','160px','160px','160px']
+            id: 'MatrixB',
+            layoutFixed: true,
+            width: '1180px',
+            columns: 4,
+            widths: ['100px', '300px', '640px', '140px']
         });
 
         // ****************************************************************************************************************************************************
 
-        var oButtonAlerts = new sap.ui.commons.Button({
-            id : 'B-Alerts',
-            tooltip : "Alerts",
-            text : 'Alerts',
-            enabled: true
+        var oLabelRoles = new sap.ui.commons.Label({
+            id: 'L-Roles',
+            visible: true,
+            text: ' '
         });
-        oButtonAlerts.attachPress(doResetMapALRT);
 
-        var oButtonOEE = new sap.ui.commons.Button({
-            id : 'B-OEE',
-            tooltip : "OEE",
-            text : 'OEE',
-            enabled: true
+        var oRBG2 = new sap.ui.commons.RadioButtonGroup({
+            id: 'RB-Options',
+            tooltip: "Viewing Options",
+            columns: 5,
+            selectedIndex: 0,
+            select: function () {
+                selectedMapStatusID = oRBG2.getSelectedItem().getKey();
+                getMapStatus();
+                getTreeData();
+            }
         });
-        oButtonOEE.attachPress(doResetMapOEE);
 
-        var oButtonAvailability = new sap.ui.commons.Button({
-            id : 'B-Availability',
-            tooltip : "Availability",
-            text : 'Availability',
-            enabled: true
+        var oItem = new sap.ui.core.Item({
+            text: "Alerts",
+            tooltip: "Alerts",
+            key: "1"
         });
-        //oButtonAvailability.attachPress(doOnAvailability);
+        oRBG2.addItem(oItem);
 
-        var oButtonPerformance = new sap.ui.commons.Button({
-            id : 'B-Performance',
-            tooltip : "Performance",
-            text : 'Performance',
-            enabled: true
+        oItem = new sap.ui.core.Item({
+            text: "OEE",
+            tooltip: "OEE",
+            key: "2"
         });
-        //oButtonPerformance.attachPress(doOnPerformance);
+        oRBG2.addItem(oItem);
 
-        var oButtonQuality = new sap.ui.commons.Button({
-            id : 'B-Quality',
-            tooltip : "Quality",
-            text : 'Quality',
-            enabled: true
+        oItem = new sap.ui.core.Item({
+            text: "Availability",
+            tooltip: "Availability",
+            key: "3"
         });
-        //oButtonQuality.attachPress(doOnQuality);
+        oRBG2.addItem(oItem);
 
-        oMatrixB.createRow('',oMenuButton1,'',oButtonAlerts,oButtonOEE,oButtonAvailability,oButtonPerformance,oButtonQuality,"");
+        oItem = new sap.ui.core.Item({
+            text: "Performance",
+            tooltip: "Performance",
+            key: "4"
+        });
+        oRBG2.addItem(oItem);
+
+        oItem = new sap.ui.core.Item({
+            text: "Quality",
+            tooltip: "Quality",
+            key: "5"
+        });
+        oRBG2.addItem(oItem);
+
+        //var oRow = new sap.ui.commons.layout.MatrixLayoutRow({
+        //	id : 'Row-0',
+        //	height: '35px' });
+
+        //oRow.addContent('');
+        //oRow.addContent(oLabelRoles);
+        //oRow.addContent(oRBG2);
+        //oRow.addContent( oMenuButton1);
+
+        //oMatrixB.addRow(oRow);
+
+        oMatrixB.createRow('', oLabelRoles, oRBG2, oMenuButton1);
 
         // *******************************************************************************
 
         function doResetMapALRT() {
-            selectedMapStatusID = 1 ;
+            selectedMapStatusID = 1;
         }
 
         function doResetMapOEE() {
-            selectedMapStatusID = 2 ;
+            selectedMapStatusID = 2;
         }
 
-        // ****************************************************************************************************************************************************
+        function doResetMapAVLB() {
+            selectedMapStatusID = 3;
+        }
+
+        function doResetMapPERF() {
+            selectedMapStatusID = 4;
+        }
+
+        function doResetMapQLT() {
+            selectedMapStatusID = 5;
+        }
+
+        // ******************************************************************************************************************
 
         var oMatrixT = new sap.ui.commons.layout.MatrixLayout({
             id: 'MatrixT',
             layoutFixed: true,
-            width: '820px',
+            width: '98%',
             columns: 1,
-            widths: ['880px']
+            widths: ['100%']
         });
 
         // ****************************************************************************************************************************************************
@@ -460,76 +489,71 @@
             }
         }
 
-        // ****************************************************************************************************************************************************
 
-        // Create an instance of the table control
+        // **************************************		TITLE 	**************************************************************************************************************
+        var oLabelSelectedUnit = new sap.ui.commons.Label({
+            id: 'L-SelectedUnit',
+            visible: true,
+            text: 'SELECTED UNIT ',
+        });
+
+        oCell_SU = new sap.ui.commons.layout.MatrixLayoutCell({height: '30px'});
+        oCell_SU.addContent(oLabelSelectedUnit);
+
+        //oMatrixT.createRow(oCell_SU);
+
+        //oMatrixT.createRow('');
+
+        // **********************************************	UNIT TABLE				******************************************************************************************************
+
         var oTable = new sap.ui.table.TreeTable({
-            columns: [
-                new sap.ui.table.Column({label: "UNIT NAME", template: "unitName",width:"155px"}),
-                new sap.ui.table.Column({label: "UNIT DESCRIPTION", template: "unitDescr",width:"175px"}),
-                new sap.ui.table.Column({
-                    label: new sap.ui.commons.Label({text: "ACTIVE"}),
-                    template: new sap.ui.commons.Image().bindProperty("src", "src"),
-                    width: "95px",
-                    hAlign: sap.ui.commons.layout.HAlign.Center
-                })],
             selectionMode: sap.ui.table.SelectionMode.Single,
             visibleRowCount: nrRows,
             visibleRowCountMode: sap.ui.table.VisibleRowCountMode.Interactive,
             allowColumnReordering: true,
             expandFirstLevel: true,
-            expandSecondLevel:true,
+            expandSecondLevel: true,
             selectionBehavior: sap.ui.table.SelectionBehavior.Row,
-            toggleOpenState: function(oEvent) {
+            toggleOpenState: function (oEvent) {
                 var iRowIndex = oEvent.getParameter("rowIndex");
                 var oRowContext = oEvent.getParameter("rowContext");
                 var bExpanded = oEvent.getParameter("expanded");
             }
         });
 
-
-        function createColumnsHrchy(){
+        function createColumnsHrchy() {
             oTable.addColumn(new sap.ui.table.Column({
                 label: new sap.ui.commons.Label({text: "UNIT NAME"}),
                 template: new sap.ui.commons.TextView().bindProperty("text", "unitName"),
                 sortProperty: "unitName",
                 filterProperty: "unitName",
-                width: "155px"
+                width: "30%"
             }));
             oTable.addColumn(new sap.ui.table.Column({
                 label: new sap.ui.commons.Label({text: "UNIT DESCRIPTION"}),
                 template: new sap.ui.commons.TextView().bindProperty("text", "unitDescr"),
                 sortProperty: "unitDescr",
                 filterProperty: "unitDescr",
-                width: "175px"
+                width: "30%"
             }));
             oTable.addColumn(new sap.ui.table.Column({
                 label: new sap.ui.commons.Label({text: "UNIT TYPE"}),
                 template: new sap.ui.commons.TextView().bindProperty("text", "typeName"),
                 sortProperty: "typeName",
                 filterProperty: "typeName",
-                width: "155px"
+                width: "10%"
             }));
             oTable.addColumn(new sap.ui.table.Column({
                 label: new sap.ui.commons.Label({text: "PART"}),
                 template: new sap.ui.commons.TextView().bindProperty("text", "partNumber"),
                 sortProperty: "partNumber",
                 filterProperty: "partNumber",
-                width: "120px"
+                width: "10%"
             }));
-            /*
-             oTable.addColumn(new sap.ui.table.Column({
-             label: new sap.ui.commons.Label({text: "SERIAL #"}),
-             template: new sap.ui.commons.TextView().bindProperty("text", "serialNumber"),
-             sortProperty: "serialNumber",
-             filterProperty: "serialNumber",
-             width: "120px"
-             }));
-             */
             oTable.addColumn(new sap.ui.table.Column({
                 label: new sap.ui.commons.Label({text: "ACTIVE"}),
                 template: new sap.ui.commons.Image().bindProperty("src", "src"),
-                width: "95px",
+                width: "10%",
                 hAlign: "Center"
             }));
         }
@@ -551,13 +575,13 @@
             var xmlHttp = new XMLHttpRequest();
             var xmlDOM;
 
-            var http_string = "/XMII/Runner?Transaction=MESM/ANDM/TRANSACTIONS/getHierarchyHeaders_ANDM&IDPLANT="+selectedPlant+"&IDUNIT="+selectedParentID+"&SERVER_SQL=MESM&ts="+timestamp+"&OutputParameter=HC_OUT&Content-Type=text/xml";
+            var http_string = "/XMII/Runner?Transaction=MESM/ANDM/TRANSACTIONS/getHierarchyHeaders_ANDM&IDPLANT=" + selectedPlant + "&IDUNIT=" + selectedParentID + "&SERVER_SQL=MESM&ts=" + timestamp + "&OutputParameter=HC_OUT&Content-Type=text/xml";
 
-            xmlHttp.open("GET",http_string, false);
+            xmlHttp.open("GET", http_string, false);
             xmlHttp.send();
             xmlDOM = xmlHttp.responseXML.documentElement;
             try {
-                if(xmlDOM.getElementsByTagName("Row")[0].firstChild) {
+                if (xmlDOM.getElementsByTagName("Row")[0].firstChild) {
                     var opElement = xmlDOM.getElementsByTagName("Row")[0].firstChild;
                     var oDataFLMP = opElement.firstChild.data;
                     var ojsonDataFLMP = eval('(' + oDataFLMP + ')');
@@ -566,7 +590,7 @@
                     oTable.setModel(oModel);
                     oTable.bindRows("/root");
                 }
-            } catch(e) {
+            } catch (e) {
                 alert(" Could not retrieve headers ..");
             }
         }
@@ -598,25 +622,54 @@
 
         // ******************		MAPS		**********************************************************************************************************************************
 
-        var colors_in =  [] ;
+        var colors_in = [];
+        var StatusColors = [];
+        var selectedStatusName = '';
 
         function getMapStatus() {
-            colors_in =  [];
+            colors_in = [];
             var timestamp = new Date().getTime();
-            var Param1 =  selectedPlant  ;
-            var Param2 = selectedMapStatusID ;
+            var Param1 = selectedPlant;
+            var Param2 = selectedMapStatusID;
+
             getData("/XMII/Illuminator?QueryTemplate=MESM/ANDM/QUERIES/get_MapStatusData&Param.1=" + Param1 + "&Param.2=" + Param2 + "&ts=" + timestamp + "&Content-Type=text/xml", parseJsonMapStatus);
+
             function parseJsonMapStatus(jsondata) {
                 for (var i = 0; i < jsondata.length; i++) {
                     var map_name = jsondata[i]['unitMap'];
                     var map_status = jsondata[i]['statusValue'];
                     var map_parent_name = jsondata[i]['parentName'];
-                    var map_key = map_parent_name + "_" + map_name
-                    colors_in[map_key] = map_status ;
+                    var map_key = map_parent_name + "_" + map_name;
+                    // alert (map_key);
+                    colors_in[map_key] = map_status;
                 }
             }
+
+            selectedStatusName = '';
+            switch (Number(selectedMapStatusID)) {
+                case 1 :
+                    selectedStatusName = ' - ALERTS';
+                    break;
+                case 2:
+                    selectedStatusName = ' - OEE';
+                    break;
+                case 3:
+                    selectedStatusName = ' - AVAILABILITY';
+                    break;
+                case 4:
+                    selectedStatusName = ' - PERFORMANCE';
+                    break;
+                case 5:
+                    selectedStatusName = ' - QUALITY';
+                    break;
+                default :
+                    selectedStatusName = ' - ALERTS';
+                    break;
+            }
+            oCore.byId('L-SelectedUnit').setText(selectedUnitName + selectedStatusName)
+
             mapTitle = [];
-            setTimeout (mapsInit, 300);
+            setTimeout(mapsInit, 600);
         }
 
         //wxy
@@ -628,55 +681,64 @@
 
 
         var mapTitle = [];
-        var highchartMap;
-        var highChartSample1;
-        var highChartSample2;
-        var highChartSample3;
-        var highChartSample4;
-        var highChartSample5;
-
+        var highchartMap = null;
+        var highChartSample1 = null;
+        var highChartSample2 = null;
+        var highChartSample3 = null;
+        var highChartSample4 = null;
+        var highChartSample5 = null;
+        var broswerHeigh = 0;
+        var sized = true;
         function mapsInit() {
-
-            //	alert("mapsInit");
-
-            //	var unit = document.getElementById("unit_name").value ;
-
-            //   if (highchartMap != null) {
-            //     unit = highchartMap.title.textStr;
-            //   }
-
-            $.get('maps/' + selectedUnitName+ '.json', function (data) {
+            getANDMStatusColor();
+            $.get('maps/' + selectedUnitName + '.json', function (data) {
                 var mapData = Highcharts.geojson(data);
 
                 $.each(mapData, function (i) {
-                    this.drilldown = this.properties['KEY'];
-
-                    var this_param3 = this.properties['PARAM3'];
-                    var this_key  = this.properties['KEY'] ;
-                    var this_2keys = this_param3 + "_" + this_key;
-
-                    //alert(this_2keys);
-
-                    var color_id = colors_in    [this_2keys] ;
-                    var color_value ='#dcf5f7'
-                    switch (  Number(color_id)) {
-                        case 0 :
-                            color_value ='#d8ddde';
-                            break;
-                        case 1:
-                            color_value ='lime';
-                            break;
-                        case 2:
-                            color_value ='#fe4822';
-                            break;
-                        default :
-                            color_value ='#dcf5f7';
-                            break;
+                    if (this.properties['KEY'] == "") {
+                        this.value = colors_in    ['_TOLEDO'];
+                        ;
+                    } else {
+                        this.drilldown = this.properties['KEY'];
+                        var this_param3 = this.properties['PARAM3'];
+                        var this_key = this.properties['KEY'];
+                        var this_2keys = this_param3 + "_" + this_key;
+                        // alert(this_2keys);
+                        var color_id = colors_in    [this_2keys];
+                        this.value = Number(color_id);
                     }
-                    this.color = color_value ;
-                    //	alert(this.color);
                 });
                 var mapName = selectedUnitName;
+                var outerHeight = window.outerHeight;
+
+                var winW, winH;
+                if (document.body && document.body.offsetWidth) {
+                    winW = document.body.offsetWidth;
+                    winH = document.body.offsetHeight;
+                }
+                if (document.compatMode == 'CSS1Compat' &&
+                    document.documentElement &&
+                    document.documentElement.offsetWidth) {
+                    winW = document.documentElement.offsetWidth;
+                    winH = document.documentElement.offsetHeight;
+                }
+                if (window.innerWidth && window.innerHeight) {
+                    winW = window.innerWidth;
+                    winH = window.innerHeight;
+                }
+                cc(winH);
+                if (broswerHeigh != winH) {
+                    broswerHeigh = winH;
+                    sized = true;
+                }
+
+                //todo
+                document.getElementById('products').setAttribute("style", "height:" + (winH - 200) / 3 + "px");
+                document.getElementById('parts').setAttribute("style", "height:" + (winH - 200) / 3 + "px");
+                document.getElementById('histogram').setAttribute("style", "height:" + (winH - 200) / 3 + "px");
+//                document.getElementById('gear').setAttribute("style", "height:" + winH * 3 / 9 + "px");
+//                document.getElementById('container-shift').setAttribute("style", "height:" + winH * 2 / 9 + "px");
+//                document.getElementById('container-compare').setAttribute("style", "height:" + winH * 2 / 9 + "px");
                 highchartMap = new Highcharts.Map('mesm_maps', {
                     chart: {
                         animation: false,
@@ -684,7 +746,7 @@
                     chart: {
                         //    height: ScreenSize()['y'],
                         animation: false,
-                        height: 450,
+                        height: winH - 320,
                         events: {
                             redraw: function () {
                                 //    cc('redraw');
@@ -700,30 +762,11 @@
                                         if (this.properties['hc-key'] != _drilldown) {
                                             this.drilldown = this.properties['hc-key'];
                                         }
-
                                         var this_param3 = this.properties['PARAM3'];
-                                        var this_key  = this.properties['KEY'] ;
+                                        var this_key = this.properties['KEY'];
                                         var this_2keys = this_param3 + "_" + this_key;
-
-                                        var color_id = colors_in    [this_2keys] ;
-
-                                        var color_value ='#dcf5f7'
-
-                                        switch (  Number(color_id)) {
-                                            case 0 :
-                                                color_value ='#d8ddde';
-                                                break;
-                                            case 1:
-                                                color_value ='lime';
-                                                break;
-                                            case 2:
-                                                color_value ='#fe4822';
-                                                break;
-                                            default :
-                                                color_value ='#dcf5f7';
-                                                break;
-                                        }
-                                        this.color = color_value ;
+                                        var color_id = colors_in    [this_2keys];
+                                        this.color = color_value;
                                     });
                                     mapTitle.push(highchartMap.title.textStr);
                                     highchartMap.setTitle({text: _drilldown});
@@ -772,10 +815,14 @@
                     },
                     title: {
                         //text: rootNode.getText(),
-                        text: mapName,
+                        text: mapName + selectedStatusName,
                         style: {
-                            display: 'none'
-                        }
+                            // display: 'none'
+                            display: 'block',
+                            font: 'Arial Black,Arial, Helvetica, sans-serif',
+                            color: '#007dc0',
+                            fontSize: '30px'
+                        },
                     },
                     subtitle: {
                         text: '',
@@ -783,18 +830,27 @@
                             display: 'none'
                         }
                     },
-                    legend: {
-                        enabled: false,
-                        layout: 'vertical',
-                        align: 'right',
-                        verticalAlign: 'middle'
-                    },
+//                    legend: {
+//                        enabled: false,
+//                        layout: 'vertical',
+//                        align: 'right',
+//                        verticalAlign: 'middle'
+//                    },
                     colorAxis: {
-                        showInLegend: false,
-                        min: 0,
-                        minColor: '#E6E7E8',
-                        maxColor: '#005645'
+                        min: 1,
+                        //	 type: 'logarithmic',
+                        minColor: StatusColors['minColor'],//'#d2d6d1',
+                        maxColor: StatusColors['maxColor'],//'#31ed23',
+                        stops: [
+                            [parseFloat(StatusColors['ValueStep1']), StatusColors['ColorStep1']],//[0, '#d2d6d1'],
+                            [parseFloat(StatusColors['ValueStep2']), StatusColors['ColorStep2']],//[0.67, '#76ef6e'],
+                            [parseFloat(StatusColors['ValueStep3']), StatusColors['ColorStep3']],//[1, '#31ed23']
+                            //	[0, '#d2d6d1'],
+                            // 	[0.60, '#76ef6e'],
+                            //	[1, '#31ed23']
+                        ]
                     },
+
                     mapNavigation: {
                         enabled: false,
                         buttonOptions: {
@@ -833,6 +889,65 @@
                             }
                         }
                     },
+
+                    legend: {
+                        layout: 'horizontal',
+                        borderWidth: 0,
+                        // backgroundColor: 'rgba(255,255,255,0.85)',
+                        floating: false,
+                        verticalAlign: 'bottom',
+                        symbolHeight: 15,
+                        symbolWidth: 600,
+                        //width:800,
+                        y: -15
+                    },
+//                    legend: {
+//                        align: "center"
+//                        backgroundColor: undefined
+//                        borderColor: "#999999"
+//                        borderRadius: 0
+//                        borderWidth: 0
+//                        enabled: true
+//                        floating: false
+//                        itemDistance: 8
+//                        itemHiddenStyle: { "color": "#cccccc" }
+//                        itemHoverStyle: { "color": "#000000" }
+//                        itemMarginBottom: 0
+//                        itemMarginTop: 0
+//                        itemStyle: { "color": "#333333", "cursor": "pointer", "fontSize": "12px", "fontWeight": "bold" }
+//                        itemWidth: undefined
+//                        labelFormat: "{name}"
+//                        labelFormatter: undefined
+//                        layout: "horizontal"
+//                        margin: 12
+//                        maxHeight: undefined
+//                        navigation: {
+//                            activeColor: "#003399"
+//                            animation: true
+//                            arrowSize: 12
+//                            enabled: true
+//                            inactiveColor: "##cccccc"
+//                            style: undefined
+//                        }
+//                        padding: 8
+//                        reversed: false
+//                        rtl: false
+//                        shadow: false
+//                        squareSymbol: true
+//                        symbolHeight: undefined
+//                        symbolPadding: 5
+//                        symbolRadius: undefined
+//                        symbolWidth: undefined
+//                        title: {
+//                            style: {"fontWeight":"bold"}
+//                            text: null
+//                        }
+//                        useHTML: false
+//                        verticalAlign: "bottom"
+//                        width: undefined
+//                        x: 0
+//                        y: 0
+//                    }
                     series: [{
                         borderWidth: 0,
                         animation: false,
@@ -860,18 +975,19 @@
                             }
                         }
                     }
+
                 });
             })
         }
 
         // ******************		INIT CHARTS		****************
 
-        function getChartsData(){
-            getProductionData ();
-            getQualityData ();
+        function getChartsData() {
+            getProductionData();
+            getQualityData();
             getHistogramData();
             getShiftChartData();
-            getCompareChartData ();
+            getCompareChartData();
         }
 
         //**************************		PRODUCTION	*********************************
@@ -880,38 +996,53 @@
         var ranges = [];
         var averages = [];
 
-        function getProductionData (){
-            var Param1 =  selectedUnitID ;
-            var Param2 = selectedTimeFrom ;
-            var Param3 =   selectedTimeTo ;
+        function getProductionData() {
+            var Param1 = selectedUnitID;
+            var Param2 = selectedTimeFrom;
+            var Param3 = selectedTimeTo;
             var timestamp = new Date().getTime();
-            var str_url = "/XMII/Runner?Transaction=MESM/ANDM/TRANSACTIONS/getProductionRepChartData&ID_LINE="+Param1+"&TS_STARTING="+Param2+"&TS_ENDING="+Param3+"&ts=" + timestamp + "&OutputParameter=HC_OUT&Content-Type=text/xml";
+            var str_url = "/XMII/Runner?Transaction=MESM/ANDM/TRANSACTIONS/getProductionRepChartData&ID_LINE=" + Param1 + "&TS_STARTING=" + Param2 + "&TS_ENDING=" + Param3 + "&ts=" + timestamp + "&OutputParameter=HC_OUT&Content-Type=text/xml";
             // alert(str_url);
             var xmlHttp = new XMLHttpRequest();
             var xmlDOM;
-            xmlHttp.open("GET",str_url, false);
+            xmlHttp.open("GET", str_url, false);
             xmlHttp.send();
             // alert(xmlHttp.responseText)
             xmlDOM = xmlHttp.responseXML.documentElement;
             var opElement = xmlDOM.getElementsByTagName("Row")[0].firstChild;
-            if(opElement.firstChild!=null) {
-                if(opElement.firstChild.data.indexOf(",")==0) var aData = ""
+            if (opElement.firstChild != null) {
+                if (opElement.firstChild.data.indexOf(",") == 0) var aData = ""
                 else var aData = eval(opElement.firstChild.data);
                 chartProductionData(aData);
             }
         }
 
-        function chartProductionData (data){
+        function chartProductionData(data) {
             // alert(data);
+            if (highChartSample1 != null && !sized) {
+                $.each(highChartSample1.series, function (i, _series) {
+                    _series.update({
+                        data: data[i]
+                    }, true);
+                });
+                return;
+            }
             highChartSample1 = new Highcharts.chart('products', {
+                chart: {
+                    animation: false
+                },
                 title: {
                     text: 'OEE WITH RANGES',
                     style: {
                         display: 'block',
                         font: 'Arial Black',
                         color: '#007dc0',
-                        fontSize: '14px'},
+                        fontSize: '14px'
+                    },
                     y: 0
+                },
+                line: {
+                    animation: false,
                 },
                 subtitle: {
                     text: '',
@@ -925,7 +1056,13 @@
                 yAxis: {
                     title: {
                         text: null
-                    }
+                    },
+                    plotLines: [{
+                        color: 'red', // Color value
+                        //dashStyle: 'longdashdot', // Style of the plot line. Default to solid
+                        value: 92, // Value of where the line will appear
+                        width: 2 // Width of the line
+                    }]
                 },
                 tooltip: {
                     crosshairs: true,
@@ -963,32 +1100,56 @@
 
         //**************************		QUALITY	**********************************
 
-        var categories = ['1003217','1003217-1','1003217-2','1003217-3','1003217-4'];
+        var categories = [];
         var goodParts = [];
         var badParts = [];
 
-        function getQualityData (){
-            var Param1 =  selectedUnitID ;
-            var Param2 = selectedTimeFrom ;
-            var Param3 =   selectedTimeTo ;
+        function getQualityData() {
+            var Param1 = selectedUnitID;
+            var Param2 = selectedTimeFrom;
+            var Param3 = selectedTimeTo;
             var timestamp = new Date().getTime();
-            var str_url = "/XMII/Runner?Transaction=MESM/ANDM/TRANSACTIONS/getQualityRepChartData&ID_LINE="+Param1+"&TS_STARTING="+Param2+"&TS_ENDING="+Param3+"&ts=" + timestamp + "&OutputParameter=HC_OUT&Content-Type=text/xml";
+            getData("/XMII/Illuminator?QueryTemplate=MESM/ANDM/QUERIES/get_QualityRepData&Param1=" + Param1 + "&Param2=" + Param2 + "&Param3=" + Param3 + "&ts=" + timestamp + "&Content-Type=text/xml", parseJsonCategories);
+            function parseJsonCategories(jsondata) {
+                for (var i = 0; i < jsondata.length; i++) {
+                    var category_name = jsondata[i]['materialName'];
+                    //alert (category_name);
+                    categories.push(category_name);
+                }
+                getQualityData2();
+            }
+        }
+
+        function getQualityData2() {
+            var Param1 = selectedUnitID;
+            var Param2 = selectedTimeFrom;
+            var Param3 = selectedTimeTo;
+            var timestamp = new Date().getTime();
+            var str_url = "/XMII/Runner?Transaction=MESM/ANDM/TRANSACTIONS/getQualityRepChartData&ID_LINE=" + Param1 + "&TS_STARTING=" + Param2 + "&TS_ENDING=" + Param3 + "&ts=" + timestamp + "&OutputParameter=HC_OUT&Content-Type=text/xml";
             // alert(str_url);
             var xmlHttp = new XMLHttpRequest();
             var xmlDOM;
-            xmlHttp.open("GET",str_url, false);
+            xmlHttp.open("GET", str_url, false);
             xmlHttp.send();
             // alert(xmlHttp.responseText)
             xmlDOM = xmlHttp.responseXML.documentElement;
             var opElement = xmlDOM.getElementsByTagName("Row")[0].firstChild;
-            if(opElement.firstChild!=null) {
-                if(opElement.firstChild.data.indexOf(",")==0) var aData = ""
+            if (opElement.firstChild != null) {
+                if (opElement.firstChild.data.indexOf(",") == 0) var aData = ""
                 else var aData = eval(opElement.firstChild.data);
                 chartQualityData(aData);
             }
         }
 
-        function chartQualityData (data){
+        function chartQualityData(data) {
+            if (highChartSample2 != null && !sized) {
+                $.each(highChartSample2.series, function (i, _series) {
+                    _series.update({
+                        data: data[i]
+                    }, true);
+                });
+                return;
+            }
             //alert(data);
             highChartSample2 = Highcharts.chart('parts', {
                 legend: {
@@ -1006,7 +1167,8 @@
                         display: 'block',
                         font: 'Arial Black',
                         color: '#007dc0',
-                        fontSize: '14px'},
+                        fontSize: '14px'
+                    },
                 },
                 subtitle: {
                     text: '',
@@ -1035,7 +1197,7 @@
                 plotOptions: {
                     series: {
                         stacking: 'normal',
-                        pointWidth:20
+                        pointWidth: 20
                     }
                 },
                 tooltip: {
@@ -1044,7 +1206,7 @@
                             this.series.name + ': ' + Highcharts.numberFormat(Math.abs(this.point.y), 0);
                     }
                 },
-                series: data ,
+                series: data,
                 credits: {
                     enabled: false,
                     href: 'http://www.rtsperfectplant.com/',
@@ -1069,7 +1231,7 @@
 
         // ******************		HISTOGRAM		******************************************
 
-        var data =[];
+        var data = [];
         var RejectPart = [];
         var defectPart = [];
 
@@ -1099,28 +1261,36 @@
             return arr;
         }
 
-        function getHistogramData (){
-            var Param1 =  selectedUnitID ;
-            var Param2 = selectedTimeFrom ;
-            var Param3 =   selectedTimeTo ;
+        function getHistogramData() {
+            var Param1 = selectedUnitID;
+            var Param2 = selectedTimeFrom;
+            var Param3 = selectedTimeTo;
             var timestamp = new Date().getTime();
-            var str_url = "/XMII/Runner?Transaction=MESM/ANDM/TRANSACTIONS/getHistogramRepChartData&ID_LINE="+Param1+"&TS_STARTING="+Param2+"&TS_ENDING="+Param3+"&ts=" + timestamp + "&OutputParameter=HC_OUT&Content-Type=text/xml";
+            var str_url = "/XMII/Runner?Transaction=MESM/ANDM/TRANSACTIONS/getHistogramRepChartData&ID_LINE=" + Param1 + "&TS_STARTING=" + Param2 + "&TS_ENDING=" + Param3 + "&ts=" + timestamp + "&OutputParameter=HC_OUT&Content-Type=text/xml";
             // alert(str_url);
             var xmlHttp = new XMLHttpRequest();
             var xmlDOM;
-            xmlHttp.open("GET",str_url, false);
+            xmlHttp.open("GET", str_url, false);
             xmlHttp.send();
             // alert(xmlHttp.responseText)
             xmlDOM = xmlHttp.responseXML.documentElement;
             var opElement = xmlDOM.getElementsByTagName("Row")[0].firstChild;
-            if(opElement.firstChild!=null) {
-                if(opElement.firstChild.data.indexOf(",")==0) var aData = ""
+            if (opElement.firstChild != null) {
+                if (opElement.firstChild.data.indexOf(",") == 0) var aData = ""
                 else var aData = eval(opElement.firstChild.data);
                 chartHistogramData(aData);
             }
         }
 
-        function chartHistogramData (data){
+        function chartHistogramData(data) {
+            if (highChartSample3 != null && !sized) {
+                $.each(highChartSample3.series, function (i, _series) {
+                    _series.update({
+                        data: data[i]
+                    }, true);
+                });
+                return;
+            }
             //alert(data);
             highChartSample3 = Highcharts.chart('histogram', {
                 legend: {
@@ -1133,20 +1303,33 @@
                     type: 'column'
                 },
                 title: {
-                    text: 'QUALITY TEST : RING GROOVE SPAN',
+                    text: 'RING GROOVE SPAN (x 1000)',
                     style: {
                         display: 'block',
                         font: 'Arial Black',
                         color: '#007dc0',
-                        fontSize: '14px'},
+                        fontSize: '14px'
+                    },
                 },
                 xAxis: {
                     gridLineWidth: 1,
                     plotBands: [{
-                        color: 'lime', // Color value
-                        from: -1, // Start of the plot band
-                        to: 1 // End of the plot band
+                        color: '#42f453', // Color value
+                        from: -0.07, // Start of the plot band
+                        to: 0.35 // End of the plot band
+                    }],
+                    plotLines: [{
+                        color: 'red', // Color value
+                        //dashStyle: 'longdashdot', // Style of the plot line. Default to solid
+                        value: -0.1, // Value of where the line will appear
+                        width: 2 // Width of the line
+                    }, {
+                        color: 'red', // Color value
+                        //dashStyle: 'longdashdot', // Style of the plot line. Default to solid
+                        value: 0.4, // Value of where the line will appear
+                        width: 2 // Width of the line
                     }]
+
                 },
                 yAxis: [{
                     title: {
@@ -1159,9 +1342,12 @@
                         title: {
                             text: 'Test ID',
                             style: {display: 'block', fontSize: '12px'}
-                        }
-                    }],
-                series:data,
+                        },
+                        visible: false,
+                    },
+
+                ],
+                series: data,
                 credits: {
                     enabled: false,
                     href: 'http://www.rtsperfectplant.com/',
@@ -1211,7 +1397,7 @@
                 stops: [
                     [0.6, '#fc071b'], // red
                     [0.7, '#fcfc05'], // yellow
-                    [0.8, 'lime'] // green
+                    [0.8, '#42f453'] // green
                 ],
                 lineWidth: 0,
                 minorTickInterval: null,
@@ -1237,29 +1423,28 @@
             }
         };
 
-        function getShiftChartData (){
-            var Param1 =  selectedUnitID ;
-            var Param2 = selectedTimeFrom ;
-            var Param3 =   selectedTimeTo ;
+        function getShiftChartData() {
+            var Param1 = selectedUnitID;
+            var Param2 = selectedTimeFrom;
+            var Param3 = selectedTimeTo;
             var timestamp = new Date().getTime();
-            var str_url = "/XMII/Runner?Transaction=MESM/ANDM/TRANSACTIONS/getShiftRepChartData&ID_LINE="+Param1+"&TS_STARTING="+Param2+"&TS_ENDING="+Param3+"&ts=" + timestamp + "&OutputParameter=HC_OUT&Content-Type=text/xml";
+            var str_url = "/XMII/Runner?Transaction=MESM/ANDM/TRANSACTIONS/getShiftRepChartData&ID_LINE=" + Param1 + "&TS_STARTING=" + Param2 + "&TS_ENDING=" + Param3 + "&ts=" + timestamp + "&OutputParameter=HC_OUT&Content-Type=text/xml";
             // alert(str_url);
             var xmlHttp = new XMLHttpRequest();
             var xmlDOM;
-            xmlHttp.open("GET",str_url, false);
+            xmlHttp.open("GET", str_url, false);
             xmlHttp.send();
             // alert(xmlHttp.responseText)
             xmlDOM = xmlHttp.responseXML.documentElement;
             var opElement = xmlDOM.getElementsByTagName("Row")[0].firstChild;
-            if(opElement.firstChild!=null) {
-                if(opElement.firstChild.data.indexOf(",")==0) var aData = ""
+            if (opElement.firstChild != null) {
+                if (opElement.firstChild.data.indexOf(",") == 0) var aData = ""
                 else var aData = eval(opElement.firstChild.data);
                 chartShiftChart(aData);
             }
         }
 
-
-        function chartShiftChart (dataParam) {
+        function chartShiftChart(dataParam) {
             highChartSample4 = Highcharts.chart('container-shift', Highcharts.merge(gaugeOptionsShift, {
                 yAxis: {
                     min: 0,
@@ -1274,7 +1459,8 @@
                         display: 'block',
                         font: 'Arial Black',
                         color: '#007dc0',
-                        fontSize: '12px'},
+                        fontSize: '12px'
+                    },
                 },
                 credits: {
                     enabled: false
@@ -1319,7 +1505,7 @@
                 stops: [
                     [0.1, '#fc071b'], // red
                     [0.7, '#fcfc05'], // yellow
-                    [0.9, 'lime'] // green
+                    [0.9, '#42f453'] // green
                 ],
                 lineWidth: 0,
                 minorTickInterval: null,
@@ -1345,29 +1531,29 @@
             }
         };
 
-
-        function getCompareChartData (){
-            var Param1 =  selectedUnitID ;
-            var Param2 = selectedTimeFrom ;
-            var Param3 =   selectedTimeTo ;
+        function getCompareChartData() {
+            var Param1 = selectedUnitID;
+            var Param2 = selectedTimeFrom;
+            var Param3 = selectedTimeTo;
             var timestamp = new Date().getTime();
-            var str_url = "/XMII/Runner?Transaction=MESM/ANDM/TRANSACTIONS/getCompareRepChartData&ID_LINE="+Param1+"&TS_STARTING="+Param2+"&TS_ENDING="+Param3+"&ts=" + timestamp + "&OutputParameter=HC_OUT&Content-Type=text/xml";
+            var str_url = "/XMII/Runner?Transaction=MESM/ANDM/TRANSACTIONS/getCompareRepChartData&ID_LINE=" + Param1 + "&TS_STARTING=" + Param2 + "&TS_ENDING=" + Param3 + "&ts=" + timestamp + "&OutputParameter=HC_OUT&Content-Type=text/xml";
             // alert(str_url);
             var xmlHttp = new XMLHttpRequest();
             var xmlDOM;
-            xmlHttp.open("GET",str_url, false);
+            xmlHttp.open("GET", str_url, false);
             xmlHttp.send();
             // alert(xmlHttp.responseText)
             xmlDOM = xmlHttp.responseXML.documentElement;
             var opElement = xmlDOM.getElementsByTagName("Row")[0].firstChild;
-            if(opElement.firstChild!=null) {
-                if(opElement.firstChild.data.indexOf(",")==0) var aData = ""
+            if (opElement.firstChild != null) {
+                if (opElement.firstChild.data.indexOf(",") == 0) var aData = ""
                 else var aData = eval(opElement.firstChild.data);
                 chartCompareChart(aData);
             }
         }
 
-        function chartCompareChart (dataParam) {
+        function chartCompareChart(dataParam) {
+
             highChartSample5 = Highcharts.chart('container-compare', Highcharts.merge(gaugeOptionsCompare, {
                 yAxis: {
                     min: 0,
@@ -1382,14 +1568,16 @@
                         display: 'block',
                         font: 'Arial Black',
                         color: '#007dc0',
-                        fontSize: '12px'},
+                        fontSize: '12px'
+                    },
                 },
                 credits: {
                     enabled: false
                 },
                 series: [{
                     name: 'RPM',
-                    data: dataParam ,
+                    data: dataParam,
+                    //animation: false,
                     dataLabels: {
                         format: '<div style="text-align:center"><span style="font-size:25px;color:' +
                         ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y:.1f}</span><br/>' +
@@ -1400,14 +1588,40 @@
                     }
                 }]
             }));
+            sized = false;
         }
 
-        // ******************		INITIAL PAGE		**********************************************************************************************************************************
+        // ******************		SHOW ONLY MAP		*****************************************************************************
+
+        function showOnlyMap() {
+            var c = document.getElementById('mesm_content');
+            c.style.width = '0%';
+            c.style.height = '0%';
+            $("#charts").hide();
+            var t = document.getElementById('mesm_content');
+            t.style.width = '0%';
+            t.style.height = '0%';
+            $("#mesm_content").hide();
+            var e = document.getElementById('mesm_container');
+            e.style.width = '100%';
+            e.style.height = '100%';
+            e.style.float = 'left';
+            e.style.margin = '0 0 0 5%';
+            var m = document.getElementById('mesm_maps');
+            m.style.width = '100%';
+            m.style.height = '100%';
+            m.style.float = 'left';
+            m.style.margin = '0 0 0 5%'
+            mapsInit()
+
+        }
+
+        // ******************		INITIAL PAGE		*****************************************************************************
 
         function pageInit() {
-            $.get('maps/' + selectedUnitName+ '.json').done(function () {
+            $.get('maps/' + selectedUnitName + '.json').done(function () {
                 //   cc('done');
-                nrRows = 7;
+//                nrRows = 7;
                 $("#mesm_maps").show();
                 $("#charts").show();
                 var e = document.getElementById('mesm_container');
@@ -1418,7 +1632,7 @@
                 getChartsData();
                 return;
             }).fail(function (error) {
-                nrRows = 7;
+//                nrRows = 7;
                 document.getElementById('mesm_maps').style.display = 'none';
                 document.getElementById('charts').style.display = 'none';
                 document.getElementById('mesm_container').style.width = '100%';
@@ -1428,19 +1642,32 @@
 
             });
         }
+        function getANDMStatusColor() {
+            var url = "/XMII/Illuminator?QueryTemplate=MESM/ANDM/QUERIES/get_StatusColorsData&Param.1=" + selectedMapStatusID + "&Content-Type=text/xml";
+            getData(url, parseJsonParent);
+            function parseJsonParent(jsondata) {
+                cc(StatusColors['recordID']);
+                StatusColors['recordID'] = jsondata[0]['recordID'];
+                StatusColors['statusPropertyID'] = jsondata[0]['statusPropertyID'];
+                StatusColors['minColor'] = jsondata[0]['minColor'];
+                StatusColors['maxColor'] = jsondata[0]['maxColor'];
+                StatusColors['ValueStep1'] = jsondata[0]['ValueStep1'];
+                StatusColors['ColorStep1'] = jsondata[0]['ColorStep1'];
+                StatusColors['ValueStep2'] = jsondata[0]['ValueStep2'];
+                StatusColors['ColorStep2'] = jsondata[0]['ColorStep2'];
+                StatusColors['ValueStep3'] = jsondata[0]['ValueStep3'];
+                StatusColors['ColorStep3'] = jsondata[0]['ColorStep3'];
+            }
+        }
+        window.setInterval(getMapStatus, 5 * 1000);
 
+        window.setInterval(getTreeData, 20 * 1000);
 
-        window.setInterval(getMapStatus, 10*1000);
-
-        window.setInterval(getTreeData, 15*1000);
-
-        window.setInterval(getChartsData, 20*1000);
-
+        window.setInterval(getChartsData, 10 * 1000);
 
     </script>
 
 </head>
-
 
 <body onLoad="roleSecurity()">
 
@@ -1455,11 +1682,11 @@
 
 <div class="app_header" style="display: none;">
     <div id="app_title">CORE TRACEABILITY</div>
-    <div id="page_title">DIAGNOSTICS</div>
+    <div id="page_title"></div>
     <div id="app_menu"></div>
 </div>
 
-<div class="seleMenu" id="selectStatus"> &nbsp; MENU &#x2191; &#x2193; &nbsp; </div>
+<div class="seleMenu" id="selectStatus"> &nbsp; ANDON &nbsp; </div>
 
 <div>
     <div id="mesm_container" style="padding-top: 0px;">
@@ -1467,11 +1694,11 @@
         <div id="mesm_content"></div>
     </div>
 
-    <div id="charts" style="padding-top: 20px; margin-left: 70%; width: 20%;">
+    <div id="charts" style="padding-top: 20px; margin-left: 75%; width: 20%;">
         <div id="products" style="min-width: 310px; max-width: 380px; height: 200px; margin: 0 auto"></div>
         <div id="parts" style="min-width: 310px; max-width: 380px; height: 200px; margin: 0 auto"></div>
         <div id="histogram" style="min-width: 310px; max-width: 380px; height: 200px; margin: 0 auto"></div>
-        <div style="width: 400px; height: 300px; margin: 0 auto">
+        <div id="gear" style="width: 400px; height: 300px; margin: 0 auto">
             <div id="container-shift" style="width: 200px; height: 150px; float: left"></div>
             <div id="container-compare" style="width: 200px; height: 150px; float: left"></div>
         </div>
