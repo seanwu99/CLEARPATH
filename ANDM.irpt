@@ -204,9 +204,9 @@
 
                 updatePlants(plant2Access);
 
-                selectedPlant = '1006';			//   SETING
+                selectedPlant = '1604';			//   SETING
                 getUnitID(selectedUnitName);			//   SETING	selectedParentID = 0;
-                selectedUnitID = 268	// SETING ; - hardcoded to get charts which have data only for unit 268
+                selectedUnitID = 282	// SETING ; - hardcoded to get charts which have data only for unit 282
 
                 setTimeout(getTreeData, 1000);
                 setTimeout(pageInit, 2000);
@@ -563,15 +563,17 @@
 
         // *****************************************************
 
+        var created = false;
+
         // Get Tree Data
         function getTreeData() {
 
             oTable.clearSelection();
             var timestamp = new Date().getTime();
-            oTable.unbindColumns();
-            oTable.removeAllColumns();
-            oTable.destroyColumns();
-            oTable.unbindRows();
+            // oTable.unbindColumns();
+            //   oTable.removeAllColumns();
+            //     oTable.destroyColumns();
+            // oTable.unbindRows();
             var xmlHttp = new XMLHttpRequest();
             var xmlDOM;
 
@@ -582,16 +584,22 @@
             xmlDOM = xmlHttp.responseXML.documentElement;
             try {
                 if (xmlDOM.getElementsByTagName("Row")[0].firstChild) {
+
+                    oTable.unbindRows();
+
                     var opElement = xmlDOM.getElementsByTagName("Row")[0].firstChild;
                     var oDataFLMP = opElement.firstChild.data;
                     var ojsonDataFLMP = eval('(' + oDataFLMP + ')');
-                    createColumnsHrchy();
+                    if (!created) {
+                        createColumnsHrchy();
+                        created = true;
+                    }
                     oModel.setData(ojsonDataFLMP);
                     oTable.setModel(oModel);
                     oTable.bindRows("/root");
                 }
             } catch (e) {
-                alert(" Could not retrieve headers ..");
+                // alert(" Could not retrieve headers ..");
             }
         }
 
@@ -672,10 +680,8 @@
             setTimeout(mapsInit, 600);
         }
 
-        //todo
         $(document).ready(function () {
             $('.seleMenu').click(function () {
-//                console.log($('#app_header').is(":hidden"));
                 $('.app_header').slideToggle(300);
             });
         });
@@ -728,18 +734,17 @@
                     winH = window.innerHeight;
                 }
                 if (!$('#app_header').is(":hidden")) {
-                    winH -= 95;
+                    winH -= 100;
                 }
-                cc(winH);
+                //cc(winH);
                 if (broswerHeigh != winH) {
                     broswerHeigh = winH;
                     sized = true;
                 }
 
-                //todo
-                document.getElementById('products').setAttribute("style", "height:" + (winH - 205) / 3 + "px");
-                document.getElementById('parts').setAttribute("style", "height:" + (winH - 205) / 3 + "px");
-                document.getElementById('histogram').setAttribute("style", "height:" + (winH - 205) / 3 + "px");
+                document.getElementById('products').setAttribute("style", "height:" + (winH - 208) / 3 + "px");
+                document.getElementById('parts').setAttribute("style", "height:" + (winH - 208) / 3 + "px");
+                document.getElementById('histogram').setAttribute("style", "height:" + (winH - 208) / 3 + "px");
 //                document.getElementById('gear').setAttribute("style", "height:" + winH * 3 / 9 + "px");
 //                document.getElementById('container-shift').setAttribute("style", "height:" + winH * 2 / 9 + "px");
 //                document.getElementById('container-compare').setAttribute("style", "height:" + winH * 2 / 9 + "px");
@@ -757,7 +762,7 @@
                                 // this.color = colors_in[this.properties['hc-key'][0]]
                             },
                             drilldown: function (e) {
-                                cc(e.point);
+                                //cc(e.point);
                                 //    cc(e.point.name);
                                 var _drilldown = e.point.drilldown;
                                 $.get('maps/' + _drilldown + '.json', function (data) {
@@ -1001,7 +1006,12 @@
         var averages = [];
 
         function getProductionData() {
-            var Param1 = selectedUnitID;
+
+            // alert( selectedParentID);
+
+//	 var Param1 = selectedUnitID;
+            //cc(selectedParentID);
+            var Param1 = selectedParentID;
             var Param2 = selectedTimeFrom;
             var Param3 = selectedTimeTo;
             var timestamp = new Date().getTime();
@@ -1025,8 +1035,8 @@
             // alert(data);
             if (highChartSample1 != null && !sized) {
                 $.each(highChartSample1.series, function (i, _series) {
-                    _series.update({
-                        data: data[i]
+                    highChartSample1.series[i].update({
+                        data: (data)[i].data
                     }, true);
                 });
                 return;
@@ -1100,6 +1110,7 @@
                     verticalAlign: 'middle'
                 },
             });
+//            sized = false;
         }
 
         //**************************		QUALITY	**********************************
@@ -1109,7 +1120,8 @@
         var badParts = [];
 
         function getQualityData() {
-            var Param1 = selectedUnitID;
+            //   var Param1 = selectedUnitID;
+            var Param1 = selectedParentID;
             var Param2 = selectedTimeFrom;
             var Param3 = selectedTimeTo;
             var timestamp = new Date().getTime();
@@ -1125,7 +1137,8 @@
         }
 
         function getQualityData2() {
-            var Param1 = selectedUnitID;
+            //   var Param1 = selectedUnitID;
+            var Param1 = selectedParentID;
             var Param2 = selectedTimeFrom;
             var Param3 = selectedTimeTo;
             var timestamp = new Date().getTime();
@@ -1148,8 +1161,8 @@
         function chartQualityData(data) {
             if (highChartSample2 != null && !sized) {
                 $.each(highChartSample2.series, function (i, _series) {
-                    _series.update({
-                        data: data[i]
+                    highChartSample2.series[i].update({
+                        data: data[i].data
                     }, true);
                 });
                 return;
@@ -1231,6 +1244,7 @@
                     enabled: false
                 }
             });
+            sized = false;
         }
 
         // ******************		HISTOGRAM		******************************************
@@ -1266,7 +1280,8 @@
         }
 
         function getHistogramData() {
-            var Param1 = selectedUnitID;
+            //  var Param1 = selectedUnitID;
+            var Param1 = selectedParentID;
             var Param2 = selectedTimeFrom;
             var Param3 = selectedTimeTo;
             var timestamp = new Date().getTime();
@@ -1287,14 +1302,14 @@
         }
 
         function chartHistogramData(data) {
-            if (highChartSample3 != null && !sized) {
-                $.each(highChartSample3.series, function (i, _series) {
-                    _series.update({
-                        data: data[i]
-                    }, true);
-                });
-                return;
-            }
+//            if (highChartSample3 != null && !sized) {
+//                $.each(highChartSample3.series, function (i, _series) {
+//                    _series.update({
+//                        data: data[i]
+//                    }, true);
+//                });
+//                return;
+//            }
             //alert(data);
             highChartSample3 = Highcharts.chart('histogram', {
                 legend: {
@@ -1428,7 +1443,8 @@
         };
 
         function getShiftChartData() {
-            var Param1 = selectedUnitID;
+            //  var Param1 = selectedUnitID;
+            var Param1 = selectedParentID;
             var Param2 = selectedTimeFrom;
             var Param3 = selectedTimeTo;
             var timestamp = new Date().getTime();
@@ -1536,7 +1552,8 @@
         };
 
         function getCompareChartData() {
-            var Param1 = selectedUnitID;
+            //   var Param1 = selectedUnitID;
+            var Param1 = selectedParentID;
             var Param2 = selectedTimeFrom;
             var Param3 = selectedTimeTo;
             var timestamp = new Date().getTime();
@@ -1591,7 +1608,7 @@
                     }
                 }]
             }));
-            sized = false;
+
         }
 
         // ******************		SHOW ONLY MAP		*****************************************************************************
@@ -1649,7 +1666,7 @@
             var url = "/XMII/Illuminator?QueryTemplate=MESM/ANDM/QUERIES/get_StatusColorsData&Param.1=" + selectedMapStatusID + "&Content-Type=text/xml";
             getData(url, parseJsonParent);
             function parseJsonParent(jsondata) {
-                cc(StatusColors['recordID']);
+                //cc(StatusColors['recordID']);
                 StatusColors['recordID'] = jsondata[0]['recordID'];
                 StatusColors['statusPropertyID'] = jsondata[0]['statusPropertyID'];
                 StatusColors['minColor'] = jsondata[0]['minColor'];
