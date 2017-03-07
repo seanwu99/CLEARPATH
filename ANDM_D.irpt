@@ -171,7 +171,7 @@
 
         // ***************************  SELECTION TRACKING  & UPDATE PARAMETERS**************************************************************************************
 
-        var selectedPlant = '';
+        var selectedPlant = ''; // 1604 Toledo
         var selectedUnitName = '';			// TOLEDO
         var selectedUnitID = 0;
         var selectedParentID = 0;
@@ -204,9 +204,9 @@
 
                 updatePlants(plant2Access);
 
-                selectedPlant = '1604';			//   SETING
+                //     selectedPlant = '1604';			//   SETING
                 getUnitID(selectedUnitName);			//   SETING	selectedParentID = 0;
-                selectedUnitID = 282	// SETING ; - hardcoded to get charts which have data only for unit 282
+                //       selectedUnitID = 282	// SETING ; - hardcoded to get charts which have data only for unit 282
 
                 setTimeout(getTreeData, 1000);
                 setTimeout(pageInit, 2000);
@@ -320,7 +320,8 @@
             function parseJsonUnitID(jsondata) {
                 for (var i = 0; i < jsondata.length; i++) {
                     selectedParentID = jsondata[i]['recordID'];
-                    // alert(selectedParentID);
+                    //alert(selectedParentID);
+                    selectedPlant = jsondata[i]['unitSAPID'];
                 }
             }
         }
@@ -1016,7 +1017,7 @@
             var Param3 = selectedTimeTo;
             var timestamp = new Date().getTime();
             var str_url = "/XMII/Runner?Transaction=MESM/ANDM/TRANSACTIONS/getProductionRepChartData&ID_LINE=" + Param1 + "&TS_STARTING=" + Param2 + "&TS_ENDING=" + Param3 + "&ts=" + timestamp + "&OutputParameter=HC_OUT&Content-Type=text/xml";
-            // alert(str_url);
+            cc(str_url);
             var xmlHttp = new XMLHttpRequest();
             var xmlDOM;
             xmlHttp.open("GET", str_url, false);
@@ -1033,10 +1034,10 @@
 
         function chartProductionData(data) {
             // alert(data);
-            if (highChartSample1 != null && !sized) {
+            if (highChartSample1 != null && !sized && (highChartSample2.series.length == data.length)) {
                 $.each(highChartSample1.series, function (i, _series) {
                     highChartSample1.series[i].update({
-                        data: (data)[i].data
+                        data: data[i].data
                     }, true);
                 });
                 return;
@@ -1159,7 +1160,7 @@
         }
 
         function chartQualityData(data) {
-            if (highChartSample2 != null && !sized) {
+            if (highChartSample2 != null && !sized && data != null && (highChartSample2.series.length == data.length)) {
                 $.each(highChartSample2.series, function (i, _series) {
                     highChartSample2.series[i].update({
                         data: data[i].data
@@ -1244,7 +1245,7 @@
                     enabled: false
                 }
             });
-            sized = false;
+//            sized = false;
         }
 
         // ******************		HISTOGRAM		******************************************
@@ -1302,14 +1303,14 @@
         }
 
         function chartHistogramData(data) {
-//            if (highChartSample3 != null && !sized) {
-//                $.each(highChartSample3.series, function (i, _series) {
-//                    _series.update({
-//                        data: data[i]
-//                    }, true);
-//                });
-//                return;
-//            }
+            if (highChartSample3 != null && !sized && data != null && (highChartSample3.series.length == data.length)) {
+                $.each(highChartSample3.series, function (i, _series) {
+                    highChartSample3.series[i].update({
+                        data: data[i].data
+                    }, true);
+                });
+                return;
+            }
             //alert(data);
             highChartSample3 = Highcharts.chart('histogram', {
                 legend: {
@@ -1387,6 +1388,7 @@
                     enabled: false
                 }
             });
+            sized = false;
         }
 
         //*********************	SHIFT   &  COMPARE SHIFTS	**************************************************
@@ -1464,7 +1466,15 @@
             }
         }
 
-        function chartShiftChart(dataParam) {
+        function chartShiftChart(data) {
+//            if (highChartSample4 != null && !sized) {
+//                $.each(highChartSample4.series, function (i, _series) {
+//                    highChartSample4.series[i].update({
+//                        data: data[i].data
+//                    }, true);
+//                });
+//                return;
+//            }
             highChartSample4 = Highcharts.chart('container-shift', Highcharts.merge(gaugeOptionsShift, {
                 yAxis: {
                     min: 0,
@@ -1487,7 +1497,7 @@
                 },
                 series: [{
                     name: 'Speed',
-                    data: dataParam,
+                    data: data,
                     dataLabels: {
                         format: '<div style="text-align:center"><span style="font-size:25px;color:' +
                         ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
@@ -1498,6 +1508,7 @@
                     }
                 }]
             }));
+//            sized = false;
         }
 
         var gaugeOptionsCompare = {
@@ -1573,7 +1584,15 @@
             }
         }
 
-        function chartCompareChart(dataParam) {
+        function chartCompareChart(data) {
+//            if (highChartSample5 != null && !sized) {
+//                $.each(highChartSample5.series, function (i, _series) {
+//                    highChartSample5.series[i].update({
+//                        data: data[i].data
+//                    }, true);
+//                });
+//                return;
+//            }
             highChartSample5 = Highcharts.chart('container-compare', Highcharts.merge(gaugeOptionsCompare, {
                 yAxis: {
                     min: 0,
@@ -1596,7 +1615,7 @@
                 },
                 series: [{
                     name: 'RPM',
-                    data: dataParam,
+                    data: data,
                     //animation: false,
                     dataLabels: {
                         format: '<div style="text-align:center"><span style="font-size:25px;color:' +
@@ -1608,7 +1627,7 @@
                     }
                 }]
             }));
-
+//            sized = false;
         }
 
         // ******************		SHOW ONLY MAP		*****************************************************************************
