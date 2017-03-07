@@ -261,12 +261,16 @@
 
 
                 selectedSTATION = document.getElementById("user_station").value;
-
+                floorMapsLoding();
                 //selectedSTATION = 'P558_ASSY_OP010';
 
                 var tabID = selectedSTATION.split("_");
                 if (typeof tabID[2] === "undefined" || tabID[2] === null) tabID[2] = "OP010";
+
                 selectedSTATION_TXT = tabID[1] + " " + tabID[2];
+
+                cc(selectedSTATION);
+                cc(selectedSTATION_TXT);
 
                 // show status
                 setTimeout(function () {
@@ -314,6 +318,7 @@
                 var timestamp = new Date().getTime();
                 var paramStr = "STATION=" + encodeURIComponent(selectedSTATION);
                 var queryStr = "/XMII/Runner?Transaction=MESM/STATIONS_HMI/TRANSACTIONS/buildData&OutputParameter=HTML_OUT&Content-Type=text/html&" + paramStr + "&ts=" + timestamp;
+//                cc(queryStr);
                 oReqData.open("GET", queryStr, true);
                 oReqData.onreadystatechange = function () {
                     if (oReqData.readyState == 4)
@@ -329,13 +334,12 @@
                         } else {
                             alert("Error: " + oReqData.statusText);
                         }
-                }
+                };
                 oReqData.send();
             } else {
                 window.alert("Error creating XmlHttpRequest object.");
             }
         }
-        ;
         // ******************************************************************************************************************************************************************
         var oButtonDocs = new sap.ui.commons.Button({
             id: 'B-Docs',
@@ -350,6 +354,52 @@
             return;
         }
         // ******************************************************************************************************************************************************************
+        function cc(obj) {
+            console.log(obj)
+        }
+        var recordIDArray = [];
+        var unitNameArray = [];
+        var idUnitParentArray = [];
+
+
+        function floorMapsLoding() {
+            var url = "/XMII/Illuminator?QueryTemplate=MESM/STATIONS_HMI/QUERIES/get_FloorMapsData" + "&Content-Type=text/xml";
+            getData(url, parseJsonParent);
+            function parseJsonParent(jsondata) {
+                for (var i = 0; i < jsondata.length; i++) {
+                    recordIDArray.push(jsondata[i]['recordID']);
+                    unitNameArray.push(jsondata[i]['unitName']);
+                    idUnitParentArray.push(jsondata[i]['idUnitParent']);
+                    //cc(i + '/' + recordIDArray[i] + '/' + unitNameArray[i]);
+                }
+                var _unitName = "";
+                var _recordID = "";
+                var p = 0, q = 0;
+
+                //selectedSTATION
+                for (var i = 0; i < recordIDArray.length; i++) {
+                    if (selectedSTATION.indexOf(unitNameArray[i]) == 0) {
+                        p = i;
+                        i = recordIDArray.length + 1;
+                    }
+                }
+
+                if (p >= 0 && p < recordIDArray.length) {
+                    cc(recordIDArray[p] + '//' + unitNameArray[p]);
+                    for (var j = 0; j < recordIDArray.length; j++) {
+                        cc();
+                        if ((selectedSTATION.indexOf(unitNameArray[p]) > 0) && (idUnitParentArray[p] == idUnitParentArray[j])) {
+                            cc(unitNameArray[j]);
+                            q = j;
+                            j = recordIDArray.length + 1;
+                        }
+                    }
+                    cc(recordIDArray[q] + '//' + unitNameArray[q]);
+                }
+
+
+            }
+        }
     </script>
 </head>
 
