@@ -1,0 +1,2968 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>RTS SPCM</title>
+    <link rel="stylesheet" type="text/css" href="Common/js/jquerydatetimepicker/jquery.datetimepicker.css"/>
+    <style>
+        body {
+            background-size: 180px;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: right 40px top 30px;
+            font-family: Arial;
+        }
+
+        a.colorButton:link, a.colorButton:active, a.colorButton:hover, a.colorButton:visited {
+            text-decoration: none;
+            color: #007dc0;
+            cursor: pointer;
+            background-position: right top;
+        }
+
+        #sk_invoke {
+            position: fixed;
+            top: 30px;
+            left: -5px;
+            width: 55px;
+            height: 36px;
+            line-height: 36px;
+            text-align: right;
+            background: #FFF;
+            padding: 0 18px 0 0;
+            z-index: 200;
+            font-family: "Arial Black", Arial, Helvetica, sans-serif;
+            -webkit-border-top-right-radius: 21px;
+            -moz-border-top-right-radius: 21px;
+            -ms-border-top-right-radius: 21px;
+            -o-border-top-right-radius: 21px;
+            border-top-right-radius: 21px;
+            -webkit-border-bottom-right-radius: 21px;
+            -moz-border-bottom-right-radius: 21px;
+            -ms-border-bottom-right-radius: 21px;
+            -o-border-bottom-right-radius: 21px;
+            border-bottom-right-radius: 21px;
+            border-right: 2px solid #007dc0;
+        }
+
+        #sk_legend {
+            position: fixed;
+            top: 90px;
+            right: -5px;
+            width: 155px;
+            height: 580px;
+            line-height: 24px;
+            text-align: center;
+            background: #FFF;
+            padding: 0 12px 0 0;
+            z-index: 5;
+            font-family: "Arial Black", Arial, Helvetica, sans-serif;
+            -webkit-border-top-left-radius: 21px;
+            -moz-border-top-left-radius: 21px;
+            -ms-border-top-left-radius: 21px;
+            -o-border-top-left-radius: 21px;
+            border-top-left-radius: 21px;
+            -webkit-border-bottom-left-radius: 21px;
+            -moz-border-bottom-left-radius: 21px;
+            -ms-border-bottom-left-radius: 21px;
+            -o-border-bottom-left-radius: 21px;
+            border-bottom-left-radius: 21px;
+            border-left: 2px solid #007dc0;
+        }
+
+        #sk_logout {
+            position: fixed;
+            top: 30px;
+            right: -5px;
+            width: 155px;
+            height: 36px;
+            line-height: 36px;
+            text-align: center;
+            background: #FFF;
+            padding: 0 12px 0 0;
+            z-index: 5;
+            font-family: "Arial Black", Arial, Helvetica, sans-serif;
+            -webkit-border-top-left-radius: 21px;
+            -moz-border-top-left-radius: 21px;
+            -ms-border-top-left-radius: 21px;
+            -o-border-top-left-radius: 21px;
+            border-top-left-radius: 21px;
+            -webkit-border-bottom-left-radius: 21px;
+            -moz-border-bottom-left-radius: 21px;
+            -ms-border-bottom-left-radius: 21px;
+            -o-border-bottom-left-radius: 21px;
+            border-bottom-left-radius: 21px;
+            border-left: 2px solid #007dc0;
+        }
+
+        #app_header {
+            margin: 0px auto;
+            padding: 10px;
+            padding-left: 40px;
+            padding-top: 15px;
+            padding-bottom: 0px;
+            height: 40px;
+            width: 400px;
+            text-align: center;
+            display: none;
+        }
+
+        #app_menu {
+            width: 400px;
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        #page_title {
+            width: 400px;
+            text-align: center;
+            font-family: "Arial Black", Arial, Helvetica, sans-serif;
+            font-size: 28px;
+            color: #cfcfcf;
+        }
+
+        #spcm_content {
+            padding: 30px;
+            padding-top: 0px;
+            height: 60px;
+        }
+
+        #MatrixChart {
+            margin: 10px auto;
+            display: block;
+        }
+
+        #L-ChartTitle {
+            margin-top: 15px;
+            padding: 5px;
+            font-family: "Arial Black", Arial, Helvetica, sans-serif;
+            font-size: 32px;
+            height: 35px;
+            color: #007dc0;
+        }
+
+        #__cell0, #__cell1, #__cell2, #__cell3, #__cell4 {
+            text-align: center;
+        }
+
+        #B-Chart {
+            margin-top: 5px;
+            width: 100px;
+            height: 35px;
+            font-size: 14px;
+        }
+
+        #MatrixParts {
+            margin: 10px auto;
+            display: none;
+        }
+
+        #L-PartsTitle {
+            margin-top: 15px;
+            padding: 5px;
+            font-family: "Arial Black", Arial, Helvetica, sans-serif;
+            font-size: 32px;
+            height: 35px;
+            color: #007dc0;
+        }
+
+        #L-ChartID {
+            margin-top: 10px;
+        }
+
+        #B-GoChart, #B-GetPart {
+            margin-top: 15px;
+            width: 100px;
+            height: 35px;
+            font-size: 14px;
+        }
+
+        #__cell5, #__cell6, #__cell7, #__cell8, #__cell9, #__cell10, #__cell11 {
+            text-align: center;
+        }
+
+        #MatrixT, #MatrixB {
+            margin: 10px auto;
+        }
+
+        #MatrixTop {
+            margin: 10px auto;
+            display: none;
+        }
+
+        #MatrixChart1 {
+            border-bottom: 1px solid #ccc;
+        }
+
+        #MatrixRow1, #MatrixRow4 {
+            background: #efefef;
+        }
+
+        #MatrixRow2 {
+            background: #fff;
+            border-bottom: 2px solid #ccc;
+        }
+
+        #MatrixRow3 {
+            background: #fff;
+            border-top: 2px solid #ccc;
+        }
+
+        #TF-DateTime, #B-DateTime {
+            margin-top: 8px;
+        }
+
+        #L-ChartName, #L-PartName {
+            margin-top: 8px;
+            margin-left: 8px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        #L-CalcCP, #L-CalcCPK, #L-CalcCR {
+            margin-top: 8px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        #L-CalcRDS, #L-CalcGRP {
+            margin-top: 8px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        #__cell12, #__cell13, #__cell14, #__cell16, #__cell17, #__cell18, #__cell19, #__cell20 {
+            text-align: center;
+        }
+
+        #L-CalcREQ {
+            margin-top: 8px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 14px;
+            color: red;
+        }
+
+        #L-UNLK, #L-ASSET, #L-PART, #L-CLOCK {
+            margin-top: 8px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        #__cell24, #__cell26, #__cell26, #__cell27, #__cell28, #__cell29, #__cell31 {
+            text-align: center;
+        }
+
+        #B-AddNew {
+            margin-top: 15px;
+            width: 150px;
+            height: 35px;
+            font-size: 14px;
+        }
+
+        #MatrixA, #MatrixAF, #MatrixAL, #MatrixAR, #MatrixAV {
+            margin: 10px auto;
+        }
+
+        #L-TitleA, #L-TitleAV {
+            margin-top: 15px;
+            padding: 5px;
+            font-family: "Arial Black", Arial, Helvetica, sans-serif;
+            font-size: 32px;
+            height: 35px;
+            color: #007dc0;
+        }
+
+        #__cell32, #__cell49, #__cell34, #__cell36, #__cell38, #__cell40, #__cell42, #__cell44, #__cell46, #__cell48, #__cell62 {
+            text-align: center;
+        }
+
+        #__cell33, #__cell35, #__cell37, #__cell39, #__cell41, #__cell43, #__cell45, #__cell47 {
+            text-align: right;
+        }
+
+        #__cell50, #__cell50, #__cell52, #__cell54, #__cell56 {
+            padding-right: 15px;
+            text-align: right;
+        }
+
+        #B-AddVal, #B-AVSubmit {
+            margin-top: 5px;
+            width: 150px;
+            height: 35px;
+            font-size: 14px;
+        }
+
+        #__cell64, #__cell66 {
+            padding-right: 15px;
+            text-align: right;
+        }
+
+        #__cell63, #__cell69, #__cell70, #__cell71 {
+            text-align: center;
+        }
+
+        #__cell72 {
+            text-align: center;
+            height: 36px;
+        }
+    </style>
+    <script type="text/javascript" src="/XMII/CM/SPCM/Common/js/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="/XMII/JavaScript/bootstrap.js" data-libs="i5SPCChart"></SCRIPT>
+    <script type="text/javascript" src="Common/js/default_dashboard.js"></script>
+    <script src="Common/js/jquerydatetimepicker/build/jquery.datetimepicker.full.js"></script>
+    <script type="text/javascript" src="Common/js/default.js"></script>
+    <script type="text/javascript" src="Common/js/util.js"></script>
+    <script type="text/javascript" id="app-init">
+        // ****************************************************************************************************************************************************
+        // Get Core SAP UI5
+        var applicationScreen = "none";
+        var scanInput = true;
+        var oCore = sap.ui.getCore();
+        var srvDateTime = "";
+        var chartDateTime = "";
+        var stationName = "SPCM ACCESS";
+        var level2Access = "";
+        var plant2Access = "";
+        var idPlant = 0;
+        var idStation = 0;
+        var ClockID = '';
+        var operator = "";
+        var autoName = "";
+        var autoPart = "";
+        var autoCorrAction = "";
+        var selectedPartNr = "";
+        var selectedPartName = "";
+        var selectedPartID = '';
+        var selectedChartNr = "";
+        var selectedChartID = "";
+        var selectedAssetID = "";
+        var selectedDepartment = "";
+        var selectedDeptID = "";
+        var miiDataServer = "";
+        var selectedCorrActionCode = "";
+        var selectedCorrActionName = "";
+        // ****************************************************************************************************************************************************
+        var partsData; // json with Part IDs in the selected plant.
+        var chartsData; // json with Chart IDs in the selected plant.
+        var corrActionsData; // json with Corrective Actions for the selected chart
+        // ****************************************************************************************************************************************************
+        var c;	// top chart
+        var jsonChartData; // json with Chart Data in the selected Chart ID.
+        // ****************************************************************************************************************************************************
+        var valueURL = 0;
+        var valueUSL = 0;
+        var valueUCL = 0;
+        var valueUWL = 0;
+        var valueTGT = 0;
+        var valueCLN = 0;
+        var valueLWL = 0;
+        var valueLCL = 0;
+        var valueLSL = 0;
+        var valueLRL = 0;
+        var valueLUR = 0;
+        var valueLLR = 0;
+        var valueLLT = 0;
+        var pointMultiplier = 1;
+        var pointPrecision = 0;
+        var pointValues = "";
+        var subGroupSize = 0;
+        var sampleSize = 0;
+        var trendSize = 0;
+        var valueUCSigma = 0;
+        var valueLCSigma = 0;
+        var valueLambda = 0;
+        var idGroup = 0;
+        var dataCollection = '';
+        var chartTitle = '';
+
+        var recValue = 0.0;
+        var recTimestamp = "";
+        var recClockId = "";
+        var recOpName = "";
+
+        var valueIsComment = 0;
+        var valueIsSuppressed = 0;
+        var valueDataCollection = "";
+
+        // ****************************************************************************************************************************************************
+        var selectedPosition = -1;
+        var selectedGrp = 0;
+        var selectedTime = "";
+        var selectedSubgroupSize = 0;
+        var selectedPositionTestID = "1";
+        var newAddedPositionTestID = 15
+        var selectedCorrectiveAction = 0;
+        var strDate = '';
+        // ****************************************************************************************************************************************************
+        var selectedTestID = 0;
+        var AlarmDescription = '';
+
+        //--- check user role
+        function roleSecurity() {
+            var myRoles = document.getElementById("user_roles").value;
+            var role2Access = "SPCM_" + document.getElementById("user_role").value;
+            if (myRoles.indexOf(role2Access) < 0) {
+                window.location.assign("security.irpt");
+            } else {
+                var roleString = document.getElementById("user_role").value;
+                var roleArray = roleString.split("_");
+                level2Access = roleArray[0];
+                plant2Access = roleArray[1];
+                if (plant2Access == "ALL") {
+                    miiDataServer = "MESM";
+                } else {
+                    //miiDataServer = "MESM_" + plant2Access;
+                    miiDataServer = "MESM";
+                }
+                getStation();
+                getSrvDateTime();
+                // alert(miiDataServer);
+            }
+
+            var useScanner = document.getElementById("user_input").value;
+            if (useScanner.toUpperCase() == "TRUE") {
+                // Scanner Input Required
+                document.getElementById("sk_show").innerHTML = "Scan";
+                scanInput = true;
+                // document.getElementById("barcode").style.display="block";
+                window.status = " SCANNER INPUT";
+            } else {
+                // Keyboard Input Required
+                document.getElementById("sk_show").innerHTML = "Type";
+                scanInput = false;
+                // document.getElementById("barcode").style.display="none";
+                window.status = " KEYBOARD INPUT";
+            }
+            applicationScreen = "pickChart";
+        }
+        ;
+        //todo
+        // ****************************************************************************************************************************************************
+        function toggleInput() {
+            var useScanner = document.getElementById("user_input").value;
+            if (useScanner.toUpperCase() == "TRUE") {
+                // scanner - Change to Keyboard
+                document.getElementById("sk_show").innerHTML = "Type";
+                scanInput = false;
+                // document.getElementById("barcode").style.display="block";
+                window.status = " KEYBOARD INPUT";
+                document.getElementById("user_input").value = "FALSE";
+            } else {
+                // keyboard - Change to Scanner
+                document.getElementById("sk_show").innerHTML = "Scan";
+                scanInput = true;
+                // document.getElementById("barcode").style.display="none";
+                window.status = " SCANNER INPUT";
+                document.getElementById("user_input").value = "TRUE";
+            }
+        }
+        ;
+        // ****************************************************************************************************************************************************
+        function getStation() {
+            var ipAddress = document.getElementById("user_machine").value;
+            var ipFilter = document.getElementById("user_ipFilter").value;
+
+            var timestamp = new Date().getTime();
+            var Param1 = ipAddress;
+            var paramStr = "Param.1=" + encodeURIComponent(Param1) + "&Server=" + miiDataServer;
+            var queryStr = "/XMII/Illuminator?QueryTemplate=SPCM/DASHBOARD/QUERIES/sql_getStationName&" + paramStr + "&ts=" + timestamp + "&Content-Type=text/xml";
+            getData(queryStr, parseJsonStationName);
+            function parseJsonStationName(jsondata) {
+                for (var i = 0; i < jsondata.length; i++) {
+                    stationName = jsondata[i]['stationName'];
+                    idPlant = jsondata[i]['idPlant'];
+                }
+                getParts(idPlant);
+                getCharts(idPlant);
+                document.getElementById("L-PartsTitle").innerHTML = stationName;
+                document.getElementById("L-ChartTitle").innerHTML = stationName;
+                return;
+            }
+        }
+        ;
+        // ****************************************************************************************************************************************************
+
+        function getSrvDateTime() {
+            var timestamp = new Date().getTime();
+            var queryStr = "/XMII/Illuminator?QueryTemplate=SPCM/DASHBOARD/QUERIES/sql_getSrvDateTime2&Server=" + miiDataServer + "&ts=" + timestamp + "&Content-Type=text/xml";
+            getData(queryStr, parseJsonServerDate);
+
+            function parseJsonServerDate(jsondata) {
+                for (var i = 0; i < jsondata.length; i++) {
+                    srvDate = jsondata[i]['srvDate'];
+                    srvTime = jsondata[i]['srvTime'];
+                    srvDateTime = srvDate + " " + srvTime
+                    // update the screen
+                    document.getElementById("TF-DateTime").value = srvDateTime;
+                    selectedTime = srvDateTime;
+                }
+            }
+        }
+        ;
+        // ****************************************************************************************************************************************************
+        // SCANNER LISTENER
+        // ****************************************************************************************************************************************************
+        $(document).ready(function () {
+            var pressed = false;
+            var chars = [];
+            if (scanInput) window.focus();
+            $(window).keypress(function (e) {
+                if (scanInput) window.focus();
+                chars.push(String.fromCharCode(e.which));
+                if (pressed == false) {
+                    pressed = true;
+                    var scantimer = setTimeout(
+                        function () {
+                            if (scanInput) window.focus();
+                            if (chars.length >= 3 && scanInput) {
+                                var barcode = chars.join("");
+                                $("#barcode").val(barcode);
+                                doAction(barcode);
+                            }
+                            clearTimeout(scantimer);
+                            chars = [];
+                            pressed = false;
+                        }, 500);
+                }
+            });
+        });
+        // ****************************************************************************************************************************************************
+        $("#barcode").keypress(function (e) {
+            if (e.which === 13 && scanInput) {
+                console.log("Prevent form submit.");
+                e.preventDefault();
+            }
+        });
+        // ****************************************************************************************************************************************************
+        function doAction(barcode) {
+            var action = "";
+            if (applicationScreen == "pickChart") {
+                // Pick Chart Screen
+                if (barcode.indexOf("%X") > 0) {
+                    // Action = EXIT Scan
+                    action = barcode.substring(0, barcode.indexOf("%X"));
+                    barcode = action;
+                    document.location.reload();
+                } else if (barcode.indexOf("%S") > 0) {
+                    // Action = SAVE Scan
+                    action = barcode.substring(0, barcode.indexOf("%S"));
+                    barcode = action;
+                    doSubmitChart();
+                } else if (barcode.indexOf("%C") > 0) {
+                    // Action = CLEAR Scan
+                    action = barcode.substring(0, barcode.indexOf("%C"));
+                    barcode = action;
+                    doClearChart();
+                } else if (barcode.indexOf("%G") > 0) {
+                    // Action = Chart Number Scan
+                    selectedChartNr = barcode.substring(0, barcode.indexOf("%G"));
+                    barcode = selectedChartNr;
+                    // Retrieve Chart ID & Chart Description
+                    getChartByName(selectedChartNr);
+                } else {
+                    // default (barcode type unknown)
+                    barcode = "UNKNOWN";
+                }
+            } else if (applicationScreen == "pickPart") {
+                // Pick Part Screen & Clock ID
+                if (barcode.indexOf("%X") > 0) {
+                    // Action = EXIT Scan
+                    action = barcode.substring(0, barcode.indexOf("%X"));
+                    barcode = action;
+                    doLogOut();
+                } else if (barcode.indexOf("%S") > 0) {
+                    // Action = SAVE Scan
+                    action = barcode.substring(0, barcode.indexOf("%S"));
+                    barcode = action;
+                    doSubmitPart();
+                } else if (barcode.indexOf("%O") > 0) {
+                    // Action = Operator Scan
+                    ClockID = barcode.substring(0, barcode.indexOf("%O"));
+                    oCore.byId("input_clkid").setValue(ClockID);
+                    barcode = ClockID;
+                    if (scanInput) doSubmitPart();
+                } else if (barcode.indexOf("%C") > 0) {
+                    // Action = CLEAR Scan
+                    action = barcode.substring(0, barcode.indexOf("%C"));
+                    barcode = action;
+                    doClearPart();
+                } else if (barcode.indexOf("%P") > 0) {
+                    // Action = Part Scan
+                    selectedPartNr = barcode.substring(0, barcode.indexOf("%P"));
+                    barcode = selectedPartNr;
+                    // Retrieve Part ID & Part Description
+                    getPartByName(selectedPartNr);
+                } else {
+                    // default (barcode type unknown)
+                    barcode = "UNKNOWN";
+                }
+            } else if (applicationScreen == "chartit") {
+                // Chart Screen
+                if (barcode.indexOf("%X") > 0) {
+                    // Action = EXIT Scan
+                    action = barcode.substring(0, barcode.indexOf("%X"));
+                    barcode = action;
+                    doLogOut();
+                } else if (barcode.indexOf("%NR") > 0) {
+                    // Action = Number Scan
+                    action = barcode.substring(0, barcode.indexOf("%NR"));
+                    barcode = action;
+                    // Pop-up Overlay
+                    var scanVal = pointMultiplier * barcode;
+                    doAddData(scanVal);
+                    oCore.byId("TF-VALUE1").setValue(scanVal.toFixed(pointPrecision));
+                } else {
+                    // default (barcode type unknown)
+                    barcode = "UNKNOWN";
+                }
+            } else if (applicationScreen == "addvalues") {
+                // Add Values Screen
+                if (barcode.indexOf("%X") > 0) {
+                    // Action = EXIT Scan
+                    action = barcode.substring(0, barcode.indexOf("%X"));
+                    barcode = action;
+                    // close overlay without saving
+                    oCore.byId("TF-VALUE1").setValue("");
+                    oCore.byId("TF-VALUE2").setValue("");
+                    oCore.byId("TF-VALUE3").setValue("");
+                    oCore.byId("TF-VALUE4").setValue("");
+                    oCore.byId("TF-VALUE5").setValue("");
+                    oCore.byId("TF-VALUE6").setValue("");
+                    oCore.byId("TF-VALUE7").setValue("");
+                    calcAverages();
+                    oOverlayContainerAdd.close();
+                    applicationScreen = "chartit";
+                    window.focus();
+                } else if (barcode.indexOf("%S") > 0) {
+                    // Action = SAVE Scan
+                    action = barcode.substring(0, barcode.indexOf("%S"));
+                    barcode = action;
+                    // submit values
+                    window.focus();
+                    doAddValue();
+                } else if (barcode.indexOf("%C") > 0) {
+                    // Action = CLEAR Scan
+                    action = barcode.substring(0, barcode.indexOf("%C"));
+                    barcode = action;
+                    // clear value fields & calculations
+                    oCore.byId("TF-VALUE1").setValue("");
+                    oCore.byId("TF-VALUE2").setValue("");
+                    oCore.byId("TF-VALUE3").setValue("");
+                    oCore.byId("TF-VALUE4").setValue("");
+                    oCore.byId("TF-VALUE5").setValue("");
+                    oCore.byId("TF-VALUE6").setValue("");
+                    oCore.byId("TF-VALUE7").setValue("");
+                    window.focus();
+                    calcAverages();
+                } else if (barcode.indexOf("%N") > 0) {
+                    // Action = Number Scan
+                    action = barcode.substring(0, barcode.indexOf("%N"));
+                    if (isNumeric(action)) {
+                        barcode = action;
+                        // new number entry - update fields & calculations
+                        var scanVal = pointMultiplier * barcode;
+                        if (!isNumeric(oCore.byId("TF-VALUE1").getValue())) oCore.byId("TF-VALUE1").setValue("");
+                        if (oCore.byId("TF-VALUE1").getValue() == "" && oCore.byId("TF-VALUE1").getEnabled()) {
+                            oCore.byId("TF-VALUE1").setValue(scanVal.toFixed(pointPrecision));
+                        } else {
+                            if (oCore.byId("TF-VALUE2").getValue() == "" && oCore.byId("TF-VALUE2").getEnabled()) {
+                                oCore.byId("TF-VALUE2").setValue(scanVal.toFixed(pointPrecision));
+                            } else {
+                                if (oCore.byId("TF-VALUE3").getValue() == "" && oCore.byId("TF-VALUE3").getEnabled()) {
+                                    oCore.byId("TF-VALUE3").setValue(scanVal.toFixed(pointPrecision));
+                                } else {
+                                    if (oCore.byId("TF-VALUE4").getValue() == "" && oCore.byId("TF-VALUE4").getEnabled()) {
+                                        oCore.byId("TF-VALUE4").setValue(scanVal.toFixed(pointPrecision));
+                                    } else {
+                                        if (oCore.byId("TF-VALUE5").getValue() == "" && oCore.byId("TF-VALUE5").getEnabled()) {
+                                            oCore.byId("TF-VALUE5").setValue(scanVal.toFixed(pointPrecision));
+                                        } else {
+                                            if (oCore.byId("TF-VALUE6").getValue() == "" && oCore.byId("TF-VALUE6").getEnabled()) {
+                                                oCore.byId("TF-VALUE6").setValue(scanVal.toFixed(pointPrecision));
+                                            } else {
+                                                if (oCore.byId("TF-VALUE7").getValue() == "" && oCore.byId("TF-VALUE7").getEnabled()) {
+                                                    oCore.byId("TF-VALUE7").setValue(scanVal.toFixed(pointPrecision));
+                                                } else {
+                                                    barcode = "UNKNOWN";
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        window.focus();
+                        calcAverages();
+                    } else {
+                        // non-numeric
+                        barcode = "UNKNOWN";
+                    }
+                } else {
+                    // default (barcode type unknown)
+                    barcode = "UNKNOWN";
+                }
+            } else if (applicationScreen == "addcorraction") {
+                // Chart Screen
+                /* Disable exit on Add Corrective Action (Mark's request 3/9/2016)
+                 if (barcode.indexOf("%X") > 0) {
+                 // Action = EXIT Scan
+                 action=barcode.substring(0, barcode.indexOf("%X"));
+                 barcode = action;
+                 oOverlayContainerActionsView.close();
+                 applicationScreen = "chartit";
+                 window.focus();
+                 } else
+                 */
+                if (barcode.indexOf("ACTIONCODE") > -1) {
+                    // Action = Corrective Action Scan
+                    action = barcode.substring(10, barcode.length);
+                    barcode = action;
+                    var scanVal = action.replace(/^0+/, '');
+                    scanVal = scanVal.trim();
+                    // Retrieve Corrective Action ID & Corrective Action Description
+                    getCorrActionByCode(scanVal);
+                } else {
+                    // default (barcode type unknown)
+                    barcode = "UNKNOWN";
+                }
+            } else {
+                // screen unknown
+                barcode = "BADSCAN";
+            }
+            // point focus on body
+            // window.focus();
+            // display barcode on the screen
+            if (applicationScreen != "addvalues" && applicationScreen != "addcorraction") {
+                document.getElementById("imgcode").innerHTML = "!" + barcode + "!";
+                $("#imgcode").show();
+                $("#imgcode").fadeTo(1600, 0, function () {
+                    document.getElementById("imgcode").innerHTML = "";
+                    $("#imgcode").fadeTo(0, 1);
+                });
+            } else if (applicationScreen == "addcorraction") {
+                document.getElementById("imgcodebar2").innerHTML = "!" + barcode + "!";
+                $("#imgcodebar2").show();
+                $("#imgcodebar2").fadeTo(1600, 0, function () {
+                    document.getElementById("imgcodebar2").innerHTML = "";
+                    $("#imgcodebar2").fadeTo(0, 1);
+                })
+            } else {
+                document.getElementById("imgcodebar").innerHTML = "!" + barcode + "!";
+                $("#imgcodebar").show();
+                $("#imgcodebar").fadeTo(1600, 0, function () {
+                    document.getElementById("imgcodebar").innerHTML = "";
+                    $("#imgcodebar").fadeTo(0, 1);
+                })
+            }
+        }
+        ;
+        // ****************************************************************************************************************************************************
+        // retrieve charts list
+        function getCharts(idPlant) {
+            var timestamp = new Date().getTime();
+            var Param1 = idPlant;
+            var paramStr = "Param.1=" + encodeURIComponent(Param1) + "&Server=" + miiDataServer;
+            //alert(paramStr);
+            var queryStr = "/XMII/Illuminator?QueryTemplate=SPCM/DASHBOARD/QUERIES/sql_getChartsList&" + paramStr + "&ts=" + timestamp + "&Content-Type=text/xml";
+            getData(queryStr, parseJsonChartsList);
+
+            function parseJsonChartsList(jsondata) {
+                chartsData = jsondata;
+                for (var i = 0; i < chartsData.length; i++) {
+                    // nothing to parse
+                }
+            }
+        }
+        ;
+        // ****************************************************************************************************************************************************
+        function getChartByName(UnitName) {
+            var timestamp = new Date().getTime();
+
+            //alert(UnitName);
+
+            var Param1 = UnitName;
+            var paramStr = "Param.1=" + encodeURIComponent(Param1) + "&Server=" + miiDataServer;
+            //alert(paramStr);
+            var queryStr = "/XMII/Illuminator?QueryTemplate=SPCM/DASHBOARD/QUERIES/sql_getChartByName&" + paramStr + "&ts=" + timestamp + "&Content-Type=text/xml";
+            getData(queryStr, parseJsonChartByName);
+
+            function parseJsonChartByName(jsondata) {
+                for (var i = 0; i < jsondata.length; i++) {
+                    autoName = jsondata[i]['autoName'];
+                    selectedChartID = jsondata[i]['recordID'];
+                    selectedChartNr = jsondata[i]['unitName'];
+                    selectedAssetID = jsondata[i]['idAsset'];
+                    selectedAsset = jsondata[i]['assetName'];
+                    selectedDeptID = jsondata[i]['idDepartment'];
+                    selectedDepartment = jsondata[i]['deptName'];
+                }
+                oTF_ChartID.setValue(autoName);
+                document.getElementById("L-PartsTitle").innerHTML = selectedAsset + " " + selectedDepartment;
+                document.getElementById("L-ChartTitle").innerHTML = selectedAsset + " " + selectedDepartment;
+                if (scanInput) doSubmitChart();
+            }
+        }
+        ;
+        // ****************************************************************************************************************************************************
+        // Input Chart Screen
+        oMatrixChart = new sap.ui.commons.layout.MatrixLayout({
+            id: 'MatrixChart',
+            layoutFixed: true,
+            width: '900px',
+            columns: 1,
+            widths: ['900px']
+        });
+
+        var htmlLogo = new sap.ui.core.HTML("", {
+            id: "htmlLogo",
+            content: "<img src=\"Common/img/logo.png\"  width=185 height =97/>"
+        });
+        var oLayoutLogo = new sap.ui.layout.HorizontalLayout("LayoutLogo", {
+            content: [htmlLogo]
+        });
+        oMatrixChart.createRow(oLayoutLogo);
+
+        oLabelChartTitle = new sap.ui.commons.Label({
+            id: 'L-ChartTitle',
+            text: 'SPCM ACCESS'
+        });
+        oMatrixChart.createRow(oLabelChartTitle);
+
+        oLabelChartID = new sap.ui.commons.Label({
+            id: 'L-ChartID',
+            text: 'PLEASE SCAN / INPUT CHART ID'
+        });
+        oMatrixChart.createRow(oLabelChartID);
+
+        //Create a AutoComplete control and register a handler to the suggest event to add items dynamically
+        //ChartID Aggregation is cleaned-up before each refresh. Suggest works only in TYPE mode.
+
+        var oTF_ChartID = new sap.ui.commons.AutoComplete({
+            id: 'TF-CHTID',
+            tooltip: "PLEASE SCAN / INPUT CHART ID",
+            maxPopupItems: 7,
+            width: '230px',
+            change: function (oEvent) {
+                autoName = oTF_ChartID.getValue();
+                if (autoName.indexOf("**") > 0) {
+                    selectedChartNr = trim(autoName.substring(0, autoName.indexOf("**")));
+                    getChartByName(selectedChartNr);
+                    if (scanInput) doSubmitChart();
+                } else {
+                    autoName = "";
+                    selectedChartID = "";
+                    selectedChartNr = "";
+                    selectedAssetID = "";
+                    selectedAsset = "";
+                    selectedDeptID = "";
+                    selectedDepartment = "";
+                    document.getElementById("L-PartsTitle").innerHTML = stationName;
+                    document.getElementById("L-ChartTitle").innerHTML = stationName;
+                }
+            },
+            suggest: function (oEvent) {
+                if (scanInput) return;
+                oTF_ChartID.destroyItems(); //forget the old items
+                var sValue = oEvent.getParameter("suggestValue");
+                for (var i = 0; i < chartsData.length; i++) {
+                    if (jQuery.sap.startsWithIgnoreCase(chartsData[i].autoName, sValue)) {
+                        oTF_ChartID.addItem(new sap.ui.core.ListItem({
+                            text: chartsData[i].autoName,
+                            additionalText: chartsData[i].idUnit
+                        }));
+                    }
+                }
+            }
+        });
+        oTF_ChartID.setTextAlign(sap.ui.core.TextAlign.Center);
+        //attach it to some element in the page
+        oMatrixChart.createRow(oTF_ChartID);
+
+        var oButtonChart = new sap.ui.commons.Button({
+            id: 'B-Chart',
+            tooltip: "Submit Chart",
+            text: 'SUBMIT',
+            enabled: true
+        });
+        oMatrixChart.createRow(oButtonChart);
+        oButtonChart.attachPress(doSubmitChart);
+        oMatrixChart.placeAt('spcm_content');
+        // ****************************************************************************************************************************************************
+        function doClearChart() {
+            applicationScreen = "pickChart";
+            autoName = "";
+            selectedChartID = "";
+            selectedChartNr = "";
+            selectedAssetID = "";
+            selectedAsset = "";
+            selectedDeptID = "";
+            selectedDepartment = "";
+            oTF_ChartID.setValue("");
+            document.getElementById("L-ChartTitle").innerHTML = stationName;
+            document.getElementById("L-PartsTitle").innerHTML = stationName;
+            window.focus();
+        }
+        ;
+        // ****************************************************************************************************************************************************
+        // submit Chart
+        function doSubmitChart() {
+            // retrieve chart ID
+            autoName = oTF_ChartID.getValue();
+            selectedChartNr = trim(autoName.substring(0, autoName.indexOf("**")));
+            // getChartByName(selectedChartNr);
+            // alert(selectedChartID);
+            if (selectedChartNr == "") {
+                alert("Please Input Chart # ..");
+                oTF_ChartID.focus();
+                return;
+            } else {
+                // all good. Try to lsubmit the chart ID for verification
+                var Param1 = escapeSQLString(selectedChartID);
+                var timestamp = new Date().getTime();
+                var paramStr = "Param.1=" + encodeURIComponent(Param1) + "&Server=" + miiDataServer;
+
+                //alert(paramStr);
+
+                var queryStr = "/XMII/Illuminator?QueryTemplate=SPCM/DASHBOARD/QUERIES/sql_setOperatorChart&" + paramStr + "&ts=" + timestamp + "&Content-Type=text/xml";
+                getData(queryStr, parseJsonOperatorChart);
+                function parseJsonOperatorChart(jsondata) {
+                    for (var i = 0; i < jsondata.length; i++) {
+                        var result = jsondata[i]['result'];
+                        if (result == 1) {
+                            applicationScreen = "pickPart";
+                            idPlant = jsondata[i]['idPlant'];
+                            document.getElementById("MatrixChart").style.display = "none";
+                            document.getElementById("MatrixParts").style.display = "block";
+                            if (scanInput) toggleInput();
+                            oTF_PartsID.focus();
+                        } else {
+                            alert("Invalid Chart Number. Please retry ..");
+                            oTF_ChartID.focus();
+                        }
+                    }
+                }
+
+                getCorrActions(selectedChartID);
+            }
+        }
+        ;
+        // ****************************************************************************************************************************************************
+        // retrieve charts list
+        function getParts(idPlant) {
+            var timestamp = new Date().getTime();
+            var Param1 = idPlant;
+            var paramStr = "Param.1=" + encodeURIComponent(Param1) + "&Server=" + miiDataServer;
+            //alert(paramStr);
+            var queryStr = "/XMII/Illuminator?QueryTemplate=SPCM/DASHBOARD/QUERIES/sql_getPartsList&" + paramStr + "&ts=" + timestamp + "&Content-Type=text/xml";
+            getData(queryStr, parseJsonPartsList);
+
+            function parseJsonPartsList(jsondata) {
+                partsData = jsondata;
+                for (var i = 0; i < partsData.length; i++) {
+                    // nothing to parse
+                }
+            }
+        }
+        ;
+        // ****************************************************************************************************************************************************
+        function getPartByName(PartName) {
+            var timestamp = new Date().getTime();
+            var Param1 = PartName;
+            var paramStr = "Param.1=" + encodeURIComponent(Param1) + "&Server=" + miiDataServer;
+            //alert(paramStr);
+            var queryStr = "/XMII/Illuminator?QueryTemplate=SPCM/DASHBOARD/QUERIES/sql_getPartByName&" + paramStr + "&ts=" + timestamp + "&Content-Type=text/xml";
+            getData(queryStr, parseJsonPartByName);
+
+            function parseJsonPartByName(jsondata) {
+                for (var i = 0; i < jsondata.length; i++) {
+                    autoPart = jsondata[i]['autoPart'];
+                    selectedPartID = jsondata[i]['idPart'];
+                    selectedPartNr = jsondata[i]['partName'];
+                }
+                oTF_PartsID.setValue(autoPart);
+                oTF_CLKID.focus();
+            }
+        }
+        ;
+        // ****************************************************************************************************************************************************
+        oMatrixParts = new sap.ui.commons.layout.MatrixLayout({
+            id: 'MatrixParts',
+            layoutFixed: true,
+            width: '900px',
+            columns: 1,
+            widths: ['900px']
+        });
+
+        var htmlParts = new sap.ui.core.HTML("", {
+            id: "AssetLogo",
+            content: "<img src=\"Common/img/logo.png\"  width=185 height =97/>"
+        });
+        var oLayoutParts = new sap.ui.layout.HorizontalLayout("LayoutParts", {
+            content: [htmlParts]
+        });
+        oMatrixParts.createRow(oLayoutParts);
+
+        oLabelPartsTitle = new sap.ui.commons.Label({
+            id: 'L-PartsTitle',
+            text: ''
+        });
+        oMatrixParts.createRow(oLabelPartsTitle);
+
+        oLabelPartsID = new sap.ui.commons.Label({
+            id: 'L-PartsID',
+            text: 'MANUFACTURED PART'
+        });
+        oMatrixParts.createRow(oLabelPartsID);
+
+        var oTF_PartsID = new sap.ui.commons.AutoComplete({
+            id: 'TF-PRTID',
+            tooltip: "PLEASE SCAN / INPUT PART NUMBER",
+            maxPopupItems: 7,
+            width: '230px',
+            change: function (oEvent) {
+                autoPart = oTF_PartsID.getValue();
+                if (autoPart.indexOf("**") > 0) {
+                    selectedPartNr = trim(autoPart.substring(0, autoPart.indexOf("**")));
+                    getPartByName(selectedPartNr);
+                    getSrvDateTime();
+                } else {
+                    autoPart = "";
+                    selectedPartID = "";
+                    selectedPartNr = "";
+                }
+            },
+            suggest: function (oEvent) {
+                if (scanInput) return;
+                oTF_PartsID.destroyItems(); //forget the old items
+                var sValue = oEvent.getParameter("suggestValue");
+                for (var i = 0; i < partsData.length; i++) {
+                    if (jQuery.sap.startsWithIgnoreCase(partsData[i].autoPart, sValue)) {
+                        oTF_PartsID.addItem(new sap.ui.core.ListItem({
+                            text: partsData[i].autoPart,
+                            additionalText: partsData[i].idPart
+                        }));
+                    }
+                }
+            }
+        });
+
+        oTF_PartsID.setTextAlign(sap.ui.core.TextAlign.Center);
+        //attach it to some element in the page
+        oMatrixParts.createRow(oTF_PartsID);
+
+        oLabelClockID = new sap.ui.commons.Label({
+            id: 'L-ClockID',
+            text: 'EMPLOYEE CLOCK ID'
+        });
+        oMatrixParts.createRow(oLabelClockID);
+
+        var oTF_CLKID = new sap.ui.commons.TextField({
+            id: 'input_clkid',
+            tooltip: 'CLOCK ID ',
+            editable: true,
+            value: '',
+            width: '230px',
+            change: function (oEvent) {
+                autoID = oTF_CLKID.getValue();
+                if (autoID.length < 5) {
+                    window.focus();
+                    doSubmitPart();
+                } else {
+                    alert("Invalid Operator ID .. " + oTF_CLKID.getValue());
+                    oTF_CLKID.setValue("");
+                    oTF_CLKID.focus();
+                }
+            }
+        });
+        oTF_CLKID.setTextAlign(sap.ui.core.TextAlign.Center);
+        oMatrixParts.createRow(oTF_CLKID);
+
+        var oButtonGoChart = new sap.ui.commons.Button({
+            id: 'B-GoChart',
+            tooltip: "Resubmit Chart",
+            text: 'BACK',
+            enabled: true
+        });
+        oButtonGoChart.attachPress(doGoChart);
+
+        var oButtonGetPart = new sap.ui.commons.Button({
+            id: 'B-GetPart',
+            tooltip: "Submit Part Number",
+            text: 'SUBMIT',
+            enabled: true
+        });
+        oButtonGetPart.attachPress(doSubmitPart);
+
+        var htmlPartNbr = new sap.ui.core.HTML("", {
+            id: "PartNbrButtons",
+            content: "<span>&nbsp;&nbsp;&nbsp;</span>"
+        });
+        var oLayoutPartNbr = new sap.ui.layout.HorizontalLayout("LayoutPartNbrButtons", {
+            content: [oButtonGoChart, htmlPartNbr, oButtonGetPart]
+        });
+        oMatrixParts.createRow(oLayoutPartNbr);
+
+        oMatrixParts.placeAt('spcm_content');
+        // ****************************************************************************************************************************************************
+        function doClearPart() {
+            applicationScreen = "pickPart";
+            autoPart = "";
+            selectedPartID = "";
+            selectedPartNr = "";
+            oTF_PartID.setValue("");
+            window.focus();
+        }
+        ;
+        // ****************************************************************************************************************************************************
+        function doGoChart() {
+            window.location.reload();
+        }
+        ;
+        // ****************************************************************************************************************************************************
+        function doSubmitPart() {
+            // retrieve Part ID
+            autoPart = oTF_PartsID.getValue();
+            selectedPartNr = trim(autoPart.substring(0, autoPart.indexOf("**")));
+            if (selectedPartNr == "") {
+                alert("Please Input Part # ..");
+                oTF_PartsID.focus();
+                return;
+            } else {
+                // Retrieve CLOCK ID
+                ClockID = oTF_CLKID.getValue();
+                if (ClockID == "") {
+                    alert("Please Input Clock # ..");
+                    oTF_CLKID.focus();
+                    return;
+                } else {
+                    // all good, try to post it
+                    var Param1 = escapeSQLString(selectedPartID);
+                    var Param2 = escapeSQLString(ClockID);
+                    var Param3 = escapeSQLString(selectedChartID);
+                    var timestamp = new Date().getTime();
+                    var paramStr = "Param.1=" + encodeURIComponent(Param1) + "&Param.2=" + encodeURIComponent(Param2) + "&Param.3=" + encodeURIComponent(Param3) + "&Server=" + miiDataServer;
+                    var queryStr = "/XMII/Illuminator?QueryTemplate=SPCM/DASHBOARD/QUERIES/sql_setOperatorPart&" + paramStr + "&ts=" + timestamp + "&Content-Type=text/xml";
+                    getData(queryStr, parseJsonOperatorPart);
+                    function parseJsonOperatorPart(jsondata) {
+                        // alert(jsondata.length);
+                        for (var i = 0; i < jsondata.length; i++) {
+                            var result = jsondata[i]['result'];
+                            var currentOperator = jsondata[i]['operator'];
+                            if (result == 1) {
+                                applicationScreen = "chartit";
+                                document.getElementById("scandiv").style.display = "none";
+                                document.getElementById("MatrixChart").style.display = "none";
+                                document.getElementById("MatrixParts").style.display = "none";
+                                document.getElementById("MatrixTop").style.display = "block";
+                                if (!scanInput) toggleInput();
+                                window.focus();
+                                // Retrieve Chart Info by Number
+                                operator = currentOperator;
+                                getDashboardData();
+                            } else {
+                                if (result == 2) {
+                                    alert("Invalid Part Number. Please retry ..");
+                                    oTF_PartsID.focus();
+                                } else {
+                                    if (result == 3) {
+                                        alert("Invalid Clock Number. Please retry ..");
+                                        oTF_CLKID.focus();
+                                    } else {
+                                        alert("Clock Number Restriction. Please retry ..");
+                                        oTF_CLKID.focus();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        // ****************************************************************************************************************************************************
+        function doLogOut() {
+            window.location.reload();
+        }
+        // ****************************************************************************************************************************************************
+        // Define Chart Screen
+        var oMatrixTop = new sap.ui.commons.layout.MatrixLayout({
+            id: 'MatrixTop',
+            layoutFixed: true,
+            width: '900px',
+            columns: 1,
+            widths: ['900px']
+        });
+
+        var oMatrixRow1 = new sap.ui.commons.layout.MatrixLayout({
+            id: 'MatrixRow1',
+            layoutFixed: true,
+            width: '900px',
+            columns: 3,
+            widths: ['505px', '250px', '145px']
+        });
+
+        oLabelChart = new sap.ui.commons.Label({
+            id: 'L-ChartName',
+            text: ' '
+        });
+
+        oLabelPart = new sap.ui.commons.Label({
+            id: 'L-PartName',
+            text: ' '
+        });
+
+        var oTF_srvDateTime = new sap.ui.commons.TextField({
+            id: 'TF-DateTime',
+            tooltip: 'Server Time Stamp',
+            editable: true,
+            visible: true,
+            width: '135px'
+        });
+        oTF_srvDateTime.setTextAlign(sap.ui.core.TextAlign.Center);
+        /*
+         var oBtn_srvDateTime = new sap.ui.commons.Button({
+         id : 'B-DateTime',
+         tooltip : 'Server Time Stamp',
+         text : ''
+         });
+         oBtn_srvDateTime.setIcon("img/asr_calendar.png");
+         //	oBtn_srvDateTime.attachPress(doOpenPicker);
+         */
+        oMatrixRow1.createRow(oLabelChart, oLabelPart, oTF_srvDateTime);
+        oMatrixTop.createRow(oMatrixRow1);
+
+        var oMatrixRow2 = new sap.ui.commons.layout.MatrixLayout({
+            id: 'MatrixRow2',
+            layoutFixed: true,
+            width: '900px',
+            columns: 5,
+            widths: ['100px', '100px', '100px', '450px', '150px']
+        });
+
+        oLabelCalcCP = new sap.ui.commons.Label({
+            id: 'L-CalcCP',
+            text: 'CP'
+        });
+        oLabelCalcCPK = new sap.ui.commons.Label({
+            id: 'L-CalcCPK',
+            text: 'CPK'
+        });
+        oLabelCalcCR = new sap.ui.commons.Label({
+            id: 'L-CalcCR',
+            text: 'CR'
+        });
+        oLabelCalcRDS = new sap.ui.commons.Label({
+            id: 'L-CalcRDS',
+            text: 'RDS'
+        });
+        oLabelCalcGRP = new sap.ui.commons.Label({
+            id: 'L-CalcGRP',
+            text: 'GRP'
+        });
+        oMatrixRow2.createRow(oLabelCalcCP, oLabelCalcCPK, oLabelCalcCR, oLabelCalcRDS, oLabelCalcGRP);
+        oMatrixTop.createRow(oMatrixRow2);
+
+        oMatrixRowChart = new sap.ui.commons.layout.MatrixLayout({
+            id: 'FieldChart1',
+            layoutFixed: true,
+            width: '900px',
+            columns: 1,
+            widths: ['900px']
+        });
+
+        var chartTitle = "MEDIAN-RANGE"
+        var htmlChart = new sap.ui.core.HTML("", {
+            id: "spcChart",
+            content: "<div id=\"spcm_chart\" style=\"width:900px; height:600px;\"></div>"
+        });
+        var oLayoutChart = new sap.ui.layout.HorizontalLayout("LayoutChart", {
+            content: [htmlChart]
+        });
+        oMatrixRowChart.createRow(oLayoutChart);
+        oMatrixTop.createRow(oMatrixRowChart);
+
+        oMatrixRow3 = new sap.ui.commons.layout.MatrixLayout({
+            id: 'MatrixRow3',
+            layoutFixed: true,
+            width: '900px',
+            columns: 1,
+            widths: ['900px']
+        });
+
+        oLabelCalcREQ = new sap.ui.commons.Label({
+            id: 'L-CalcREQ',
+            text: ''
+        });
+
+        oMatrixRow3.createRow(oLabelCalcREQ);
+        oMatrixTop.createRow(oMatrixRow3);
+
+        oLabelUNLK = new sap.ui.commons.Label({
+            id: 'L-UNLK',
+            text: 'UNLOCKED ATRG'
+        });
+        oLabelASSET = new sap.ui.commons.Label({
+            id: 'L-ASSET',
+            text: 'ASSET'
+        });
+        oLabelPART = new sap.ui.commons.Label({
+            id: 'L-PART',
+            text: 'PART'
+        });
+        oLabelCLOCK = new sap.ui.commons.Label({
+            id: 'L-CLOCK',
+            text: 'CLOCK'
+        });
+        oMatrixRow4 = new sap.ui.commons.layout.MatrixLayout({
+            id: 'MatrixRow4',
+            layoutFixed: true,
+            width: '900px',
+            columns: 4,
+            widths: ['225px', '225px', '300px', '150px']
+        });
+
+        oMatrixRow4.createRow(oLabelUNLK, oLabelASSET, oLabelPART, oLabelCLOCK);
+        oMatrixTop.createRow(oMatrixRow4);
+
+        var oButtonAddNew = new sap.ui.commons.Button({
+            id: 'B-AddNew',
+            tooltip: "Record SPC Data",
+            text: 'ADD NEW',
+            enabled: true
+        });
+        oButtonAddNew.attachPress(doAddData);
+
+        oMatrixTop.createRow(oButtonAddNew);
+        oMatrixTop.placeAt('spcm_content');
+        // ****************************************************************************************************************************************************
+        // Initialize SPC Chart
+        var addProps = '{"QueryTemplate":"SPCM/DASHBOARD/QUERIES/cmd_ChartDataGet","DisplayTemplate":"SPCM/DASHBOARD/CHART/i5SPC_ChartDataGet_LimitsSet","Applet":"i5SPCChart","Height":"585","Width":"900", "VSPACE":"1" ,"Content-Type":"image/png"}';
+        c = new com.sap.xmii.chart.hchart.i5SPCChart('SPCM/DASHBOARD/CHART/i5SPC_ChartDataGet_LimitsSet', 'SPCM/DASHBOARD/QUERIES/cmd_ChartDataGet', addProps);
+        c.registerUpperChartSelectionEventHandler(fnUpperSelect);
+        c.registerLowerChartSelectionEventHandler(fnLowerSelect);
+        // ****************************************************************************************************************************************************
+        function getDashboardData() {
+
+            var timestamp = new Date().getTime();
+            var Param1 = selectedChartID;
+            var Param2 = ' ';
+            var paramStr = "Param.1=" + encodeURIComponent(Param1) + "&Param.2=" + encodeURIComponent(Param2) + "&Server=" + miiDataServer;
+            getData("/XMII/Illuminator?QueryTemplate=SPCM/DASHBOARD/QUERIES/sql_getChartData&" + paramStr + "&ts=" + timestamp + "&Content-Type=text/xml", parseJsonChartData);
+
+            function parseJsonChartData(jsondata) {
+                jsonChartData = jsondata;
+                for (var i = 0; i < jsonChartData.length; i++) {
+                    // update variables
+                    idGroup = jsondata[i]["idGroup"];
+                    trendSize = jsondata[i]["TrendSize"];
+                    subGroupSize = jsondata[i]["SubGroupSize"];
+                    sampleSize = jsondata[i]["SampleSize"];
+                    valueUCSigma = jsondata[i]["UpperChartSigma"];
+                    valueLCSigma = jsondata[i]["LowerChartSigma"];
+                    valueLambda = jsondata[i]["Lambda"];
+                    pointPrecision = jsondata[i]["pointPrecision"];
+                    pointMultiplier = jsondata[i]["pointMultiplier"];
+                    pointValues = jsondata[i]["pointValues"];
+                    selectedPartName = jsondata[i]["partName"];
+                    chartTitle = jsondata[i]["chartTitle"];
+                    recValue = jsondata[i]["recordedValue"];
+                    recTimestamp = jsondata[i]["recordedTimestamp"];
+                    recClockId = jsondata[i]["opClockID"];
+                    recOpName = jsondata[i]["opFullName"];
+                    valueURL = jsondata[i]["URL"];
+                    valueUSL = jsondata[i]["USL"];
+                    valueUCL = jsondata[i]["UCL"];
+                    valueUWL = jsondata[i]["UWL"];
+                    valueTGT = jsondata[i]["TGT"];
+                    valueCLN = jsondata[i]["CLN"];
+                    valueLWL = jsondata[i]["LWL"];
+                    valueLCL = jsondata[i]["LCL"];
+                    valueLSL = jsondata[i]["LSL"];
+                    valueLRL = jsondata[i]["LRL"];
+                    valueLUR = jsondata[i]["LUR"];
+                    valueLLR = jsondata[i]["LLR"];
+                    valueLLT = jsondata[i]["LLT"];
+                    valueIsComment = jsondata[i]["isComment"];
+                    valueIsSuppressed = jsondata[i]["isSupressed"];
+                    valueDataCollection = jsondata[i]["dataCollection"];
+                }
+                // update Screen
+                oCore.byId("L-ChartName").setText(chartTitle);
+                oCore.byId("L-CalcGRP").setText("GRP: " + idGroup);
+                oCore.byId("L-CalcRDS").setText(pointValues);
+                oCore.byId("L-UNLK").setText("UNLK: " + operator);
+                oCore.byId("L-ASSET").setText("ASSET: " + selectedAsset);
+                oCore.byId("L-PART").setText("PART: " + autoPart);
+                oCore.byId("L-PartName").setText(selectedPartName + " ** " + recClockId);
+                oCore.byId("L-CLOCK").setText("CLK: " + ClockID);
+                oCore.byId("L-CalcREQ").setText(subGroupSize + ' ' + valueDataCollection);
+                // upper chart
+                document.getElementById("url-x_val").innerHTML = valueURL;
+                document.getElementById("usl-x_val").innerHTML = valueUSL;
+                document.getElementById("ucl-x_val").innerHTML = valueUCL;
+                document.getElementById("uwl-x_val").innerHTML = valueUWL;
+                document.getElementById("tgt-x_val").innerHTML = valueTGT;
+                document.getElementById("cln-x_val").innerHTML = valueCLN;
+                document.getElementById("lwl-x_val").innerHTML = valueLWL;
+                document.getElementById("lcl-x_val").innerHTML = valueLCL;
+                document.getElementById("lsl-x_val").innerHTML = valueLSL;
+                document.getElementById("lrl-x_val").innerHTML = valueLRL;
+                // lower chart
+                document.getElementById("url-r_val").innerHTML = valueLUR;
+                document.getElementById("tgt-r_val").innerHTML = valueLLT;
+                document.getElementById("lrl-r_val").innerHTML = valueLLR;
+                // spec data
+                document.getElementById("trend_val").innerHTML = trendSize;
+                document.getElementById("group_val").innerHTML = subGroupSize;
+                document.getElementById("sample_val").innerHTML = sampleSize;
+                document.getElementById("precision_val").innerHTML = pointPrecision;
+
+                // Show legend
+                document.getElementById("sk_legend").style.display = "block";
+                document.getElementById("sk_logout").style.display = "block";
+                // Display Chart
+
+                c.getQueryObject().setParameter("Param.1", selectedChartID);
+                c.getQueryObject().setParameter("Param.2", selectedTime);
+                c.getQueryObject().setParameter("Server", miiDataServer);
+                c.getChartObject().setSubgroupSize(subGroupSize);				// Range only chart
+                c.getChartObject().setShowLegend(false);
+                c.draw('spcm_chart');
+                c.update(true);
+                c.refresh();
+                setTimeout(calculateStatistics, 500);
+                setTimeout(checkPointsIfAlarms, 100);
+            }
+        }
+        // ****************************************************************************************************************************************************
+        function fnUpperSelect() {
+            var chart_obj = c.getChartObject();
+            selectedPosition = chart_obj.getUpperSelectedPoint();
+            if (selectedPosition > 0) {
+                selectedGrp = chart_obj.getUpperAttributeValueAt(selectedPosition, 1);
+                selectedGrp = Number(selectedGrp.substring(0, selectedGrp.indexOf('(') - 1));
+            } else {
+                selectedGrp = 0;
+            }
+            updateDashboardData(selectedGrp);
+        }
+        // ****************************************************************************************************************************************************
+        function fnLowerSelect(oEvent) {
+            var chart_obj = c.getChartObject();
+            selectedPosition = chart_obj.getUpperSelectedPoint();
+            if (selectedPosition > 0) {
+                selectedGrp = chart_obj.getUpperAttributeValueAt(selectedPosition, 1);
+                selectedGrp = Number(selectedGrp.substring(0, selectedGrp.indexOf('(') - 1));
+            } else {
+                selectedGrp = 0;
+            }
+            updateDashboardData(selectedGrp);
+        }
+        // ****************************************************************************************************************************************************
+        function updateDashboardData(point) {
+            // alert(point);
+            var pointFound = -1;
+            var imax = jsonChartData.length;
+            for (var i = 0; i < imax; i++) {
+                idGroup = jsonChartData[i]["idGroup"];
+                if (idGroup == point) {
+                    pointFound = i;
+                }
+            }
+            if (pointFound >= 0) {
+                i = pointFound;
+            } else {
+                i = imax - 1;
+            }
+            // update variables
+            idGroup = jsonChartData[i]["idGroup"];
+            trendSize = jsonChartData[i]["TrendSize"];
+            subGroupSize = jsonChartData[i]["SubGroupSize"];
+            sampleSize = jsonChartData[i]["SampleSize"];
+            valueUCSigma = jsonChartData[i]["UpperChartSigma"];
+            valueLCSigma = jsonChartData[i]["LowerChartSigma"];
+            valueLambda = jsonChartData[i]["Lambda"];
+            pointPrecision = jsonChartData[i]["pointPrecision"];
+            pointMultiplier = jsonChartData[i]["pointMultiplier"];
+            pointValues = jsonChartData[i]["pointValues"];
+            selectedPartName = jsonChartData[i]["partName"];
+            chartTitle = jsonChartData[i]["chartTitle"];
+            recValue = jsonChartData[i]["recordedValue"];
+            recTimestamp = jsonChartData[i]["recordedTimestamp"];
+            recClockId = jsonChartData[i]["opClockID"];
+            recOpName = jsonChartData[i]["opFullName"];
+            valueURL = jsonChartData[i]["URL"];
+            valueUSL = jsonChartData[i]["USL"];
+            valueUCL = jsonChartData[i]["UCL"];
+            valueUWL = jsonChartData[i]["UWL"];
+            valueTGT = jsonChartData[i]["TGT"];
+            valueCLN = jsonChartData[i]["CLN"];
+            valueLWL = jsonChartData[i]["LWL"];
+            valueLCL = jsonChartData[i]["LCL"];
+            valueLSL = jsonChartData[i]["LSL"];
+            valueLRL = jsonChartData[i]["LRL"];
+            valueLUR = jsonChartData[i]["LUR"];
+            valueLLR = jsonChartData[i]["LLR"];
+            valueLLT = jsonChartData[i]["LLT"];
+            valueIsComment = jsonChartData[i]["isComment"];
+            valueIsSuppressed = jsonChartData[i]["isSupressed"];
+            valueDataCollection = jsonChartData[i]["dataCollection"];
+            // update Screen
+            oCore.byId("L-ChartName").setText(chartTitle);
+            oCore.byId("L-CalcGRP").setText("GRP: " + idGroup);
+            oCore.byId("L-CalcRDS").setText(pointValues);
+            oCore.byId("L-UNLK").setText("UNLK: " + operator);
+            oCore.byId("L-ASSET").setText("ASSET: " + selectedAsset);
+            oCore.byId("L-PART").setText("PART: " + autoPart);
+            oCore.byId("L-PartName").setText(selectedPartName + " ** " + recClockId);
+            oCore.byId("L-CLOCK").setText("CLK: " + ClockID);
+            oCore.byId("L-CalcREQ").setText(subGroupSize + ' ' + valueDataCollection);
+            // upper chart
+            document.getElementById("url-x_val").innerHTML = valueURL;
+            document.getElementById("usl-x_val").innerHTML = valueUSL;
+            document.getElementById("ucl-x_val").innerHTML = valueUCL;
+            document.getElementById("uwl-x_val").innerHTML = valueUWL;
+            document.getElementById("tgt-x_val").innerHTML = valueTGT;
+            document.getElementById("cln-x_val").innerHTML = valueCLN;
+            document.getElementById("lwl-x_val").innerHTML = valueLWL;
+            document.getElementById("lcl-x_val").innerHTML = valueLCL;
+            document.getElementById("lsl-x_val").innerHTML = valueLSL;
+            document.getElementById("lrl-x_val").innerHTML = valueLRL;
+            // lower chart
+            document.getElementById("url-r_val").innerHTML = valueLUR;
+            document.getElementById("tgt-r_val").innerHTML = valueLLT;
+            document.getElementById("lrl-r_val").innerHTML = valueLLR;
+            // spec data
+            document.getElementById("trend_val").innerHTML = trendSize;
+            document.getElementById("group_val").innerHTML = subGroupSize;
+            document.getElementById("sample_val").innerHTML = sampleSize;
+            document.getElementById("precision_val").innerHTML = pointPrecision;
+        }
+        // ****************************************************************************************************************************************************
+        function calculateStatistics() {
+            var CP_result = '';
+            var CPK_result = '';
+            var CR_result = '';
+            var xmlHttp;
+            if (window.XMLHttpRequest) {
+                xmlHttp = new XMLHttpRequest();
+            }
+            if (xmlHttp != null) {
+                var str_url = "/XMII/Runner?Transaction=SPCM/DASHBOARD/TRANSACTIONS/trxGetStatisticResults&IDUNIT=" + selectedChartID + "&TSMP=" + selectedTime + "&SERVER=" + miiDataServer + "&OutputParameter=ST_OUT&Content-Type=text/xml";
+                //alert(str_url);
+                xmlHttp.open("GET", str_url, true);
+                xmlHttp.onreadystatechange = function () {
+                    if (xmlHttp.readyState == 4)
+                        if (xmlHttp.status == 200) {
+                            //alert(xmlHttp.responseText);
+                            var xmlDOM = xmlHttp.responseXML.documentElement;
+                            var elementRow = xmlDOM.getElementsByTagName("Row");
+                            for (var i = 0; i < elementRow.length; i++) {
+                                if (elementRow[i].childNodes) {
+                                    for (var j = 0; j < elementRow[i].childNodes.length; j++) {
+                                        var childNode = elementRow[i].childNodes[j];
+                                        if (childNode.nodeName == "ST_OUT" && childNode.firstChild) {
+                                            var statisticResult = childNode.firstChild.nodeValue;
+                                            var statisticResultArray = statisticResult.split("_");
+                                            CP_result = Number(statisticResultArray [0]);
+                                            CPK_result = Number(statisticResultArray [1]);
+                                            CR_result = Number(statisticResultArray [2]);
+                                            oCore.byId("L-CalcCP").setText('CP: ' + CP_result.toFixed(pointPrecision));
+                                            oCore.byId("L-CalcCPK").setText('CPK: ' + CPK_result.toFixed(pointPrecision));
+                                            oCore.byId("L-CalcCR").setText('CR: ' + CR_result.toFixed(pointPrecision));
+
+                                            if (CP_result < 1.3) {
+                                                document.getElementById("__cell16").style.background = "red";
+                                                document.getElementById("L-CalcCP").style.color = "white";
+                                            } else {
+                                                document.getElementById("__cell16").style.background = "white";
+                                                document.getElementById("L-CalcCP").style.color = "black";
+                                            }
+                                            if (CPK_result < 1.3) {
+                                                document.getElementById("__cell17").style.background = "red";
+                                                document.getElementById("L-CalcCPK").style.color = "white";
+                                            } else {
+                                                document.getElementById("__cell17").style.background = "white";
+                                                document.getElementById("L-CalcCPK").style.color = "black";
+                                            }
+                                            if (CR_result < 1.3) {
+                                                document.getElementById("__cell18").style.background = "red";
+                                                document.getElementById("L-CalcCR").style.color = "white";
+                                            } else {
+                                                document.getElementById("__cell18").style.background = "white";
+                                                document.getElementById("L-CalcCR").style.color = "black";
+
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            // display status message
+                            alert("There was a problem posting the data: \n" + xmlHttp.statusText);
+                        }
+                }
+                xmlHttp.send();
+            } else {
+                window.alert("Error creating XmlHttpRequest object.");
+            }
+        }
+        // ****************************************************************************************************************************************************
+        // Create Add Values Overlay
+        var oMatrixA = new sap.ui.commons.layout.MatrixLayout({
+            id: 'MatrixA',
+            layoutFixed: true,
+            width: '690px',
+            columns: 1,
+            widths: ['690px']
+        });
+
+        var oTitleA = new sap.ui.commons.Label({
+            id: 'L-TitleA',
+            text: 'MEASUREMENTS'
+        });
+        oMatrixA.createRow(oTitleA);
+
+        var oMatrixAF = new sap.ui.commons.layout.MatrixLayout({
+            id: 'MatrixAF',
+            layoutFixed: true,
+            width: '690px',
+            columns: 2,
+            widths: ['340px', '350px']
+        });
+
+        var oMatrixAL = new sap.ui.commons.layout.MatrixLayout({
+            id: 'MatrixAL',
+            layoutFixed: true,
+            width: '340px',
+            columns: 2,
+            widths: ['150px', '150px']
+        });
+        oSpace1 = new sap.ui.commons.Label({
+            id: 'L-Space1',
+            text: ''
+        });
+        oTitle1 = new sap.ui.commons.Label({
+            id: 'L-Title1',
+            text: 'SAMPLE VALUES'
+        });
+        oMatrixAL.createRow(oSpace1, oTitle1);
+
+        oLabelVAL1 = new sap.ui.commons.Label({
+            id: 'L-VAL1',
+            text: 'VALUE 1'
+        });
+        var oTF_VAL1 = new sap.ui.commons.TextField({
+            id: 'TF-VALUE1',
+            tooltip: 'VALUE 1',
+            editable: true,
+            value: '',
+            change: function (oEvent) {
+                if (isNumeric(oTF_VAL1.getValue()) && !scanInput) {
+                    if (oTF_VAL2.getEnabled())
+                        oTF_VAL2.focus();
+                    else
+                        oButtonAddVal.focus();
+                }
+            },
+            width: '140px'
+        });
+        oTF_VAL1.attachBrowserEvent("blur", function () {
+            var scanValue = Number(oTF_VAL1.getValue()) * pointMultiplier;
+            if (isNumeric(scanValue)) {
+                if (!scanInput) oTF_VAL1.setValue(scanValue.toFixed(pointPrecision));
+                calcAverages();
+            }
+        });
+        oTF_VAL1.attachBrowserEvent("focus", function () {
+            if (!scanInput) {
+                document.getElementById("TF-VALUE1").select();
+            } else {
+                document.activeElement.blur();
+            }
+        });
+
+        oTF_VAL1.setTextAlign(sap.ui.core.TextAlign.Center);
+
+        oMatrixAL.createRow(oLabelVAL1, oTF_VAL1);
+
+        oLabelVAL2 = new sap.ui.commons.Label({
+            id: 'L-VAL2',
+            text: 'VALUE 2'
+        });
+        var oTF_VAL2 = new sap.ui.commons.TextField({
+            id: 'TF-VALUE2',
+            tooltip: 'VALUE 2',
+            editable: true,
+            value: '',
+            change: function (oEvent) {
+                if (isNumeric(oTF_VAL2.getValue()) && !scanInput) {
+                    if (oTF_VAL3.getEnabled())
+                        oTF_VAL3.focus();
+                    else
+                        oButtonAddVal.focus();
+                }
+            },
+            width: '140px'
+        });
+        oTF_VAL2.attachBrowserEvent("blur", function () {
+            var scanValue = Number(oTF_VAL2.getValue()) * pointMultiplier;
+            if (isNumeric(scanValue)) {
+                if (!scanInput) oTF_VAL2.setValue(scanValue.toFixed(pointPrecision));
+                calcAverages();
+            }
+        });
+        oTF_VAL2.attachBrowserEvent("focus", function () {
+            if (!scanInput) {
+                document.getElementById("TF-VALUE2").select();
+            } else {
+                document.activeElement.blur();
+            }
+        });
+        oTF_VAL2.setTextAlign(sap.ui.core.TextAlign.Center);
+        oMatrixAL.createRow(oLabelVAL2, oTF_VAL2);
+
+        oLabelVAL3 = new sap.ui.commons.Label({
+            id: 'L-VAL3',
+            text: 'VALUE 3'
+        });
+        var oTF_VAL3 = new sap.ui.commons.TextField({
+            id: 'TF-VALUE3',
+            tooltip: 'VALUE 3',
+            editable: true,
+            value: '',
+            change: function (oEvent) {
+                if (isNumeric(oTF_VAL3.getValue()) && !scanInput) {
+                    if (oTF_VAL4.getEnabled())
+                        oTF_VAL4.focus();
+                    else
+                        oButtonAddVal.focus();
+                }
+            },
+            width: '140px'
+        });
+        oTF_VAL3.attachBrowserEvent("blur", function () {
+            var scanValue = Number(oTF_VAL3.getValue()) * pointMultiplier;
+            if (isNumeric(scanValue)) {
+                if (!scanInput) oTF_VAL3.setValue(scanValue.toFixed(pointPrecision));
+                calcAverages();
+            }
+        });
+        oTF_VAL3.attachBrowserEvent("focus", function () {
+            if (!scanInput) {
+                document.getElementById("TF-VALUE3").select();
+            } else {
+                document.activeElement.blur();
+            }
+        });
+        oTF_VAL3.setTextAlign(sap.ui.core.TextAlign.Center);
+        oMatrixAL.createRow(oLabelVAL3, oTF_VAL3);
+
+        oLabelVAL4 = new sap.ui.commons.Label({
+            id: 'L-VAL4',
+            text: 'VALUE 4'
+        });
+        var oTF_VAL4 = new sap.ui.commons.TextField({
+            id: 'TF-VALUE4',
+            tooltip: 'VALUE 4',
+            editable: true,
+            value: '',
+            change: function (oEvent) {
+                if (isNumeric(oTF_VAL4.getValue()) && !scanInput) {
+                    if (oTF_VAL5.getEnabled())
+                        oTF_VAL5.focus();
+                    else
+                        oButtonAddVal.focus();
+                }
+            },
+            width: '140px'
+        });
+        oTF_VAL4.attachBrowserEvent("blur", function () {
+            var scanValue = Number(oTF_VAL4.getValue()) * pointMultiplier;
+            if (isNumeric(scanValue)) {
+                if (!scanInput) oTF_VAL4.setValue(scanValue.toFixed(pointPrecision));
+                calcAverages();
+            }
+        });
+        oTF_VAL4.attachBrowserEvent("focus", function () {
+            if (!scanInput) {
+                document.getElementById("TF-VALUE4").select();
+            } else {
+                document.activeElement.blur();
+            }
+        });
+        oTF_VAL4.setTextAlign(sap.ui.core.TextAlign.Center);
+        oMatrixAL.createRow(oLabelVAL4, oTF_VAL4);
+
+        oLabelVAL5 = new sap.ui.commons.Label({
+            id: 'L-VAL5',
+            text: 'VALUE 5'
+        });
+        var oTF_VAL5 = new sap.ui.commons.TextField({
+            id: 'TF-VALUE5',
+            tooltip: 'VALUE 5',
+            editable: true,
+            value: '',
+            change: function (oEvent) {
+                if (isNumeric(oTF_VAL5.getValue()) && !scanInput) {
+                    if (oTF_VAL6.getEnabled())
+                        oTF_VAL6.focus();
+                    else
+                        oButtonAddVal.focus();
+                }
+            },
+            width: '140px'
+        });
+        oTF_VAL5.attachBrowserEvent("blur", function () {
+            var scanValue = Number(oTF_VAL5.getValue()) * pointMultiplier;
+            if (isNumeric(scanValue)) {
+                if (!scanInput) oTF_VAL5.setValue(scanValue.toFixed(pointPrecision));
+                calcAverages();
+            }
+        });
+        oTF_VAL5.attachBrowserEvent("focus", function () {
+            if (!scanInput) {
+                document.getElementById("TF-VALUE5").select();
+            } else {
+                document.activeElement.blur();
+            }
+        });
+        oTF_VAL5.setTextAlign(sap.ui.core.TextAlign.Center);
+        oMatrixAL.createRow(oLabelVAL5, oTF_VAL5);
+
+        oLabelVAL6 = new sap.ui.commons.Label({
+            id: 'L-VAL6',
+            text: 'VALUE 6'
+        });
+        var oTF_VAL6 = new sap.ui.commons.TextField({
+            id: 'TF-VALUE6',
+            tooltip: 'VALUE 6',
+            editable: true,
+            value: '',
+            change: function (oEvent) {
+                if (isNumeric(oTF_VAL6.getValue()) && !scanInput) {
+                    if (oTF_VAL7.getEnabled())
+                        oTF_VAL7.focus();
+                    else
+                        oButtonAddVal.focus();
+                }
+            },
+            width: '140px'
+        });
+        oTF_VAL6.attachBrowserEvent("blur", function () {
+            var scanValue = Number(oTF_VAL6.getValue()) * pointMultiplier;
+            if (isNumeric(scanValue)) {
+                if (!scanInput) oTF_VAL6.setValue(scanValue.toFixed(pointPrecision));
+                calcAverages();
+            }
+        });
+        oTF_VAL6.attachBrowserEvent("focus", function () {
+            if (!scanInput) {
+                document.getElementById("TF-VALUE6").select();
+            } else {
+                document.activeElement.blur();
+            }
+        });
+        oTF_VAL6.setTextAlign(sap.ui.core.TextAlign.Center);
+        oMatrixAL.createRow(oLabelVAL6, oTF_VAL6);
+
+        oLabelVAL7 = new sap.ui.commons.Label({
+            id: 'L-VAL7',
+            text: 'VALUE 7'
+        });
+        var oTF_VAL7 = new sap.ui.commons.TextField({
+            id: 'TF-VALUE7',
+            tooltip: 'VALUE 7',
+            editable: true,
+            value: '',
+            change: function (oEvent) {
+                if (isNumeric(oTF_VAL7.getValue()) && !scanInput)
+                    oButtonAddVal.focus();
+            },
+            width: '140px'
+        });
+        oTF_VAL7.attachBrowserEvent("blur", function () {
+            var scanValue = Number(oTF_VAL7.getValue()) * pointMultiplier;
+            if (isNumeric(scanValue)) {
+                if (!scanInput) oTF_VAL7.setValue(scanValue.toFixed(pointPrecision));
+                calcAverages();
+            }
+        });
+        oTF_VAL7.attachBrowserEvent("focus", function () {
+            if (!scanInput) {
+                document.getElementById("TF-VALUE7").select();
+            } else {
+                document.activeElement.blur();
+            }
+        });
+        oTF_VAL7.setTextAlign(sap.ui.core.TextAlign.Center);
+        oMatrixAL.createRow(oLabelVAL7, oTF_VAL7);
+
+        var oMatrixAR = new sap.ui.commons.layout.MatrixLayout({
+            id: 'MatrixAR',
+            layoutFixed: true,
+            width: '350px',
+            columns: 1,
+            widths: ['350px']
+        });
+
+        var htmlBarCode = new sap.ui.core.HTML("", {
+            id: "theBarcode",
+            content: "<div id=\"imgcodebar\" class=\"code39u36\" style=\"margin: 0px auto;font-size:64px;text-align:center;width:300px; height:80px; overflow:hidden;font-weight:normal;\"></div>"
+        });
+        var oLayoutBarcode = new sap.ui.layout.HorizontalLayout("LayoutBarCode", {
+            content: [htmlBarCode]
+        });
+        oMatrixAR.createRow(oLayoutBarcode);
+
+        var oMatrixARF = new sap.ui.commons.layout.MatrixLayout({
+            id: 'MatrixARF',
+            layoutFixed: true,
+            width: '350px',
+            columns: 2,
+            widths: ['225px', '125px']
+        });
+
+        oLabelMult = new sap.ui.commons.Label({
+            id: 'L-Mult',
+            text: 'Multiplier: '
+        });
+        oLabelMultVal = new sap.ui.commons.Label({
+            id: 'L-MultVal',
+            text: '0.00010'
+        });
+        oMatrixARF.createRow(oLabelMult, oLabelMultVal);
+
+        oLabelPrec = new sap.ui.commons.Label({
+            id: 'L-Prec',
+            text: 'Precision: '
+        });
+        oLabelPrecVal = new sap.ui.commons.Label({
+            id: 'L-PrecVal',
+            text: '5'
+        });
+        oMatrixARF.createRow(oLabelPrec, oLabelPrecVal);
+
+        oLabelMean = new sap.ui.commons.Label({
+            id: 'L-Mean',
+            text: 'Mean Value: '
+        });
+        oLabelMeanVal = new sap.ui.commons.Label({
+            id: 'L-MeanVal',
+            text: '0.00000'
+        });
+        oMatrixARF.createRow(oLabelMean, oLabelMeanVal);
+
+        oLabelRange = new sap.ui.commons.Label({
+            id: 'L-Range',
+            text: 'Range Value: '
+        });
+        oLabelRangeVal = new sap.ui.commons.Label({
+            id: 'L-RangeVal',
+            text: '0.00000'
+        });
+        oMatrixARF.createRow(oLabelRange, oLabelRangeVal);
+
+        oMatrixAR.createRow(oMatrixARF);
+        oMatrixAF.createRow(oMatrixAL, oMatrixAR);
+        oMatrixA.createRow(oMatrixAF);
+
+        var oButtonAddVal = new sap.ui.commons.Button({
+            id: 'B-AddVal',
+            tooltip: "Submit Data",
+            text: 'SAVE',
+            enabled: true
+        });
+        oButtonAddVal.attachPress(doAddValue);
+
+        oMatrixA.createRow(oButtonAddVal);
+
+        var oOverlayContainerAdd = new sap.ui.ux3.OverlayDialog({openButtonVisible: false, applyFocusInfo: false});
+        // oOverlayContainerAdd.setInitialFocus(oButtonAddVal);
+        oOverlayContainerAdd.setHeight('400px');
+        oOverlayContainerAdd.setWidth('700px');
+        oOverlayContainerAdd.addContent(oMatrixA);
+        oOverlayContainerAdd.attachClose(closeAdd);
+
+        // ****************************************************************************************************************************************************
+        function calcAverages() {
+            // define locals
+            var sum = 0.0;
+            var count = 0;
+            var minNr = 0;
+            var maxNr = 0;
+
+            // calculate numbers
+            if (isNumeric(oCore.byId("TF-VALUE1").getValue()) && oCore.byId("TF-VALUE1").getValue() != "") {
+                sum = sum + Number(oCore.byId("TF-VALUE1").getValue());
+                count = count + 1;
+                minNr = Number(oCore.byId("TF-VALUE1").getValue());
+                maxNr = Number(oCore.byId("TF-VALUE1").getValue());
+            }
+            if (isNumeric(oCore.byId("TF-VALUE2").getValue()) && oCore.byId("TF-VALUE2").getValue() != "") {
+                sum = sum + Number(oCore.byId("TF-VALUE2").getValue());
+                count = count + 1;
+                if (Number(oCore.byId("TF-VALUE2").getValue()) <= minNr) minNr = Number(oCore.byId("TF-VALUE2").getValue());
+                if (Number(oCore.byId("TF-VALUE2").getValue()) >= maxNr) maxNr = Number(oCore.byId("TF-VALUE2").getValue());
+            }
+            if (isNumeric(oCore.byId("TF-VALUE3").getValue()) && oCore.byId("TF-VALUE3").getValue() != "") {
+                sum = sum + Number(oCore.byId("TF-VALUE3").getValue());
+                count = count + 1;
+                if (Number(oCore.byId("TF-VALUE3").getValue()) <= minNr) minNr = Number(oCore.byId("TF-VALUE3").getValue());
+                if (Number(oCore.byId("TF-VALUE3").getValue()) >= maxNr) maxNr = Number(oCore.byId("TF-VALUE3").getValue());
+            }
+            if (isNumeric(oCore.byId("TF-VALUE4").getValue()) && oCore.byId("TF-VALUE4").getValue() != "") {
+                sum = sum + Number(oCore.byId("TF-VALUE4").getValue());
+                count = count + 1;
+                if (Number(oCore.byId("TF-VALUE4").getValue()) <= minNr) minNr = Number(oCore.byId("TF-VALUE4").getValue());
+                if (Number(oCore.byId("TF-VALUE4").getValue()) >= maxNr) maxNr = Number(oCore.byId("TF-VALUE4").getValue());
+            }
+            if (isNumeric(oCore.byId("TF-VALUE5").getValue()) && oCore.byId("TF-VALUE5").getValue() != "") {
+                sum = sum + Number(oCore.byId("TF-VALUE5").getValue());
+                count = count + 1;
+                if (Number(oCore.byId("TF-VALUE5").getValue()) <= minNr) minNr = Number(oCore.byId("TF-VALUE5").getValue());
+                if (Number(oCore.byId("TF-VALUE5").getValue()) >= maxNr) maxNr = Number(oCore.byId("TF-VALUE5").getValue());
+            }
+            if (isNumeric(oCore.byId("TF-VALUE6").getValue()) && oCore.byId("TF-VALUE6").getValue() != "") {
+                sum = sum + Number(oCore.byId("TF-VALUE6").getValue());
+                count = count + 1;
+                if (Number(oCore.byId("TF-VALUE6").getValue()) <= minNr) minNr = Number(oCore.byId("TF-VALUE6").getValue());
+                if (Number(oCore.byId("TF-VALUE6").getValue()) >= maxNr) maxNr = Number(oCore.byId("TF-VALUE6").getValue());
+            }
+            if (isNumeric(oCore.byId("TF-VALUE7").getValue()) && oCore.byId("TF-VALUE7").getValue() != "") {
+                sum = sum + Number(oCore.byId("TF-VALUE7").getValue());
+                count = count + 1;
+                if (Number(oCore.byId("TF-VALUE7").getValue()) <= minNr) minNr = Number(oCore.byId("TF-VALUE7").getValue());
+                if (Number(oCore.byId("TF-VALUE7").getValue()) >= maxNr) maxNr = Number(oCore.byId("TF-VALUE7").getValue());
+            }
+
+//to do
+// f the values entered are outside the spec limits, turn the field "red"
+// if the calculated range value is outside the range limits, color range label in red.
+// make sure the Range chart is showing the calculated range values.
+            //alert("USL=" + valueUSL +", LSL=" + valueLSL+", LUR="+valueLUR+", LLR="+valueLLR);
+            if ((oTF_VAL1.getValue() < Number(valueLSL)) || (oTF_VAL1.getValue() > Number(valueUSL))) {
+                oTF_VAL1.setValueState(sap.ui.core.ValueState.Error);
+            }
+            else {
+                oTF_VAL1.setValueState(sap.ui.core.ValueState.None);
+            }
+
+            if ((oTF_VAL2.getValue() < Number(valueLSL)) || (oTF_VAL2.getValue() > Number(valueUSL))) {
+                oTF_VAL2.setValueState(sap.ui.core.ValueState.Error);
+            }
+            else {
+                oTF_VAL2.setValueState(sap.ui.core.ValueState.None);
+            }
+
+            if ((oTF_VAL3.getValue() < Number(valueLSL)) || (oTF_VAL3.getValue() > Number(valueUSL))) {
+                oTF_VAL3.setValueState(sap.ui.core.ValueState.Error);
+            }
+            else {
+                oTF_VAL3.setValueState(sap.ui.core.ValueState.None);
+            }
+
+            if ((oTF_VAL4.getValue() < Number(valueLSL)) || (oTF_VAL4.getValue() > Number(valueUSL))) {
+                oTF_VAL4.setValueState(sap.ui.core.ValueState.Error);
+            }
+            else {
+                oTF_VAL4.setValueState(sap.ui.core.ValueState.None);
+            }
+
+            if ((oTF_VAL5.getValue() < Number(valueLSL)) || (oTF_VAL5.getValue() > Number(valueUSL))) {
+                oTF_VAL5.setValueState(sap.ui.core.ValueState.Error);
+            }
+            else {
+                oTF_VAL5.setValueState(sap.ui.core.ValueState.None);
+            }
+
+            if ((oTF_VAL6.getValue() < Number(valueLSL)) || (oTF_VAL6.getValue() > Number(valueUSL))) {
+                oTF_VAL6.setValueState(sap.ui.core.ValueState.Error);
+            }
+            else {
+                oTF_VAL6.setValueState(sap.ui.core.ValueState.None);
+            }
+
+            if ((oTF_VAL7.getValue() < Number(valueLSL)) || (oTF_VAL7.getValue() > Number(valueUSL))) {
+                oTF_VAL7.setValueState(sap.ui.core.ValueState.Error);
+            }
+            else {
+                oTF_VAL7.setValueState(sap.ui.core.ValueState.None);
+            }
+
+            if (isEmpty(oTF_VAL1.getValue())) {
+                oTF_VAL1.setValueState(sap.ui.core.ValueState.None);
+            }
+            if (isEmpty(oTF_VAL2.getValue())) {
+                oTF_VAL2.setValueState(sap.ui.core.ValueState.None);
+            }
+            if (isEmpty(oTF_VAL3.getValue())) {
+                oTF_VAL3.setValueState(sap.ui.core.ValueState.None);
+            }
+            if (isEmpty(oTF_VAL4.getValue())) {
+                oTF_VAL4.setValueState(sap.ui.core.ValueState.None);
+            }
+            if (isEmpty(oTF_VAL5.getValue())) {
+                oTF_VAL5.setValueState(sap.ui.core.ValueState.None);
+            }
+            if (isEmpty(oTF_VAL6.getValue())) {
+                oTF_VAL6.setValueState(sap.ui.core.ValueState.None);
+            }
+            if (isEmpty(oTF_VAL7.getValue())) {
+                oTF_VAL7.setValueState(sap.ui.core.ValueState.None);
+            }
+
+            // update screen
+            if (count > 0)
+                var meanval = sum / count;
+            else
+                var meanval = 0;
+            oLabelMeanVal.setText(meanval.toFixed(pointPrecision))
+            var rangeval = maxNr - minNr;
+            oLabelRangeVal.setText(rangeval.toFixed(pointPrecision));
+            if ((Number(rangeval) < Number(valueLLR)) || (Number(rangeval) > Number(valueLUR))) {
+                document.getElementById("L-Range").style.color = 'red';
+                document.getElementById("L-RangeVal").style.color = 'red';
+                setTimeout(function () {
+                    document.getElementById("L-RangeVal").style.color = 'red';
+                }, 500);
+            }
+            else {
+                document.getElementById("L-Range").style.color = 'black';
+                document.getElementById("L-RangeVal").style.color = 'black';
+                setTimeout(function () {
+                    document.getElementById("L-RangeVal").style.color = 'black';
+                }, 500);
+            }
+            document.getElementById("TF-VALUE1").blur();
+            document.getElementById("TF-VALUE2").blur();
+            document.getElementById("TF-VALUE3").blur();
+            document.getElementById("TF-VALUE4").blur();
+            document.getElementById("TF-VALUE5").blur();
+            document.getElementById("TF-VALUE6").blur();
+            document.getElementById("TF-VALUE7").blur();
+            window.focus();
+        }
+        // ****************************************************************************************************************************************************
+        function isNumeric(n) {
+            return !isNaN(parseFloat(n)) && isFinite(n);
+        }
+        // ****************************************************************************************************************************************************
+        function doAddData(scanVal) {
+            applicationScreen = "addvalues";
+            oOverlayContainerAdd.open();
+            if (subGroupSize > 0) {
+                oCore.byId("TF-VALUE1").setEnabled(true);
+            } else {
+                oCore.byId("TF-VALUE1").setEnabled(false);
+                document.getElementById("L-VAL1").style.color = "#dfdfdf";
+            }
+            if (isNumeric(scanVal)) {
+                oCore.byId("TF-VALUE1").setValue(scanVal);
+                document.getElementById("TF-VALUE1").blur();
+            } else {
+                oCore.byId("TF-VALUE1").setValue("");
+            }
+            if (subGroupSize > 1) {
+                oCore.byId("TF-VALUE2").setEnabled(true);
+            } else {
+                oCore.byId("TF-VALUE2").setEnabled(false);
+                document.getElementById("L-VAL2").style.color = "#dfdfdf";
+            }
+            oCore.byId("TF-VALUE2").setValue("");
+            window.focus();
+            if (subGroupSize > 2) {
+                oCore.byId("TF-VALUE3").setEnabled(true);
+            } else {
+                oCore.byId("TF-VALUE3").setEnabled(false);
+                document.getElementById("L-VAL3").style.color = "#dfdfdf";
+            }
+            oCore.byId("TF-VALUE3").setValue("");
+            if (subGroupSize > 3) {
+                oCore.byId("TF-VALUE4").setEnabled(true);
+            } else {
+                oCore.byId("TF-VALUE4").setEnabled(false);
+                document.getElementById("L-VAL4").style.color = "#dfdfdf";
+            }
+            oCore.byId("TF-VALUE4").setValue("");
+            if (subGroupSize > 4) {
+                oCore.byId("TF-VALUE5").setEnabled(true);
+            } else {
+                oCore.byId("TF-VALUE5").setEnabled(false);
+                document.getElementById("L-VAL5").style.color = "#dfdfdf";
+            }
+            oCore.byId("TF-VALUE5").setValue("");
+            if (subGroupSize > 5) {
+                oCore.byId("TF-VALUE6").setEnabled(true);
+            } else {
+                oCore.byId("TF-VALUE6").setEnabled(false);
+                document.getElementById("L-VAL6").style.color = "#dfdfdf";
+            }
+            oCore.byId("TF-VALUE6").setValue("");
+            if (subGroupSize > 6) {
+                oCore.byId("TF-VALUE7").setEnabled(true);
+            } else {
+                oCore.byId("TF-VALUE7").setEnabled(false);
+                document.getElementById("L-VAL7").style.color = "#dfdfdf";
+            }
+            oCore.byId("TF-VALUE7").setValue("");
+            calcAverages();
+        }
+        // ****************************************************************************************************************************************************
+        function closeAdd(oEvent) {
+            // alert("Event '"+oEvent.getId()+"' triggered");
+            applicationScreen = "chartit";
+        }
+        // ****************************************************************************************************************************************************
+        function doAddValue() {
+            // retrieve values
+            var Param1 = ClockID;			// clock id
+            var Param2 = selectedPartID;	// part id
+            var Param3 = selectedChartID;	// chart id
+            var Param4 = 0.0;
+            var Param5 = 0.0;
+            var Param6 = 0.0;
+            var Param7 = 0.0;
+            var Param8 = 0.0;
+            var Param9 = 0.0;
+            var Param10 = 0.0;
+            var Param11 = document.getElementById("user_name").value;
+//to do
+// if not all values are entered, do not submit
+// if the values entered are outside the spec limits, generate new alarm and log it to DB as " Alert X - Value outside Engineering specification limits."
+
+
+            if (oCore.byId("TF-VALUE1") !== "" && oCore.byId("TF-VALUE1").getEnabled() == true) {
+                Param4 = Number(oCore.byId("TF-VALUE1").getValue());
+                if (isEmpty(oTF_VAL1.getValue())) {
+                    alert("Please Input VALUE 1 ..");
+                    oTF_VAL1.focus();
+                    return;
+                }
+            }
+            if (oCore.byId("TF-VALUE2") !== "" && oCore.byId("TF-VALUE2").getEnabled() == true) {
+                Param5 = Number(oCore.byId("TF-VALUE2").getValue());
+                if (isEmpty(oTF_VAL2.getValue())) {
+                    alert("Please Input VALUE 2 ..");
+                    oTF_VAL2.focus();
+                    return;
+                }
+            }
+            if (oCore.byId("TF-VALUE3") !== "" && oCore.byId("TF-VALUE3").getEnabled() == true) {
+                Param6 = Number(oCore.byId("TF-VALUE3").getValue());
+                if (isEmpty(oTF_VAL3.getValue())) {
+                    alert("Please Input VALUE 3 ..");
+                    oTF_VAL3.focus();
+                    return;
+                }
+            }
+            if (oCore.byId("TF-VALUE4") !== "" && oCore.byId("TF-VALUE4").getEnabled() == true) {
+                Param7 = Number(oCore.byId("TF-VALUE4").getValue());
+                if (isEmpty(oTF_VAL4.getValue())) {
+                    alert("Please Input VALUE 4 ..");
+                    oTF_VAL4.focus();
+                    return;
+                }
+            }
+            if (oCore.byId("TF-VALUE5") !== "" && oCore.byId("TF-VALUE5").getEnabled() == true) {
+                Param8 = Number(oCore.byId("TF-VALUE5").getValue());
+                if (isEmpty(oTF_VAL5.getValue())) {
+                    alert("Please Input VALUE 5 ..");
+                    oTF_VAL5.focus();
+                    return;
+                }
+            }
+            if (oCore.byId("TF-VALUE6") !== "" && oCore.byId("TF-VALUE6").getEnabled() == true) {
+                Param9 = Number(oCore.byId("TF-VALUE6").getValue());
+                if (isEmpty(oTF_VAL6.getValue())) {
+                    alert("Please Input VALUE 6 ..");
+                    oTF_VAL6.focus();
+                    return;
+                }
+            }
+            if (oCore.byId("TF-VALUE7") !== "" && oCore.byId("TF-VALUE7").getEnabled() == true) {
+                Param10 = Number(oCore.byId("TF-VALUE7").getValue());
+                if (isEmpty(oTF_VAL7.getValue())) {
+                    alert("Please Input VALUE 7 ..");
+                    oTF_VAL7.focus();
+                    return;
+                }
+            }
+
+            var oReqData;
+            if (window.XMLHttpRequest) {
+                oReqData = new XMLHttpRequest();
+            }
+            if (oReqData != null) {
+                var timestamp = new Date().getTime();
+                var paramStr = "Param.1=" + encodeURIComponent(Param1) + "&Param.2=" + encodeURIComponent(Param2) + "&Param.3=" + encodeURIComponent(Param3) + "&Param.4=" + encodeURIComponent(Param4) + "&Param.5=" + encodeURIComponent(Param5) + "&Param.6=" + encodeURIComponent(Param6) + "&Param.7=" + encodeURIComponent(Param7) + "&Param.8=" + encodeURIComponent(Param8) + "&Param.9=" + encodeURIComponent(Param9) + "&Param.10=" + encodeURIComponent(Param10) + "&Param.11=" + encodeURIComponent(Param11) + "&Server=" + miiDataServer;
+                var queryStr = "/XMII/Illuminator?QueryTemplate=SPCM/DASHBOARD/QUERIES/sql_AddChartData&" + paramStr + "&ts=" + timestamp + "&Content-Type=text/xml";
+                // alert(paramStr);
+                oReqData.open("GET", queryStr, true);
+                oReqData.onreadystatechange = function () {
+                    if (oReqData.readyState == 4) {
+                        if (oReqData.status == 200) {
+                            oOverlayContainerAdd.close();
+                            applicationScreen = "chartit";
+                            chartUpdate(true);
+                        } else {
+                            // Not Successful -- alert the user
+                            alert("Error: " + oReqData.statusText);
+                        }
+                    }
+                }
+                oReqData.send();
+            } else {
+                window.alert("Error creating XmlHttpRequest object.");
+            }
+        }
+        // ****************************************************************************************************************************************************
+        function chartUpdate(addValue) {
+
+            var timestamp = new Date().getTime();
+            var queryStr = "/XMII/Illuminator?QueryTemplate=SPCM/DASHBOARD/QUERIES/sql_getChartDateTime&Server=" + miiDataServer + "&ts=" + timestamp + "&Content-Type=text/xml"
+            getData(queryStr, parseJsonServerDate);
+
+            function parseJsonServerDate(jsondata) {
+                for (var i = 0; i < jsondata.length; i++) {
+                    srvDate = jsondata[i]['srvDate'];
+                    srvTime = jsondata[i]['srvTime'];
+                    chartDateTime = srvDate + " " + srvTime;
+                    // update the screen
+                }
+                setTimeout(calculateStatistics, 500);
+                setTimeout(setDashboardData, 500);
+                setTimeout(function () {
+                    refreshScreen(addValue)
+                }, 500);
+
+            }
+        }
+        ;
+        // ****************************************************************************************************************************************************
+        function refreshScreen(addValue) {
+            c.getQueryObject().setParameter("Param.1", selectedChartID);
+            c.getQueryObject().setParameter("Param.2", chartDateTime);
+            c.getQueryObject().setParameter("Server", miiDataServer);
+            c.update(true);
+            c.refresh();
+            // checkAlarms();
+            checkPointsIfAlarms();
+            if (addValue) addMessagesSubscription();
+        }
+        // ****************************************************************************************************************************************************
+        function setDashboardData() {
+
+            var timestamp = new Date().getTime();
+            var Param1 = selectedChartID;
+            var Param2 = ' ';
+            var paramStr = "Param.1=" + encodeURIComponent(Param1) + "&Param.2=" + encodeURIComponent(Param2) + "&Server=" + miiDataServer;
+            getData("/XMII/Illuminator?QueryTemplate=SPCM/DASHBOARD/QUERIES/sql_getChartData&" + paramStr + "&ts=" + timestamp + "&Content-Type=text/xml", parseJsonChartData);
+
+            function parseJsonChartData(jsondata) {
+                jsonChartData = jsondata;
+                for (var i = 0; i < jsonChartData.length; i++) {
+                    // update variables
+                    idGroup = jsondata[i]["idGroup"];
+                    trendSize = jsondata[i]["TrendSize"];
+                    subGroupSize = jsondata[i]["SubGroupSize"];
+                    sampleSize = jsondata[i]["SampleSize"];
+                    valueUCSigma = jsondata[i]["UpperChartSigma"];
+                    ;
+                    valueLCSigma = jsondata[i]["LowerChartSigma"];
+                    valueLambda = jsondata[i]["Lambda"];
+                    pointPrecision = jsondata[i]["pointPrecision"];
+                    pointMultiplier = jsondata[i]["pointMultiplier"];
+                    pointValues = jsondata[i]["pointValues"];
+                    selectedPartName = jsondata[i]["partName"];
+                    chartTitle = jsondata[i]["chartTitle"];
+                    recValue = jsondata[i]["recordedValue"];
+                    recTimestamp = jsondata[i]["recordedTimestamp"];
+                    recClockId = jsondata[i]["opClockID"];
+                    recOpName = jsondata[i]["opFullName"];
+                    valueURL = jsondata[i]["URL"];
+                    valueUSL = jsondata[i]["USL"];
+                    valueUCL = jsondata[i]["UCL"];
+                    valueUWL = jsondata[i]["UWL"];
+                    valueTGT = jsondata[i]["TGT"];
+                    valueCLN = jsondata[i]["CLN"];
+                    valueLWL = jsondata[i]["LWL"];
+                    valueLCL = jsondata[i]["LCL"];
+                    valueLSL = jsondata[i]["LSL"];
+                    valueLRL = jsondata[i]["LRL"];
+                    valueLUR = jsondata[i]["LUR"];
+                    valueLLR = jsondata[i]["LLR"];
+                    valueLLT = jsondata[i]["LLT"];
+                    valueIsComment = jsondata[i]["isComment"];
+                    valueIsSuppressed = jsondata[i]["isSupressed"];
+                    valueDataCollection = jsondata[i]["dataCollection"];
+                }
+                // update Screen
+                oCore.byId("L-ChartName").setText(chartTitle);
+                oCore.byId("L-CalcGRP").setText("GRP: " + idGroup);
+                oCore.byId("L-CalcRDS").setText(pointValues);
+                oCore.byId("L-UNLK").setText("UNLK: " + operator);
+                oCore.byId("L-ASSET").setText("ASSET: " + selectedAsset);
+                oCore.byId("L-PART").setText("PART: " + autoPart);
+                oCore.byId("L-PartName").setText(selectedPartName + " ** " + recClockId);
+                oCore.byId("L-CLOCK").setText("CLK: " + ClockID);
+                oCore.byId("L-CalcREQ").setText(subGroupSize + ' ' + valueDataCollection);
+                // upper chart
+                document.getElementById("url-x_val").innerHTML = valueURL;
+                document.getElementById("usl-x_val").innerHTML = valueUSL;
+                document.getElementById("ucl-x_val").innerHTML = valueUCL;
+                document.getElementById("uwl-x_val").innerHTML = valueUWL;
+                document.getElementById("tgt-x_val").innerHTML = valueTGT;
+                document.getElementById("cln-x_val").innerHTML = valueCLN;
+                document.getElementById("lwl-x_val").innerHTML = valueLWL;
+                document.getElementById("lcl-x_val").innerHTML = valueLCL;
+                document.getElementById("lsl-x_val").innerHTML = valueLSL;
+                document.getElementById("lrl-x_val").innerHTML = valueLRL;
+                // lower chart
+                document.getElementById("url-r_val").innerHTML = valueLUR;
+                document.getElementById("tgt-r_val").innerHTML = valueLLT;
+                document.getElementById("lrl-r_val").innerHTML = valueLLR;
+                // spec data
+                document.getElementById("trend_val").innerHTML = trendSize;
+                document.getElementById("group_val").innerHTML = subGroupSize;
+                document.getElementById("sample_val").innerHTML = sampleSize;
+                document.getElementById("precision_val").innerHTML = pointPrecision;
+
+                // Show legend
+                document.getElementById("sk_legend").style.display = "block";
+                document.getElementById("sk_logout").style.display = "block";
+            }
+        }
+        // ****************************************************************************************************************************************************
+        // check chart alarms
+        function checkAlarms() {
+
+            var timestamp = new Date().getTime();
+            var paramStr = "/XMII/Runner?Transaction=SPCM/DASHBOARD/TRANSACTIONS/trxGetStatisticResults&IDUNIT=" + selectedChartID + "&TSMP=" + chartDateTime + "&SERVER=" + miiDataServer + "&OutputParameter=XML_OUT&Content-Type=text/xml";
+            getData("/XMII/Illuminator?QueryTemplate=SPCM/DASHBOARD/QUERIES/sql_getChartData&" + paramStr + "&ts=" + timestamp + "&Content-Type=text/xml", parseJsonAlertsData);
+
+            function parseJsonChartData(jsondata) {
+                var jsonAlertsData = jsondata;
+                for (var i = 0; i < jsonAlertsData.length; i++) {
+                    // update variables
+                    var val_ChartID = jsonAlertsData[i]["IDUNIT"];
+                    var val_GroupID = jsonAlertsData[i]["IDGROUP"];
+                    var val_Position = jsonAlertsData[i]["POSITION"];
+                    var val_AlertNr = jsonAlertsData[i]["ALERT"];
+                    var val_AlertDesc = jsonAlertsData[i]["DESCRIPTION"];
+                    var val_ActCode = jsonAlertsData[i]["ACTCODE"];
+                    var val_isCommented = jsonAlertsData[i]["COMMENT"];
+                    var val_Comments = jsonAlertsData[i]["MESSAGE"];
+                    var val_isSuppressed = jsonAlertsData[i]["SUPPRESS"];
+
+                    if (val_ActCode == 0 && val_AlertNr == 1) {
+                        alert(val_AlertDesc + "-- Please Input  Action Code");
+                        return;
+                    }
+                }
+            }
+        }
+        // ****************************************************************************************************************************************************
+        // toggle legend
+        function toggleView() {
+            var rightMargin = document.getElementById("sk_legend").style.right;
+            if (rightMargin == "-150px") {
+                document.getElementById("sk_legend").style.right = "-5px";
+            } else {
+                document.getElementById("sk_legend").style.right = "-150px";
+            }
+        }
+        ;
+        // ****************************************************************************************************************************************************
+        var convertDate = function (usDate) {
+            var dateParts = usDate.split(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+            return dateParts[3] + "" + dateParts[1] + "" + dateParts[2];
+        };
+        // ****************************************************************************************************************************************************
+        function addMessagesSubscription() {
+
+            var idSubscription = 0;
+            var interval = -1;
+
+            var StartDate = convertDate(srvDateTime.substr(0, srvDateTime.indexOf(' ')));
+            var startDate = parse(StartDate);
+            var endDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+            endDate.setDate(endDate.getDate() + 1);
+            var EndDate = endDate.yyyymmddWoDash();
+
+            var Server_SQL = "SPCM";
+            var unitSAPID = "0000";
+            var partID = "0";
+
+            var testID;
+            var chartID;
+            var subscriptionID;
+            var intervalID;
+
+            var oReqData;
+            if (window.XMLHttpRequest) {
+                oReqData = new XMLHttpRequest();
+            }
+
+            if (oReqData != null) {
+                var timestamp = new Date().getTime();
+                var Param1 = selectedChartID;
+                var paramStr = "Param.1=" + encodeURIComponent(Param1) + "&Server=" + miiDataServer;
+                // alert( paramStr);
+                var sUrl = "/XMII/Illuminator?QueryTemplate=SPCM/DASHBOARD/QUERIES/qry_getSubscriptionByDataPoint&" + paramStr + "&ts=" + timestamp + "&Content-Type=text/xml";
+
+                oReqData.open("GET", sUrl, false);
+                oReqData.send();
+
+                if (oReqData.status == 200) {
+                    var xmlDoc = oReqData.responseXML;
+                    //alert(oReqData.responseText);
+                    for (i = 0; i < xmlDoc.getElementsByTagName("Row").length; i++) {
+                        if (xmlDoc.getElementsByTagName("idSubscription")[i] && xmlDoc.getElementsByTagName("idSubscription")[i].childNodes[0]) {
+                            idSubscription = xmlDoc.getElementsByTagName("idSubscription")[i].childNodes[0].nodeValue;
+                        }
+                        if (xmlDoc.getElementsByTagName("interval")[i] && xmlDoc.getElementsByTagName("interval")[i].childNodes[0]) {
+                            interval = xmlDoc.getElementsByTagName("interval")[i].childNodes[0].nodeValue;
+                        }
+
+                        if (interval.indexOf("EVENT TRIGGERED") > -1)
+                            interval = 0;
+                        else if (interval.charAt(0).indexOf("1") > -1)
+                            interval = 1;
+                        else if (interval.charAt(0).indexOf("4") > -1)
+                            interval = 4;
+                        else if (interval.charAt(0).indexOf("8") > -1)
+                            interval = 8;
+
+                        if (window.XMLHttpRequest) {
+                            oReqData = new XMLHttpRequest();
+                        }
+
+                        if (oReqData != null) {
+                            var timestamp = new Date().getTime();
+                            testID = escapeSQLString(selectedTestID);
+                            chartID = escapeSQLString(selectedChartID);
+                            subscriptionID = escapeSQLString(idSubscription);
+                            intervalID = escapeSQLString(interval);
+                            var paramStr = "SERVER_SQL=" + encodeURIComponent(Server_SQL) + "&UNITSAPID=" + encodeURIComponent(unitSAPID) + "&START_DATE=" + encodeURIComponent(StartDate) + "&END_DATE=" + encodeURIComponent(EndDate) + "&PARTID=" + encodeURIComponent(partID) + "&UNITID=" + encodeURIComponent(chartID) + "&TESTID=" + encodeURIComponent(testID) + "&SUBSCRIPTIONID=" + encodeURIComponent(subscriptionID) + "&INTERVAL=" + encodeURIComponent(intervalID) + "&WRITEMESSAGESUBSCR=1";
+                            // alert(paramStr);
+                            var queryStr = "/XMII/Runner?Transaction=SPCM/REPORTS/TRANSACTIONS/getActivity&OutputParameter=tableHTML&Content-Type=text/xml&" + paramStr + "&ts=" + timestamp;
+                            // alert(queryStr);
+                            oReqData.open("GET", queryStr, true);
+                            oReqData.onreadystatechange = function () {
+                                if (oReqData.readyState == 4)
+                                    if (oReqData.status == 200) {
+                                        // Successful -- rebuild the screen
+                                    } else {
+                                        alert("Error: " + oReqData.statusText);
+                                    }
+                            }
+                            oReqData.send();
+                        } else {
+                            window.alert("Error creating XmlHttpRequest object.");
+                        }
+                    }
+                }
+            }
+            else {
+                window.alert("Error creating XmlHttpRequest object.");
+            }
+        }
+        // ****************************************************************************************************************************************************
+        function checkPointsIfAlarms() {
+
+            var oChart = c.getChartObject();
+            if (!oChart) return;
+            var selectedPositionID = -1;
+
+            for (var i = 1; i <= trendSize; i++) {
+                // get test id at position
+                selectedTestID = oChart.getUpperAttributeValueAt(i, 1);
+                selectedTestID = selectedTestID.substring(0, selectedTestID.indexOf('(') - 1);
+                //alert(selectedTestID);
+                selectedPositionID = i;
+                cActionCode = doAlarmView(selectedPositionID);
+                if (cActionCode <= 0) {
+                    if (!oOverlayContainerActionsView.isOpen()) {
+                        applicationScreen = "addcorraction";
+                        oOverlayContainerActionsView.open();
+                        break;
+                    }
+                }
+            }
+        }
+        // ****************************************************************************************************************************************************
+        // if selected position is alarm display description and action used
+        function doAlarmView(selectedPositionID) {
+            var oReqData;
+            var cAction = -1;
+            var oChart = c.getChartObject();
+            var alarmNoUpper = oChart.getUpperAlarmCount(Number(selectedPositionID));					// number of upper alarms on position
+            var alarmNoLower = oChart.getLowerAlarmCount(Number(selectedPositionID));					// number of lower alarms on position
+            var alarmValue = "";
+
+            if ((Number(alarmNoUpper) > 0) || (Number(alarmNoLower) > 0)) {
+                // get chart alarm names
+                for (var i = 1; i < (alarmNoUpper + 1); i++) {
+                    alarmValue = alarmValue + oChart.getUpperAlarmAt(Number(selectedPositionID), Number(i)) + "  \n\r ";
+                }
+                for (var i = 1; i < (alarmNoLower + 1); i++) {
+                    alarmValue = alarmValue + "Outside of range limits" + "  \n\r ";
+                }
+
+                oLabel_GIDNo.setText(selectedTestID);
+                oLabel_AlarmDescription.setText(alarmValue);
+                AlarmDescription = alarmValue;
+                oTF_CORRACTID.setValue("");
+
+                if (window.XMLHttpRequest) {
+                    oReqData = new XMLHttpRequest();
+                }
+
+                if (oReqData != null) {
+                    var timestamp = new Date().getTime();
+                    var Param1 = selectedTestID;
+                    var Param2 = selectedChartID;
+                    var paramStr = "Param.1=" + encodeURIComponent(Param1) + "&Param.2=" + encodeURIComponent(Param2) + "&Server=" + miiDataServer;
+                    //alert( paramStr);
+                    var sUrl = "/XMII/Illuminator?QueryTemplate=SPCM/DASHBOARD/QUERIES/qry_getCorrectiveAction&" + paramStr + "&ts=" + timestamp + "&Content-Type=text/xml";
+
+                    oReqData.open("GET", sUrl, false);
+                    oReqData.send();
+
+                    if (oReqData.status == 200) {
+                        var xmlDoc = oReqData.responseXML;
+                        //alert(oReqData.responseText);
+                        if (xmlDoc.getElementsByTagName("cActionCode")[0] && xmlDoc.getElementsByTagName("cActionCode")[0].childNodes[0]) {
+                            cAction = xmlDoc.getElementsByTagName("cActionCode")[0].childNodes[0].nodeValue;
+
+                        }
+                    }
+                }
+                else {
+                    window.alert("Error creating XmlHttpRequest object.");
+                }
+                //alert(xmlDoc.getElementsByTagName("Row").length + " !!! " + selectedTestID + " !!! " + cAction);
+                return cAction;
+            }
+        }
+        // ****************************************************************************************************************************************************
+        // retrieve corrective action list
+        function getCorrActions(idChart) {
+            var timestamp = new Date().getTime();
+            var Param1 = idChart;
+            var paramStr = "Param.1=" + encodeURIComponent(Param1) + "&Server=" + miiDataServer;
+            alert(paramStr);
+            var queryStr = "/XMII/Illuminator?QueryTemplate=SPCM/DASHBOARD/QUERIES/sql_getCorrActionsList&" + paramStr + "&ts=" + timestamp + "&Content-Type=text/xml";
+            getData(queryStr, parseJsonCorrActionsList);
+
+            function parseJsonCorrActionsList(jsondata) {
+                corrActionsData = jsondata;
+                for (var i = 0; i < corrActionsData.length; i++) {
+                    // nothing to parse
+                }
+            }
+        }
+        ;
+        // ****************************************************************************************************************************************************
+        function getCorrActionByCode(CorrActionCode) {
+            var timestamp = new Date().getTime();
+            var Param1 = CorrActionCode;
+            var paramStr = "Param.1=" + encodeURIComponent(Param1) + "&Server=" + miiDataServer;
+            //alert(paramStr);
+            var queryStr = "/XMII/Illuminator?QueryTemplate=SPCM/DASHBOARD/QUERIES/sql_getCorrActionByCode&" + paramStr + "&ts=" + timestamp + "&Content-Type=text/xml";
+            getData(queryStr, parseJsonCorrActionByCode);
+
+            function parseJsonCorrActionByCode(jsondata) {
+                for (var i = 0; i < jsondata.length; i++) {
+                    autoCorrAction = jsondata[i]['autoCorrAction'];
+                    selectedCorrActionCode = jsondata[i]['cActionCode'];
+                    selectedCorrActionName = jsondata[i]['cActionName'];
+                }
+                oTF_CORRACTID.setValue(autoCorrAction);
+                if (scanInput) doSubmitCorrAction();
+            }
+        }
+        ;
+        // ****************************************************************************************************************************************************
+        var oMatrixAV = new sap.ui.commons.layout.MatrixLayout({
+            id: 'MatrixAV',
+            layoutFixed: true,
+            width: '690px',
+            columns: 1,
+            widths: ['700px']
+        });
+        var oMatrixAVF = new sap.ui.commons.layout.MatrixLayout({
+            id: 'MatrixAVF',
+            layoutFixed: true,
+            width: '690px',
+            columns: 2,
+            widths: ['345px', '345px']
+        });
+
+        var oTitleAV = new sap.ui.commons.Label({
+            id: 'L-TitleAV',
+            text: 'VIEW ALARM & ACTION'
+        });
+
+        oMatrixAV.createRow(oTitleAV);
+
+        var oLabel_GID = new sap.ui.commons.Label({
+            id: 'L-GID',
+            text: ' GROUP ID:'
+        });
+
+        var oLabel_GIDNo = new sap.ui.commons.Label({
+            id: 'L-GIDNo',
+            text: ' '
+        });
+
+        oMatrixAVF.createRow(oLabel_GID, oLabel_GIDNo);
+
+        var oLabel_Alarms = new sap.ui.commons.Label({
+            id: 'L-Alarms',
+            text: ' ALARMS: '
+        });
+
+        var oLabel_AlarmDescription = new sap.ui.commons.TextView({
+            id: 'L-AlarmDescription',
+            wrapping: false,
+            text: '  '
+        });
+
+        oMatrixAVF.createRow(oLabel_Alarms, oLabel_AlarmDescription);
+
+        oMatrixAV.createRow(oMatrixAVF);
+
+        var htmlBarCode2 = new sap.ui.core.HTML("", {
+            id: "theBarcode2",
+            content: "<div id=\"imgcodebar2\" class=\"code39u36\" style=\"margin: 0px auto;font-size:64px;text-align:center;width:300px; height:80px; overflow:hidden;font-weight:normal;\"></div>"
+        });
+        var oLayoutBarcode2 = new sap.ui.layout.HorizontalLayout("LayoutBarCode2", {
+            content: [htmlBarCode2]
+        });
+        oMatrixAV.createRow(oLayoutBarcode2);
+
+        oLabelCorrActionID = new sap.ui.commons.Label({
+            id: 'L-CorrActionID',
+            text: 'PLEASE SCAN / INPUT CORRECTIVE ACTION'
+        });
+        oMatrixAV.createRow(oLabelCorrActionID);
+
+        var oTF_CORRACTID = new sap.ui.commons.AutoComplete({
+            id: 'TF-CORRACTID',
+            tooltip: "PLEASE SCAN / INPUT CORRECTIVE ACTION",
+            maxPopupItems: 7,
+            width: '230px',
+            change: function (oEvent) {
+                autoCorrAction = oTF_CORRACTID.getValue();
+                if (autoCorrAction.indexOf("**") > 0) {
+                    selectedCorrActionCode = trim(autoCorrAction.substring(0, autoCorrAction.indexOf("**")));
+                    getCorrActionByCode(selectedCorrActionCode);
+                    getSrvDateTime();
+                } else {
+                    autoCorrAction = "";
+                    selectedCorrActionCode = "";
+                    selectedCorrActionName = "";
+                }
+            },
+            suggest: function (oEvent) {
+                if (scanInput) return;
+                oTF_CORRACTID.destroyItems(); //forget the old items
+                var sValue = oEvent.getParameter("suggestValue");
+                for (var i = 0; i < corrActionsData.length; i++) {
+                    if (jQuery.sap.startsWithIgnoreCase(corrActionsData[i].autoCorrAction, sValue)) {
+                        oTF_CORRACTID.addItem(new sap.ui.core.ListItem({
+                            text: corrActionsData[i].autoCorrAction,
+                            additionalText: corrActionsData[i].cActionCode
+                        }));
+                    }
+                }
+            }
+        });
+
+        oTF_CORRACTID.setTextAlign(sap.ui.core.TextAlign.Center);
+        //attach it to some element in the page
+        oMatrixAV.createRow(oTF_CORRACTID);
+
+        var oButtonSubmitCorrAction = new sap.ui.commons.Button({
+            id: 'B-AVSubmit',
+            tooltip: "Submit Corrective Action",
+            text: 'SUBMIT',
+            enabled: true
+        });
+        oButtonSubmitCorrAction.attachPress(doSubmitCorrAction);
+
+        oMatrixAV.createRow(oButtonSubmitCorrAction);
+
+        // ****************************************************************************************************************************************************
+        function doSubmitCorrAction() {
+            // retrieve Corr Action ID
+            autoCorrAction = oTF_CORRACTID.getValue();
+            selectedCorrActionCode = trim(autoCorrAction.substring(0, autoCorrAction.indexOf("**")));
+            if (selectedCorrActionCode == "") {
+                alert("Please Input Corrective Action Code ..");
+                oTF_CORRACTID.focus();
+                return;
+            } else {
+                // all good, try to post it
+                var oReqData;
+                if (window.XMLHttpRequest) {
+                    oReqData = new XMLHttpRequest();
+                }
+                if (oReqData != null) {
+                    var timestamp = new Date().getTime();
+                    var Param1 = escapeSQLString(selectedTestID);
+                    var Param2 = escapeSQLString(selectedChartID);
+                    var Param3 = escapeSQLString(selectedCorrActionCode);
+                    var Param4 = escapeSQLString('');
+                    var Param5 = escapeSQLString(document.getElementById("user_name").value);
+                    var Param6 = escapeSQLString(AlarmDescription);
+                    var paramStr = "Param.1=" + encodeURIComponent(Param1) + "&Param.2=" + encodeURIComponent(Param2) + "&Param.3=" + encodeURIComponent(Param3) + "&Param.4=" + encodeURIComponent(Param4) + "&Param.5=" + encodeURIComponent(Param5) + "&Param.6=" + encodeURIComponent(Param6) + "&Server=" + miiDataServer;
+                    // alert(paramStr);
+                    var queryStr = "/XMII/Illuminator?QueryTemplate=SPCM/DASHBOARD/QUERIES/sql_setCorrectiveAction&" + paramStr + "&ts=" + timestamp + "&Content-Type=text/xml";
+                    // alert(queryStr);
+                    oReqData.open("GET", queryStr, true);
+                    oReqData.onreadystatechange = function () {
+                        if (oReqData.readyState == 4)
+                            if (oReqData.status == 200) {
+                                // Successful -- close the screen
+                                oOverlayContainerActionsView.close();
+                                applicationScreen = "chartit";
+                                chartUpdate(false);
+                            } else {
+                                // Not Successful -- alert the user
+                                alert("Error: " + oReqData.statusText);
+                            }
+                    }
+                    oReqData.send();
+                } else {
+                    window.alert("Error creating XmlHttpRequest object.");
+                }
+            }
+        }
+        // ****************************************************************************************************************************************************
+        var oOverlayContainerActionsView = new sap.ui.ux3.OverlayDialog({openButtonVisible: false});
+        oOverlayContainerActionsView.setHeight('400px');
+        oOverlayContainerActionsView.setWidth('700px');
+        oOverlayContainerActionsView.addContent(oMatrixAV);
+        //oOverlayContainerActionsView.attachClose(chartUpdate);
+        // ****************************************************************************************************************************************************
+    </script>
+    <link rel="stylesheet" type="text/css" href="Common/css/barcode_fonts.css"/>
+</head>
+<body onLoad="roleSecurity()" id="body">
+<div id="scandiv" style="margin:0 auto;">
+    <table id="scantable" align=center cellspacing=0 cellpadding=0 border=0 style="border: 0px solid blue;">
+        <tr>
+            <td style="height:100px;width=400px;">
+                <div id="imgcode" class="code39u36"
+                     style="margin: 5px auto;font-size:64px;text-align:center;width:300px, height:80px; overflow:hidden;font-weight:normal;"></div>
+            </td>
+        </tr>
+    </table>
+</div>
+<input id="barcode" type="hidden" value=""
+       style="display:block;width:300px;margin:0 auto;text-align:center;border 1px solid #777;color: #777;" readonly/>
+<input id="user_roles" type="hidden" value="{IllumLoginRoles}" style="display:block;width:800px;" readonly/>
+<input id="user_role" type="hidden" value="{ROLE}" style="display:block;width:800px;" readonly/>
+<input id="user_name" type="hidden" value="{IllumLoginName}" style="display: block;width:800px;" readonly/>
+<input id="user_machine" type="hidden" value="{Machine}" style="display:block;width:800px;" readonly/>
+<input id="user_ipFilter" type="hidden" value="{ipFILTER}" style="display:block;width:800px;" readonly/>
+<input id="user_input" type="hidden" value="{SCAN}" style="display:block;width:300px;margin:0 auto;" readonly/>
+<div id="spcm_content"></div>
+<a id="sk_invoke" class="colorButton" onclick="toggleInput()" href="javascript:void(0);"><i id="sk_show"
+                                                                                            style="margin-top:3px;font-face:bold;">K</i></a>
+<a id="sk_logout" class="colorButton" onclick="doLogOut()" href="javascript:void(0);" style="display:none;">&nbsp; Log
+    Out </a>
+<a id="sk_legend" class="colorButton" onclick="toggleView()" href="javascript:void(0);" style="display:none;"> Legend
+    <table cellspacing=5, cellpadding=0 border=0 align=center width=145
+           style="font-family:Arial;color:#000;font-weight:bold;font-size:12px;margin-top:10px;">
+        <tr style="color:black;">
+            <td id="url-x_lbl" style="width:60px;text-align:right">URL-X</td>
+            <td id="url-x_val" style="width:80px;text-align:left;">0.000000</td>
+        </tr>
+        <tr style="color:darkred;">
+            <td id="usl-x_lbl" style="width:60px;text-align:right">USL-X</td>
+            <td id="usl-x_val" style="width:80px;text-align:left;">0.000000</td>
+        </tr>
+        <tr style="color:red;">
+            <td id="ucl-x_lbl" style="width:60px;text-align:right">UCL-X</td>
+            <td id="ucl-x_val" style="width:80px;text-align:left;">0.000000</td>
+        </tr>
+        <tr style="color:orange;">
+            <td id="uwl-x_lbl" style="width:60px;text-align:right">UWL-X</td>
+            <td id="uwl-x_val" style="width:80px;text-align:left;">0.000000</td>
+        </tr>
+        <tr style="color:blue;">
+            <td id="tgt-x_lbl" style="width:60px;text-align:right">TGT-X</td>
+            <td id="tgt-x_val" style="width:80px;text-align:left;">0.000000</td>
+        </tr>
+        <tr style="color:green;">
+            <td id="cln-x_lbl" style="width:60px;text-align:right">CLN-X</td>
+            <td id="cln-x_val" style="width:80px;text-align:left;">0.000000</td>
+        </tr>
+        <tr style="color:orange;">
+            <td id="lwl-x_lbl" style="width:60px;text-align:right">LWL-X</td>
+            <td id="lwl-x_val" style="width:80px;text-align:left;">0.000000</td>
+        </tr>
+        <tr style="color:red;">
+            <td id="lcl-x_lbl" style="width:60px;text-align:right">LCL-X</td>
+            <td id="lcl-x_val" style="width:80px;text-align:left;">0.000000</td>
+        </tr>
+        <tr style="color:darkred;">
+            <td id="lsl-x_lbl" style="width:60px;text-align:right">LSL-X</td>
+            <td id="lsl-x_val" style="width:80px;text-align:left;">0.000000</td>
+        </tr>
+        <tr style="color:black;">
+            <td id="lrl-x_lbl" style="width:60px;text-align:right">LRL-X</td>
+            <td id="lrl-x_val" style="width:80px;text-align:left;">0.000000</td>
+        </tr>
+        <tr style="color:white;">
+            <td id="mid-x_lbl" colspan=2 style="width:60px;text-align:center">
+                <hr style="width:115px;">
+            </td>
+        </tr>
+        <tr style="color:red;">
+            <td id="url-r_lbl" style="width:60px;text-align:right">URL-R</td>
+            <td id="url-r_val" style="width:80px;text-align:left;">0.000000</td>
+        </tr>
+        <tr style="color:green;">
+            <td id="tgt-r_lbl" style="width:60px;text-align:right">TGT-R</td>
+            <td id="tgt-r_val" style="width:80px;text-align:left;">0.000000</td>
+        </tr>
+        <tr style="color:red;">
+            <td id="lrl-r_lbl" style="width:60px;text-align:right">LRL-R</td>
+            <td id="lrl-r_val" style="width:80px;text-align:left;">0.000000</td>
+        </tr>
+        <tr style="color:white;">
+            <td id="bot-x_lbl" colspan=2 style="width:60px;text-align:center">
+                <hr style="width:115px;">
+            </td>
+        </tr>
+    </table>
+    <table cellspacing=5, cellpadding=0 border=0 align=center width=145
+           style="font-family:Arial;color:#000;font-weight:bold;font-size:12px;">
+        <tr style="color:black;">
+            <td id="trend_lbl" style="width:100px;text-align:right">Trend Size</td>
+            <td id="trend_val" style="width:40px;text-align:left;">00</td>
+        </tr>
+        <tr style="color:black;">
+            <td id="group_lbl" style="width:100px;text-align:right">Group Size</td>
+            <td id="group_val" style="width:40px;text-align:left;">00</td>
+        </tr>
+        <tr style="color:black;">
+            <td id="sample_lbl" style="width:100px;text-align:right">Sample Size</td>
+            <td id="sample_val" style="width:40px;text-align:left;">00</td>
+        </tr>
+        <tr style="color:black;">
+            <td id="precision_lbl" style="width:100px;text-align:right">Precision</td>
+            <td id="precision_val" style="width:40px;text-align:left;">00</td>
+        </tr>
+    </table>
+</a>
+</body>
+</html>

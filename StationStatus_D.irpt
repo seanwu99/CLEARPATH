@@ -14,6 +14,38 @@
             font-family: Arial;
         }
 
+        a.colorButton:link, a.colorButton:active, a.colorButton:hover, a.colorButton:visited {
+            text-decoration: none;
+            color: #007dc0;
+            cursor: pointer;
+            background-position: right top;
+        }
+
+        #colorButton {
+            position: fixed;
+            top: 30px;
+            left: 100px;
+            width: 80px;
+            height: 36px;
+            line-height: 36px;
+            text-align: right;
+            background: #FFF;
+            padding: 0 10px 0 0;
+            z-index: 200;
+            font-family: "Arial Black", Arial, Helvetica, sans-serif;
+            -webkit-border-top-right-radius: 21px;
+            -moz-border-top-right-radius: 21px;
+            -ms-border-top-right-radius: 21px;
+            -o-border-top-right-radius: 21px;
+            border-top-right-radius: 21px;
+            -webkit-border-bottom-right-radius: 21px;
+            -moz-border-bottom-right-radius: 21px;
+            -ms-border-bottom-right-radius: 21px;
+            -o-border-bottom-right-radius: 21px;
+            border-bottom-right-radius: 21px;
+            border-right: 2px solid #007dc0;
+        }
+
         #app_header {
             padding: 10px;
             padding-left: 40px;
@@ -30,7 +62,7 @@
             font-family: "Arial Black", Arial, Helvetica, sans-serif;
             font-size: 32px;
             color: #007dc0;
-            /*margin-bottom: 20px;*/
+            margin-bottom: 20px;
         }
 
         #mov_title, #doc_title {
@@ -39,7 +71,7 @@
             font-family: "Arial Black", Arial, Helvetica, sans-serif;
             font-size: 22px;
             color: #007dc0;
-            /*margin-bottom: 30px;*/
+            margin-bottom: 30px;
         }
 
         #app_menu {
@@ -59,6 +91,11 @@
         #mesm_content {
             padding: 30px;
             padding-top: 40px;
+        }
+
+        #mesm_content2 {
+            padding: 50px;
+            padding-top: 80px;
         }
 
         #B-Docs {
@@ -113,7 +150,7 @@
             font-family: "Arial Black", Arial, Helvetica, sans-serif;
             font-size: 38px;
             font-weight: bold;
-            line-height: 1.85857
+            line-height: 1.85857;
             width: 20px;
             height: 24px;
             color: #007dc0;
@@ -127,7 +164,7 @@
             font-family: "Arial Black", Arial, Helvetica, sans-serif;
             font-size: 18px;
             font-weight: bold;
-            line-height: 1.65857
+            line-height: 1.65857;
             width: 40px;
             height: 20px;
             color: #DAD8D8;
@@ -261,12 +298,11 @@
 
 
                 selectedSTATION = document.getElementById("user_station").value;
-                floorMapsLoding();
+                findUnitID();
                 //selectedSTATION = 'P558_ASSY_OP010';
 
                 var tabID = selectedSTATION.split("_");
                 if (typeof tabID[2] === "undefined" || tabID[2] === null) tabID[2] = "OP010";
-
                 selectedSTATION_TXT = tabID[1] + " " + tabID[2];
 
                 cc(selectedSTATION);
@@ -357,49 +393,52 @@
         function cc(obj) {
             console.log(obj)
         }
-        var recordIDArray = [];
-        var unitNameArray = [];
-        var idUnitParentArray = [];
 
 
-        function floorMapsLoding() {
+        function findUnitID() {
+            var lineID = null, lineName = null, opID = null, opName = null;
             var url = "/XMII/Illuminator?QueryTemplate=MESM/STATIONS_HMI/QUERIES/get_FloorMapsData" + "&Content-Type=text/xml";
             getData(url, parseJsonParent);
-            function parseJsonParent(jsondata) {
-                for (var i = 0; i < jsondata.length; i++) {
-                    recordIDArray.push(jsondata[i]['recordID']);
-                    unitNameArray.push(jsondata[i]['unitName']);
-                    idUnitParentArray.push(jsondata[i]['idUnitParent']);
-                    //cc(i + '/' + recordIDArray[i] + '/' + unitNameArray[i]);
-                }
-                var _unitName = "";
-                var _recordID = "";
-                var p = 0, q = 0;
 
+            function parseJsonParent(jsondata) {
                 //selectedSTATION
-                for (var i = 0; i < recordIDArray.length; i++) {
-                    if (selectedSTATION.indexOf(unitNameArray[i]) == 0) {
-                        p = i;
-                        i = recordIDArray.length + 1;
+                for (var i = 0; i < jsondata.length; i++) {
+                    if (selectedSTATION.indexOf(jsondata[i]['unitName']) == 0) {
+                        lineID = jsondata[i]['recordID'];
+                        lineName = jsondata[i]['unitName'];
                     }
                 }
 
-                if (p >= 0 && p < recordIDArray.length) {
-                    cc(recordIDArray[p] + '//' + unitNameArray[p]);
-                    for (var j = 0; j < recordIDArray.length; j++) {
-                        cc();
-                        if ((selectedSTATION.indexOf(unitNameArray[p]) > 0) && (idUnitParentArray[p] == idUnitParentArray[j])) {
-                            cc(unitNameArray[j]);
-                            q = j;
-                            j = recordIDArray.length + 1;
+                if (lineID != null) {
+                    for (var i = 0; i < jsondata.length; i++) {
+                        if (jsondata[i]['unitName'] == selectedSTATION.substr(lineName.length + 1) && jsondata[i]['idUnitParent'] == lineID) {
+                            opID = jsondata[i]['recordID'];
+                            opName = jsondata[i]['unitName'];
                         }
                     }
-                    cc(recordIDArray[q] + '//' + unitNameArray[q]);
                 }
 
-
+                if (lineName != null && opName != null) {
+                    cc(lineID + '/' + lineName + ' // ' + opID + '/' + opName);
+                } else {
+                    cc('noMatch')
+                }
             }
         }
+        var alertBtn = false;
+
+        function toggleInput() {
+
+            if (alertBtn == true) {
+                document.getElementById("colorButtonText").innerHTML = "AlertsON";
+                alertBtn = false;
+            } else {
+                document.getElementById("colorButtonText").innerHTML = "AlertsOFF";
+                alertBtn = true;
+            }
+        }
+
+
     </script>
 </head>
 
@@ -418,5 +457,8 @@
     <div id="page_title">DEFAULT ROLE</div>
 </div>
 <div id="mesm_content" style="width:1000px;margin:auto;"></div>
+<div id="mesm_content2" style="width:1000px;margin:auto;"></div>
+<a id="colorButton" class="colorButton" onclick="toggleInput()" href="javascript:void(0);"><i id="colorButtonText"></i></a>
+
 </body>
 </html>
