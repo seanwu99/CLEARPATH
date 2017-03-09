@@ -1,0 +1,53 @@
+﻿@font-face {
+	font-family: 'Conv_code_128';
+	src: url('../fonts/code_128.eot');
+	src: url('../fonts/code_128.woff') format('woff'), url('../fonts/code_128.ttf') format('truetype'), url('../fonts/code_128.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Conv_code_39u';
+	src: url('../fonts/code_39u.eot');
+	src: url('../fonts/code_39u.woff') format('woff'), url('../fonts/code_39u.ttf') format('truetype'), url('../fonts/code_39u.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Conv_c39hrp24dhtt';
+	src: url('../fonts/c39hrp24dhtt.eot');
+	src: url('../fonts/c39hrp24dhtt.woff') format('woff'), url('../fonts/c39hrp24dhtt.ttf') format('truetype'), url('../fonts/c39hrp24dhtt.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Conv_c39hrp36dltt';
+	src: url('../fonts/c39hrp36dltt.eot');
+	src: url('../fonts/c39hrp36dltt.woff') format('woff'), url('../fonts/c39hrp36dltt.ttf') format('truetype'), url('../fonts/c39hrp36dltt.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.code128{
+		font-family:'Conv_code_128',Sans-Serif;
+		font-size: 50px;
+		padding:10px;
+	}
+
+.code39u{
+		font-family:'Conv_code_39u',Sans-Serif;
+		padding:10px;
+	}
+
+.code39u24{
+		font-family:'Conv_c39hrp24dhtt',Sans-Serif;
+		font-size: 50px;
+		padding:10px;
+	}
+
+.code39u36{
+		font-family:'Conv_c39hrp36dltt',Sans-Serif;
+		padding:10px;
+	}
