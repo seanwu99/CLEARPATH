@@ -23,12 +23,12 @@
 
         #colorButton {
             position: fixed;
-            top: 30px;
-            left: 100px;
-            width: 80px;
+            top: 420px;
+            left: 1270px;
+            width: 100px;
             height: 36px;
             line-height: 36px;
-            text-align: right;
+            text-align: left;
             background: #FFF;
             padding: 0 10px 0 0;
             z-index: 200;
@@ -62,7 +62,8 @@
             font-family: "Arial Black", Arial, Helvetica, sans-serif;
             font-size: 32px;
             color: #007dc0;
-            margin-bottom: 20px;
+            /*margin-bottom;*/
+            /*20px;*/
         }
 
         #mov_title, #doc_title {
@@ -71,7 +72,8 @@
             font-family: "Arial Black", Arial, Helvetica, sans-serif;
             font-size: 22px;
             color: #007dc0;
-            margin-bottom: 30px;
+            /*margin-bottom;*/
+            /*30px;*/
         }
 
         #app_menu {
@@ -91,11 +93,6 @@
         #mesm_content {
             padding: 30px;
             padding-top: 40px;
-        }
-
-        #mesm_content2 {
-            padding: 50px;
-            padding-top: 80px;
         }
 
         #B-Docs {
@@ -150,7 +147,7 @@
             font-family: "Arial Black", Arial, Helvetica, sans-serif;
             font-size: 38px;
             font-weight: bold;
-            line-height: 1.85857;
+            line-height: 1.85857
             width: 20px;
             height: 24px;
             color: #007dc0;
@@ -164,7 +161,7 @@
             font-family: "Arial Black", Arial, Helvetica, sans-serif;
             font-size: 18px;
             font-weight: bold;
-            line-height: 1.65857;
+            line-height: 1.65857
             width: 40px;
             height: 20px;
             color: #DAD8D8;
@@ -299,14 +296,15 @@
 
                 selectedSTATION = document.getElementById("user_station").value;
                 findUnitID();
+
                 //selectedSTATION = 'P558_ASSY_OP010';
 
                 var tabID = selectedSTATION.split("_");
                 if (typeof tabID[2] === "undefined" || tabID[2] === null) tabID[2] = "OP010";
                 selectedSTATION_TXT = tabID[1] + " " + tabID[2];
 
-                cc(selectedSTATION);
-                cc(selectedSTATION_TXT);
+//                cc(selectedSTATION);
+//                cc(selectedSTATION_TXT);
 
                 // show status
                 setTimeout(function () {
@@ -394,7 +392,9 @@
             console.log(obj)
         }
 
-
+        var UnitID = '';
+        var UnitName = '';
+        var OpreationName = '';
         function findUnitID() {
             var lineID = null, lineName = null, opID = null, opName = null;
             var url = "/XMII/Illuminator?QueryTemplate=MESM/STATIONS_HMI/QUERIES/get_FloorMapsData" + "&Content-Type=text/xml";
@@ -420,25 +420,116 @@
 
                 if (lineName != null && opName != null) {
                     cc(lineID + '/' + lineName + ' // ' + opID + '/' + opName);
+                    UnitID = opID;
+                    UnitName = lineName;
+                    OpreationName = opName;
+                    showButton(UnitID);
                 } else {
                     cc('noMatch')
                 }
             }
         }
+
         var alertBtn = false;
 
-        function toggleInput() {
+        function buttonToggle() {
 
-            if (alertBtn == true) {
-                document.getElementById("colorButtonText").innerHTML = "AlertsON";
-                alertBtn = false;
+            if (alertBtn == false) {
+                var url = "/XMII/Illuminator?QueryTemplate=MESM/STATIONS_HMI/QUERIES/alertOpen&Param.1=" + UnitID + "&Content-Type=text/xml";
+                getData(url, parseJsonParent);
+                function parseJsonParent(jsondata) {
+                    alertBtn = true;
+                    showButton(UnitID);
+                }
+
+
+//                document.getElementById('colorButton').style.borderRight = '2px solid #007dc0';
+//                document.getElementById('colorButtonText').style.color = '#007dc0';
+//                document.getElementById("colorButtonText").innerHTML = "Alerts OFF";
             } else {
-                document.getElementById("colorButtonText").innerHTML = "AlertsOFF";
-                alertBtn = true;
+                var url = "/XMII/Illuminator?QueryTemplate=MESM/STATIONS_HMI/QUERIES/alertClose&Param.1=" + UnitID + "&Content-Type=text/xml";
+                getData(url, parseJsonParent);
+                function parseJsonParent(jsondata) {
+                    alertBtn = false;
+                    showButton(UnitID);
+                }
+
+//                document.getElementById('colorButton').style.borderRight = '2px solid #fc071b';
+//                document.getElementById('colorButtonText').style.color = '#fc071b';
+//                document.getElementById("colorButtonText").innerHTML = "Alerts ON";
+
             }
+
         }
 
+        function showButton(param) {
+            var winW, winH;
+            if (document.body && document.body.offsetWidth) {
+                winW = document.body.offsetWidth;
+                winH = document.body.offsetHeight;
+            }
+            if (document.compatMode == 'CSS1Compat' &&
+                document.documentElement &&
+                document.documentElement.offsetWidth) {
+                winW = document.documentElement.offsetWidth;
+                winH = document.documentElement.offsetHeight;
+            }
+            if (window.innerWidth && window.innerHeight) {
+                winW = window.innerWidth;
+                winH = window.innerHeight;
+            }
+//            cc(winW);
+//            cc(winH);
+//            cc((winW - 825) / 2 + 825);
+//            cc('style.left ' + document.getElementById('colorButton').style.left);
+            //param
+            var url = "/XMII/Illuminator?QueryTemplate=MESM/STATIONS_HMI/QUERIES/alertGetUnitStatus&Param.1=" + param + "&Content-Type=text/xml";
+            getData(url, parseJsonParent);
+            function parseJsonParent(jsondata) {
+//                cc(jsondata[0]['recordID']);
+//                cc(jsondata[0]['processed']);
+                if (jsondata[0]['processed'] == '1') {
+                    alertBtn = false;
+                } else {
+                    alertBtn = true;
+                }
+                if (alertBtn == true) {
+                    var sLeft = (winW - 825) / 2 + 700;
+//                    cc(Math.round(sLeft));
+                    document.getElementById('colorButton').style.left = Math.round(sLeft) + 'px';
+                    document.getElementById('colorButton').style.borderRight = '2px solid #f7a35c';
+                    document.getElementById('colorButtonText').style.color = '#f7a35c';
+                    document.getElementById("colorButtonText").innerHTML = "Alert ON";
+                    document.getElementById("page_title").innerHTML = OpreationName;
 
+                } else {
+                    var sLeft = (winW - 825) / 2 + 700;
+//                    cc(Math.round(sLeft));
+                    document.getElementById('colorButton').style.left = Math.round(sLeft) + 'px';
+                    document.getElementById('colorButton').style.borderRight = '2px solid #7cb5ec';
+                    document.getElementById('colorButtonText').style.color = '#7cb5ec';
+                    document.getElementById("colorButtonText").innerHTML = "Alert OFF";
+                    document.getElementById("page_title").innerHTML = OpreationName;
+
+                }
+
+            }
+
+
+        }
+
+        colors: [
+            '#7cb5ec',
+            '#434348',
+            '#90ed7d',
+            '#f7a35c',
+            '#8085e9',
+            '#f15c80',
+            '#e4d354',
+            '#8085e8',
+            '#8d4653',
+            '#91e8e1'
+        ]
     </script>
 </head>
 
@@ -457,8 +548,7 @@
     <div id="page_title">DEFAULT ROLE</div>
 </div>
 <div id="mesm_content" style="width:1000px;margin:auto;"></div>
-<div id="mesm_content2" style="width:1000px;margin:auto;"></div>
-<a id="colorButton" class="colorButton" onclick="toggleInput()" href="javascript:void(0);"><i id="colorButtonText"></i></a>
+<a id="colorButton" class="colorButton" onclick="buttonToggle()" href="javascript:void(0);"><i id="colorButtonText"></i></a>
 
 </body>
 </html>
