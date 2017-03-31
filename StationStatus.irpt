@@ -342,6 +342,7 @@
         }
         // ******************************************************************************************************************************************************************
         function getStatus() {
+            cc();
             // document.getElementById("mesm_content").innerHTML = "<center><img src='Common/img/pls_wait.gif' alt='wait ..' /></center>";
 
             var oReqData;
@@ -548,7 +549,7 @@
     <div id="page_title">DEFAULT ROLE</div>
 </div>
 <div id="mesm_content" style="width:1000px;margin:auto;"></div>
-<a id="colorButton" class="colorButton" onclick="buttonToggle()" href="javascript:void(0);"><i id="colorButtonText"></i></a>
+<a id="colorButton" class="colorButton" onclick="buttonToggle()" href="javascript:void(0);"><i id="colorButtonText">UnknownStation</i></a>
 
 </body>
 </html>

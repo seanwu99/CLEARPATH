@@ -1,0 +1,2187 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>RTS MES</title>
+<style>
+body {
+	background-image: url("Common/img/logo.png");
+	background-size: 180px;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: right 40px top 30px;
+	font-family: Arial;
+}
+
+#app_header {
+	padding: 10px;
+	padding-left: 40px;
+	padding-top: 15px;
+	padding-bottom: 0px;
+	height: 80px;
+	width: 400px;
+	text-align: center;
+}
+
+#app_title {
+	width: 400px;
+	text-align: center;
+	font-family: "Arial Black", Arial, Helvetica, sans-serif;
+	font-size: 32px;
+	color: #007dc0;
+	margin-bottom;
+	20
+	px;
+}
+
+#app_menu {
+	width: 400px;
+	text-align: center;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+#page_title {
+	width: 400px;
+	text-align: center;
+	font-family: "Arial Black", Arial, Helvetica, sans-serif;
+	font-size: 28px;
+	color: #cfcfcf;
+}
+
+#mesm_content {
+	padding: 30px;
+	padding-top: 40px;
+}
+
+#__button0, #__button1, #__button2 {
+	margin-top: 10px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+#MatrixT, #MatrixB, #MatrixA, #MatrixE {
+	margin: 10px auto;
+}
+
+#__cell2, #__cell3, #__cell4, #__cell5, #__cell6 {
+	text-align: center;
+}
+
+#B-Add, #B-Edit, #B-Delete {
+	width: 100px;
+	height: 35px;
+	font-size: 14px;
+}
+
+#B-AssignStations, #B-AssignMeasurements {
+	width: 200px;
+}
+
+#L-AddOperator, #L-EditOperator {
+	margin-top: 15px;
+	padding: 5px;
+	font-family: "Arial Black", Arial, Helvetica, sans-serif;
+	font-size: 32px;
+	height: 35px;
+	color: #007dc0;
+}
+
+#__cell7, #__cell19, #__cell20, #__cell32 {
+	text-align: center;
+	height: 36px;
+}
+
+#__cell8, #__cell10, #__cell12, #__cell14, #__cell16, #__cell21,
+	#__cell23, #__cell25, #__cell27, #__cell29 {
+	padding: 10px;
+	padding-right: 20px;
+	text-align: right;
+}
+
+#B-AddOperator, #B-EditOperator {
+	margin-top: 0px;
+	width: 100px;
+	height: 35px;
+	font-size: 14px;
+}
+
+#input_clid, #input_clide {
+	width: 40px;
+}
+
+#__cell36, #__cell42 {
+	text-align: left;
+	height: 36px;
+}
+
+#__cell37, #__cell38 {
+	text-align: left;
+}
+
+#L-SOperator {
+	margin-top: 15px;
+	padding: 5px;
+	font-family: "Arial Black", Arial, Helvetica, sans-serif;
+	font-size: 27px;
+	height: 35px;
+	color: #007dc0;
+}
+
+#L-DPOperator {
+	margin-top: 15px;
+	padding: 5px;
+	font-family: "Arial Black", Arial, Helvetica, sans-serif;
+	font-size: 27px;
+	height: 35px;
+	color: #007dc0;
+}
+
+#MatrixST, #MatrixDPT {
+	margin-left: 10px;
+}
+</style>
+
+<script id="sap-ui-bootstrap" src="/sapui5/resources/sap-ui-core.js"
+	data-sap-ui-theme="sap_goldreflection"
+	data-sap-ui-libs="sap.ui.core,sap.ui.commons,sap.ui.table,sap.ui.ux3"
+	data-sap-ui-language="en">
+	
+</script>
+<script type="text/javascript" src="Common/js/default.js"></script>
+
+<script type="text/javascript" id="app-init">
+	// ******************************************************************************************************************************************************************
+	// Get Core SAP UI5
+	var oCore = sap.ui.getCore();
+	// Initialize screen
+	var nrRows = 13;
+	var selectedIndex = -1;
+	// ******************************************************************************************************************************************************************
+	// initialize access
+	var level2Access = "";
+	var plant2Access = "";
+	// Initialize screen
+	var selectedPlant = 0;
+	var clock_ID = '';
+	var plant_ID = '';
+	var operator_FNAME = '';
+	var operator_LNAME = '';
+	var operator_ACT_src = "";
+	var operator_CreatedBy = '';
+	var operator_CreatedOn = '';
+	var operator_ModifiedBy = '';
+	var operator_ModifiedOn = '';
+	var arr_IDStation = [];
+	var arr_IDDataPoint = [];
+	// ****************************************************************************************************************************************************
+	function roleSecurity() {
+		var myRoles = document.getElementById("user_roles").value;
+		var role2Access = "MESM_" + document.getElementById("user_role").value;
+		// alert(role2Access);
+		if (myRoles.indexOf(role2Access) < 0) {
+			window.location.assign("security.irpt");
+		} else {
+			var roleString = document.getElementById("user_role").value;
+			var roleArray = roleString.split("_");
+			level2Access = roleArray[0];
+			//alert("level : " + level2Access);
+			plant2Access = roleArray[1];
+			//alert("plant : " + plant2Access);
+			updatePlants(plant2Access);
+			document.getElementById("page_title").innerHTML = role2Access;
+
+			// enable homepage
+			oCore.byId("item3-0-3").setEnabled(true);
+			// show menus
+			oMenuButton1.placeAt("app_menu");
+			oMenuButton2.placeAt("app_menu");
+			oMenuButton3.placeAt("app_menu");
+
+			var role_ADM = "MESM_ADM_" + plant2Access;
+			var role_ENG = "MESM_ENG_" + plant2Access;
+			var role_SUP = "MESM_SUP_" + plant2Access;
+			var role_OPS = "MESM_OPS_" + plant2Access;
+
+			switch (role2Access) {
+			case "MESM_ADM_ALL":
+
+				// enable Cfg Hierarchy
+				oCore.byId("item1-0-1").setEnabled(true);
+				// enable Cfg Memory Maps Menu
+				oCore.byId("item1-0-3").setEnabled(true);
+				// enable Cfg Connectivity
+				oCore.byId("item1-0-4").setEnabled(true);
+				// enable Master Data
+				oCore.byId("item1-0-5").setEnabled(true);
+
+				// enable WO Management
+				oCore.byId("item2-0-1").setEnabled(true);
+				// enable Carrier Station Dashboard
+				oCore.byId("item2-0-2").setEnabled(true);
+				// enable Assembly Station Dashboard
+				oCore.byId("item2-0-3").setEnabled(true);
+
+				// enable Production Status Report
+				oCore.byId("item3-0-1").setEnabled(true);
+				// enable Item Traceability Report
+				oCore.byId("item3-0-2").setEnabled(true);
+				// enable Connector Diagnostics
+				oCore.byId("item3-0-3").setEnabled(true);
+
+				// enable Cfg Memory Maps
+				oCore.byId("item1-4-1").setEnabled(true);
+				// enable Cfg Tag Types
+				oCore.byId("item1-4-2").setEnabled(true);
+				// enable Cfg Tag Functions
+				oCore.byId("item1-4-3").setEnabled(true);
+				// enable Cfg Tag Groups
+				oCore.byId("item1-4-4").setEnabled(true);
+				// enable Cfg Memory Map Transactions
+				oCore.byId("item1-4-5").setEnabled(true);
+
+				// enable Cfg Shop Floor Computers
+				oCore.byId("item1-5-1").setEnabled(true);
+				// enable Cfg Shop Floor Printers
+				oCore.byId("item1-5-2").setEnabled(true);
+				// enable Cfg PCo Servers
+				oCore.byId("item1-5-3").setEnabled(true);
+				// enable Cfg PCo Agents
+				oCore.byId("item1-5-4").setEnabled(true);
+				// enable Cfg Operators
+				oCore.byId("item1-5-5").setEnabled(true);
+
+				// enable Equipment Hierarchy
+				oCore.byId("item1-6-1").setEnabled(true);
+				// enable Cfg Hierarchy Levels
+				oCore.byId("item1-6-2").setEnabled(true);
+
+				// Enable UOM Maintenance
+				oCore.byId("item1-7-1").setEnabled(true);
+				// Enable Product Maintenance
+				oCore.byId("item1-7-2").setEnabled(true);
+				// Enable BOM Maintenance
+				oCore.byId("item1-7-3").setEnabled(true);
+				// Enable Routing Maintenance
+				oCore.byId("item1-7-4").setEnabled(true);
+
+				// update screen
+				document.getElementById("page_title").innerHTML = "ADM ALL PLANTS";
+				oMatrixT.placeAt('mesm_content');
+				oMatrixB.placeAt('mesm_content');
+				break;
+			case role_ADM:
+
+				// enable Cfg Hierarchy
+				oCore.byId("item1-0-1").setEnabled(true);
+				// enable Cfg Memory Maps Menu
+				oCore.byId("item1-0-3").setEnabled(true);
+				// enable Cfg Connectivity
+				oCore.byId("item1-0-4").setEnabled(true);
+				// enable Master Data
+				oCore.byId("item1-0-5").setEnabled(true);
+
+				// enable WO Management
+				oCore.byId("item2-0-1").setEnabled(true);
+				// enable Carrier Station Dashboard
+				oCore.byId("item2-0-2").setEnabled(true);
+				// enable Assembly Station Dashboard
+				oCore.byId("item2-0-3").setEnabled(true);
+
+				// enable Production Status Report
+				oCore.byId("item3-0-1").setEnabled(true);
+				// enable Item Traceability Report
+				oCore.byId("item3-0-2").setEnabled(true);
+				// enable Connector Diagnostics
+				oCore.byId("item3-0-3").setEnabled(true);
+
+				// enable Cfg Memory Maps
+				oCore.byId("item1-4-1").setEnabled(true);
+				// enable Cfg Tag Types
+				oCore.byId("item1-4-2").setEnabled(true);
+				// enable Cfg Tag Functions
+				oCore.byId("item1-4-3").setEnabled(true);
+				// enable Cfg Tag Groups
+				oCore.byId("item1-4-4").setEnabled(true);
+				// enable Cfg Memory Map Transactions
+				oCore.byId("item1-4-5").setEnabled(true);
+
+				// enable Cfg Shop Floor Computers
+				oCore.byId("item1-5-1").setEnabled(true);
+				// enable Cfg Shop Floor Printers
+				oCore.byId("item1-5-2").setEnabled(true);
+				// enable Cfg PCo Servers
+				oCore.byId("item1-5-3").setEnabled(true);
+				// enable Cfg PCo Agents
+				oCore.byId("item1-5-4").setEnabled(true);
+				// enable Cfg Operators
+				oCore.byId("item1-5-5").setEnabled(true);
+
+				// enable Equipment Hierarchy
+				oCore.byId("item1-6-1").setEnabled(true);
+				// enable Cfg Hierarchy Levels
+				oCore.byId("item1-6-2").setEnabled(true);
+
+				// Enable UOM Maintenance
+				oCore.byId("item1-7-1").setEnabled(true);
+				// Enable Product Maintenance
+				oCore.byId("item1-7-2").setEnabled(true);
+				// Enable BOM Maintenance
+				oCore.byId("item1-7-3").setEnabled(true);
+				// Enable Routing Maintenance
+				oCore.byId("item1-7-4").setEnabled(true);
+
+				// update screen
+				document.getElementById("page_title").innerHTML = "ADM PLANT "
+						+ plant2Access;
+				oMatrixT.placeAt('mesm_content');
+				oMatrixB.placeAt('mesm_content');
+				break;
+			case "MESM_OPS_ALL":
+
+				// enable WO Management
+				oCore.byId("item2-0-1").setEnabled(true);
+				// enable Carrier Station Dashboard
+				oCore.byId("item2-0-2").setEnabled(true);
+				// enable Assembly Station Dashboard
+				oCore.byId("item2-0-3").setEnabled(true);
+
+				// enable Production Status Report
+				oCore.byId("item3-0-1").setEnabled(true);
+				// enable Item Traceability Report
+				oCore.byId("item3-0-2").setEnabled(true);
+				// enable Connector Diagnostics
+				oCore.byId("item3-0-3").setEnabled(true);
+
+				document.getElementById("page_title").innerHTML = "OPS ALL PLANTS";
+				oMatrixT.placeAt('mesm_content');
+				oMatrixB.placeAt('mesm_content');
+				break;
+			case role_OPS:
+
+				// enable WO Management
+				oCore.byId("item2-0-1").setEnabled(true);
+				// enable Carrier Station Dashboard
+				oCore.byId("item2-0-2").setEnabled(true);
+				// enable Assembly Station Dashboard
+				oCore.byId("item2-0-3").setEnabled(true);
+
+				// enable Production Status Report
+				oCore.byId("item3-0-1").setEnabled(true);
+				// enable Item Traceability Report
+				oCore.byId("item3-0-2").setEnabled(true);
+				// enable Connector Diagnostics
+				oCore.byId("item3-0-3").setEnabled(true);
+
+				document.getElementById("page_title").innerHTML = "OPS PLANT "
+						+ plant2Access;
+				oMatrixT.placeAt('mesm_content');
+				oMatrixB.placeAt('mesm_content');
+				break;
+			default:
+				alert("MES Module Role Unknown: " + role2Access);
+				break;
+			}
+		}
+	}
+	// ******************************************************************************************************************************************************************
+	var oMenuButton1 = new sap.ui.commons.MenuButton({
+		text : "Settings",
+		icon : "Common/img/map.png"
+	});
+	var oMenuButton2 = new sap.ui.commons.MenuButton({
+		text : "Dashboards",
+		icon : "Common/img/cloud.png"
+	});
+	var oMenuButton3 = new sap.ui.commons.MenuButton({
+		text : "Reports",
+		icon : "Common/img/list.png"
+	});
+
+	// Create the menu
+	var oMenu1 = new sap.ui.commons.Menu("menu1", {
+		ariaDescription : "Application Setup",
+		enabled : true
+	});
+	// Create the items and add them to the menu
+	var oMenuItem1 = new sap.ui.commons.MenuItem("item1-0-1", {
+		text : "Enterprise Hierarchy",
+		enabled : false
+	});
+	oMenu1.addItem(oMenuItem1);
+	var oMenuItem2 = new sap.ui.commons.MenuItem("item1-0-2", {
+		text : " ???",
+		enabled : false
+	});
+	//oMenu1.addItem(oMenuItem2);
+	var oMenuItem3 = new sap.ui.commons.MenuItem("item1-0-3", {
+		text : "MES Memory Maps",
+		enabled : false
+	});
+	oMenu1.addItem(oMenuItem3);
+	var oMenuItem4 = new sap.ui.commons.MenuItem("item1-0-4", {
+		text : "Plant Connectivity",
+		enabled : false
+	});
+	oMenu1.addItem(oMenuItem4);
+	var oMenuItem5 = new sap.ui.commons.MenuItem("item1-0-5", {
+		text : "Master Data Setup",
+		enabled : false
+	});
+	oMenu1.addItem(oMenuItem5);
+
+	var oMenu4 = new sap.ui.commons.Menu("menu4", {
+		ariaDescription : "Memory Maps Setup",
+		enabled : true
+	});
+	oMenuItem3.setSubmenu(oMenu4);
+	//Create the items and add them to the sub menu
+	var oMenuItem41 = new sap.ui.commons.MenuItem("item1-4-1", {
+		text : "Memory Map Tags",
+		enabled : false
+	});
+	oMenu4.addItem(oMenuItem41);
+	var oMenuItem45 = new sap.ui.commons.MenuItem("item1-4-5", {
+		text : "Memory Map Transactions",
+		enabled : false
+	});
+	oMenu4.addItem(oMenuItem45);
+	var oMenuItem44 = new sap.ui.commons.MenuItem("item1-4-4", {
+		text : "PLC Tag Groups",
+		enabled : false
+	});
+	oMenu4.addItem(oMenuItem44);
+	var oMenuItem42 = new sap.ui.commons.MenuItem("item1-4-2", {
+		text : "PLC Tag Types",
+		enabled : false
+	});
+	oMenu4.addItem(oMenuItem42);
+	var oMenuItem43 = new sap.ui.commons.MenuItem("item1-4-3", {
+		text : "PLC Tag Functions",
+		enabled : false
+	});
+	oMenu4.addItem(oMenuItem43);
+
+	var oMenu5 = new sap.ui.commons.Menu("menu5", {
+		ariaDescription : "Connectivity Setup",
+		enabled : true
+	});
+	oMenuItem4.setSubmenu(oMenu5);
+	//Create the items and add them to the sub menu
+	var oMenuItem55 = new sap.ui.commons.MenuItem("item1-5-5", {
+		text : "Shop Floor Operators",
+		enabled : false
+	});
+	oMenu5.addItem(oMenuItem55);
+	var oMenuItem51 = new sap.ui.commons.MenuItem("item1-5-1", {
+		text : "Shop Floor Computers",
+		enabled : false
+	});
+	oMenu5.addItem(oMenuItem51);
+	var oMenuItem52 = new sap.ui.commons.MenuItem("item1-5-2", {
+		text : "Shop Floor Printers",
+		enabled : false
+	});
+	oMenu5.addItem(oMenuItem52);
+	var oMenuItem53 = new sap.ui.commons.MenuItem("item1-5-3", {
+		text : "Plant Connectivity Servers",
+		enabled : false
+	});
+	oMenu5.addItem(oMenuItem53);
+	var oMenuItem54 = new sap.ui.commons.MenuItem("item1-5-4", {
+		text : "Plant Connectivity Agents",
+		enabled : false
+	});
+	oMenu5.addItem(oMenuItem54);
+
+	var oMenu6 = new sap.ui.commons.Menu("menu6", {
+		ariaDescription : "Hierarchy Setup",
+		enabled : true
+	});
+	oMenuItem1.setSubmenu(oMenu6);
+	//Create the items and add them to the sub menu
+	var oMenuItem61 = new sap.ui.commons.MenuItem("item1-6-1", {
+		text : "Hierarchy Management",
+		enabled : false
+	});
+	oMenu6.addItem(oMenuItem61);
+	var oMenuItem62 = new sap.ui.commons.MenuItem("item1-6-2", {
+		text : "Hierarchy Levels Setup",
+		enabled : false
+	});
+	oMenu6.addItem(oMenuItem62);
+
+	var oMenu7 = new sap.ui.commons.Menu("menu7", {
+		ariaDescription : "Master Data",
+		enabled : true
+	});
+	oMenuItem5.setSubmenu(oMenu7);
+	//Create the items and add them to the sub menu
+	var oMenuItem71 = new sap.ui.commons.MenuItem("item1-7-1", {
+		text : "Units Of Measure",
+		enabled : false
+	});
+	oMenu7.addItem(oMenuItem71);
+	var oMenuItem72 = new sap.ui.commons.MenuItem("item1-7-2", {
+		text : "Products Management",
+		enabled : false
+	});
+	oMenu7.addItem(oMenuItem72);
+	var oMenuItem73 = new sap.ui.commons.MenuItem("item1-7-3", {
+		text : "Bills of Materials",
+		enabled : false
+	});
+	oMenu7.addItem(oMenuItem73);
+	var oMenuItem74 = new sap.ui.commons.MenuItem("item1-7-4", {
+		text : "Products Routing",
+		enabled : false
+	});
+	oMenu7.addItem(oMenuItem74);
+
+	// Create the menu
+	var oMenu2 = new sap.ui.commons.Menu("menu2", {
+		ariaDescription : "User Dashboards"
+	});
+	// Create the items and add them to the menu
+	var oMenuItem21 = new sap.ui.commons.MenuItem("item2-0-1", {
+		text : "Work Order Management",
+		enabled : false
+	});
+	oMenu2.addItem(oMenuItem21);
+	var oMenuItem22 = new sap.ui.commons.MenuItem("item2-0-2", {
+		text : "Carrier Station Dashboard",
+		enabled : false
+	});
+	oMenu2.addItem(oMenuItem22);
+	var oMenuItem23 = new sap.ui.commons.MenuItem("item2-0-3", {
+		text : "Assembly Station Dashboard",
+		enabled : false
+	});
+	oMenu2.addItem(oMenuItem23);
+
+	// Create the menu
+	var oMenu3 = new sap.ui.commons.Menu("menu3", {
+		ariaDescription : "User Reports",
+		enabled : true
+	});
+	// Create the items and add them to the menu
+	var oMenuItem31 = new sap.ui.commons.MenuItem("item3-0-1", {
+		text : "Production Status Report",
+		enabled : false
+	});
+	oMenu3.addItem(oMenuItem31);
+	var oMenuItem32 = new sap.ui.commons.MenuItem("item3-0-2", {
+		text : "Item Traceability Report",
+		enabled : false
+	});
+	oMenu3.addItem(oMenuItem32);
+	var oMenuItem33 = new sap.ui.commons.MenuItem("item3-0-3", {
+		text : "Connector Diagnostics",
+		enabled : false
+	});
+	oMenu3.addItem(oMenuItem33);
+
+	//Attach the Menu to the MenuButton
+	oMenuButton1.setMenu(oMenu1);
+	oMenuButton2.setMenu(oMenu2);
+	oMenuButton3.setMenu(oMenu3);
+
+	//Attach an event to raise an alert when an item is selected (Button 1)
+	oMenuButton1.attachItemSelected(function(oEvent) {
+		switch (oEvent.getParameter("itemId")) {
+		// Menu Settings 1
+		case "item1-6-1":
+			setTimeout("location.href = '" + "MgtHierarchy.irpt?ROLE="
+					+ document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item1-6-2":
+			setTimeout("location.href = '" + "LvlHierarchy.irpt?ROLE="
+					+ document.getElementById("user_role").value + "'", 0);
+			break;
+
+		// Menu Settings 2
+		case "item1-4-1":
+			setTimeout("location.href = '" + "MemMapTags.irpt?ROLE="
+					+ document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item1-4-5":
+			setTimeout("location.href = '" + "MemMapTrxs.irpt?ROLE="
+					+ document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item1-4-4":
+			setTimeout("location.href = '" + "TagCommGroups.irpt?ROLE="
+					+ document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item1-4-2":
+			setTimeout("location.href = '" + "TagTypes.irpt?ROLE="
+					+ document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item1-4-3":
+			setTimeout("location.href = '" + "TagFunctions.irpt?ROLE="
+					+ document.getElementById("user_role").value + "'", 0);
+			break;
+
+		// Menu Settings 3
+		case "item1-5-5":
+			setTimeout("location.href = '" + "Operators.irpt?ROLE="
+					+ document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item1-5-1":
+			setTimeout("location.href = '" + "Stations.irpt?ROLE="
+					+ document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item1-5-2":
+			setTimeout("location.href = '" + "Printers.irpt?ROLE="
+					+ document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item1-5-3":
+			setTimeout("location.href = '" + "PCoServers.irpt?ROLE="
+					+ document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item1-5-4":
+			setTimeout("location.href = '" + "PCoAgents.irpt?ROLE="
+					+ document.getElementById("user_role").value + "'", 0);
+			break;
+
+		// Menu Settings 4
+		case "item1-7-1":
+			setTimeout("location.href = '" + "UnitsOfMeasure.irpt?ROLE="
+					+ document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item1-7-2":
+			setTimeout("location.href = '" + "ProductsMgmt.irpt?ROLE="
+					+ document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item1-7-3":
+			setTimeout("location.href = '" + "BomMgmt.irpt?ROLE="
+					+ document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item1-7-4":
+			setTimeout("location.href = '" + "RoutingMgmt.irpt?ROLE="
+					+ document.getElementById("user_role").value + "'", 0);
+			break;
+
+		// Menu Default
+		default:
+			// alert("Items \"" + oEvent.getParameter("itemId") + "\" was selected.");
+			break;
+		}
+	});
+
+	//Attach an event to raise an alert when an item is selected. (Button 2)
+	oMenuButton2.attachItemSelected(function(oEvent) {
+		switch (oEvent.getParameter("itemId")) {
+		case "item2-0-1":
+			setTimeout("location.href = '" + "WorkOrders.irpt?ROLE="
+					+ document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item2-0-2":
+			setTimeout("location.href = '" + "CarrierDashboard.irpt?ROLE="
+					+ document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item2-0-3":
+			setTimeout("location.href = '" + "AssemblyDashboard.irpt?ROLE="
+					+ document.getElementById("user_role").value + "'", 0);
+			break;
+		default:
+			// alert("Items \"" + oEvent.getParameter("itemId") + "\" was selected.");
+			break;
+		}
+	});
+
+	//Attach an event to raise an alert when an item is selected. (Button 3)
+	oMenuButton3.attachItemSelected(function(oEvent) {
+		switch (oEvent.getParameter("itemId")) {
+		// Menu Reports
+		case "item3-0-1":
+			setTimeout("location.href = '" + "ProductionStatus.irpt?ROLE="
+					+ document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item3-0-2":
+			setTimeout("location.href = '" + "ItemTraceability.irpt?ROLE="
+					+ document.getElementById("user_role").value + "'", 0);
+			break;
+		case "item3-0-3":
+			setTimeout("location.href = '" + "MESM.irpt?ROLE="
+					+ document.getElementById("user_role").value + "'", 0);
+			break;
+		default:
+			//alert("Items \"" + oEvent.getParameter("itemId") + "\" was selected.");
+			break;
+		}
+	});
+	// ****************************************************************************************************************************************************
+	var oMatrixT = new sap.ui.commons.layout.MatrixLayout({
+		id : 'MatrixT',
+		layoutFixed : true,
+		width : '1200px',
+		columns : 4,
+		widths : [ '250px', '250px', '450px', '250px' ]
+	});
+
+	var oButton0 = new sap.ui.commons.Button({
+		id : 'B-AssignStations',
+		tooltip : "Assign Operator to Shop-Floor Stations",
+		text : 'Assign Equipments',
+		enabled : false
+	});
+	oButton0.attachPress(doAssignStations);
+
+	var oButton00 = new sap.ui.commons.Button({
+		id : 'B-AssignMeasurements',
+		tooltip : "Assign Operator to Data Points",
+		text : 'Assign Data Points',
+		enabled : false
+	});
+	oButton00.attachPress(doAssignMeasurements);
+
+	var oLabelPlants = new sap.ui.commons.Label({
+		id : 'L-Plants',
+		visible : true,
+		text : 'SELECTED PLANT '
+	});
+
+	var oCell02 = new sap.ui.commons.layout.MatrixLayoutCell({
+		id : 'Cell-0-2',
+		hAlign : sap.ui.commons.layout.HAlign.Right,
+		colSpan : 1
+	});
+	oCell02.addContent(oLabelPlants);
+
+	var oDropdownBoxPlants = new sap.ui.commons.DropdownBox({
+		id : "PlantsList",
+		tooltip : 'Active Plants',
+		editable : true,
+		width : '230px',
+		change : function(oEvent) {
+			//alert(oEvent.oSource.getSelectedItemId());
+			var endplant = oEvent.oSource.getSelectedItemId();
+			var result = endplant.substring(6, endplant.length);
+			selectedPlant = result;
+			// alert(result);
+			updateTableOperators(result);
+			updateTableStationsList(result);
+			updateTableDataPointsList(result);
+		}
+	});
+
+	var oCell03 = new sap.ui.commons.layout.MatrixLayoutCell({
+		id : 'Cell-0-3',
+		hAlign : sap.ui.commons.layout.HAlign.Right,
+		colSpan : 1
+	});
+	oCell03.addContent(oDropdownBoxPlants);
+
+	oMatrixT.createRow(oButton0, oButton00, oCell02, oCell03);
+	// ******************************************************************************************************************************************************************
+	function updatePlants(idPlant) {
+		var timestamp = new Date().getTime();
+		getData(
+				"/XMII/Illuminator?QueryTemplate=MESM/PLANTS/TRANSACTIONS/getActivePlants_xAcute&Param.1="
+						+ idPlant
+						+ "&ts="
+						+ timestamp
+						+ "&Content-Type=text/xml", parseJsonPlantsList);
+		function parseJsonPlantsList(jsondata) {
+			oDropdownBoxPlants.destroyItems();
+
+			for (var i = 0; i < jsondata.length; i++) {
+				//	alert(jsondata[i]['PLANT'] + '   ' + jsondata[i]['DESC']);
+				item_id = jsondata[i]['ID'];
+				item_key = jsondata[i]['PLANT'];
+				item_text = jsondata[i]['DESC'];
+				oItem = new sap.ui.core.ListItem("plant_" + item_id, {
+					key : item_key,
+					text : item_text
+				});
+				oDropdownBoxPlants.addItem(oItem);
+			}
+			oDropdownBoxPlants.setSelectedKey(idPlant);
+			var endplant = oDropdownBoxPlants.getSelectedItemId();
+			var result = endplant.substring(6, endplant.length);
+			selectedPlant = result;
+			// alert(result);
+			setTimeout(createTableOperators(result), 1000);
+		}
+	}
+
+	// ******************************************************************************************************************************************************************
+	function createTableOperators(thePlant) {
+		// Bind the table rows to this model
+		var timestamp = new Date().getTime();
+		// alert(thePlant); 
+		oModel.loadData(
+				"/XMII/Illuminator?QueryTemplate=MESM/OPERATORS/QUERIES/get_Operators&Param.1="
+						+ thePlant + "&ts=" + timestamp
+						+ "&Content-Type=text/xml", "", false);
+		// alert(oModel.getXML());
+		createColumnsOperators();
+		oTable.setModel(oModel);
+		oTable.bindRows("/Rowset/Row");
+	}
+
+	// ******************************************************************************************************************************************************************
+	function updateTableOperators(thePlant) {
+		oTable.clearSelection();
+		var timestamp = new Date().getTime();
+		// alert(thePlant); 
+		oModel.loadData(
+				"/XMII/Illuminator?QueryTemplate=MESM/OPERATORS/QUERIES/get_Operators&Param.1="
+						+ thePlant + "&ts=" + timestamp
+						+ "&Content-Type=text/xml", "", false);
+		oTable.getModel().refresh(true);
+	}
+
+	// ******************************************************************************************************************************************************************
+	function createColumnsOperators() {
+		//Define the columns and the control templates to be used
+		oTable.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "CRT"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text",
+					"idPlant"),
+			sortProperty : "idPlant",
+			filterProperty : "idPlant",
+			width : "0px",
+			hAlign : "Center"
+		}));
+		oTable.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "ID"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text",
+					"idClock"),
+			sortProperty : "idClock",
+			filterProperty : "idClock",
+			width : "50px",
+			hAlign : "Center"
+		}));
+		oTable.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : " FIRST NAME"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text",
+					"FirstName"),
+			sortProperty : "FirstName",
+			filterProperty : "FirstName",
+			width : "125px"
+		}));
+		oTable.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "LAST NAME"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text",
+					"LastName"),
+			sortProperty : "LastName",
+			filterProperty : "LastName",
+			width : "125px"
+		}));
+		oTable.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : " MODIFIED BY"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text",
+					"ModifiedBy"),
+			sortProperty : "ModifiedBy",
+			filterProperty : "ModifiedBy",
+			width : "100px"
+		}));
+		oTable.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "MODIFIED ON"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text",
+					"ModifiedOn"),
+			sortProperty : "ModifiedOn",
+			filterProperty : "ModifiedOn",
+			width : "125px"
+		}));
+		oTable.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : " CREATED BY"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text",
+					"CreatedBy"),
+			sortProperty : "CreatedBy",
+			filterProperty : "CreatedBy",
+			width : "100px"
+		}));
+		oTable.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "CREATED ON"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text",
+					"CreatedOn"),
+			sortProperty : "CreatedOn",
+			filterProperty : "CreatedOn",
+			width : "125px"
+		}));
+		oTable.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "ACTIVE"
+			}),
+			template : new sap.ui.commons.Image().bindProperty("src", "src"),
+			width : "75px",
+			hAlign : "Center"
+		}));
+	}
+	// ******************************************************************************************************************************************************************
+
+	//Create an instance of the table control
+	var oTable = new sap.ui.table.Table({
+		visibleRowCount : nrRows,
+		visibleRowCountMode : sap.ui.table.VisibleRowCountMode.Interactive,
+		firstVisibleRow : 0,
+		width : "1200px",
+		selectionBehavior : sap.ui.table.SelectionBehavior.Row,
+		selectionMode : sap.ui.table.SelectionMode.Single
+	});
+
+	// ******************************************************************************************************************************************************************
+	oTable
+			.attachRowSelectionChange(function(oEvent) {
+				// Retrieve the selected row
+				var selIndex = oTable.getSelectedIndex();
+				selectedIndex = selIndex;
+				if (selIndex >= 0) {
+					oButton0.setEnabled(true);
+					oButton00.setEnabled(true);
+					oButton1.setEnabled(false);
+					oButton2.setEnabled(true);
+					oButton3.setEnabled(true);
+					// Retrieve the selected row
+					var selectedRow = oTable.getRows()[selIndex];
+					// sap.ui.commons.MessageBox.alert(selectedRow);
+					var selectedRowContext = oEvent.getParameter("rowContext");
+					clock_ID = oModel
+							.getProperty("idClock", selectedRowContext);
+
+					plant_ID = oModel
+							.getProperty("idPlant", selectedRowContext);
+					operator_FNAME = oModel.getProperty("FirstName",
+							selectedRowContext);
+					operator_LNAME = oModel.getProperty("LastName",
+							selectedRowContext);
+					operator_ACT_src = oModel.getProperty("src",
+							selectedRowContext);
+					operator_CreatedBy = oModel.getProperty("CreatedBy",
+							selectedRowContext);
+					operator_CreatedOn = oModel.getProperty("CreatedOn",
+							selectedRowContext);
+					operator_ModifiedBy = oModel.getProperty("ModifiedBy",
+							selectedRowContext);
+					operator_ModifiedOn = oModel.getProperty("ModifiedOn",
+							selectedRowContext);
+				} else {
+					oButton0.setEnabled(false);
+					oButton00.setEnabled(false);
+					oButton1.setEnabled(true);
+					oButton2.setEnabled(false);
+					oButton3.setEnabled(false);
+					selectedIndex = -1;
+					clock_ID = "";
+					plant_ID = "";
+					operator_FNAME = "";
+					operator_LNAME = "";
+					operator_ACT_src = "";
+					station_CreatedBy = "";
+					station_CreatedOn = "";
+					station_ModifiedBy = "";
+					station_ModifiedOn = "";
+					// alert ("No Selection ..");
+				}
+			});
+
+	var oModel = new sap.ui.model.xml.XMLModel();
+
+	//Bring the table onto the UI 
+	var oCellTable = new sap.ui.commons.layout.MatrixLayoutCell({
+		id : 'Cell-Table',
+		colSpan : 4
+	});
+	oCellTable.addContent(oTable);
+
+	oMatrixT.createRow(oCellTable);
+
+	// build buttons matrix
+	var oMatrixB = new sap.ui.commons.layout.MatrixLayout({
+		id : 'MatrixB',
+		layoutFixed : true,
+		width : '1200px',
+		columns : 5,
+		widths : [ '150px', '200px', '200px', '200px', '150px' ]
+	});
+
+	var oButton1 = new sap.ui.commons.Button({
+		id : 'B-Add',
+		tooltip : "Add Station",
+		text : 'Add',
+		enabled : true
+	});
+	oButton1.attachPress(doAdd);
+	var oButton2 = new sap.ui.commons.Button({
+		id : 'B-Edit',
+		tooltip : "Edit Station",
+		text : 'Edit',
+		enabled : false
+	});
+	oButton2.attachPress(doEdit);
+	var oButton3 = new sap.ui.commons.Button({
+		id : 'B-Delete',
+		tooltip : "Delete Station",
+		text : 'Delete',
+		enabled : false
+	});
+	oButton3.attachPress(doDelete);
+	oMatrixB.createRow('', oButton1, oButton2, oButton3, '');
+
+	// ******************************************************************************************************************************************************************
+	// Create Add Operator Overlay
+	var oMatrixA = new sap.ui.commons.layout.MatrixLayout({
+		id : 'MatrixA',
+		layoutFixed : true,
+		width : '690px',
+		columns : 1,
+		widths : [ '700px' ]
+	});
+
+	var oMatrixAF = new sap.ui.commons.layout.MatrixLayout({
+		id : 'MatrixAF',
+		layoutFixed : true,
+		width : '690px',
+		columns : 2,
+		widths : [ '295px', '385px' ]
+	});
+
+	var oTitleA = new sap.ui.commons.Label({
+		id : 'L-AddOperator',
+		text : 'ADD OPERATOR'
+	});
+	oMatrixA.createRow(oTitleA);
+
+	var oLabelPLT_ID = new sap.ui.commons.Label({
+		id : 'L-PLTID',
+		text : ' SELECTED PLANT '
+	});
+
+	var oDropBoxSelPlant = new sap.ui.commons.DropdownBox({
+		id : "SelPlant",
+		tooltip : 'Selected Plant',
+		editable : true,
+		change : function(oEvent) {
+			//alert(oEvent.oSource.getSelectedItemId());
+		}
+	})
+
+	oMatrixAF.createRow(oLabelPLT_ID, oDropBoxSelPlant);
+
+	oLabel_CLID = new sap.ui.commons.Label({
+		id : 'L-CLID',
+		text : ' CLOCK ID'
+	});
+
+	var oInput_CLID = new sap.ui.commons.TextField('input_clid');
+
+	oMatrixAF.createRow(oLabel_CLID, oInput_CLID);
+
+	oLabel_FNAME = new sap.ui.commons.Label({
+		id : 'L-FNAME',
+		text : ' FIRST NAME'
+	});
+
+	var oInput_FNAME = new sap.ui.commons.TextField('input_fname');
+
+	oMatrixAF.createRow(oLabel_FNAME, oInput_FNAME);
+
+	oLabel_LNAME = new sap.ui.commons.Label({
+		id : 'L-LNAME',
+		text : ' LAST NAME'
+	});
+
+	var oInput_LNAME = new sap.ui.commons.TextField('input_lname');
+
+	oMatrixAF.createRow(oLabel_LNAME, oInput_LNAME);
+
+	oLabel_ACTIVE = new sap.ui.commons.Label({
+		id : 'L-ACTIVE',
+		text : ' ACTIVE'
+	});
+
+	var oCheckbox_ACTIVE = new sap.ui.commons.CheckBox('checkbox_active', {
+		checked : false
+	});
+
+	oMatrixAF.createRow(oLabel_ACTIVE, oCheckbox_ACTIVE);
+
+	oMatrixA.createRow(oMatrixAF);
+
+	var oButton4 = new sap.ui.commons.Button({
+		id : 'B-AddOperator',
+		tooltip : "Submit Operator Data",
+		text : 'SUBMIT',
+		enabled : true
+	});
+	oButton4.attachPress(doAddOperator);
+
+	oMatrixA.createRow(oButton4);
+
+	var oOverlayContainerAdd = new sap.ui.ux3.OverlayDialog({
+		openButtonVisible : false
+	});
+	
+	oOverlayContainerAdd.setHeight('360px');
+	oOverlayContainerAdd.setWidth('700px');
+	oOverlayContainerAdd.addContent(oMatrixA);
+	// ******************************************************************************************************************************************************************
+	function updateSelPlant(idPlant) {
+		var timestamp = new Date().getTime();
+		getData(
+				"/XMII/Illuminator?QueryTemplate=MESM/PLANTS/TRANSACTIONS/getSelectedPlant_xAcute&Param.1="
+						+ idPlant
+						+ "&ts="
+						+ timestamp
+						+ "&Content-Type=text/xml", parseJsonPlantsList);
+		function parseJsonPlantsList(jsondata) {
+			oDropBoxSelPlant.destroyItems();
+
+			for (var i = 0; i < jsondata.length; i++) {
+				//	alert(jsondata[i]['PLANT'] + '   ' + jsondata[i]['DESC']);
+				item_id = jsondata[i]['ID'];
+				item_key = jsondata[i]['PLANT'];
+				item_text = jsondata[i]['DESC'];
+				oItem = new sap.ui.core.ListItem("plt_" + item_id, {
+					key : item_key,
+					text : item_text
+				});
+				oDropBoxSelPlant.addItem(oItem);
+			}
+			oDropBoxSelPlant.setSelectedKey(idPlant);
+		}
+	}
+	// ******************************************************************************************************************************************************************
+	function doAdd() {
+		if (!oOverlayContainerAdd.isOpen()) {
+			updateSelPlant(plant2Access);
+			oCore.byId("input_clid").setValue("");
+			oCore.byId("input_fname").setValue("");
+			oCore.byId("input_lname").setValue("");
+			oCore.byId("checkbox_active").setChecked(false);
+			oOverlayContainerAdd.open();
+		}
+	}
+	// ******************************************************************************************************************************************************************
+	function doAddOperator() {
+		// retrieve values
+		var endplant = oDropBoxSelPlant.getSelectedItemId();
+		var result = endplant.substring(4, endplant.length);
+		var input_plantID = result;
+		var input_operatorCLID = oCore.byId("input_clid").getValue();
+		var input_operatorFNAME = oCore.byId("input_fname").getValue();
+		var input_operatorLNAME = oCore.byId("input_lname").getValue();
+		var input_userNAME = document.getElementById("user_name").value;
+		if (oCore.byId("checkbox_active").getChecked()) {
+			var input_operatorACTIVE = 1;
+		} else {
+			var input_operatorACTIVE = 0;
+		}
+		// check the values : TODO SQL escape
+		if (input_plantID == "0") {
+			alert("Please Select Plant ..");
+			oCore.byId("SelPlant").focus();
+		} else {
+			if (input_operatorCLID == "") {
+				alert("Please Input Operator CLOCK ID ..");
+				oCore.byId("input_clid").focus();
+			} else {
+				if (input_operatorFNAME == "") {
+					alert("Please Input Operator First Name ..");
+					oCore.byId("input_fname").focus();
+				} else {
+					if (input_operatorLNAME == "") {
+						alert("Please Input Operator Last Name ..");
+						oCore.byId("input_lname").focus();
+					} else {
+						// all good. Try to write them ..
+						var Param1 = input_plantID;
+						var Param2 = input_operatorCLID;
+						var Param3 = input_operatorFNAME;
+						var Param4 = input_operatorLNAME;
+						var Param5 = input_operatorACTIVE;
+						var Param6 = input_userNAME;
+						var oReqData;
+						if (window.XMLHttpRequest) {
+							oReqData = new XMLHttpRequest();
+						}
+						if (oReqData != null) {
+							var timestamp = new Date().getTime();
+							var paramStr = "Param.1="
+									+ encodeURIComponent(Param1) + "&Param.2="
+									+ encodeURIComponent(Param2) + "&Param.3="
+									+ encodeURIComponent(Param3) + "&Param.4="
+									+ encodeURIComponent(Param4) + "&Param.5="
+									+ encodeURIComponent(Param5) + "&Param.6="
+									+ encodeURIComponent(Param6);
+							// alert(paramStr);
+							var queryStr = "/XMII/Illuminator?QueryTemplate=MESM/OPERATORS/QUERIES/add_Operator&"
+									+ paramStr
+									+ "&ts="
+									+ timestamp
+									+ "&Content-Type=text/xml";
+							// alert(queryStr);
+							oReqData.open("GET", queryStr, true);
+							oReqData.onreadystatechange = function() {
+								if (oReqData.readyState == 4)
+									if (oReqData.status == 200) {
+										// Successful -- rebuild the screen
+										updateTableOperators(selectedPlant);
+										oOverlayContainerAdd.close();
+									} else {
+										// Not Successful -- alert the user
+										alert("Error: " + oReqData.statusText);
+									}
+							}
+							oReqData.send();
+						} else {
+							window
+									.alert("Error creating XmlHttpRequest object.");
+						}
+					}
+				}
+			}
+		}
+	}
+	// ******************************************************************************************************************************************************************
+	// Create Edit Operator Overlay
+	var oMatrixE = new sap.ui.commons.layout.MatrixLayout({
+		id : 'MatrixE',
+		layoutFixed : true,
+		width : '690px',
+		columns : 1,
+		widths : [ '700px' ]
+	});
+	var oMatrixEF = new sap.ui.commons.layout.MatrixLayout({
+		id : 'MatrixEF',
+		layoutFixed : true,
+		width : '690px',
+		columns : 2,
+		widths : [ '295px', '385px' ]
+	});
+
+	var oTitleE = new sap.ui.commons.Label({
+		id : 'L-EditOperator',
+		text : 'EDIT OPERATOR'
+	});
+	oMatrixE.createRow(oTitleE);
+
+	oLabel_CLIDE = new sap.ui.commons.Label({
+		id : 'L-CLIDE',
+		text : ' CLOCK ID'
+	});
+
+	var oInput_CLIDE = new sap.ui.commons.TextField('input_clide');
+	oInput_CLIDE.setEditable(false);
+
+	oMatrixEF.createRow(oLabel_CLIDE, oInput_CLIDE);
+
+	var oLabelPLT_IDE = new sap.ui.commons.Label({
+		id : 'L-PLTIDE',
+		text : ' SELECTED PLANT '
+	});
+
+	var oDropBoxSelPlantE = new sap.ui.commons.DropdownBox({
+		id : "SelPlantE",
+		tooltip : 'Selected Plant',
+		editable : true,
+		change : function(oEvent) {
+			//alert(oEvent.oSource.getSelectedKey());
+		}
+	})
+
+	oDropBoxSelPlantE.setEditable(false);
+	oMatrixEF.createRow(oLabelPLT_IDE, oDropBoxSelPlantE);
+
+	oLabel_FNAMEE = new sap.ui.commons.Label({
+		id : 'L-FNAMEE',
+		text : ' FIRST NAME'
+	});
+
+	var oInput_FNAMEE = new sap.ui.commons.TextField('input_fnamee');
+
+	oMatrixEF.createRow(oLabel_FNAMEE, oInput_FNAMEE);
+
+	oLabel_LNAMEE = new sap.ui.commons.Label({
+		id : 'L-LNAMEE',
+		text : ' LAST NAME'
+	});
+
+	var oInput_LNAMEE = new sap.ui.commons.TextField('input_lnamee');
+
+	oMatrixEF.createRow(oLabel_LNAMEE, oInput_LNAMEE);
+
+	oLabel_ACTIVEE = new sap.ui.commons.Label({
+		id : 'L-ACTIVEE',
+		text : ' ACTIVE'
+	});
+
+	var oCheckbox_ACTIVEE = new sap.ui.commons.CheckBox('checkbox_activee', {
+		checked : false
+	});
+
+	oMatrixEF.createRow(oLabel_ACTIVEE, oCheckbox_ACTIVEE);
+
+	oMatrixE.createRow(oMatrixEF);
+
+	var oButton5 = new sap.ui.commons.Button({
+		id : 'B-EditOperator',
+		tooltip : "Submit Operator Data",
+		text : 'SUBMIT',
+		enabled : true
+	});
+	oButton5.attachPress(doEditOperator);
+
+	oMatrixE.createRow(oButton5);
+
+	var oOverlayContainerEdit = new sap.ui.ux3.OverlayDialog({
+		openButtonVisible : false
+	});
+	oOverlayContainerEdit.setHeight('360px');
+	oOverlayContainerEdit.setWidth('700px');
+	oOverlayContainerEdit.addContent(oMatrixE);
+
+	// ******************************************************************************************************************************************************************
+	function updateSelPlantE(allPlants, idPlant) {
+		var timestamp = new Date().getTime();
+		getData(
+				"/XMII/Illuminator?QueryTemplate=MESM/PLANTS/TRANSACTIONS/getSelectedPlantE_xAcute&Param.1="
+						+ allPlants
+						+ "&ts="
+						+ timestamp
+						+ "&Content-Type=text/xml", parseJsonStationsList);
+		function parseJsonStationsList(jsondata) {
+			oDropBoxSelPlantE.destroyItems();
+
+			for (var i = 0; i < jsondata.length; i++) {
+				//	alert(jsondata[i]['PLANT'] + '   ' + jsondata[i]['DESC']);
+				item_id = jsondata[i]['ID'];
+				item_key = jsondata[i]['ID'];
+				item_text = jsondata[i]['DESC'];
+				oItem = new sap.ui.core.ListItem("item_" + item_id, {
+					key : item_key,
+					text : item_text
+				});
+				oDropBoxSelPlantE.addItem(oItem);
+			}
+			oDropBoxSelPlantE.setSelectedKey(idPlant);
+		}
+	}
+
+	// ******************************************************************************************************************************************************************
+	function doEdit() {
+		if (!oOverlayContainerEdit.isOpen()) {
+
+			updateSelPlantE(selectedPlant, plant_ID);
+			oCore.byId("input_clide").setValue(clock_ID);
+			oCore.byId("input_fnamee").setValue(operator_FNAME);
+			oCore.byId("input_lnamee").setValue(operator_LNAME);
+			if (operator_ACT_src == "Common/img/blank.png") {
+				oCore.byId("checkbox_activee").setChecked(false);
+			} else {
+				oCore.byId("checkbox_activee").setChecked(true);
+			}
+			oOverlayContainerEdit.open();
+		}
+	}
+	// ******************************************************************************************************************************************************************
+	function doEditOperator() {
+		var Param1 = oCore.byId("SelPlantE").getSelectedKey();
+		var Param2 = oCore.byId("input_clide").getValue();
+		var Param3 = oCore.byId("input_fnamee").getValue();
+		var Param4 = oCore.byId("input_lnamee").getValue();
+		if (oCore.byId("checkbox_activee").getChecked()) {
+			var Param5 = 1;
+		} else {
+			var Param5 = 0;
+		}
+		var Param6 = document.getElementById("user_name").value;
+
+		// check the values : TODO SQL escape
+		if (!Param1 > 0) {
+			alert("Please Select Plant ..");
+			oCore.byId("SelPlantE").focus();
+		} else {
+			if (Param2 == "") {
+				alert("Please Input Operator Clock ID ..");
+				oCore.byId("input_ides").focus();
+			} else {
+				if (Param3 == "") {
+					alert("Please Input Operator First Name ..");
+					oCore.byId("input_fnamee").focus();
+				} else {
+					if (Param4 == "") {
+						alert("Please Input Operator Last Name ..");
+						oCore.byId("input_lnamee").focus();
+					} else {
+						// all good. Try to write them ..
+						var oReqData;
+						if (window.XMLHttpRequest) {
+							oReqData = new XMLHttpRequest();
+						}
+						if (oReqData != null) {
+							var timestamp = new Date().getTime();
+							var paramStr = "Param.1="
+									+ encodeURIComponent(Param1) + "&Param.2="
+									+ encodeURIComponent(Param2) + "&Param.3="
+									+ encodeURIComponent(Param3) + "&Param.4="
+									+ encodeURIComponent(Param4) + "&Param.5="
+									+ encodeURIComponent(Param5) + "&Param.6="
+									+ encodeURIComponent(Param6);
+							// alert(paramStr);
+							var queryStr = "/XMII/Illuminator?QueryTemplate=MESM/OPERATORS/QUERIES/upd_Operator&"
+									+ paramStr
+									+ "&ts="
+									+ timestamp
+									+ "&Content-Type=text/xml";
+							// alert(queryStr);
+							oReqData.open("GET", queryStr, true);
+							oReqData.onreadystatechange = function() {
+								if (oReqData.readyState == 4)
+									if (oReqData.status == 200) {
+										// Successful -- rebuild the screen
+										updateTableOperators(selectedPlant);
+										oOverlayContainerEdit.close();
+									} else {
+										// Not Successful -- alert the user
+										alert("Error: " + oReqData.statusText);
+									}
+							}
+							oReqData.send();
+						} else {
+							window
+									.alert("Error creating XmlHttpRequest object.");
+						}
+					}
+				}
+			}
+		}
+	}
+	// ******************************************************************************************************************************************************************
+	function doDelete() {
+		// Retrieve the selected row
+		var Param1 = clock_ID;
+		var Param2 = plant_ID;
+		var Param3 = operator_FNAME;
+		var oReqData;
+		if (window.XMLHttpRequest) {
+			oReqData = new XMLHttpRequest();
+		}
+		
+		if (oReqData != null) {
+			var timestamp = new Date().getTime();
+			var paramStr = "Param.1=" + encodeURIComponent(Param1)
+					+ "&Param.2=" + encodeURIComponent(Param2) + "&Param.3="
+					+ encodeURIComponent(Param3);
+			// alert(paramStr);
+			var queryStr = "/XMII/Illuminator?QueryTemplate=MESM/OPERATORS/QUERIES/del_Operator&"
+					+ paramStr + "&ts=" + timestamp + "&Content-Type=text/xml";
+			// alert(queryStr);
+			oReqData.open("GET", queryStr, true);
+			oReqData.onreadystatechange = function() {
+				if (oReqData.readyState == 4)
+					if (oReqData.status == 200) {
+						// Successful -- rebuild the screen
+						updateTableOperators(selectedPlant);
+					} else {
+						alert("Error: " + oReqData.statusText);
+					}
+			}
+			oReqData.send();
+		} else {
+			window.alert("Error creating XmlHttpRequest object.");
+		}
+	}
+	// ******************************************************************************************************************************************************************
+	// Create Assign Station Operator Overlay
+	var oMatrixS = new sap.ui.commons.layout.MatrixLayout({
+		id : 'MatrixS',
+		layoutFixed : true,
+		width : '690px',
+		columns : 1,
+		widths : [ '700px' ]
+	});
+
+	var oMatrixST = new sap.ui.commons.layout.MatrixLayout({
+		id : 'MatrixST',
+		layoutFixed : true,
+		width : '690px',
+		columns : 2,
+		widths : [ '340px', '340px' ]
+	});
+
+	var oTitleSL = new sap.ui.commons.Label({
+		id : 'L-SOperator',
+		text : 'OPERATOR:'
+	});
+	oMatrixS.createRow(oTitleSL);
+
+	//Create an instance of the table control
+	var oTableSL = new sap.ui.table.Table({
+		visibleRowCount : 7,
+		firstVisibleRow : 0,
+		width : "330px",
+		selectionBehavior : sap.ui.table.SelectionBehavior.Row,
+		selectionMode : sap.ui.table.SelectionMode.Multi
+	});
+
+	var oModelSL = new sap.ui.model.xml.XMLModel();
+
+	// ******************************************************************************************************************************************************************
+	function createColumnsStationsList() {
+		//Define the columns and the control templates to be used
+		oTableSL.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "ID"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text",
+					"idStation"),
+			sortProperty : "idStations",
+			filterProperty : "idStations",
+			width : "50px",
+			hAlign : "Center"
+		}));
+		oTableSL.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "STATIONS LIST"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text",
+					"stationName"),
+			sortProperty : "stationName",
+			filterProperty : "stationName",
+			width : "100px",
+			hAlign : "Center"
+		}));
+		oTableSL.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "ACTIVE"
+			}),
+			template : new sap.ui.commons.Image().bindProperty("src", "src"),
+			width : "75px",
+			hAlign : "Center"
+		}));
+	}
+
+	// ******************************************************************************************************************************************************************
+	function createTableStationsList() {
+		// Bind the table rows to this model
+		var timestamp = new Date().getTime();
+		// alert(selectedPlant); 
+		oModelSL
+				.loadData(
+						"/XMII/Illuminator?QueryTemplate=MESM/OPERATORS/QUERIES/get_StationsList&Param.1="
+								+ selectedPlant
+								+ "&ts="
+								+ timestamp
+								+ "&Content-Type=text/xml", "", false);
+		// alert(oModelSL.getXML());
+		createColumnsStationsList();
+		oTableSL.setModel(oModelSL);
+		oTableSL.bindRows("/Rowset/Row");
+	}
+	setTimeout(createTableStationsList(), 1000);
+
+	// ******************************************************************************************************************************************************************
+	function updateTableStationsList() {
+		oTableSL.clearSelection();
+		var timestamp = new Date().getTime();
+		// alert(selectedPlant); 
+		oModelSL
+				.loadData(
+						"/XMII/Illuminator?QueryTemplate=MESM/OPERATORS/QUERIES/get_StationsList&Param.1="
+								+ selectedPlant
+								+ "&ts="
+								+ timestamp
+								+ "&Content-Type=text/xml", "", false);
+		oTableSL.getModel().refresh(true);
+	}
+
+	//Create an instance of the table control
+	var oTableAS = new sap.ui.table.Table({
+		visibleRowCount : 7,
+		firstVisibleRow : 0,
+		width : "330px",
+		selectionBehavior : sap.ui.table.SelectionBehavior.Row,
+		selectionMode : sap.ui.table.SelectionMode.Multi
+	});
+
+	var oModelAS = new sap.ui.model.xml.XMLModel();
+
+	// ******************************************************************************************************************************************************************
+	function createColumnsAssignStations() {
+		//Define the columns and the control templates to be used
+		oTableAS.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "ASSIGNED STATIONS"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text",
+					"stationName"),
+			sortProperty : "stationName",
+			filterProperty : "stationName",
+			width : "100px",
+			hAlign : "Center"
+		}));
+		oTableAS.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "ACTIVE"
+			}),
+			template : new sap.ui.commons.Image().bindProperty("src", "src"),
+			width : "75px",
+			hAlign : "Center"
+		}));
+		oTableAS.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "ID STATION"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text",
+					"idStation"),
+			sortProperty : "idStation",
+			filterProperty : "idStation",
+			width : "0px",
+			hAlign : "Center"
+		}));
+		oTableAS.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "ID PLANT"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text",
+					"idPlant"),
+			sortProperty : "idPlant",
+			filterProperty : "idPlant",
+			width : "0px",
+			hAlign : "Center"
+		}));
+	}
+
+	// ******************************************************************************************************************************************************************
+	function createTableAssignStations() {
+		// Bind the table rows to this model
+		var timestamp = new Date().getTime();
+		// alert(selectedPlant); 
+		oModelAS
+				.loadData(
+						"/XMII/Illuminator?QueryTemplate=MESM/OPERATORS/QUERIES/get_AssignStations&Param.1="
+								+ selectedPlant
+								+ "&ts="
+								+ timestamp
+								+ "&Content-Type=text/xml", "", false);
+		// alert(oModelAS.getXML());
+		createColumnsAssignStations();
+		oTableAS.setModel(oModelAS);
+		oTableAS.bindRows("/Rowset/Row");
+	}
+	setTimeout(createTableAssignStations(), 1000);
+
+	// ******************************************************************************************************************************************************************
+	function updateTableAssignStationsList() {
+		oTableAS.clearSelection();
+		var timestamp = new Date().getTime();
+		oModelAS
+				.loadData(
+						"/XMII/Illuminator?QueryTemplate=MESM/OPERATORS/QUERIES/get_AssignStations&Param.1="
+								+ selectedPlant
+								+ "&Param.2="
+								+ oModel.getProperty("idClock", oTable
+										.getContextByIndex(oTable
+												.getSelectedIndex()))
+								+ "&ts="
+								+ timestamp + "&Content-Type=text/xml", "",
+						false);
+		oTableAS.getModel().refresh(true);
+	}
+	// ******************************************************************************************************************************************************************
+	oMatrixST.createRow(oTableSL, oTableAS);
+
+	var oButtonAddOperatorStations = new sap.ui.commons.Button({
+		id : 'B-AddOperatorStations',
+		tooltip : "Add Stations",
+		text : 'ADD',
+		enabled : true
+	});
+	oButtonAddOperatorStations.attachPress(doAddOperatorStations);
+	// ******************************************************************************************************************************************************************
+	function doAddOperatorStations() {
+		arr_IDStation = [];
+		var indices = oTableSL.getSelectedIndices();
+		if (indices.length == 0) {
+			alert("Please select items to add");
+		}
+		for (var i = 0; i < indices.length; i++) {
+			var idx = indices[i];
+			var cxt = oTableSL.getContextByIndex(idx);
+			arr_IDStation.push(oModelSL.getProperty("idStation", cxt));
+		}
+		arr_IDStation.join(',');
+
+		var Param1 = arr_IDStation;
+		var Param2 = plant_ID;
+		var Param3 = clock_ID;
+
+		var oReqData;
+		if (window.XMLHttpRequest) {
+			oReqData = new XMLHttpRequest();
+		}
+		if (oReqData != null) {
+			var timestamp = new Date().getTime();
+			var paramStr = "Param.1=" + encodeURIComponent(Param1)
+					+ "&Param.2=" + encodeURIComponent(Param2) + "&Param.3="
+					+ encodeURIComponent(Param3);
+			// alert(paramStr);
+			var queryStr = "/XMII/Illuminator?QueryTemplate=MESM/OPERATORS/QUERIES/add_Operator_Station&"
+					+ paramStr + "&ts=" + timestamp + "&Content-Type=text/xml";
+			// alert(queryStr);
+			oReqData.open("GET", queryStr, true);
+			oReqData.onreadystatechange = function() {
+				if (oReqData.readyState == 4)
+					if (oReqData.status == 200) {
+						updateTableAssignStationsList();
+					} else {
+						alert("Error: " + oReqData.statusText);
+					}
+			}
+			oReqData.send();
+		} else {
+			window.alert("Error creating XmlHttpRequest object.");
+		}
+	}
+	// ******************************************************************************************************************************************************************
+	var oButtonRemoveOperatorStations = new sap.ui.commons.Button({
+		id : 'B-RemoveOperatorStations',
+		tooltip : "Remove Stations",
+		text : 'REM',
+		enabled : true
+	});
+	oButtonRemoveOperatorStations.attachPress(doRemOperatorStations);
+	// ******************************************************************************************************************************************************************
+	function doRemOperatorStations() {
+		arr_IDStation = [];
+		var indices = oTableAS.getSelectedIndices();
+		if (indices.length == 0) {
+			alert("Please select items to remove");
+		}
+		for (var i = 0; i < indices.length; i++) {
+			var idx = indices[i];
+			var cxt = oTableAS.getContextByIndex(idx);
+			arr_IDStation.push(oModelAS.getProperty("idStation", cxt));
+		}
+		arr_IDStation.join(',');
+
+		var Param1 = arr_IDStation;
+		var Param2 = plant_ID;
+		var Param3 = clock_ID;
+
+		var oReqData;
+		if (window.XMLHttpRequest) {
+			oReqData = new XMLHttpRequest();
+		}
+		if (oReqData != null) {
+			var timestamp = new Date().getTime();
+			var paramStr = "Param.1=" + encodeURIComponent(Param1)
+					+ "&Param.2=" + encodeURIComponent(Param2) + "&Param.3="
+					+ encodeURIComponent(Param3);
+			// alert(paramStr);
+			var queryStr = "/XMII/Illuminator?QueryTemplate=MESM/OPERATORS/QUERIES/rem_Operator_Station&"
+					+ paramStr + "&ts=" + timestamp + "&Content-Type=text/xml";
+			// alert(queryStr);
+			oReqData.open("GET", queryStr, true);
+			oReqData.onreadystatechange = function() {
+				if (oReqData.readyState == 4)
+					if (oReqData.status == 200) {
+						updateTableAssignStationsList();
+					} else {
+						alert("Error: " + oReqData.statusText);
+					}
+			}
+			oReqData.send();
+		} else {
+			window.alert("Error creating XmlHttpRequest object.");
+		}
+	}
+	// ******************************************************************************************************************************************************************
+	oMatrixST.createRow(oButtonAddOperatorStations,
+			oButtonRemoveOperatorStations);
+
+	oMatrixS.createRow(oMatrixST);
+
+	var oOverlayContainerStations = new sap.ui.ux3.OverlayDialog({
+		openButtonVisible : false
+	});
+	oOverlayContainerStations.setHeight('360px');
+	oOverlayContainerStations.setWidth('750px');
+	oOverlayContainerStations.addContent(oMatrixS);
+
+	// ******************************************************************************************************************************************************************
+	function doAssignStations() {
+		oCore.byId("L-SOperator").setText(
+				"OPERATOR: " + toTitleCase(operator_FNAME) + " "
+						+ toTitleCase(operator_LNAME) + " CLOCK ID: "
+						+ clock_ID);
+		oTableSL.clearSelection();
+		oTableAS.clearSelection();
+		updateTableAssignStationsList();
+		if (!oOverlayContainerStations.isOpen()) {
+			oOverlayContainerStations.open();
+		}
+	}
+
+	// ******************************************************************************************************************************************************************
+	// Create Assign Data Points Overlay
+	var oMatrixDP = new sap.ui.commons.layout.MatrixLayout({
+		id : 'MatrixDP',
+		layoutFixed : true,
+		width : '690px',
+		columns : 1,
+		widths : [ '700px' ]
+	});
+
+	var oMatrixDPT = new sap.ui.commons.layout.MatrixLayout({
+		id : 'MatrixDPT',
+		layoutFixed : true,
+		width : '690px',
+		columns : 2,
+		widths : [ '340px', '340px' ]
+	});
+
+	var oTitleDPL = new sap.ui.commons.Label({
+		id : 'L-DPOperator',
+		text : 'OPERATOR:'
+	});
+	oMatrixDP.createRow(oTitleDPL);
+
+	//Create an instance of the table control
+	var oTableDP = new sap.ui.table.Table({
+		visibleRowCount : 7,
+		firstVisibleRow : 0,
+		width : "330px",
+		selectionBehavior : sap.ui.table.SelectionBehavior.Row,
+		selectionMode : sap.ui.table.SelectionMode.Multi
+	});
+
+	var oModelDP = new sap.ui.model.xml.XMLModel();
+
+	// ******************************************************************************************************************************************************************
+	function createColumnsDataPointsList() {
+		//Define the columns and the control templates to be used
+		oTableDP.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "ID"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text",
+					"idUnit"),
+			sortProperty : "idUnit",
+			filterProperty : "idUnit",
+			width : "50px",
+			hAlign : "Center"
+		}));
+		oTableDP.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "UNIT LIST"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text",
+					"UnitName"),
+			sortProperty : "UnitName",
+			filterProperty : "UnitName",
+			width : "100px",
+			hAlign : "Center"
+		}));
+		oTableDP.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "ACTIVE"
+			}),
+			template : new sap.ui.commons.Image().bindProperty("src", "src"),
+			width : "75px",
+			hAlign : "Center"
+		}));
+	}
+
+	// ******************************************************************************************************************************************************************
+	function createTableDataPointsList() {
+		// Bind the table rows to this model
+		var timestamp = new Date().getTime();
+		// alert(selectedPlant); 
+		oModelDP
+				.loadData(
+						"/XMII/Illuminator?QueryTemplate=MESM/OPERATORS/QUERIES/get_DataPointsList&Param.1="
+								+ selectedPlant
+								+ "&ts="
+								+ timestamp
+								+ "&Content-Type=text/xml", "", false);
+		// alert(oModelDP.getXML());
+		createColumnsDataPointsList();
+		oTableDP.setModel(oModelDP);
+		oTableDP.bindRows("/Rowset/Row");
+	}
+	setTimeout(createTableDataPointsList(), 1000);
+
+	// ******************************************************************************************************************************************************************
+	function updateTableDataPointsList() {
+		oTableDP.clearSelection();
+		var timestamp = new Date().getTime();
+		// alert(selectedPlant); 
+		oModelDP
+				.loadData(
+						"/XMII/Illuminator?QueryTemplate=MESM/OPERATORS/QUERIES/get_DataPointsList&Param.1="
+								+ selectedPlant
+								+ "&ts="
+								+ timestamp
+								+ "&Content-Type=text/xml", "", false);
+		oTableDP.getModel().refresh(true);
+	}
+
+	//Create an instance of the table control
+	var oTableADP = new sap.ui.table.Table({
+		visibleRowCount : 7,
+		firstVisibleRow : 0,
+		width : "330px",
+		selectionBehavior : sap.ui.table.SelectionBehavior.Row,
+		selectionMode : sap.ui.table.SelectionMode.Multi
+	});
+
+	var oModelADP = new sap.ui.model.xml.XMLModel();
+
+	// ******************************************************************************************************************************************************************
+	function createColumnsAssignDataPoints() {
+		//Define the columns and the control templates to be used
+		oTableADP.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "ASSIGNED DATA POINTS"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text",
+					"UnitName"),
+			sortProperty : "UnitName",
+			filterProperty : "UnitName",
+			width : "100px",
+			hAlign : "Center"
+		}));
+		oTableADP.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "ACTIVE"
+			}),
+			template : new sap.ui.commons.Image().bindProperty("src", "src"),
+			width : "75px",
+			hAlign : "Center"
+		}));
+		oTableADP.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "ID DATA POINT"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text",
+					"idUnit"),
+			sortProperty : "idUnit",
+			filterProperty : "idUnit",
+			width : "0px",
+			hAlign : "Center"
+		}));
+		oTableADP.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "ID PLANT"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text",
+					"idPlant"),
+			sortProperty : "idPlant",
+			filterProperty : "idPlant",
+			width : "0px",
+			hAlign : "Center"
+		}));
+	}
+
+	// ******************************************************************************************************************************************************************
+	function createTableAssignDataPoints() {
+		// Bind the table rows to this model
+		var timestamp = new Date().getTime();
+		// alert(selectedPlant); 
+		oModelADP
+				.loadData(
+						"/XMII/Illuminator?QueryTemplate=MESM/OPERATORS/QUERIES/get_AssignDataPoints&Param.1="
+								+ selectedPlant
+								+ "&ts="
+								+ timestamp
+								+ "&Content-Type=text/xml", "", false);
+		// alert(oModelADP.getXML());
+		createColumnsAssignDataPoints();
+		oTableADP.setModel(oModelADP);
+		oTableADP.bindRows("/Rowset/Row");
+	}
+	setTimeout(createTableAssignDataPoints(), 1000);
+
+	// ******************************************************************************************************************************************************************
+	function updateTableAssignDataPoints() {
+		oTableADP.clearSelection();
+		var timestamp = new Date().getTime();
+		oModelADP
+				.loadData(
+						"/XMII/Illuminator?QueryTemplate=MESM/OPERATORS/QUERIES/get_AssignDataPoints&Param.1="
+								+ selectedPlant
+								+ "&Param.2="
+								+ oModel.getProperty("idClock", oTable
+										.getContextByIndex(oTable
+												.getSelectedIndex()))
+								+ "&ts="
+								+ timestamp + "&Content-Type=text/xml", "",
+						false);
+		oTableADP.getModel().refresh(true);
+	}
+	// ******************************************************************************************************************************************************************
+	oMatrixDPT.createRow(oTableDP, oTableADP);
+
+	var oButtonAddOperatorDataPoints = new sap.ui.commons.Button({
+		id : 'B-AddOperatorDataPoints',
+		tooltip : "Add Data Points",
+		text : 'ADD',
+		enabled : true
+	});
+	oButtonAddOperatorDataPoints.attachPress(doAddOperatorDataPoints);
+	// ******************************************************************************************************************************************************************
+	function doAddOperatorDataPoints() {
+		arr_IDDataPoint = [];
+		var indices = oTableDP.getSelectedIndices();
+		if (indices.length == 0) {
+			alert("Please select items to add");
+		}
+		for (var i = 0; i < indices.length; i++) {
+			var idx = indices[i];
+			var cxt = oTableDP.getContextByIndex(idx);
+			arr_IDDataPoint.push(oModelDP.getProperty("idUnit", cxt));
+		}
+		arr_IDDataPoint.join(',');
+
+		var Param1 = arr_IDDataPoint;
+		var Param2 = plant_ID;
+		var Param3 = clock_ID;
+
+		var oReqData;
+		if (window.XMLHttpRequest) {
+			oReqData = new XMLHttpRequest();
+		}
+		if (oReqData != null) {
+			var timestamp = new Date().getTime();
+			var paramStr = "Param.1=" + encodeURIComponent(Param1)
+					+ "&Param.2=" + encodeURIComponent(Param2) + "&Param.3="
+					+ encodeURIComponent(Param3);
+			// alert(paramStr);
+			var queryStr = "/XMII/Illuminator?QueryTemplate=MESM/OPERATORS/QUERIES/add_Operator_DataPoint&"
+					+ paramStr + "&ts=" + timestamp + "&Content-Type=text/xml";
+			// alert(queryStr);
+			oReqData.open("GET", queryStr, true);
+			oReqData.onreadystatechange = function() {
+				if (oReqData.readyState == 4)
+					if (oReqData.status == 200) {
+						updateTableAssignDataPoints();
+					} else {
+						alert("Error: " + oReqData.statusText);
+					}
+			}
+			oReqData.send();
+		} else {
+			window.alert("Error creating XmlHttpRequest object.");
+		}
+	}
+	// ******************************************************************************************************************************************************************
+	var oButtonRemoveOperatorDataPoints = new sap.ui.commons.Button({
+		id : 'B-RemoveOperatorDataPoints',
+		tooltip : "Remove Data Points",
+		text : 'REM',
+		enabled : true
+	});
+	oButtonRemoveOperatorDataPoints.attachPress(doRemOperatorDataPoints);
+	// ******************************************************************************************************************************************************************
+	function doRemOperatorDataPoints() {
+		arr_IDDataPoint = [];
+		var indices = oTableADP.getSelectedIndices();
+		if (indices.length == 0) {
+			alert("Please select items to remove");
+		}
+		for (var i = 0; i < indices.length; i++) {
+			var idx = indices[i];
+			var cxt = oTableADP.getContextByIndex(idx);
+			arr_IDDataPoint.push(oModelADP.getProperty("idUnit", cxt));
+		}
+		arr_IDDataPoint.join(',');
+
+		var Param1 = arr_IDDataPoint;
+		var Param2 = plant_ID;
+		var Param3 = clock_ID;
+
+		var oReqData;
+		if (window.XMLHttpRequest) {
+			oReqData = new XMLHttpRequest();
+		}
+		if (oReqData != null) {
+			var timestamp = new Date().getTime();
+			var paramStr = "Param.1=" + encodeURIComponent(Param1)
+					+ "&Param.2=" + encodeURIComponent(Param2) + "&Param.3="
+					+ encodeURIComponent(Param3);
+			// alert(paramStr);
+			var queryStr = "/XMII/Illuminator?QueryTemplate=MESM/OPERATORS/QUERIES/rem_Operator_DataPoint&"
+					+ paramStr + "&ts=" + timestamp + "&Content-Type=text/xml";
+			// alert(queryStr);
+			oReqData.open("GET", queryStr, true);
+			oReqData.onreadystatechange = function() {
+				if (oReqData.readyState == 4)
+					if (oReqData.status == 200) {
+						updateTableAssignDataPoints();
+					} else {
+						alert("Error: " + oReqData.statusText);
+					}
+			}
+			oReqData.send();
+		} else {
+			window.alert("Error creating XmlHttpRequest object.");
+		}
+	}
+	// ******************************************************************************************************************************************************************
+	oMatrixDPT.createRow(oButtonAddOperatorDataPoints,
+			oButtonRemoveOperatorDataPoints);
+
+	oMatrixDP.createRow(oMatrixDPT);
+
+	var oOverlayContainerDataPoints = new sap.ui.ux3.OverlayDialog({
+		openButtonVisible : false
+	});
+	oOverlayContainerDataPoints.setHeight('360px');
+	oOverlayContainerDataPoints.setWidth('750px');
+	oOverlayContainerDataPoints.addContent(oMatrixDP);
+
+	// ******************************************************************************************************************************************************************
+	function doAssignMeasurements() {
+		oCore.byId("L-DPOperator").setText(
+				"OPERATOR: " + toTitleCase(operator_FNAME) + " "
+						+ toTitleCase(operator_LNAME) + " CLOCK ID: "
+						+ clock_ID);
+		oTableDP.clearSelection();
+		oTableADP.clearSelection();
+		updateTableAssignDataPoints();
+		if (!oOverlayContainerDataPoints.isOpen()) {
+			oOverlayContainerDataPoints.open();
+		}
+	}
+	// ******************************************************************************************************************************************************************
+</script>
+</head>
+<body onLoad="roleSecurity()">
+	<input id="user_roles" type="hidden" value="{IllumLoginRoles}"
+		style="display: block; width: 1000px;" readonly />
+	<input id="user_role" type="hidden" value="{ROLE}"
+		style="display: block; width: 1000px;" readonly />
+	<input id="user_name" type="hidden" value="{IllumLoginName}"
+		style="display: block; width: 1000px;" readonly />
+	<input id="user_height" type="hidden" value="{HEIGHT}"
+		style="display: block; width: 100px;" readonly />
+	<input id="user_address" type="hidden" value="{Machine}"
+		style="display: block; width: 1000px;" readonly />
+	<div id="app_header">
+		<div id="app_title">OPERATORS</div>
+		<div id="app_menu"></div>
+		<div id="page_title">DEFAULT SCREEN</div>
+	</div>
+	<div id="mesm_content"></div>
+</body>
+</html>

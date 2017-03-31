@@ -60,7 +60,7 @@
 
     <script id="sap-ui-bootstrap"
             src="https://sapui5.netweaver.ondemand.com/resources/sap-ui-core.js"
-            data-sap-ui-theme="sap_bluecrystal"
+            data-sap-ui-theme="sap_belize"
             data-sap-ui-libs="sap.m,sap.ui.commons,sap.ui.table,sap.ui.core"
             data-sap-ui-language="en">
     </script>
@@ -337,6 +337,7 @@
                     text: "Active"
                 }),
                 template: new sap.ui.commons.CheckBox().bindProperty("checked", "reasonActive", function (s) {
+
                     return s == "1";
                 }),
                 resizable: true,

@@ -1,0 +1,307 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>RTS MES</title>
+	<style>
+	body {
+		font-family: Arial;
+	}
+	#app_header {
+ 		padding: 10px;
+ 		padding-left: 40px;
+ 		padding-top: 15px;
+ 		padding-bottom: 0px;
+		height:80px;
+		width:400px;
+		text-align: center;
+	}
+	#app_title {
+		width:300px;
+		text-align: center;
+		font-family: "Arial Black",Arial,Helvetica,sans-serif;
+		font-size:32px;
+		color: #007dc0;
+		margin-bottom; 20px;
+	}
+	#page_title {
+		width:300px;
+		background: #555;
+		text-align: center;
+		font-family: "Arial Black",Arial,Helvetica,sans-serif;
+		font-size:28px;
+		color: #cfcfcf;
+		position: relative;
+	}
+	div #page_title:before {
+  	  	content: '';
+ 	   	position: absolute;
+ 	   	top: 0; right: 0;
+	    	border-top: 30px solid white;
+	    	border-left: 30px solid #555;
+	    	width: 0;
+	}
+	#cprm_content {
+		margin: 60px auto;
+		width:1200px;
+		position: relative;
+	}
+	#charts {
+		margin:0px auto;
+	}
+	#MatrixT {
+		margin:10px auto;
+	}
+
+	</style>
+
+	<script id="sap-ui-bootstrap"
+		src="https://sapui5.netweaver.ondemand.com/resources/sap-ui-core.js"
+		data-sap-ui-theme="sap_goldreflection"
+		data-sap-ui-libs="sap.ui.core,sap.ui.commons,sap.ui.table,sap.ui.ux3"
+		data-sap-ui-language="en" >
+	</script>
+	<script type="text/javascript" src="Common/js/default.js"></script>
+
+	<script type="text/javascript" id="app-init">
+	// ******************************************************************************************************************************************************************
+	// Get Core SAP UI5
+	var oCore = sap.ui.getCore();
+	// Initialize screen
+	var selectedIndex =  -1;
+	// ******************************************************************************************************************************************************************
+	// initialize access
+
+	var nrRows = 7;
+
+	// ******************************************************************************************************************************************************************
+	function roleSecurity() {
+		// TODO: add security
+		oMatrixT.placeAt('cprm_content');
+	}
+	// ******************************************************************************************************************************************************************
+	$(function () {
+	    $('#departure').highcharts({
+	        chart: {
+	            type: 'heatmap',
+	            marginTop: 30,
+	            marginBottom: 5,
+	            plotBorderWidth: 1
+	        },
+		credits : {
+		enabled: false,
+		},
+	        title: {
+	            text: ''
+	        },
+	        xAxis: {
+		opposite: true,
+		lineColor: 'transparent',
+   		minorTickLength: 0,
+   		tickLength: 0,
+ 		lineWidth: 0,
+		minorGridLineWidth: 0,
+	            categories: ['1', '2', '3', '4', '5', '6', '7', '8'],
+		title: null
+	        },
+	        yAxis: {
+		reversed: true,
+	            categories: ['1','2', '3', '4'],
+	            title: null
+	        },
+	        colorAxis: {
+	            min: 0,
+	            minColor: '#FFFFFF',
+	            maxColor: Highcharts.getOptions().colors[0]
+	        },
+	        legend: {
+		enabled: false
+	        },
+	        tooltip: {
+	            formatter: function () {
+		 if(this.point.value>0) { var interlock = 'ON'; } else { var interlock = 'OFF' }; 
+	              return '<span style="text-align:center;"><b>'  + ' Interlock ' + this.series.xAxis.categories[this.point.x] * this.series.yAxis.categories[this.point.y] + ' ' + interlock + '</b></span>';
+	            }
+	        },
+	        series: [{
+	            name: 'Departure Station Interlock Status',
+	            borderWidth: 1,
+	            data: [[0 ,0 ,1], [1, 0, 1], [2, 0, 0], [3, 0, 0], [4, 0, 0], [5, 0, 0], [6, 0, 0], [7, 0, 0], [0, 1 ,0], [1, 1, 0], [2, 1, 1], [3, 1, 1], [4, 1, 0], [5, 1, 0], [6, 1, 0], [7, 1, 0], [0 ,2 ,0], [1, 2, 0], [2, 2, 0], [3, 2, 0], [4, 2, 0], [5, 2, 0], [6, 2, 0], [7, 2, 0], [0 ,3 ,0], [1, 3, 0], [2, 3, 0], [3, 3, 0], [4, 3, 0], [5, 3, 0], [6, 3, 0], [7, 3, 0]],
+	            dataLabels: {
+	                enabled: false,
+	                color: '#000000'
+	            }
+	        }]
+	    });
+	// ******************************************************************************************************************************************************************	
+	    $('#arrival').highcharts({
+	        chart: {
+	            type: 'heatmap',
+	            marginTop: 30,
+	            marginBottom: 5,
+	            plotBorderWidth: 1
+	        },
+		credits : {
+		enabled: false,
+		},
+	        title: {
+	            text: ''
+	        },
+	        xAxis: {
+		opposite: true,
+		lineColor: 'transparent',
+   		minorTickLength: 0,
+   		tickLength: 0,
+ 		lineWidth: 0,
+		minorGridLineWidth: 0,
+	            categories: ['1', '2', '3', '4', '5', '6', '7', '8'],
+		title: null
+	        },
+	        yAxis: {
+		reversed: true,
+	            categories: ['1','2', '3', '4'],
+	            title: null
+	        },
+	        colorAxis: {
+	            min: 0,
+	            minColor: '#FFFFFF',
+	            maxColor: Highcharts.getOptions().colors[0]
+	        },
+	        legend: {
+		enabled: false,
+	            align: 'right',
+	            layout: 'vertical',
+	            margin: 0,
+	            verticalAlign: 'top',
+	            y: 0.5,
+	            symbolHeight: 80
+	        },
+	        tooltip: {
+	            formatter: function () {
+		 if(this.point.value>0) { var interlock = 'ON'; } else { var interlock = 'OFF' }; 
+	              return '<span style="text-align:center;"><b>'  + ' Interlock ' + this.series.xAxis.categories[this.point.x] * this.series.yAxis.categories[this.point.y] + ' ' + interlock + '</b></span>';
+	            }
+	        },
+	        series: [{
+	            name: 'Station Interlock Status',
+	            borderWidth: 1,
+	            data: [[0 ,0 ,0], [1, 0, 0], [2, 0, 0], [3, 0, 0], [4, 0, 0], [5, 0, 0], [6, 0, 0], [7, 0, 0], [0, 1 ,1], [1, 1, 1], [2, 1, 1], [3, 1,1], [4, 1, 0], [5, 1, 0], [6, 1, 0], [7, 1, 0], [0 ,2 ,0], [1, 2, 0], [2, 2, 0], [3, 2, 0], [4, 2, 0], [5, 2, 0], [6, 2, 0], [7, 2, 0], [0 ,3 ,0], [1, 3, 0], [2, 3, 0], [3, 3, 0], [4, 3, 0], [5, 3, 0], [6, 3, 0], [7, 3, 0]],
+	            dataLabels: {
+	                enabled: false,
+	                color: '#000000'
+	            }
+	        }]
+	    });
+	});
+	// ******************************************************************************************************************************************************************
+	var oMatrixT = new sap.ui.commons.layout.MatrixLayout({
+		id : 'MatrixT',
+		layoutFixed : true,
+		width: '1200px',
+		columns : 2,
+		widths : ['350px', '890px'] 
+	});
+	// ******************************************************************************************************************************************************************
+	function createTableMissions() {
+		// Bind the table rows to this model
+		var timestamp = new Date().getTime();
+ 		oModel.loadData("/XMII/Illuminator?QueryTemplate=CLEARPATH/MISSIONS/QUERIES/Get_Missions&ts="+timestamp+"&Content-Type=text/xml","",false);
+		createColumnsMissions();
+		oTable.setModel(oModel);
+		oTable.bindRows("/Rowset/Row");
+	};
+	// ******************************************************************************************************************************************************************
+	function createColumnsMissions() {
+		//Define the columns and the control templates to be used
+		oTable.addColumn(new sap.ui.table.Column({
+			label: new sap.ui.commons.Label({text: "STATUS"}),
+			template: new sap.ui.commons.Image().bindProperty("src", "stats"),
+			width: "75px",
+			hAlign: "Center"
+		}));
+		oTable.addColumn(new sap.ui.table.Column({
+			label: new sap.ui.commons.Label({text: " NAME"}),
+			template: new sap.ui.commons.TextView().bindProperty("text", "missionName"),
+			sortProperty: "missionName",
+			filterProperty: "missionName",
+			width: "150px"
+		}));
+		oTable.addColumn(new sap.ui.table.Column({
+			label: new sap.ui.commons.Label({text: "INT"}),
+			template: new sap.ui.commons.TextView().bindProperty("text", "missionInterval"),
+			sortProperty: "missionInterval",
+			filterProperty: "missionInterval",
+			width: "75px"
+		}));
+
+	};
+	// ******************************************************************************************************************************************************************
+	//Create an instance of the table control
+	var oTable = new sap.ui.table.Table({
+		visibleRowCount: nrRows,
+		visibleRowCountMode: sap.ui.table.VisibleRowCountMode.Interactive,
+		firstVisibleRow: 0,
+		width: "350px",
+		selectionBehavior: sap.ui.table.SelectionBehavior.Row,
+		selectionMode: sap.ui.table.SelectionMode.Single
+	});
+
+oTable.attachRowSelectionChange(function(oEvent) {
+		// Retrieve the selected row
+		var selIndex = oTable.getSelectedIndex();
+		selectedIndex = selIndex;
+		if (selIndex  >= 0) {
+			// Retrieve the selected row
+			var selectedRow = oTable.getRows()[selIndex];
+			// sap.ui.commons.MessageBox.alert(selectedRow);
+			var selectedRowContext = oEvent.getParameter("rowContext");
+ 	 		missionStatus = oModel.getProperty("recordID", selectedRowContext);    
+	  		missionName = oModel.getProperty("serverName", selectedRowContext); 
+       	  		missionInterval = oModel.getProperty("serverURL", selectedRowContext);
+		} else {
+
+
+			// alert ("No Selection ..");
+		}
+	});
+
+	var oModel =  new sap.ui.model.xml.XMLModel();
+	createTableMissions();
+
+	var oTable2 = new sap.ui.table.Table({
+		visibleRowCount: nrRows,
+		visibleRowCountMode: sap.ui.table.VisibleRowCountMode.Interactive,
+		firstVisibleRow: 0,
+		width: "500px",
+		selectionBehavior: sap.ui.table.SelectionBehavior.Row,
+		selectionMode: sap.ui.table.SelectionMode.Single
+	});
+
+
+	oMatrixT.createRow(oTable,oTable2);
+
+	</script>
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/heatmap.js"></script>
+</head>
+
+<body onLoad="roleSecurity()">
+
+<input id="user_roles" type="hidden" value="{IllumLoginRoles}" style="display:block;width:1000px;" readonly />
+<input id="user_role" type="hidden" value="{ROLE}" style="display:block;width:1000px;" readonly />
+<input id="user_name" type="hidden" value="{IllumLoginName}" style="display: block;width:1000px;" readonly />
+<input id="user_height" type="hidden" value="{HEIGHT}" style="display: block;width:100px;" readonly />
+<input id="user_address" type="hidden" value="{Machine}" style="display:block;width:1000px;" readonly />
+<div id="app_header" >
+<div id="page_title"><img id="logo" src="COMMON/img/logo.png" alt="logo" height="72" width="273" style="margin-top:10px;" /></div>
+<div id="app_title">MISSION MGMT</div>
+</div>
+<div id="cprm_content"></div>
+<div id="charts" style="width:700px; text-align:center;">
+<div id="departure" style="height: 120px; min-width: 210px; max-width: 210px; float: left;"></div>
+<div id="arrival" style="height: 120px; min-width: 210px; max-width: 210px; float: right."></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,804 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>RTS MES..</title>
+<style>
+body {
+	font-family: Arial;
+	background: white;
+}
+
+#app_header {
+	padding: 10px;
+	padding-left: 40px;
+	padding-top: 15px;
+	padding-bottom: 0px;
+	height: 80px;
+	width: 400px;
+	text-align: center;
+}
+
+#app_title {
+	width: 300px;
+	text-align: center;
+	font-family: "Arial Black", Arial, Helvetica, sans-serif;
+	font-size: 32px;
+	color: #007dc0;
+	margin-bottom;
+	20
+	px;
+}
+
+#page_title {
+	width: 300px;
+	background: #555;
+	text-align: center;
+	font-family: "Arial Black", Arial, Helvetica, sans-serif;
+	font-size: 28px;
+	color: #cfcfcf;
+	position: relative;
+}
+
+div #page_title:before {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	border-top: 30px solid white;
+	border-left: 30px solid #555;
+	width: 0;
+}
+
+#cprm_content {
+	margin: 60px auto;
+	min-width: 700px;
+	width: 80%;
+	position: relative;
+}
+
+#charts {
+	margin: 0px auto;
+}
+
+#MatrixT {
+	margin: 10px auto;
+}
+</style>
+
+
+<!-- resources/sap-ui-core.js -->
+<!-- /sapui5/resources/sap-ui-core.js -->
+<!-- sap_bluecrystal -->
+<!-- sap_goldreflection -->
+
+<script id="sap-ui-bootstrap"
+	src="https://sapui5.netweaver.ondemand.com/resources/sap-ui-core.js"
+	data-sap-ui-theme="sap_bluecrystal"
+	data-sap-ui-libs="sap.m, sap.ui.core, sap.ui.commons, sap.ui.table,sap.ui.ux3,sap.suite.ui.commons"
+	data-sap-ui-language="en">
+	
+</script>
+
+<SCRIPT type="text/javascript" src="/XMII/JavaScript/bootstrap.js"
+	data-libs="i5Chart,i5Grid,i5SPCChart"></SCRIPT>
+
+
+<script type="text/javascript" src="Common/js/default.js">
+	
+</script>
+
+<script type="text/javascript" id="app-init">
+	// ******************************************************************************************************************************************************************
+	// Get Core SAP UI5
+	var oCore = sap.ui.getCore();
+
+	// ******************************************************************************************************************************************************************
+	//Create an instance of the table control
+
+	var nrRows = 7;
+	////////////////////////////////////////////////
+	// 	new sap.ui.table.Table
+	// 	width : sap.ui.core.CSSSize (default: auto)
+	// 	rowHeight : int
+	// 	columnHeaderHeight : int
+	// 	columnHeaderVisible : boolean (default: true)
+	// 	visibleRowCount : int (default: 10)
+	// 	firstVisibleRow : int (default: 0)
+	// 	selectionMode : sap.ui.table.SelectionMode (default: MultiToggle)
+	// 	selectionBehavior : sap.ui.table.SelectionBehavior (default: RowSelector)
+	// 	selectedIndex : int (default: -1)
+	// 	editable : boolean (default: true)
+	// 	navigationMode : sap.ui.table.NavigationMode (default: Scrollbar)
+	// 	threshold : int (default: 100)
+	// 	enableColumnReordering : boolean (default: true)
+	// 	enableGrouping : boolean (default: false)
+	// 	showColumnVisibilityMenu : boolean (default: false)
+	// 	showNoData : boolean (default: true)
+	// 	visibleRowCountMode : sap.ui.table.VisibleRowCountMode (default: Fixed)
+	// 	minAutoRowCount : int (default: 5)
+	// 	fixedColumnCount : int (default: 0)
+	// 	fixedRowCount : int (default: 0)
+	// 	fixedBottomRowCount : int (default: 0)
+	// 	enableColumnFreeze : boolean (default: false)
+	// 	enableCellFilter : boolean (default: false)
+	// 	showOverlay : boolean (default: false)
+	// 	enableSelectAll : boolean (default: true)
+	// 	enableCustomFilter : boolean (default: false)
+	// 	enableBusyIndicator : boolean (default: false)
+	//////////////////////////////////////////////////
+	var tbMissions = new sap.ui.table.Table({
+		visibleRowCount : nrRows,
+		visibleRowCountMode : sap.ui.table.VisibleRowCountMode.Interactive,
+		firstVisibleRow : 0,
+		selectionBehavior : sap.ui.table.SelectionBehavior.Row,
+		selectionMode : sap.ui.table.SelectionMode.Single,
+
+	//navigationMode : sap.ui.table.NavigationMode.Paginator
+	});
+
+	var tbOperators = new sap.ui.table.Table({
+		visibleRowCount : nrRows,
+		visibleRowCountMode : sap.ui.table.VisibleRowCountMode.Interactive,
+		firstVisibleRow : 0,
+		selectionBehavior : sap.ui.table.SelectionBehavior.Row,
+		selectionMode : sap.ui.table.SelectionMode.Single,
+	//navigationMode : sap.ui.table.NavigationMode.Paginator
+	});
+
+	var selectedIndex_tbMissions = -1;
+	var selectedIndex_tbOperators = -1;
+
+	var funNum = 0;
+	//	FunNum : 0;		//user Clicking
+	//	FunNum : 1;		//go through tbMission
+	//	FunNum : 2;		//go through tbOperator /w filter
+
+	var processFlow = new sap.suite.ui.commons.ProcessFlow({
+		foldedCorners : true,
+		scrollable : true,
+		wheelZoomable : false,
+		showLabels : true,
+		nodes : [ new sap.suite.ui.commons.ProcessFlowNode({
+			nodeId : "HOME",
+			laneId : "HOME",
+			title : "Ready",
+			titleAbbreviation : "Ready",
+			children : null,
+			state : sap.suite.ui.commons.ProcessFlowNodeState.Positive,
+			stateText : "OK status",
+			focused : false,
+			texts : [ "Status1 OK", "Status2 OK" ]
+
+		}) ],
+		lanes : [ new sap.suite.ui.commons.ProcessFlowLaneHeader({
+			laneId : "HOME",
+			iconSrc : "sap-icon://home",
+			text : "HOME",
+			position : 0
+		}) ]
+	});
+
+	var lastNodeId = "HOME";
+	var lastLaneId = "HOME";
+	// ******************************************************************************************************************************************************************
+	function roleSecurity() {
+		// TODO: add security
+
+		createTableMissions();
+		createTableOperators();
+		var oMenuButton1 = new sap.ui.commons.MenuButton({
+			text : "Settings",
+			icon : "Common/img/map.png"
+		});
+
+		//messageH = new sap.m.MessageStrip({
+		//	text : "working on...."
+		//});
+		//messageB = new sap.m.MessageStrip({
+		//text : ""
+		//});
+		//toolbar = new sap.m.Toolbar();
+		///////////////////////////////////////////////////////////
+		//		new sap.m.Toolbar
+		// 		width : sap.ui.core.CSSSize
+		// 		active : boolean (default: false)
+		// 		enabled : boolean (default: true)
+		// 		height : sap.ui.core.CSSSize (default: )
+		// 		design : sap.m.ToolbarDesign (default: Auto)
+		///////////////////////////////////////////////////////////
+		// 		new sap.ui.commons.Button
+		// 		text : string (default: )
+		// 		enabled : boolean (default: true)
+		// 		width : sap.ui.core.CSSSize
+		// 		helpId : string (default: )
+		// 		icon : sap.ui.core.URI (default: )
+		// 		iconHovered : sap.ui.core.URI (default: )
+		// 		iconSelected : sap.ui.core.URI (default: )
+		// 		iconFirst : boolean (default: true)
+		// 		height : sap.ui.core.CSSSize
+		// 		styled : boolean (default: true)
+		// 		lite : boolean (default: false)
+		// 		style : sap.ui.commons.ButtonStyle (default: Default)
+		///////////////////////////////////////////////////////////
+		// 		new sap.ui.unified.Menu
+		// 		enabled : boolean (default: true)
+		// 		ariaDescription : string
+		// 		maxVisibleItems : int (default: 0)
+		// 		pageSize : int (default: 5)
+		////////////////////////////////////
+		// 		new sap.ui.unified.MenuItemBase
+		// 		enabled : boolean (default: true)
+		// 		visible : boolean (default: true)
+		// 		startsSection : boolean (default: false)
+		////////////////////////////////////////////////
+		// 		new sap.ui.unified.MenuItem
+		// 		text : string (default: )
+		// 		icon : sap.ui.core.URI (default: )
+		/////////////////////////////////////////////
+
+		///////////////////////////////
+		// 		new sap.m.MenuButton
+		// 		text : string
+		// 		type : sap.m.ButtonType (default: Default)
+		// 		width : sap.ui.core.CSSSize
+		// 		enabled : boolean (default: true)
+		// 		icon : sap.ui.core.URI
+		// 		activeIcon : sap.ui.core.URI
+		// 		iconDensityAware : boolean (default: true)
+		// 		textDirection : sap.ui.core.TextDirection (default: Inherit)
+		// 		buttonMode : sap.m.MenuButtonMode (default: Regular)
+		// 		useDefaultActionOnly : Boolean (default: false)
+		// 		Aggregations
+		// 		menu : sap.m.Menu
+		//////////////////////////
+		// 		new sap.m.Button(sId?, mSettings?)
+		// 		PropertiesF
+		// 		text : string
+		// 		type : sap.m.ButtonType (default: Default)
+		// 		width : sap.ui.core.CSSSize
+		// 		enabled : boolean (default: true)
+		// 		icon : sap.ui.core.URI
+		// 		iconFirst : boolean (default: true)
+		// 		activeIcon : sap.ui.core.URI
+		// 		iconDensityAware : boolean (default: true)
+		// 		textDirection : sap.ui.core.TextDirection (default: Inherit)
+		// 		Events
+		// 		tap : fnListenerFunction or [fnListenerFunction, oListenerObject] or [oData, fnListenerFunction, oListenerObject]
+		// 		press : fnListenerFunction or [fnListenerFunction, oListenerObject] or [oData, fnListenerFunction, oListenerObject]
+
+		//////////////////////////////////////////////
+		// new sap.ui.commons.Button(sId?, mSettings?)
+		// text : string (default: )
+		// enabled : boolean (default: true)
+		// width : sap.ui.core.CSSSize
+		// helpId : string (default: )
+		// icon : sap.ui.core.URI (default: )
+		// iconHovered : sap.ui.core.URI (default: )
+		// iconSelected : sap.ui.core.URI (default: )
+		// iconFirst : boolean (default: true)\\\\
+		// height : sap.ui.core.CSSSize
+		// styled : boolean (default: true)
+		// lite : boolean (default: false)
+		// style : sap.ui.commons.ButtonStyle (default: Default)
+
+		tbMissions.setToolbar(new sap.ui.commons.Toolbar({
+
+			items : [ new sap.ui.commons.Button("tbMissions_Button_Add", {
+				text : "",
+				width : "30px",
+				height : "30px",
+				style : "Default",
+				icon : "sap-icon://add",
+				lite : true
+			}), new sap.ui.commons.Button({
+				text : "",
+				width : "30px",
+				height : "30px",
+				style : "Default",
+				icon : "sap-icon://edit",
+				lite : true
+			}), new sap.ui.commons.Button({
+				text : "",
+				width : "30px",
+				height : "30px",
+				style : "Default",
+				icon : "sap-icon://delete",
+				lite : true
+			}) ],
+			rightItems : [ new sap.ui.commons.MenuButton({
+				height : "30px",
+				width : "30px",
+				text : "",
+				icon : "sap-icon://menu",
+				lite : true,
+				menu : new sap.ui.unified.Menu({
+					title : "Mission",
+					enabled : true,
+					items : [ new sap.ui.commons.MenuItem({
+						text : "Run",
+						enabled : true,
+					}), new sap.ui.commons.MenuItem({
+						text : "Add",
+						enabled : true,
+					}), new sap.ui.commons.MenuItem({
+						text : "Edit",
+						enabled : true,
+					}), new sap.ui.commons.MenuItem({
+						text : "Delete",
+						enabled : true,
+					}) ]
+				}),
+				itemSelected : function(oEvent) {
+					alert("MissionitemSelected");
+				}
+			}) ]
+
+		}));
+
+		tbMissions.setWidth("40%");
+		tbMissions.getColumns()[0].setWidth("85px");
+		tbMissions.getColumns()[2].setWidth("55px");
+		tbMissions.getColumns()[1].setWidth("auto");
+
+		tbOperators.setToolbar(new sap.ui.commons.Toolbar({
+
+			items : [ new sap.ui.commons.Button({
+				text : "",
+				width : "30px",
+				height : "30px",
+				style : "Default",
+				icon : "sap-icon://add",
+				lite : true
+			}), new sap.ui.commons.Button({
+				text : "",
+				width : "30px",
+				height : "30px",
+				style : "Default",
+				icon : "sap-icon://edit",
+				lite : true
+			}), new sap.ui.commons.Button({
+				text : "",
+				width : "30px",
+				height : "30px",
+				style : "Default",
+				icon : "sap-icon://delete",
+				lite : true
+			}) ],
+			rightItems : [ new sap.ui.commons.MenuButton({
+				height : "30px",
+				width : "30px",
+				text : "",
+				icon : "sap-icon://menu",
+				lite : true,
+				menu : new sap.ui.unified.Menu({
+					title : "Operator",
+					enabled : true,
+					items : [ new sap.ui.commons.MenuItem({
+						text : "Add",
+						enabled : true,
+					}), new sap.ui.commons.MenuItem({
+						text : "Edit",
+						enabled : true,
+					}), new sap.ui.commons.MenuItem({
+						text : "Delete",
+						enabled : true,
+					}) ]
+				}),
+				itemSelected : function(oEvent) {
+					alert("menuOperatorMissionitemSelected");
+				}
+			}) ]
+
+		}));
+
+		tbOperators.setWidth("55%");
+		tbOperators.getColumns()[0].setWidth("100px");
+		tbOperators.getColumns()[1].setWidth("55px");
+		tbOperators.getColumns()[3].setWidth("150px");
+		tbOperators.getColumns()[2].setWidth("auto");
+
+		//processFlow.insertNode(node);
+		// Initialize screen
+		// 		tbOperators
+		// 				.setVisibleRowCountMode(sap.ui.table.VisibleRowCountMode.Auto);
+		// 		tbOperators
+		// 				.setVisibleRowCountMode(sap.ui.table.VisibleRowCountMode.Auto);
+		(new sap.m.Toolbar({
+			height : "255px",
+			content : [ tbMissions, new sap.m.ToolbarSpacer({
+				width : "5%"
+			}), tbOperators ]
+		})).placeAt('cprm_content');
+
+		processFlow.zoomIn();
+		(new sap.m.Toolbar({
+			height : "420px",
+			content : [ processFlow ]
+		})).placeAt('cprm_content');
+
+		addProcessFlow();
+
+	}
+
+	// ******************************************************************************************************************************************************************
+
+	function createTableMissions() { // Bind the table rows to this model
+		var timestamp = new Date().getTime();
+		url = "/XMII/Illuminator?QueryTemplate=CLEARPATH/MISSIONS/QUERIES/Get_Missions&ts="
+				+ timestamp + "&Content-Type=text/xml";
+
+		url = "mock/Get_Missions.xml"; //Mock request
+
+		xModel = new sap.ui.model.xml.XMLModel();
+		xModel.loadData(url, "", false);
+		createColumnsMissions();
+		tbMissions.setModel(xModel);
+		tbMissions.bindRows("/Rowset/Row");
+	};
+
+	// ******************************************************************************************************************************************************************
+	function createTableOperators() { // Bind the table rows to this model
+		var timestamp = new Date().getTime();
+		url = "/XMII/Illuminator?QueryTemplate=CLEARPATH/MISSIONS/QUERIES/Get_Operators&ts="
+				+ timestamp + "&Content-Type=text/xml";
+
+		url = "mock/Get_Operators.xml"; //Mock request
+		xModel = new sap.ui.model.xml.XMLModel();
+		xModel.loadData(url, "", false);
+		//alert(xModel.getXML());
+		createColumnsOperators();
+		tbOperators.setModel(xModel);
+		tbOperators.bindRows("/Rowset/Row");
+
+	};
+
+	// ******************************************************************************************************************************************************************
+	function createColumnsMissions() {
+		//Define the columns and the control templates to be used
+		tbMissions.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "STATUS"
+			}),
+			template : new sap.ui.commons.Image().bindProperty("src", "stats"),
+			// 			width : "20%",
+			hAlign : "Center"
+		}));
+		tbMissions.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : " NAME"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text",
+					"missionName"),
+			sortProperty : "missionName",
+			filterProperty : "missionName",
+		// 			width : "40%"
+		}));
+		tbMissions.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "INT"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text",
+					"missionInterval"),
+			sortProperty : "missionInterval",
+			filterProperty : "missionInterval",
+		// 			width : "auto"
+		}));
+	}
+	// ******************************************************************************************************************************************************************
+	function createColumnsOperators() {
+		//Define the columns and the control templates to be used
+
+		tbOperators.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "NAME"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text",
+					"operatorName"),
+			sortProperty : "operatorName",
+			filterProperty : "operatorName",
+		// 			width : "20%"
+		}));
+		tbOperators.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "POI"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text",
+					"operatorPos"),
+			sortProperty : "operatorPos",
+			filterProperty : "operatorPos",
+		// 			width : "20%"
+		}));
+
+		tbOperators.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "OperatorID"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text",
+					"recordID"),
+			sortProperty : "recordID",
+			filterProperty : "recordID",
+			// 			width : "20%",
+			mergeDuplicates : true
+		}));
+		tbOperators.addColumn(new sap.ui.table.Column({
+			label : new sap.ui.commons.Label({
+				text : "MissionID"
+			}),
+			template : new sap.ui.commons.TextView().bindProperty("text",
+					"missionPlantID"),
+			sortProperty : "missionPlantID",
+			filterProperty : "missionPlantID",
+			width : "auto"
+		}));
+
+	}
+	// ******************************************************************************************************************************************************************
+
+	// ******************************************************************************************************************************************************************
+
+	function addProcessFlow() {
+		////////////////////////////////////
+		// 		new sap.suite.ui.commons.ProcessFlow(sId?, mSettings?)
+		// 		Properties
+		// 		foldedCorners : boolean (default: false)
+		// 		scrollable : boolean (default: true)
+		// 		wheelZoomable : boolean (default: true)
+		// 		showLabels : boolean (default: false)
+		// 		Aggregations
+		// 		nodes : sap.suite.ui.commons.ProcessFlowNode[]
+		// 		lanes(default aggregation) : sap.suite.ui.commons.ProcessFlowLaneHeader[]
+		// 		Associations
+		// 		Events
+		// 		nodeTitlePress : fnListenerFunction or [fnListenerFunction, oListenerObject] or [oData, fnListenerFunction, oListenerObject]
+		// 		nodePress : fnListenerFunction or [fnListenerFunction, oListenerObject] or [oData, fnListenerFunction, oListenerObject]
+		// 		labelPress : fnListenerFunction or [fnListenerFunction, oListenerObject] or [oData, fnListenerFunction, oListenerObject]
+		// 		headerPress : fnListenerFunction or [fnListenerFunction, oListenerObject] or [oData, fnListenerFunction, oListenerObject]
+		// 		onError : fnListenerFunction or [fnListenerFunction, oListenerObject] or [oData, fnListenerFunction, oListenerObject]
+		/////////////////////////////////////////////////////////////////////////
+		//alert("addProcessFlow");
+
+		// 	var selectedIndex_tbMissions = -1;
+		// 	var selectedIndex_tbOperators = -1;
+
+		// 	var funNum=0;
+		//	FunNum : 0;		//user Clicking
+		//	FunNum : 1;		//go through tbMission
+		//	FunNum : 2;		//go through tbOperator /w filter
+
+		selectedIndex_tbMissions = 0;
+		//setSelectedIndex();
+		//getSelectedIndex();
+		if (tbMissions.getSelectedIndex() != 0) {
+			funNum = 1;
+			selectedIndex_tbMissions = 0;
+			tbMissions.setSelectedIndex(0);
+		} else {
+			funNum = 1;
+			selectedIndex_tbMissions = 0;
+			tbMissions.setSelectedIndex(-1);
+			tbMissions.setSelectedIndex(0);
+		}
+
+	}
+	////////////////////////////////////////////////////////////////////
+	tbOperators
+			.attachRowSelectionChange(function(oEvent) {
+				if (tbOperators.getSelectedIndex() < 0) {
+					return -1;
+				}
+
+				if (funNum == 1) {
+					s_recordID = tbOperators.getModel().getProperty("recordID",
+							oEvent.getParameter("rowContext"));
+					s_operatorName = tbOperators.getModel().getProperty(
+							"operatorName", oEvent.getParameter("rowContext"));
+					s_operatorPos = tbOperators.getModel().getProperty(
+							"operatorPos", oEvent.getParameter("rowContext"));
+					s_missionPlantID = tbOperators.getModel()
+							.getProperty("missionPlantID",
+									oEvent.getParameter("rowContext"));
+
+					if (s_recordID != null && s_operatorName != null
+							&& s_operatorPos != null) {
+
+						Lanes = processFlow.getLanes();
+						var node = null;
+						var xLanes = null;
+						// 				for (i = 0; i < Lanes.length; i++) {
+						// 					if (Lanes[i].getLaneId() == s_missionPlantID) {
+						// 						alert("getSelectedIndex : "
+						// 								+ tbOperators.getSelectedIndex()
+						// 								+ " /s_recordID : " + s_recordID
+						// 								+ " /s_operatorName : " + s_operatorName + " "
+						// 								+ s_operatorPos + "  /s_missionPlantID: "
+						// 								+ s_missionPlantID);
+						// 					}
+						// 				}
+						missionId = processFlow.getLanes()[processFlow
+								.getLanes().length - 1].getText();
+						node = new sap.suite.ui.commons.ProcessFlowNode(
+								{
+									laneId : s_missionPlantID,
+									nodeId : s_recordID,
+									title : missionId + "\n\r("
+											+ s_operatorName + " "
+											+ s_operatorPos + ")",
+									titleAbbreviation : missionId + "\n\r("
+											+ s_operatorName + " "
+											+ s_operatorPos,
+									children : null,
+									state : sap.suite.ui.commons.ProcessFlowNodeState.Positive,
+									stateText : "Status Here..",
+									focused : false,
+									texts : [ "Status1 ..", "Status2 .." ]
+								});
+
+						processFlow.insertNode(node, 999);
+
+						// 				alert("getNodes().length " + processFlow.getNodes().length);
+
+						// 				alert(processFlow.getNodes()[processFlow.getNodes().length - 2]
+						// 						.getNodeId());
+
+						processFlow.getNodes()[processFlow.getNodes().length - 2]
+								.setChildren([ s_recordID ]);
+						//funNum = 0;
+						selectedIndex_tbOperators++;
+						tbOperators.setSelectedIndex(selectedIndex_tbOperators);
+
+					} else {
+						//alert("oEvent " + oEvent);
+						//
+					}
+				}
+
+				// 		s_recordID = tbOperators.getModel().getProperty("recordID",
+				// 				oEvent.getParameter("rowContext"));
+				// 		alert(s_recordID);
+				/////////////////////////////////////////////////////////////
+				// new sap.suite.ui.commons.ProcessFlowNode(sId?, mSettings?)
+				// title : string
+				// isTitleClickable : boolean (default: false)
+				// laneId : string
+				// nodeId : string
+				// state : sap.suite.ui.commons.ProcessFlowNodeState (default: sap.suite.ui.commons.ProcessFlowNodeState.Neutral)
+				// type : sap.suite.ui.commons.ProcessFlowNodeType (default: sap.suite.ui.commons.ProcessFlowNodeType.Single)
+				// children : string[]
+				// titleAbbreviation : string
+				// stateText : string
+				// texts : string[]
+				// highlighted : boolean (default: false)
+				// focused : boolean (default: false)
+				// tag : object
+				// selected : boolean (default: false)
+			});
+	/////////////////////////////////////////////////////////////////////////////////
+	tbMissions
+			.attachRowSelectionChange(function(oEvent) {
+				if (tbMissions.getSelectedIndex() < 0) {
+					return -1;
+				}
+				// Retrieve the selected row
+				// 		var selIndex = tbMissions.getSelectedIndex();
+				// 		//alert(" tbMissions .getSelectedIndex(); "+tbMissions .getSelectedIndex());
+				// 		selectedIndex = selIndex;
+				if (funNum == 1) {
+
+					sMissionPlantID = tbMissions.getModel()
+							.getProperty("missionPlantID",
+									oEvent.getParameter("rowContext"));
+					sMissionName = tbMissions.getModel().getProperty(
+							"missionName", oEvent.getParameter("rowContext"));
+
+					if (sMissionPlantID != null && sMissionName != null) {
+
+						// 						alert("getSelectedIndex : "
+						// 								+ tbMissions.getSelectedIndex()
+						// 								+ " /sMissionPlantID : " + sMissionPlantID
+						// 								+ " /smissionName : " + sMissionName);
+
+						//addLane 
+						processFlow
+								.addLane(new sap.suite.ui.commons.ProcessFlowLaneHeader(
+										{
+											text : sMissionName,
+											iconSrc : "sap-icon://stop",
+											position : processFlow.getLanes().length,
+											laneId : sMissionPlantID,
+										}));
+						//insertNode
+						{
+							s_filter = tbMissions.getModel().getProperty(
+									"missionPlantID",
+									oEvent.getParameter("rowContext"));
+							tbOperators.sort();
+							tbOperators.filter(tbOperators.getColumns()[3],
+									s_filter);
+							selectedIndex_tbOperators = 0;
+							if (tbOperators.getSelectedIndex() != 0) {
+								tbOperators.setSelectedIndex(0);
+							} else {
+								tbOperators.setSelectedIndex(-1);
+								tbOperators.setSelectedIndex(0);
+							}
+						}
+						selectedIndex_tbMissions++;
+						tbMissions.setSelectedIndex(selectedIndex_tbMissions);
+
+						//////////////////////
+						// 				new sap.suite.ui.commons.ProcessFlowLaneHeader(sId?, mSettings?)
+						// 				Properties
+						// 				text : string
+						// 				iconSrc : sap.ui.core.URI
+						// 				position : int
+						// 				laneId : string
+						// 				state : object
+						// 				zoomLevel : sap.suite.ui.commons.ProcessFlowZoomLevel
+						// 				Aggregations
+						// 				Associations
+						// 				Events
+						// 				press : fnListenerFunction or [fnListenerFunction, oListenerObject] or [oData, fnListenerFunction, oListenerObject]
+						/////////////////////////////////////
+					} else {
+						funNum = 0;
+						selectedIndex_tbMissions = 0;
+						tbMissions.setSelectedIndex(0);
+						return;
+					}
+					//funNum = 0;
+					return;
+				}
+				if (tbMissions.getSelectedIndex() >= 0) {
+					var ss = tbMissions.getModel()
+							.getProperty("missionPlantID",
+									oEvent.getParameter("rowContext"));
+					tbOperators.sort()
+					tbOperators.filter(tbOperators.getColumns()[3], ss)
+				} else {
+
+					//alert("No Selection ..");
+				}
+			});
+
+	// ******************************************************************************************************************************************************************
+
+	// 	ADDPositions : function() {
+	// 		var _Lane = nLane;
+	// 		var lane = new sap.suite.ui.commons.ProcessFlowLaneHeader(
+	// 				{
+	// 					laneId : _Lane,
+	// 					iconSrc : "sap-icon://order-status",
+	// 					text : "Position " + _Lane,
+	// 					position : _Lane
+	// 				});
+	// 		nLane++;
+	// 		this.getView().byId("processflow1").addLane(lane);
+	// 		this.getView().byId("processflow1").updateModel();
+	// 	},
+</script>
+</head>
+
+<body onLoad="roleSecurity()">
+
+	<input id="user_roles" type="hidden" value="{IllumLoginRoles}"
+		style="display: block; width: 1000px;" readonly />
+	<input id="user_role" type="hidden" value="{ROLE}"
+		style="display: block; width: 1000px;" readonly />
+	<input id="user_name" type="hidden" value="{IllumLoginName}"
+		style="display: block; width: 1000px;" readonly />
+	<input id="user_height" type="hidden" value="{HEIGHT}"
+		style="display: block; width: 100px;" readonly />
+	<input id="user_address" type="hidden" value="{Machine}"
+		style="display: block; width: 1000px;" readonly />
+	<div id="app_header">
+		<div id="page_title">
+			<img id="logo" src="COMMON/img/logo.png" alt="logo" height="72"
+				width="273" style="margin-top: 10px;" />
+		</div>
+		<div id="app_title">MISSION MGMT</div>
+	</div>
+	<div id="cprm_content"></div>
+</body>
+</html>
