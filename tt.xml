@@ -1,126 +1,115 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Servers Version="15.0.4.11">
-    <Server Connector="AggregateConnector" ConnectorID="0" ConnectorType="AGG"
-            Description="Default Aggregate Query Server" Enabled="T" Name="AggregateConnector"
-            ServerPackage="com.sap.xmii.Illuminator.connectors.AggregateQuery"/>
-    <Server AllowDynamicQuery="1" Connector="IDBC" ConnectorID="2" ConnectorType="SQL" DatePrefix="'" DateSuffix="'"
-            DaysRetention="7" Description="CRPM database" Enabled="T" InitCommand=""
-            InternalDateFormat="yyyy-MM-dd HH:mm:ss" JDBCDriver="com.microsoft.sqlserver.jdbc.SQLServerDriver"
-            MaxRetryCount="5" Name="CLEARPATH" Password="YWRtaW4=" PoolMax="100" PoolSize="25" RetryInterval="60000"
-            ServerPackage="com.sap.xmii.Illuminator.connectors.IDBC"
-            ServerURL="jdbc:sqlserver://10.0.0.40:1433;database=CRPM" Timeout="15" UseCount="256" UserName="sa"
-            ValidationQuery="SELECT GETDATE()" WaitTime="30"/>
-    <Server CatalogInstanceName="DefaultPlantInformationCatalog" Connector="CatalogConnector" ConnectorID="25"
-            ConnectorType="PIC" Description="Default Plant Information Catalog Server" Enabled="T"
-            Name="CatalogConnector" ServerPackage="com.sap.xmii.Illuminator.connectors.ETCConnector"/>
-    <Server AllowDynamicQuery="1" Connector="IDBC" ConnectorID="2" ConnectorType="SQL" DatePrefix="'" DateSuffix="'"
-            DaysRetention="7" Description="DSHM database" Enabled="T" InitCommand=""
-            InternalDateFormat="yyyy-MM-dd HH:mm:ss" JDBCDriver="com.microsoft.sqlserver.jdbc.SQLServerDriver"
-            MaxRetryCount="5" Name="DSHM" Password="YWRtaW4=" PoolMax="100" PoolSize="25" RetryInterval="60000"
-            ServerPackage="com.sap.xmii.Illuminator.connectors.IDBC"
-            ServerURL="jdbc:sqlserver://10.0.0.40:1433;database=DSHM" Timeout="15" UseCount="256" UserName="sa"
-            ValidationQuery="SELECT GETDATE()" WaitTime="30"/>
-    <Server AllowDynamicQuery="1" Connector="IDBC" ConnectorID="2" ConnectorType="SQL" DatePrefix="'" DateSuffix="'"
-            DaysRetention="7" Description="PYXIS DANA FortWayne ASSEMBLY Database" Enabled="T" InitCommand=""
-            InternalDateFormat="yyyy-MM-dd HH:mm:ss" JDBCDriver="com.microsoft.sqlserver.jdbc.SQLServerDriver"
-            MaxRetryCount="5" Name="D_FW_11509" Password="MTFEYW5za0NvdXJ0" PoolMax="100" PoolSize="25"
-            RetryInterval="60000" ServerPackage="com.sap.xmii.Illuminator.connectors.IDBC"
-            ServerURL="jdbc:sqlserver://10.0.0.41:1433;database=Dana_FortWayne_11509" Timeout="15" UseCount="256"
-            UserName="MII_USER" ValidationQuery="SELECT GETDATE()" WaitTime="30"/>
-    <Server AllowDynamicQuery="1" Connector="IDBC" ConnectorID="2" ConnectorType="SQL" DatePrefix="'" DateSuffix="'"
-            DaysRetention="7" Description="GENM database" Enabled="T" InitCommand=""
-            InternalDateFormat="yyyy-MM-dd HH:mm:ss" JDBCDriver="com.microsoft.sqlserver.jdbc.SQLServerDriver"
-            MaxRetryCount="5" Name="GENM" Password="YWRtaW4=" PoolMax="100" PoolSize="25" RetryInterval="60000"
-            ServerPackage="com.sap.xmii.Illuminator.connectors.IDBC"
-            ServerURL="jdbc:sqlserver://10.0.0.40:1433;database=GENM" Timeout="15" UseCount="256" UserName="sa"
-            ValidationQuery="SELECT GETDATE()" WaitTime="30"/>
-    <Server AllowDynamicQuery="1" Connector="IDBC" ConnectorID="2" ConnectorType="SQL" DatePrefix="'" DateSuffix="'"
-            DaysRetention="7" Description="PLT DB database" Enabled="T" InitCommand=""
-            InternalDateFormat="yyyy-MM-dd HH:mm:ss" JDBCDriver="com.microsoft.sqlserver.jdbc.SQLServerDriver"
-            MaxRetryCount="5" Name="KL_PLT_DB" Password="YWRtaW4=" PoolMax="100" PoolSize="5" RetryInterval="60000"
-            ServerPackage="com.sap.xmii.Illuminator.connectors.IDBC"
-            ServerURL="jdbc:sqlserver://10.0.0.40:1433;database=MII_KL_PLT_PRD" Timeout="15" UseCount="256"
-            UserName="sa" ValidationQuery="SELECT GETDATE()" WaitTime="30"/>
-    <Server AllowDynamicQuery="false" Connector="KPIConnector" ConnectorID="27" ConnectorType="KPI" DatePrefix="'"
-            DateSuffix="'" DaysRetention="7" Description="Default KPI Server" Enabled="T"
-            InternalDateFormat="yyyy-MM-dd HH:mm:ss" MaxRetryCount="5" Name="KPIConnector" RetryInterval="60000"
-            ServerPackage="com.sap.xmii.Illuminator.connectors.KPI"/>
-    <Server AllowDynamicQuery="false" Connector="MDOConnector" ConnectorID="21" ConnectorType="MDO" DatePrefix="'"
-            DateSuffix="'" DaysRetention="7" Description="MDO Connector" Enabled="T"
-            InternalDateFormat="yyyy-MM-dd HH:mm:ss" MaxRetryCount="5" Name="MDOConnector" RetryInterval="60000"
-            ServerPackage="com.sap.xmii.Illuminator.connectors.MDO"/>
-    <Server AllowDynamicQuery="1" Connector="IDBC" ConnectorID="2" ConnectorType="SQL" DatePrefix="'" DateSuffix="'"
-            DaysRetention="7" Description="MES database" Enabled="T" InitCommand=""
-            InternalDateFormat="yyyy-MM-dd HH:mm:ss" JDBCDriver="com.microsoft.sqlserver.jdbc.SQLServerDriver"
-            MaxRetryCount="5" Name="MES" Password="YWRtaW4=" PoolMax="100" PoolSize="25" RetryInterval="60000"
-            ServerPackage="com.sap.xmii.Illuminator.connectors.IDBC"
-            ServerURL="jdbc:sqlserver://10.0.0.40:1433;database=MES" Timeout="15" UseCount="256" UserName="sa"
-            ValidationQuery="SELECT GETDATE()" WaitTime="30"/>
-    <Server AllowDynamicQuery="1" Connector="IDBC" ConnectorID="2" ConnectorType="SQL" DatePrefix="'" DateSuffix="'"
-            DaysRetention="7" Description="MESM database" Enabled="T" InitCommand=""
-            InternalDateFormat="yyyy-MM-dd HH:mm:ss" JDBCDriver="com.microsoft.sqlserver.jdbc.SQLServerDriver"
-            MaxRetryCount="5" Name="MESM" Password="YWRtaW4=" PoolMax="100" PoolSize="25" RetryInterval="60000"
-            ServerPackage="com.sap.xmii.Illuminator.connectors.IDBC"
-            ServerURL="jdbc:sqlserver://10.0.0.40:1433;database=MESM" Timeout="15" UseCount="256" UserName="sa"
-            ValidationQuery="SELECT GETDATE()" WaitTime="30"/>
-    <Server AgentIP="sappco15" AgentName="MES_STA_2310" AgentPort="9002" CertificateKeyStore="" CertificateName=""
-            Connector="PCoConnector" ConnectorID="22" ConnectorType="PCo" DatePrefix="'" DateSuffix="'"
-            DaysRetention="7" Description="Duplicate L63B PLC local" Enabled="T"
-            InternalDateFormat="yyyy-MM-dd HH:mm:ss" MaxRetryCount="5" Name="MES_STA_2310"
-            PCoMgmtServicePassword="MTFEYW5za0NvdXJ0" PCoMgmtServiceURL="http://SAPPCO15:50050/PCoManagement"
-            PCoMgmtServiceUser="MII_PCO" QueryTimeout="60" RetryInterval="60000"
-            ServerPackage="com.sap.xmii.Illuminator.connectors.PCo" UseSSL="false" WebSocketPort="" Writable="true"/>
-    <Server AgentIP="sappco15" AgentName="MES_Sta_XX_TRACE" AgentPort="9001" CertificateKeyStore="" CertificateName=""
-            Connector="PCoConnector" ConnectorID="22" ConnectorType="PCo" DatePrefix="'" DateSuffix="'"
-            DaysRetention="7" Description="Trace Station L63B PLC Local" Enabled="T"
-            InternalDateFormat="yyyy-MM-dd HH:mm:ss" MaxRetryCount="5" Name="MES_Sta_XX_TRACE"
-            PCoMgmtServicePassword="MTFEYW5za0NvdXJ0" PCoMgmtServiceURL="http://SAPPCO15:50050/PCoManagement"
-            PCoMgmtServiceUser="MII_PCO" QueryTimeout="60" RetryInterval="60000"
-            ServerPackage="com.sap.xmii.Illuminator.connectors.PCo" UseSSL="false" WebSocketPort="" Writable="true"/>
-    <Server AllowDynamicQuery="1" Connector="IDBC" ConnectorID="2" ConnectorType="SQL" DatePrefix="'" DateSuffix="'"
-            DaysRetention="7" Description="NRG DB at 10.0.0.40 with SA user" Enabled="T" InitCommand=""
-            InternalDateFormat="yyyy-MM-dd HH:mm:ss" JDBCDriver="com.microsoft.sqlserver.jdbc.SQLServerDriver"
-            MaxRetryCount="5" Name="NRG" Password="YWRtaW4=" PoolMax="100" PoolSize="10" RetryInterval="60000"
-            ServerPackage="com.sap.xmii.Illuminator.connectors.IDBC"
-            ServerURL="jdbc:sqlserver://10.0.0.40:1433;database=NRGM" Timeout="15" UseCount="256" UserName="sa"
-            ValidationQuery="SELECT GETDATE()" WaitTime="30"/>
-    <Server AllowDynamicQuery="1" Connector="IDBC" ConnectorID="2" ConnectorType="SQL" DatePrefix="'" DateSuffix="'"
-            DaysRetention="7" Description="OEEM database" Enabled="T" InitCommand=""
-            InternalDateFormat="yyyy-MM-dd HH:mm:ss" JDBCDriver="com.microsoft.sqlserver.jdbc.SQLServerDriver"
-            MaxRetryCount="5" Name="OEEM" Password="YWRtaW4=" PoolMax="100" PoolSize="25" RetryInterval="60000"
-            ServerPackage="com.sap.xmii.Illuminator.connectors.IDBC"
-            ServerURL="jdbc:sqlserver://10.0.0.40:1433;database=OEEM" Timeout="15" UseCount="256" UserName="sa"
-            ValidationQuery="SELECT GETDATE()" WaitTime="30"/>
-    <Server AllowDynamicQuery="1" Connector="IDBC" ConnectorID="2" ConnectorType="SQL" DatePrefix="'" DateSuffix="'"
-            DaysRetention="7" Description="OPERATORS Plant 1001 - SPCM Database" Enabled="T" InitCommand=""
-            InternalDateFormat="yyyy-MM-dd HH:mm:ss" JDBCDriver="com.microsoft.sqlserver.jdbc.SQLServerDriver"
-            MaxRetryCount="5" Name="OPS_1001" Password="YWRtaW4=" PoolMax="100" PoolSize="15" RetryInterval="60000"
-            ServerPackage="com.sap.xmii.Illuminator.connectors.IDBC"
-            ServerURL="jdbc:sqlserver://10.0.0.35:1433;database=RTS_SPCM" Timeout="15" UseCount="256" UserName="sa"
-            ValidationQuery="SELECT GETDATE()" WaitTime="30"/>
-    <Server Connector="PCoSimulator" ConnectorID="28" ConnectorType="PCo" Description="Default PCo Simulation Server"
-            Enabled="T" Name="PCoSimulator" ServerPackage="com.sap.xmii.Illuminator.connectors.Simulator"
-            SimulatorInstanceName="DefaultPCoSimulator"/>
-    <Server AllowDynamicQuery="1" Connector="IDBC" ConnectorID="2" ConnectorType="SQL" DatePrefix="'" DateSuffix="'"
-            DaysRetention="7" Description="SPCM database" Enabled="T" InitCommand=""
-            InternalDateFormat="yyyy-MM-dd HH:mm:ss" JDBCDriver="com.microsoft.sqlserver.jdbc.SQLServerDriver"
-            MaxRetryCount="5" Name="SPCM" Password="YWRtaW4=" PoolMax="100" PoolSize="25" RetryInterval="60000"
-            ServerPackage="com.sap.xmii.Illuminator.connectors.IDBC"
-            ServerURL="jdbc:sqlserver://10.0.0.40:1433;database=SPCM" Timeout="15" UseCount="256" UserName="sa"
-            ValidationQuery="SELECT GETDATE()" WaitTime="30"/>
-    <Server Connector="Simulator" ConnectorID="9" ConnectorType="TAG" Description="Default Simulation Server"
-            Enabled="T" Name="Simulator" ServerPackage="com.sap.xmii.Illuminator.connectors.Simulator"
-            SimulatorInstanceName="DefaultSimulator"/>
-    <Server AllowDynamicQuery="1" Connector="IDBC" ConnectorID="2" ConnectorType="SQL" DatePrefix="'" DateSuffix="'"
-            DaysRetention="7" Description="Test Bed Module Database" Enabled="T" InitCommand=""
-            InternalDateFormat="yyyy-MM-dd HH:mm:ss" JDBCDriver="com.microsoft.sqlserver.jdbc.SQLServerDriver"
-            MaxRetryCount="5" Name="TSTM" Password="YWRtaW4=" PoolMax="100" PoolSize="25" RetryInterval="60000"
-            ServerPackage="com.sap.xmii.Illuminator.connectors.IDBC"
-            ServerURL="jdbc:sqlserver://10.0.0.40:1433;database=TSTM" Timeout="15" UseCount="256" UserName="sa"
-            ValidationQuery="SELECT GETDATE()" WaitTime="30"/>
-    <Server Connector="XMLConnector" ConnectorID="11" ConnectorType="XML" Description="Default XMLConnector Server"
-            Enabled="T" Name="XMLConnector" ServerPackage="com.sap.xmii.Illuminator.connectors.XML"/>
-    <Server AutoBind="true" Connector="XacuteConnector" ConnectorID="12" ConnectorType="XCT"
-            Description="Illuminator Xacute" Enabled="T" Name="XacuteConnector"
-            ServerPackage="com.sap.xmii.Illuminator.connectors.Xacute"/>
-</Servers>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+--><!-- Note:  A "Server" is not itself a "Container", so you may not
+     define subcomponents such as "Valves" at this level.
+     Documentation at /docs/config/server.html
+ -->
+<Server>
+    <!--APR library loader. Documentation at /docs/apr.html
+    <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on" />-->
+    <!--Initialize Jasper prior to webapps are loaded. Documentation at /docs/jasper-howto.html -->
+    <Listener className="org.apache.catalina.core.JasperListener"/>
+    <!-- Prevent memory leaks due to use of particular java/javax APIs-->
+    <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener"/>
+    <Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener"/>
+
+    <!-- Global JNDI resources
+         Documentation at /docs/jndi-resources-howto.html
+    -->
+    <GlobalNamingResources>
+        <!-- Editable user database that can also be used by
+             UserDatabaseRealm to authenticate users
+        -->
+        <Resource auth="Container" description="User database that can be updated and saved"
+                  factory="org.apache.catalina.users.MemoryUserDatabaseFactory" name="UserDatabase"
+                  pathname="config/users.xml" type="org.apache.catalina.UserDatabase"/>
+    </GlobalNamingResources>
+
+    <!-- A "Service" is a collection of one or more "Connectors" that share
+         a single "Container" Note:  A "Service" is not itself a "Container",
+         so you may not define subcomponents such as "Valves" at this level.
+         Documentation at /docs/config/service.html
+     -->
+    <Service name="Catalina">
+
+        <!--The connectors can use a shared executor, you can define one or more named thread pools-->
+        <!--
+        <Executor name="tomcatThreadPool" namePrefix="catalina-exec-"
+            maxThreads="150" minSpareThreads="4"/>
+        -->
+
+
+        <!-- A "Connector" represents an endpoint by which requests are received
+             and responses are returned. Documentation at :
+             Java HTTP Connector: /docs/config/http.html (blocking & non-blocking)
+             Java AJP  Connector: /docs/config/ajp.html
+             APR (HTTP/AJP) Connector: /docs/apr.html
+             Define a non-SSL HTTP/1.1 Connector on port 8080
+        -->
+        <!-- <Connector connectionTimeout="20000" port="8080" protocol="HTTP/1.1" redirectPort="8443"/> -->
+
+        <!-- Define a SSL HTTP/1.1 Connector on port 8443
+             This connector uses the JSSE configuration, when using APR, the
+             connector should be using the OpenSSL style configuration
+             described in the APR documentation -->
+        <!-- add a list of secure ciphers that work with your JCE implementation,
+             e.g. the JCE implementation of SAP JVM 7.1 will work with the following settings:
+             ciphers="TLS_RSA_WITH_AES_128_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA256,TLS_DHE_RSA_WITH_AES_128_CBC_SHA,TLS_DHE_RSA_WITH_AES_128_CBC_SHA256,TLS_DHE_DSS_WITH_AES_128_CBC_SHA,TLS_DHE_DSS_WITH_AES_128_CBC_SHA256" -->
+        <Connector SSLEnabled="true" clientAuth="want"
+                   compressableMimeType="text/html,text/xml,text/plain,text/javascript,text/css,text/json,application/x-javascript,application/javascript,application/json"
+                   compression="on" compressionMinSize="1024" keyAlias="tomcat" keyPass="${jks.password}"
+                   keystoreFile="config/ks.store" keystorePass="${jks.password}" maxThreads="150"
+                   noCompressionUserAgents="gozilla,traviata,*MSIE 6.*" port="8443" protocol="HTTP/1.1" scheme="https"
+                   secure="true" sslProtocol="TLS" truststoreFile="config/ks.store" truststorePass="${jks.password}"/>
+
+        <!-- Define an AJP 1.3 Connector on port 8009 -->
+        <!-- <Connector port="8443" protocol="AJP/1.3" redirectPort="8443"/> -->
+
+        <!-- An Engine represents the entry point (within Catalina) that processes
+             every request.  The Engine implementation for Tomcat stand alone
+             analyzes the HTTP headers included with the request, and passes them
+             on to the appropriate Host (virtual host).
+             Documentation at /docs/config/engine.html -->
+
+        <Engine defaultHost="localhost" name="Catalina">
+            <Realm className="org.apache.catalina.realm.LockOutRealm">
+                <Realm className="org.apache.catalina.realm.CombinedRealm">
+                    <Realm X509UsernameRetrieverClassName="com.sap.scc.tomcat.utils.SccX509SubjectDnRetriever"
+                           className="org.apache.catalina.realm.UserDatabaseRealm" digest="SHA-256"
+                           resourceName="UserDatabase"/>
+                    <Realm X509UsernameRetrieverClassName="com.sap.scc.tomcat.utils.SccX509SubjectDnRetriever"
+                           className="org.apache.catalina.realm.UserDatabaseRealm" digest="SHA-1"
+                           resourceName="UserDatabase"/>
+                </Realm>
+            </Realm>
+
+            <Host appBase="webapps" autoDeploy="false" name="localhost" unpackWARs="false">
+
+                <!-- Access log processes all example.
+                     Documentation at: /docs/config/valve.html
+                     Note: The pattern used is equivalent to using pattern="common" -->
+                <Valve buffered="true" className="org.apache.catalina.valves.AccessLogValve" directory="log"
+                       fileDateFormat="yyyy-MM-dd"
+                       pattern="%h %l %u %{[yyyy-MM-dd HH:mm:ss,SSS Z]}t &quot;%r&quot; %s %b %D"
+                       prefix="localhost_http_access_" resolveHosts="false" rotatable="true" suffix=".log"/>
+
+                <!-- Ensure that Tomcat version is not shown in error info -->
+                <Valve className="org.apache.catalina.valves.ErrorReportValve" showServerInfo="false"/>
+            </Host>
+        </Engine>
+    </Service>
+</Server>

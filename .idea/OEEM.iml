@@ -16,5 +16,6 @@
     <orderEntry type="library" name="solid-gauge" level="application" />
     <orderEntry type="library" name="map" level="application" />
     <orderEntry type="library" name="drilldown" level="application" />
+    <orderEntry type="library" name="OpenUI5" level="application" />
   </component>
 </module>

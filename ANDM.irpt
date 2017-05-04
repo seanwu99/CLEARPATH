@@ -1033,7 +1033,7 @@
         }
 
         function chartProductionData(data) {
-            // alert(data);
+//            alert(data);
             if (highChartSample1 != null && !sized && (highChartSample2.series.length == data.length)) {
                 $.each(highChartSample1.series, function (i, _series) {
                     highChartSample1.series[i].update({
