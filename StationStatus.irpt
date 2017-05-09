@@ -1079,7 +1079,9 @@
 
             if (alertBtn == false) {
                 var url = "/XMII/Illuminator?QueryTemplate=MESM/STATIONS_HMI/QUERIES/alertOpen&Param.1=" + UnitID + "&Content-Type=text/xml";
+//                alert(url);
                 getData(url, parseJsonParent);
+
                 function parseJsonParent(jsondata) {
                     alertBtn = true;
                     showButton(UnitID);
@@ -1090,6 +1092,7 @@
                 //                document.getElementById("colorButtonText").innerHTML = "Alerts OFF";
             } else {
                 var url = "/XMII/Illuminator?QueryTemplate=MESM/STATIONS_HMI/QUERIES/alertClose&Param.1=" + UnitID + "&Content-Type=text/xml";
+//                alert(url);
                 getData(url, parseJsonParent);
                 function parseJsonParent(jsondata) {
                     alertBtn = false;
