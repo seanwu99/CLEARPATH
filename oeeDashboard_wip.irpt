@@ -541,14 +541,13 @@
                 }
             }
 
-            chartOeeTrendLoad("Oee Trend");
-            chartSixBigLossesLoad("Six Big Losses");
-            chartChronologicalLoad("Chronological");
             document.getElementById('Target').innerHTML = "<div class=\"huge\">Target: " + target + " / 9999</div>";
             document.getElementById('Downtime').innerHTML = "Downtime: 00:00:00 / " + (new Date(dtAcc)).toISOString().substr(11, 8);
 
-
-            lossChartsInit();
+            chartOeeTrendInit(null, "Oee Trend");
+            chartSixBigLossesInit(null, "Six Big Losses");
+            chartChronologicalInit(null, "Chronological");
+            chartsWellInit();
         }
         // ******************************************************************************************************************************************************************
         /*
@@ -1349,13 +1348,6 @@
             document.getElementById('oeePerformance').innerHTML = _performance + "%";
             document.getElementById('oeeQuality').innerHTML = _quality + "%";
 
-//      document.getElementById('iloss0').innerHTML = simSixBigLosses(true, 0);
-//      document.getElementById('SETUPANDADJUSTMENTS').innerHTML = simSixBigLosses(true);
-//      document.getElementById('IDLINGANDMINORSTOPS').innerHTML = simSixBigLosses(true);
-//      document.getElementById('REDUCEDSPEED').innerHTML = simSixBigLosses(true);
-//      document.getElementById('PROCESSDEFECTS').innerHTML = simSixBigLosses(false);
-//      document.getElementById('REDUCEDYIELD').innerHTML = simSixBigLosses(false);
-//      cc(cLoss[0].series[0].data[0].y);
             for (var n = 0; n < 6; n++) {
                 var dd = [0, 0, 0, 0, 0, 0, 0, 0, 0];
                 for (var m = 0; m < 8; m++) {
@@ -1363,18 +1355,55 @@
                 }
                 dd[8] = 10 + Math.round((Math.random() * 20));
                 if (dd[8] < dd[7]) {
-                    document.getElementById('iloss' + n).innerHTML = simSixBigLosses(true, 0, dd[8]);
+                    document.getElementById('iloss' + n).innerHTML = mockSixBigLosses(true, 0, dd[8]);
                 }
                 else {
-                    document.getElementById('iloss' + n).innerHTML = simSixBigLosses(true, 1, dd[8]);
+                    document.getElementById('iloss' + n).innerHTML = mockSixBigLosses(true, 1, dd[8]);
                 }
                 cLoss[n].series[0].setData(dd);
             }
         }, 3000);
 
 
-        function chartChronologicalInit(_title) {
-            chartChronological = Highcharts.chart('chartChronological', {
+        function chartOeeTrendInit(_series, _title) {
+
+            //mockData
+            var a, p, q;
+            var OEE = [];
+            var Availability = [];
+            var Performance = [];
+            var Quality = [];
+            var n = 1;
+            var tm = new Date().getTime() - n * 1000;
+            for (var i = 0; i < n; i++) {
+                tm += i * 1000;
+                a = 85 + Math.round((Math.random() * 14));
+                p = 85 + Math.round((Math.random() * 14));
+                q = 85 + Math.round((Math.random() * 14));
+                Availability.push([tm, a]);
+                Performance.push([tm, p]);
+                Quality.push([tm, q]);
+                OEE.push([tm, a * p * q / 10000]);
+            }
+            var chartSeries = [];
+            chartSeries.push({
+                name: 'OEE',
+                data: OEE
+            });
+            chartSeries.push({
+                name: 'Availability',
+                data: Availability
+            });
+            chartSeries.push({
+                name: 'Performance',
+                data: Performance
+            });
+            chartSeries.push({
+                name: 'Quality',
+                data: Quality
+            });
+
+            chartOeeTrend = new Highcharts.stockChart('chartOeeTrend', {
                 credits: {
                     enabled: false,
                     href: 'http://www.rtsperfectplant.com/',
@@ -1392,7 +1421,7 @@
                     text: 'RTS Consulting Inc.'
                 },
                 title: {
-                    text: "Chronological Production Timeline of Shift 1",
+                    text: _title,
                     style: {
                         display: 'none'
                     }
@@ -1407,103 +1436,101 @@
                         display: 'none'
                     }
                 },
+
                 chart: {
-                    type: 'pie',
-                    options3d: {
-                        enabled: true,
-                        alpha: 60
-                    },
-                    margin: [0, 0, 0, 0],
-                    width: 600,
-                    height: 400,
-                },
-                plotOptions: {
-                    pie: {
-                        innerSize: 150,
-                        depth: 45
+                    type: 'spline',
+                    margin: [0, 90, 0, 90],
+                    events: {
+                        load: function () {
+                            // 					alert('load');
+                        }
                     }
                 },
-                series: [{
-                    name: 'During',
-                    data: [
-                        {name: 'Tooling Failure', y: 4320},
-                        {name: 'Unplanned Maint', y: 2730},
-                        {name: 'Equipment Failure', y: 1845},
-                        {name: 'Setup', y: 2025},
-                        {name: 'Changeover', y: 705},
-                        {name: 'WarmUp Time', y: 9045},
-                        {name: 'Obstructed Flow', y: 3345},
-                        {name: 'Misfeeds', y: 2085},
-                        {name: 'Sensor Blocked', y: 1425},
-                    ],
-//          data: [
-//            {name: 'Break Time (12:00PM)', y: 15, color: '#337ab7'},
-//            {name: 'Running', y: 25, color: '#5cb85c'},
-//            {name: 'Tooling Failure', y: 3, color: '#d9534f'},
-//            {name: 'Running', y: 32, color: '#5cb85c'},
-//            {name: 'Equipment Failure', y: 3, color: '#d9534f'},
-//            {name: 'Running', y: 17, color: '#5cb85c'},
-//            {name: 'Misfeeds', y: 13, color: '#f0ad4e'},
-//            {name: 'Running', y: 17, color: '#5cb85c'},
-//            {name: '', y: 240, color: '#ffffff'},
-//            {name: 'Changeover (6:00AM)', y: 10, color: '#f0ad4e'},
-//            {name: 'Running', y: 30, color: '#5cb85c'},
-//            {name: 'Material Shortage', y: 17, color: '#f0ad4e'},
-//            {name: 'Running', y: 23, color: '#5cb85c'},
-//            {name: 'Sensor Blocked', y: 3, color: '#d9534f'},
-//            {name: 'Running', y: 37, color: '#5cb85c'},
-//            {name: 'Break Time (8:00AM)', y: 15, color: '#337ab7'},
-//            {name: 'Running', y: 25, color: '#5cb85c'},
-//            {name: 'Sensor Blocked', y: 3, color: '#d9534f'},
-//            {name: 'Running', y: 52, color: '#5cb85c'},
-//            {name: 'Sensor Blocked', y: 3, color: '#d9534f'},
-//            {name: 'Running', y: 22, color: '#5cb85c'},
-//            {name: 'Meal Time (10:00AM)', y: 30, color: '#337ab7'},
-//            {name: 'Running', y: 10, color: '#5cb85c'},
-//            {name: 'Sensor Blocked', y: 3, color: '#d9534f'},
-//            {name: 'Running', y: 47, color: '#5cb85c'},
-//            {name: 'Operator Shortage', y: 7, color: '#f0ad4e'},
-//            {name: 'Running', y: 23, color: '#5cb85c'},
-//          ]
-                }]
+                colors: [
+                    '#d9534f',//'#90ed7d',
+                    '#5cb85c',//'#7cb5ec',
+                    '#f0ad4e',//'#f7a35c',
+                    '#2f71aa',//'#888888'
+                ],
+                legend: {
+                    enabled: true,
+                    align: "center",
+                    verticalAlign: "bottom",
+                    shadow: false,
+                },
+                rangeSelector: {
+                    buttons: [{
+                        type: 'minute',
+                        count: 1,
+                        text: 'm.'
+                    }, {
+                        type: 'hour',
+                        count: 1,
+                        text: 'H'
+                    }, {
+                        type: 'hour',
+                        count: 8,
+                        text: 'S'
+                    }, {
+                        type: 'day',
+                        count: 1,
+                        text: 'D'
+                    }, {
+                        type: 'week',
+                        count: 1,
+                        text: 'W'
+                    }, {
+                        type: 'month',
+                        count: 1,
+                        text: 'M'
+                    }, {
+                        type: 'month',
+                        count: 3,
+                        text: 'Q'
+                    }, {
+                        type: 'year',
+                        count: 12,
+                        text: 'Y'
+                    }, {
+                        type: 'all',
+                        text: 'All'
+                    }],
+                    selected: 7
+                },
+
+                yAxis: {
+                    min: 50,
+                    max: 100,
+                    title: {
+                        text: 'yAxis',
+                        enabled: false,
+                    },
+                    labels: {
+                        enabled: true,
+                        formatter: function () {
+//              return (this.value > 0 ? ' + ' : '') + this.value + '%';
+                            return this.value + '%';
+                        }
+                    },
+                    plotLines: [{
+                        value: 0,
+                        width: 2,
+                        color: 'silver'
+                    }]
+                },
+
+                tooltip: {
+                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> (%)<br/>',
+                    valueDecimals: 2,
+                    split: false
+                },
+                navigator: {
+                    enabled: true
+                },
+                series: chartSeries
             });
 
-
         }
-        //    function simSixBigLosses(t) {
-        //      if (t) {
-        //        return "<ul><li><h4><span class=\"label " +
-        //          (Math.random() > .5 ? 'label-success\">The loss decreased at  ' : 'label-danger\">The loss increased at ') +
-        //          " " + Math.round(5 + (Math.random() * 30)) + "% " +
-        //          "over the selected time period</span></h4></li>" +
-        //          "<li>The sum of time loss is <span class=\"badge\">" +
-        //          " " + ( new Date(30 * 60 * 1000 + Math.random() * 50 * 60 * 1000)).toISOString().substr(11, 8) +
-        //          "</span></li></ul>";
-        //      } else {
-        //        return "<ul><li><h4><span class=\"label " +
-        //          (Math.random() > .5 ? 'label-success\">The loss decreased at  ' : 'label-danger\">The loss increased at ') +
-        //          " " + Math.round(5 + (Math.random() * 30)) + "% " +
-        //          "over the selected time period</span></h4></li>" +
-        //          "<li>The sum of time loss is <span class=\"badge\">" +
-        //          " " + ( new Date(30 * 60 * 1000 + Math.random() * 50 * 60 * 1000)).toISOString().substr(11, 8) +
-        //          "</span></li></ul>";
-        //      }
-        //    }
-        function simSixBigLosses(t, d, v) {
-
-            return "" + ((d == 1) ? "<li>This loss increased at a rate of <span class=\"label label-danger pull-right" : "<li>This loss decreased at a rate of <span class=\"label label-success pull-right") +
-                "\" style=\"font-size: 14px\">" +
-                v + "%" +
-                "</span></li><li>Occurrences " +
-                "<span class=\"badge badge-default\" style=\"font-size: 14px\">" +
-                Math.round(10 + (Math.random() * 100)) +
-                "</span>" +
-                ", Totalizer " +
-                "<span class=\"label label-default pull-right\" style=\"font-size: 14px\">" +
-                (new Date(Math.random() * 200000)).toISOString().substr(11, 8) +
-                "</span></li>";
-        }
-
         function chartSixBigLossesInit(_series, _title) {
             chartSixBigLosses = Highcharts.chart('chartSixBigLosses', {
                 chart: {
@@ -1638,9 +1665,8 @@
 
 
         }
-        function chartOeeTrendInit(_series, _title) {
-
-            chartOeeTrend = new Highcharts.stockChart('chartOeeTrend', {
+        function chartChronologicalInit(_series, _title) {
+            chartChronological = Highcharts.chart('chartChronological', {
                 credits: {
                     enabled: false,
                     href: 'http://www.rtsperfectplant.com/',
@@ -1658,7 +1684,7 @@
                     text: 'RTS Consulting Inc.'
                 },
                 title: {
-                    text: _title,
+                    text: "Chronological Production Timeline of Shift 1",
                     style: {
                         display: 'none'
                     }
@@ -1673,160 +1699,78 @@
                         display: 'none'
                     }
                 },
-
                 chart: {
-                    type: 'spline',
-                    margin: [0, 90, 0, 90],
-                    events: {
-                        load: function () {
-                            // 					alert('load');
-                        }
+                    type: 'pie',
+                    options3d: {
+                        enabled: true,
+                        alpha: 60
+                    },
+                    margin: [0, 0, 0, 0],
+                    width: 600,
+                    height: 400,
+                },
+                plotOptions: {
+                    pie: {
+                        innerSize: 150,
+                        depth: 45
                     }
                 },
-                colors: [
-                    '#d9534f',//'#90ed7d',
-                    '#5cb85c',//'#7cb5ec',
-                    '#f0ad4e',//'#f7a35c',
-                    '#2f71aa',//'#888888'
-                ],
-                legend: {
-                    enabled: true,
-                    align: "center",
-                    verticalAlign: "bottom",
-                    shadow: false,
-                },
-                rangeSelector: {
-                    buttons: [{
-                        type: 'minute',
-                        count: 1,
-                        text: 'm.'
-                    }, {
-                        type: 'hour',
-                        count: 1,
-                        text: 'H'
-                    }, {
-                        type: 'hour',
-                        count: 8,
-                        text: 'S'
-                    }, {
-                        type: 'day',
-                        count: 1,
-                        text: 'D'
-                    }, {
-                        type: 'week',
-                        count: 1,
-                        text: 'W'
-                    }, {
-                        type: 'month',
-                        count: 1,
-                        text: 'M'
-                    }, {
-                        type: 'month',
-                        count: 3,
-                        text: 'Q'
-                    }, {
-                        type: 'year',
-                        count: 12,
-                        text: 'Y'
-                    }, {
-                        type: 'all',
-                        text: 'All'
-                    }],
-                    selected: 7
-                },
-
-                yAxis: {
-                    min: 50,
-                    max: 100,
-                    title: {
-                        text: 'yAxis',
-                        enabled: false,
-                    },
-                    labels: {
-                        enabled: true,
-                        formatter: function () {
-//              return (this.value > 0 ? ' + ' : '') + this.value + '%';
-                            return this.value + '%';
-                        }
-                    },
-                    plotLines: [{
-                        value: 0,
-                        width: 2,
-                        color: 'silver'
-                    }]
-                },
-
-                tooltip: {
-                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> (%)<br/>',
-                    valueDecimals: 2,
-                    split: false
-                },
-                navigator: {
-                    enabled: true
-                },
-                series: _series
+                series: [{
+                    name: 'During',
+                    data: [
+                        {name: 'Tooling Failure', y: 4320},
+                        {name: 'Unplanned Maint', y: 2730},
+                        {name: 'Equipment Failure', y: 1845},
+                        {name: 'Setup', y: 2025},
+                        {name: 'Changeover', y: 705},
+                        {name: 'WarmUp Time', y: 9045},
+                        {name: 'Obstructed Flow', y: 3345},
+                        {name: 'Misfeeds', y: 2085},
+                        {name: 'Sensor Blocked', y: 1425},
+                    ],
+//          data: [
+//            {name: 'Break Time (12:00PM)', y: 15, color: '#337ab7'},
+//            {name: 'Running', y: 25, color: '#5cb85c'},
+//            {name: 'Tooling Failure', y: 3, color: '#d9534f'},
+//            {name: 'Running', y: 32, color: '#5cb85c'},
+//            {name: 'Equipment Failure', y: 3, color: '#d9534f'},
+//            {name: 'Running', y: 17, color: '#5cb85c'},
+//            {name: 'Misfeeds', y: 13, color: '#f0ad4e'},
+//            {name: 'Running', y: 17, color: '#5cb85c'},
+//            {name: '', y: 240, color: '#ffffff'},
+//            {name: 'Changeover (6:00AM)', y: 10, color: '#f0ad4e'},
+//            {name: 'Running', y: 30, color: '#5cb85c'},
+//            {name: 'Material Shortage', y: 17, color: '#f0ad4e'},
+//            {name: 'Running', y: 23, color: '#5cb85c'},
+//            {name: 'Sensor Blocked', y: 3, color: '#d9534f'},
+//            {name: 'Running', y: 37, color: '#5cb85c'},
+//            {name: 'Break Time (8:00AM)', y: 15, color: '#337ab7'},
+//            {name: 'Running', y: 25, color: '#5cb85c'},
+//            {name: 'Sensor Blocked', y: 3, color: '#d9534f'},
+//            {name: 'Running', y: 52, color: '#5cb85c'},
+//            {name: 'Sensor Blocked', y: 3, color: '#d9534f'},
+//            {name: 'Running', y: 22, color: '#5cb85c'},
+//            {name: 'Meal Time (10:00AM)', y: 30, color: '#337ab7'},
+//            {name: 'Running', y: 10, color: '#5cb85c'},
+//            {name: 'Sensor Blocked', y: 3, color: '#d9534f'},
+//            {name: 'Running', y: 47, color: '#5cb85c'},
+//            {name: 'Operator Shortage', y: 7, color: '#f0ad4e'},
+//            {name: 'Running', y: 23, color: '#5cb85c'},
+//          ]
+                }]
             });
 
-            ChartType = 'OeeTrend';
-            chartReady = true;
+
         }
-        function chartSixBigLossesLoad(_title) {
-            var chartSeries = null;
-            chartSixBigLossesInit(chartSeries, _title);
-        }
-        function chartChronologicalLoad(_title) {
-            chartChronologicalInit(_title);
-        }
-        function chartOeeTrendLoad(_title) {
-            var a, p, q;
-            var OEE = [];
-            var Availability = [];
-            var Performance = [];
-            var Quality = [];
-            var n = 1;
-            var tm = new Date().getTime() - n * 1000;
-            for (var i = 0; i < n; i++) {
-                tm += i * 1000;
-                a = 85 + Math.round((Math.random() * 14));
-                p = 85 + Math.round((Math.random() * 14));
-                q = 85 + Math.round((Math.random() * 14));
-                Availability.push([tm, a]);
-                Performance.push([tm, p]);
-                Quality.push([tm, q]);
-                OEE.push([tm, a * p * q / 10000]);
-            }
-            var chartSeries = [];
-            chartSeries.push({
-                name: 'OEE',
-                data: OEE
-            });
-            chartSeries.push({
-                name: 'Availability',
-                data: Availability
-            });
-            chartSeries.push({
-                name: 'Performance',
-                data: Performance
-            });
-            chartSeries.push({
-                name: 'Quality',
-                data: Quality
-            });
-            chartReady = false;
-            chartOeeTrendInit(chartSeries, _title);
-        }
-
-
-        function lossChartsInit() {
-            cc('lossChartsInit');
+        function chartsWellInit() {
             for (var n = 0; n < 6; n++) {
                 dLoss[n] = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
                 for (var m = 0; m <= 8; m++) {
                     dLoss[n][m] = 10 + Math.round((Math.random() * 20));
                 }
-                cc(n);
-                cc(dLoss[n]);
+//                cc(n);
+//                cc(dLoss[n]);
                 cLoss[n] = Highcharts.chart('loss' + n, {
                     chart: {
                         borderWidth: 0,
@@ -1911,8 +1855,22 @@
                         data: dLoss[n]
                     }],
                 });
-                cc(cLoss[n]);
+//                cc(cLoss[n]);
             }
+        }
+        function mockSixBigLosses(t, d, v) {
+
+            return "" + ((d == 1) ? "<li>This loss increased at a rate of <span class=\"label label-danger pull-right" : "<li>This loss decreased at a rate of <span class=\"label label-success pull-right") +
+                "\" style=\"font-size: 14px\">" +
+                v + "%" +
+                "</span></li><li>Occurrences " +
+                "<span class=\"badge badge-default\" style=\"font-size: 14px\">" +
+                Math.round(10 + (Math.random() * 100)) +
+                "</span>" +
+                ", Totalizer " +
+                "<span class=\"label label-default pull-right\" style=\"font-size: 14px\">" +
+                (new Date(Math.random() * 200000)).toISOString().substr(11, 8) +
+                "</span></li>";
         }
 
         function cc(obj) {
@@ -2054,7 +2012,6 @@
                         </div>
 
                         <div id="Target" class="col-xs-11 text-right">
-                            <!--<div class="huge">Target: 3890 / 9999</div>-->
                         </div>
                     </div>
                 </div>
@@ -2081,7 +2038,6 @@
     <div class="panel-group" id="accordion">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <!--<h4 class="panel-title">-->
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
                     <i class="fa fa-area-chart"></i>
                     All seeing. All knowing.
@@ -2091,14 +2047,12 @@
             <div id="collapse4" class="panel-collapse collapse">
                 <div class="panel-body">
                     <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                        <!-- Indicators -->
                         <ol class="carousel-indicators">
                             <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
                             <li data-target="#myCarousel" data-slide-to="1"></li>
                             <li data-target="#myCarousel" data-slide-to="2"></li>
                         </ol>
 
-                        <!-- Wrapper for slides -->
                         <div class="carousel-inner">
                             <div class="item active">
                                 <div class="panel-body">
@@ -2113,7 +2067,6 @@
                             </div>
 
                             <div class="item">
-                                <!--<div id="collapse3" class="panel-collapse collapse">-->
                                 <div class="panel-body">
                                     <div class="row">
                                         <div id="chartChronological" class="col-md-7"></div>
@@ -2179,7 +2132,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!--</div>-->
 
                         <!-- Left and right controls -->
                         <a class="left carousel-control" href="#myCarousel" data-slide="prev">
@@ -2194,9 +2146,7 @@
                 </div>
             </div>
         </div>
-
     </div>
-
 
     <div class="row">
         <div class="col-md-6">
@@ -2219,7 +2169,6 @@
                 </div>
             </div>
         </div>
-        <!-- /.col-lg-4 -->
         <div class="col-md-6">
             <div class="panel panel-success">
                 <div class="panel-heading">
@@ -2240,9 +2189,6 @@
                 </div>
             </div>
         </div>
-        <!-- /.col-lg-4 -->
-
-        <!-- /.col-lg-4 -->
     </div>
 
     <div class="row">
@@ -2305,7 +2251,6 @@
                     reworked.
                 </div>
             </div>
-            <!-- /.col-lg-4 -->
         </div>
         <div class="col-md-6">
             <div class="panel panel-info">
@@ -2326,7 +2271,6 @@
                     startup.
                 </div>
             </div>
-            <!-- /.col-lg-4 -->
         </div>
     </div>
 </div>
