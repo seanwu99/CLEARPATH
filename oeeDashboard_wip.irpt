@@ -16,7 +16,8 @@
     <link href="Common/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet">
     <link href="Common/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <script src="Common/bootstrap/bootstrap.min.js"></script>
-    <link href="Common/css/oeeDashboard.css" rel="stylesheet">
+    <link href="Common/rts/oeeDashboard.css" rel="stylesheet">
+    <script src="Common/rts/oeeDashboard.js"></script>
     <style>
         body {
             background-image: url("Common/img/logo.png");
@@ -89,38 +90,6 @@
         #PlantsList {
             margin-left: 20px;
         }
-
-        .carousel-indicators .active {
-            background: #ddd;
-        }
-
-        .carousel-indicators li {
-            border: 1px solid #ccc;
-        }
-
-        .carousel-control {
-            color: #ccc;
-            width: 10%;
-        }
-
-        .carousel-control:hover, .carousel-control:focus {
-            color: #ddd;
-        }
-
-        .carousel-control.left, .carousel-control.right {
-            background-image: none;
-        }
-
-        /*.media-object {*/
-        /*margin: auto;*/
-        /*margin-top: 15%;*/
-        /*}*/
-
-        /*@media screen and (max-width: 768px) {*/
-        /*.media-object {*/
-        /*margin-top: 0;*/
-        /*}*/
-        /*}*/
     </style>
 
     <script type="text/javascript" id="app-init">
@@ -136,10 +105,53 @@
         var selectedLine = 0;
         var selectedOps = 0;
         // ******************************************************************************************************************************************************************
-        var tick = 0, dtAcc = 50000000, dtCurr = 0;
-        var downtime = false;
-        var target = 1000 + Math.round((Math.random() * 3000));
-        var mockServer = true;
+        var TICK = 0;
+        var rtsOEEM = {
+            availability: 85,
+            performance: 85,
+            quality: 85,
+            productCurrent: 0,
+            productTarget: 5555,
+            downtime: false,
+            downtimeCurrent: 0,
+            downtimeTotal: 0,
+            sblEquipmentFailure: {
+                title: 'Equipment Failure',
+                occurrences: 0,
+                totalizer: 0,
+                rate: [0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            sblSetupAndAdjustments: {
+                title: 'Setup and Adjustments',
+                occurrences: 0,
+                totalizer: 0,
+                rate: [0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            sblIdlingAndMinorStops: {
+                title: 'Idling and Minor Stops',
+                occurrences: 0,
+                totalizer: 0,
+                rate: [0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            sblReducedSpeed: {
+                title: 'Reduced Speed',
+                occurrences: 0,
+                totalizer: 0,
+                rate: [0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            sblProcessDefects: {
+                title: 'Process Defects',
+                occurrences: 0,
+                totalizer: 0,
+                rate: [0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            sblReducedYield: {
+                title: 'Reduced Yield',
+                occurrences: 0,
+                totalizer: 0,
+                rate: [0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+        };
         // ******************************************************************************************************************************************************************
 
         function roleSecurity() {
@@ -541,13 +553,10 @@
                 }
             }
 
-            document.getElementById('Target').innerHTML = "<div class=\"huge\">Target: " + target + " / 9999</div>";
-            document.getElementById('Downtime').innerHTML = "Downtime: 00:00:00 / " + (new Date(dtAcc)).toISOString().substr(11, 8);
-
-            chartOeeTrendInit(null, "Oee Trend");
-            chartSixBigLossesInit(null, "Six Big Losses");
-            chartChronologicalInit(null, "Chronological");
-            chartsWellInit();
+            chartOeeTrendInit("Oee Trend", null);                   //title & series, random data if null
+            chartSixBigLossesInit("Six Big Losses", null);          //title & series, random data if null
+            chartChronologicalInit("Chronological Timeline", null); //title & series, random data if null
+            sblChartsInit();
         }
         // ******************************************************************************************************************************************************************
         /*
@@ -1305,572 +1314,62 @@
         }
         // ******************************************************************************************************************************************************************
 
-        var cLoss = [null, null, null, null, null, null];
-        var dLoss = [null, null, null, null, null, null];
+
         setInterval(function () {
-            tick++;
-            if (tick == 5) {
-                tick = 0;
-                downtime = !downtime;
-                if (downtime) {
-                    dtCurr = new Date().getTime();
-                } else {
-                    dtAcc += (new Date().getTime() - dtCurr);
-                }
-            }
-            if (!downtime) {
-                target += Math.round((Math.random() * 30));
-                document.getElementById('TargetIcon').className = "fa fa-cog fa-spin fa-4x";
-                document.getElementById("TargetColor").className = "panel panel-green";
-                document.getElementById("DowntimeIcon").className = "fa fa-spinner fa-4x fa-fw";
-                document.getElementById('Downtime').innerHTML = "Downtime: 00:00:00 / " + (new Date(dtAcc)).toISOString().substr(11, 8);
-            } else {
-                document.getElementById('TargetIcon').className = "fa fa-cog fa-4x";
-                document.getElementById("TargetColor").className = "panel panel-red";
-                document.getElementById("DowntimeIcon").className = "fa fa-spinner fa-pulse fa-4x fa-fw";
-                document.getElementById('Downtime').innerHTML = "Downtime: " + (new Date((new Date().getTime() - dtCurr))).toISOString().substr(11, 8) + " / " + (new Date(dtAcc)).toISOString().substr(11, 8);
-            }
-            document.getElementById('Target').innerHTML = "<div class=\"huge\">Target: " + target + " / 9999</div>";
-
-            var ts, oee, availability, performance, quality, len;
-            ts = Math.round(new Date().getTime() / 1000) * 1000;
-            len = chartOeeTrend.series[0]['data'].length;
-            _a = 85 + Math.round((Math.random() * 14));
-            _performance = 85 + Math.round((Math.random() * 14));
-            _quality = 85 + Math.round((Math.random() * 14));
-            oee = (_a * _performance * _quality / 10000) | 0;
-            chartOeeTrend.series[1].addPoint([ts, _a], false, false);
-            chartOeeTrend.series[2].addPoint([ts, _performance], false, false);
-            chartOeeTrend.series[3].addPoint([ts, _quality], false, false);
-            chartOeeTrend.series[0].addPoint([ts, oee], true, false);
-            document.getElementById('oee').innerText = oee + "%";
-            document.getElementById('oeeAvailability').innerHTML = _a + "%";
-            document.getElementById('oeePerformance').innerHTML = _performance + "%";
-            document.getElementById('oeeQuality').innerHTML = _quality + "%";
-
-            for (var n = 0; n < 6; n++) {
-                var dd = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-                for (var m = 0; m < 8; m++) {
-                    dd[m] = cLoss[n].series[0].data[m + 1].y;
-                }
-                dd[8] = 10 + Math.round((Math.random() * 20));
-                if (dd[8] < dd[7]) {
-                    document.getElementById('iloss' + n).innerHTML = mockSixBigLosses(true, 0, dd[8]);
-                }
-                else {
-                    document.getElementById('iloss' + n).innerHTML = mockSixBigLosses(true, 1, dd[8]);
-                }
-                cLoss[n].series[0].setData(dd);
-            }
+            TICK++;
+            oeePanel(85 + Math.round((Math.random() * 14)), 85 + Math.round((Math.random() * 14)), 85 + Math.round((Math.random() * 14)));  //availability%, performance%, quality%
+            simulateTarget();
+            panelTarget(Math.round((Math.random() * 10)));  //new parts
+            panelDowntime();
+            chartOeeTrendRefresh();
+            chartSixBigLossesRefresh();
+            sblEquipmentFailure(5 + Math.round((Math.random() * 15)), Math.round(10 + (Math.random() * 100)), Math.random() * 5000);       //new rate%, Occurrences, Totalizer(sec)
+            sblSetupAndAdjustments(5 + Math.round((Math.random() * 15)), Math.round(10 + (Math.random() * 100)), Math.random() * 5000);    //new rate%, Occurrences, Totalizer(sec)
+            sblIdlingAndMinorStops(5 + Math.round((Math.random() * 15)), Math.round(10 + (Math.random() * 100)), Math.random() * 5000);    //new rate%, Occurrences, Totalizer(sec)
+            sblReducedSpeed(5 + Math.round((Math.random() * 15)), Math.round(10 + (Math.random() * 100)), Math.random() * 5000);           //new rate%, Occurrences, Totalizer(sec)
+            sblProcessDefects(5 + Math.round((Math.random() * 15)), Math.round(10 + (Math.random() * 100)), Math.random() * 5000);         //new rate%, Occurrences, Totalizer(sec)
+            sblReducedYield(5 + Math.round((Math.random() * 15)), Math.round(10 + (Math.random() * 100)), Math.random() * 5000);           //new rate%, Occurrences, Totalizer(sec)
         }, 3000);
 
 
-        function chartOeeTrendInit(_series, _title) {
-
-            //mockData
-            var a, p, q;
-            var OEE = [];
-            var Availability = [];
-            var Performance = [];
-            var Quality = [];
-            var n = 1;
-            var tm = new Date().getTime() - n * 1000;
-            for (var i = 0; i < n; i++) {
-                tm += i * 1000;
-                a = 85 + Math.round((Math.random() * 14));
-                p = 85 + Math.round((Math.random() * 14));
-                q = 85 + Math.round((Math.random() * 14));
-                Availability.push([tm, a]);
-                Performance.push([tm, p]);
-                Quality.push([tm, q]);
-                OEE.push([tm, a * p * q / 10000]);
-            }
-            var chartSeries = [];
-            chartSeries.push({
-                name: 'OEE',
-                data: OEE
-            });
-            chartSeries.push({
-                name: 'Availability',
-                data: Availability
-            });
-            chartSeries.push({
-                name: 'Performance',
-                data: Performance
-            });
-            chartSeries.push({
-                name: 'Quality',
-                data: Quality
-            });
-
-            chartOeeTrend = new Highcharts.stockChart('chartOeeTrend', {
-                credits: {
-                    enabled: false,
-                    href: 'http://www.rtsperfectplant.com/',
-                    position: {
-                        align: 'right',
-                        x: -10,
-                        verticalAlign: 'bottom',
-                        y: -5
-                    },
-                    style: {
-                        cursor: 'pointer',
-                        color: '#999999',
-                        fontSize: '9px'
-                    },
-                    text: 'RTS Consulting Inc.'
-                },
-                title: {
-                    text: _title,
-                    style: {
-                        display: 'none'
-                    }
-                },
-                subtitle: {
-                    text: 'subtitle',
-                    floating: false,
-                    align: 'center',
-                    y: 40,
-                    style: {
-                        fontSize: '14px',
-                        display: 'none'
-                    }
-                },
-
-                chart: {
-                    type: 'spline',
-                    margin: [0, 90, 0, 90],
-                    events: {
-                        load: function () {
-                            // 					alert('load');
-                        }
-                    }
-                },
-                colors: [
-                    '#d9534f',//'#90ed7d',
-                    '#5cb85c',//'#7cb5ec',
-                    '#f0ad4e',//'#f7a35c',
-                    '#2f71aa',//'#888888'
-                ],
-                legend: {
-                    enabled: true,
-                    align: "center",
-                    verticalAlign: "bottom",
-                    shadow: false,
-                },
-                rangeSelector: {
-                    buttons: [{
-                        type: 'minute',
-                        count: 1,
-                        text: 'm.'
-                    }, {
-                        type: 'hour',
-                        count: 1,
-                        text: 'H'
-                    }, {
-                        type: 'hour',
-                        count: 8,
-                        text: 'S'
-                    }, {
-                        type: 'day',
-                        count: 1,
-                        text: 'D'
-                    }, {
-                        type: 'week',
-                        count: 1,
-                        text: 'W'
-                    }, {
-                        type: 'month',
-                        count: 1,
-                        text: 'M'
-                    }, {
-                        type: 'month',
-                        count: 3,
-                        text: 'Q'
-                    }, {
-                        type: 'year',
-                        count: 12,
-                        text: 'Y'
-                    }, {
-                        type: 'all',
-                        text: 'All'
-                    }],
-                    selected: 7
-                },
-
-                yAxis: {
-                    min: 50,
-                    max: 100,
-                    title: {
-                        text: 'yAxis',
-                        enabled: false,
-                    },
-                    labels: {
-                        enabled: true,
-                        formatter: function () {
-//              return (this.value > 0 ? ' + ' : '') + this.value + '%';
-                            return this.value + '%';
-                        }
-                    },
-                    plotLines: [{
-                        value: 0,
-                        width: 2,
-                        color: 'silver'
-                    }]
-                },
-
-                tooltip: {
-                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> (%)<br/>',
-                    valueDecimals: 2,
-                    split: false
-                },
-                navigator: {
-                    enabled: true
-                },
-                series: chartSeries
-            });
-
-        }
-        function chartSixBigLossesInit(_series, _title) {
-            chartSixBigLosses = Highcharts.chart('chartSixBigLosses', {
-                chart: {
-                    margin: [10, 0, 10, 0],
-//          width: 1108,
-                    height: 400,
-                },
-                credits: {
-                    enabled: false,
-                    href: 'http://www.rtsperfectplant.com/',
-                    position: {
-                        align: 'right',
-                        x: -10,
-                        verticalAlign: 'bottom',
-                        y: -5
-                    },
-                    style: {
-                        cursor: 'pointer',
-                        color: '#999999',
-                        fontSize: '9px'
-                    },
-                    text: 'RTS Consulting Inc.'
-                },
-                title: {
-                    text: 'Combination chart',
-                    style: {
-                        display: 'none'
-                    }
-                },
-                xAxis: {
-                    categories: ['item1', 'item2', 'item3', 'item4', 'item5', 'item6']
-                },
-                labels: {
-                    items: [{
-                        //html: 'Total fruit consumption',
-                        html: 'Six Big Losses',
-                        style: {
-                            left: '80px',
-                            top: '18px',
-                            color: (Highcharts.theme && Highcharts.theme.textColor) || 'black'
-                        }
-                    }]
-                },
-                series: [{
-                    type: 'column',
-                    colorByPoint: true,
-                    name: 'items',
-                    data: [25, 20, 15, 15, 10, 5],
-                    showInLegend: false
-                },
-//          {
-//          type: 'column',
-//          name: 'John',
-//          data: [2, 3, 5, 7, 6]
-//        },
-//          {
-//          type: 'column',
-//          name: 'Joe',
-//          data: [4, 3, 3, 9, 0]
-//        },
-                    {
-                        type: 'spline',
-                        name: 'Accumulate',
-                        data: [25, 45, 60, 75, 85, 90],
-//            color: Highcharts.getOptions().colors[1],
-                        marker: {
-                            lineWidth: 2,
-                            lineColor: Highcharts.getOptions().colors[3],
-                            fillColor: 'white'
-                        }
-                    }, {
-                        type: 'pie',
-                        name: 'Ratio',
-                        data: [{
-                            name: 'item1',
-                            y: 25,
-//              color: Highcharts.getOptions().colors[0] // item's color
-                        }, {
-                            name: 'item2',
-                            y: 20,
-//              color: Highcharts.getOptions().colors[1] // item's color
-                        }, {
-                            name: 'item3',
-                            y: 15,
-//              color: Highcharts.getOptions().colors[2] // item's color
-                        }, {
-                            name: 'item4',
-                            y: 15,
-//              color: Highcharts.getOptions().colors[3] // item's color
-                        }, {
-                            name: 'item5',
-                            y: 10,
-//              color: Highcharts.getOptions().colors[4] // item's color
-                        }, {
-                            name: 'item6',
-                            y: 5,
-//              color: Highcharts.getOptions().colors[5] // item's color
-                        }],
-                        center: [100, 100],
-                        size: 150,
-                        showInLegend: false,
-                        dataLabels: {
-                            enabled: false
-                        }
-                    }],
-                legend: {
-                    enabled: false,
-                    align: "center",
-                    verticalAlign: "bottom",
-                    shadow: false,
-                },
-                yAxis: {
-                    min: 0,
-                    max: 100,
-                    title: {
-                        text: 'yAxis',
-                        enabled: false,
-                    },
-                    labels: {
-                        formatter: function () {
-//              return (this.value > 0 ? ' + ' : '') + this.value + '%';
-                            return this.value + '%';
-                        }
-                    },
-                    plotLines: [{
-                        value: 0,
-                        width: 2,
-                        color: 'silver'
-                    }]
-                },
-            });
-
-
-        }
-        function chartChronologicalInit(_series, _title) {
-            chartChronological = Highcharts.chart('chartChronological', {
-                credits: {
-                    enabled: false,
-                    href: 'http://www.rtsperfectplant.com/',
-                    position: {
-                        align: 'right',
-                        x: -10,
-                        verticalAlign: 'bottom',
-                        y: -5
-                    },
-                    style: {
-                        cursor: 'pointer',
-                        color: '#999999',
-                        fontSize: '9px'
-                    },
-                    text: 'RTS Consulting Inc.'
-                },
-                title: {
-                    text: "Chronological Production Timeline of Shift 1",
-                    style: {
-                        display: 'none'
-                    }
-                },
-                subtitle: {
-                    text: 'subtitle',
-                    floating: false,
-                    align: 'center',
-                    y: 40,
-                    style: {
-                        fontSize: '14px',
-                        display: 'none'
-                    }
-                },
-                chart: {
-                    type: 'pie',
-                    options3d: {
-                        enabled: true,
-                        alpha: 60
-                    },
-                    margin: [0, 0, 0, 0],
-                    width: 600,
-                    height: 400,
-                },
-                plotOptions: {
-                    pie: {
-                        innerSize: 150,
-                        depth: 45
-                    }
-                },
-                series: [{
-                    name: 'During',
-                    data: [
-                        {name: 'Tooling Failure', y: 4320},
-                        {name: 'Unplanned Maint', y: 2730},
-                        {name: 'Equipment Failure', y: 1845},
-                        {name: 'Setup', y: 2025},
-                        {name: 'Changeover', y: 705},
-                        {name: 'WarmUp Time', y: 9045},
-                        {name: 'Obstructed Flow', y: 3345},
-                        {name: 'Misfeeds', y: 2085},
-                        {name: 'Sensor Blocked', y: 1425},
-                    ],
-//          data: [
-//            {name: 'Break Time (12:00PM)', y: 15, color: '#337ab7'},
-//            {name: 'Running', y: 25, color: '#5cb85c'},
-//            {name: 'Tooling Failure', y: 3, color: '#d9534f'},
-//            {name: 'Running', y: 32, color: '#5cb85c'},
-//            {name: 'Equipment Failure', y: 3, color: '#d9534f'},
-//            {name: 'Running', y: 17, color: '#5cb85c'},
-//            {name: 'Misfeeds', y: 13, color: '#f0ad4e'},
-//            {name: 'Running', y: 17, color: '#5cb85c'},
-//            {name: '', y: 240, color: '#ffffff'},
-//            {name: 'Changeover (6:00AM)', y: 10, color: '#f0ad4e'},
-//            {name: 'Running', y: 30, color: '#5cb85c'},
-//            {name: 'Material Shortage', y: 17, color: '#f0ad4e'},
-//            {name: 'Running', y: 23, color: '#5cb85c'},
-//            {name: 'Sensor Blocked', y: 3, color: '#d9534f'},
-//            {name: 'Running', y: 37, color: '#5cb85c'},
-//            {name: 'Break Time (8:00AM)', y: 15, color: '#337ab7'},
-//            {name: 'Running', y: 25, color: '#5cb85c'},
-//            {name: 'Sensor Blocked', y: 3, color: '#d9534f'},
-//            {name: 'Running', y: 52, color: '#5cb85c'},
-//            {name: 'Sensor Blocked', y: 3, color: '#d9534f'},
-//            {name: 'Running', y: 22, color: '#5cb85c'},
-//            {name: 'Meal Time (10:00AM)', y: 30, color: '#337ab7'},
-//            {name: 'Running', y: 10, color: '#5cb85c'},
-//            {name: 'Sensor Blocked', y: 3, color: '#d9534f'},
-//            {name: 'Running', y: 47, color: '#5cb85c'},
-//            {name: 'Operator Shortage', y: 7, color: '#f0ad4e'},
-//            {name: 'Running', y: 23, color: '#5cb85c'},
-//          ]
-                }]
-            });
-
-
-        }
-        function chartsWellInit() {
-            for (var n = 0; n < 6; n++) {
-                dLoss[n] = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-
-                for (var m = 0; m <= 8; m++) {
-                    dLoss[n][m] = 10 + Math.round((Math.random() * 20));
+        function simulateTarget() {
+            if (TICK == 5) {
+                TICK = 0;
+                rtsOEEM.downtime = !rtsOEEM.downtime;
+                if (rtsOEEM.downtime) {
+                    rtsOEEM.downtimeCurrent = new Date().getTime();
+                } else {
+                    rtsOEEM.downtimeTotal += (new Date().getTime() - rtsOEEM.downtimeCurrent);
                 }
-//                cc(n);
-//                cc(dLoss[n]);
-                cLoss[n] = Highcharts.chart('loss' + n, {
-                    chart: {
-                        borderWidth: 0,
-                        type: 'area',
-                        width: 140,
-                        height: 60,
-                        spacingBottom: 30,
-                        style: {
-                            overflow: 'visible'
-                        },
-                        margin: [0, 0, 0, 0],
-                    },
-                    title: {
-                        text: 'title',
-                        style: {
-                            display: 'none'
-                        }
-                    },
-                    subtitle: {
-                        text: 'subtitle',
-                        floating: true,
-                        align: 'right',
-                        verticalAlign: 'bottom',
-                        y: 15,
-                        style: {
-                            display: 'none'
-                        }
-                    },
-                    legend: {
-                        enabled: false,
-                        layout: 'vertical',
-                        align: 'left',
-                        verticalAlign: 'top',
-                        x: 150,
-                        y: 100,
-                        floating: true,
-                        borderWidth: 1,
-                        backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
-                    },
-                    xAxis: {
-                        labels: {
-                            enabled: false
-                        },
-                        title: {
-                            text: null
-                        },
-                        startOnTick: false,
-                        endOnTick: false,
-                        tickPositions: []
-                    },
-                    yAxis: {
-                        endOnTick: false,
-                        startOnTick: false,
-                        labels: {
-                            enabled: false
-                        },
-                        title: {
-                            text: null
-                        },
-                        tickPositions: [0]
-                    },
-                    tooltip: {
-                        formatter: function () {
-//            return '<b>' + this.series.name + '</b><br/>' +
-//              this.x + ': ' + this.y;
-                            return this.y + '%';
-                        }
-                    },
-                    plotOptions: {
-                        series: {
-                            animation: false,
-                        },
-                        area: {
-                            fillOpacity: 0.5
-                        }
-                    },
-                    credits: {
-                        enabled: false
-                    },
-                    series: [{
-                        name: '',
-                        data: dLoss[n]
-                    }],
-                });
-//                cc(cLoss[n]);
             }
         }
-        function mockSixBigLosses(t, d, v) {
 
-            return "" + ((d == 1) ? "<li>This loss increased at a rate of <span class=\"label label-danger pull-right" : "<li>This loss decreased at a rate of <span class=\"label label-success pull-right") +
-                "\" style=\"font-size: 14px\">" +
-                v + "%" +
-                "</span></li><li>Occurrences " +
-                "<span class=\"badge badge-default\" style=\"font-size: 14px\">" +
-                Math.round(10 + (Math.random() * 100)) +
-                "</span>" +
-                ", Totalizer " +
-                "<span class=\"label label-default pull-right\" style=\"font-size: 14px\">" +
-                (new Date(Math.random() * 200000)).toISOString().substr(11, 8) +
-                "</span></li>";
+        function panelDowntime() {
+            if (!rtsOEEM.downtime) {
+                document.getElementById("DowntimeIcon").className = "fa fa-spinner fa-4x fa-fw";
+                document.getElementById('Downtime').innerHTML = "Downtime: " +
+                    (new Date(0)).toISOString().substr(11, 8) +
+                    " / " +
+                    (new Date(rtsOEEM.downtimeTotal)).toISOString().substr(11, 8);
+            } else {
+                document.getElementById("DowntimeIcon").className = "fa fa-spinner fa-pulse fa-4x fa-fw";
+                document.getElementById('Downtime').innerHTML = "Downtime: " +
+                    (new Date((new Date().getTime() - rtsOEEM.downtimeCurrent))).toISOString().substr(11, 8) +
+                    " / " +
+                    (new Date(rtsOEEM.downtimeTotal)).toISOString().substr(11, 8);
+            }
+        }
+
+        function panelTarget(parts) {
+            if (!rtsOEEM.downtime) {
+                rtsOEEM.productCurrent += parts;
+                document.getElementById('TargetIcon').className = "fa fa-cog fa-spin fa-4x";
+                document.getElementById("TargetColor").className = "panel panel-green";
+            } else {
+                document.getElementById('TargetIcon').className = "fa fa-cog fa-4x";
+                document.getElementById("TargetColor").className = "panel panel-red";
+            }
+            document.getElementById('Target').innerHTML = "<div class=\"huge\">Target: " + rtsOEEM.productCurrent + " / " + rtsOEEM.productTarget + "</div>";
         }
 
         function cc(obj) {
@@ -1894,15 +1393,6 @@
 <div id="mesm_content"></div>
 
 <div class="container">
-    <div id="dropownTools">
-        <div class="row">
-            <div class="col-sm-2" id="pickDATA"></div>
-            <div class="col-sm-2" id="selectLINE"></div>
-            <div class="col-sm-6 text-right" id="labelSelectPLANT"></div>
-            <div class="col-sm-2 pull-right" id="selectPLANT"></div>
-        </div>
-    </div>
-    <p></p>
     <div class="row">
         <div class="col-md-3">
             <div class="panel panel-primary">
@@ -1912,20 +1402,31 @@
                             <i class="fa fa-cogs  fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div id="oee" class="huge">%</div>
+                            <div id="panelOEE" class="huge">%</div>
                             <div>OEE</div>
                         </div>
                     </div>
                 </div>
-                <!--
-                        <a href="#">
-                          <div class="panel-footer">
-                            <span class="pull-left">View Details</span>
-                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                            <div class="clearfix"></div>
-                          </div>
-                        </a>
-                -->
+                <div class="panel-footer">
+                    <div class="rating">
+                        <input type="radio" id="OEEstar5" name="OEErating" value="5"/><label for="OEEstar5"
+                                                                                             title="5 out of 5 stars">5
+                        stars</label>
+                        <input type="radio" id="OEEstar4" name="OEErating" value="4"/><label for="OEEstar4"
+                                                                                             title="4 out of 5 stars">4
+                        stars</label>
+                        <input type="radio" id="OEEstar3" name="OEErating" value="3"/><label for="OEEstar3"
+                                                                                             title="3 out of 5 stars">3
+                        stars</label>
+                        <input type="radio" id="OEEstar2" name="OEErating" value="2"/><label for="OEEstar2"
+                                                                                             title="2 out of 5 stars">2
+                        stars</label>
+                        <input type="radio" id="OEEstar1" name="OEErating" value="1"/><label for="OEEstar1"
+                                                                                             title="1 out of 5 stars">1
+                        star</label>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
             </div>
         </div>
         <div class="col-md-3">
@@ -1936,20 +1437,26 @@
                             <i class="fa fa-clock-o fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div id="oeeAvailability" class="huge">%</div>
+                            <div id="panelAvailability" class="huge">%</div>
                             <div>Availability</div>
                         </div>
                     </div>
                 </div>
-                <!--
-                        <a href="#">
-                          <div class="panel-footer">
-                            <span class="pull-left">View Details</span>
-                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                            <div class="clearfix"></div>
-                          </div>
-                        </a>
-                -->
+                <div class="panel-footer">
+                    <div class="rating">
+                        <input type="radio" id="Availabilitystar5" name="Availabilityrating" value="5"/><label
+                            for="Availabilitystar5" title="5 out of 5 stars">5 stars</label>
+                        <input type="radio" id="Availabilitystar4" name="Availabilityrating" value="4"/><label
+                            for="Availabilitystar4" title="4 out of 5 stars">4 stars</label>
+                        <input type="radio" id="Availabilitystar3" name="Availabilityrating" value="3"/><label
+                            for="Availabilitystar3" title="3 out of 5 stars">3 stars</label>
+                        <input type="radio" id="Availabilitystar2" name="Availabilityrating" value="2"/><label
+                            for="Availabilitystar2" title="2 out of 5 stars">2 stars</label>
+                        <input type="radio" id="Availabilitystar1" name="Availabilityrating" value="1"/><label
+                            for="Availabilitystar1" title="1 out of 5 stars">1 star</label>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
             </div>
         </div>
         <div class="col-md-3">
@@ -1960,20 +1467,26 @@
                             <i class="fa fa-wrench fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div id="oeePerformance" class="huge">%</div>
+                            <div id="panelPerformance" class="huge">%</div>
                             <div>Performance</div>
                         </div>
                     </div>
                 </div>
-                <!--
-                        <a href="#">
-                          <div class="panel-footer">
-                            <span class="pull-left">View Details</span>
-                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                            <div class="clearfix"></div>
-                          </div>
-                        </a>
-                -->
+                <div class="panel-footer">
+                    <div class="rating">
+                        <input type="radio" id="Performancestar5" name="Performancerating" value="5"/><label
+                            for="Performancestar5" title="5 out of 5 stars">5 stars</label>
+                        <input type="radio" id="Performancestar4" name="Performancerating" value="4"/><label
+                            for="Performancestar4" title="4 out of 5 stars">4 stars</label>
+                        <input type="radio" id="Performancestar3" name="Performancerating" value="3"/><label
+                            for="Performancestar3" title="3 out of 5 stars">3 stars</label>
+                        <input type="radio" id="Performancestar2" name="Performancerating" value="2"/><label
+                            for="Performancestar2" title="2 out of 5 stars">2 stars</label>
+                        <input type="radio" id="Performancestar1" name="Performancerating" value="1"/><label
+                            for="Performancestar1" title="1 out of 5 stars">1 star</label>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
             </div>
         </div>
         <div class="col-md-3">
@@ -1984,20 +1497,31 @@
                             <i class="fa fa-check-square-o fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div id="oeeQuality" class="huge">%</div>
+                            <div id="panelQuality" class="huge">%</div>
                             <div>Quality</div>
                         </div>
                     </div>
                 </div>
-                <!--
-                        <a href="#">
-                          <div class="panel-footer">
-                            <span class="pull-left">View Details</span>
-                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                            <div class="clearfix"></div>
-                          </div>
-                        </a>
-                -->
+                <div class="panel-footer">
+                    <div class="rating">
+                        <input type="radio" id="Qualitystar5" name="Qualityrating" value="5"/><label for="Qualitystar5"
+                                                                                                     title="5 out of 5 stars">5
+                        stars</label>
+                        <input type="radio" id="Qualitystar4" name="Qualityrating" value="4"/><label for="Qualitystar4"
+                                                                                                     title="4 out of 5 stars">4
+                        stars</label>
+                        <input type="radio" id="Qualitystar3" name="Qualityrating" value="3"/><label for="Qualitystar3"
+                                                                                                     title="3 out of 5 stars">3
+                        stars</label>
+                        <input type="radio" id="Qualitystar2" name="Qualityrating" value="2"/><label for="Qualitystar2"
+                                                                                                     title="2 out of 5 stars">2
+                        stars</label>
+                        <input type="radio" id="Qualitystar1" name="Qualityrating" value="1"/><label for="Qualitystar1"
+                                                                                                     title="1 out of 5 stars">1
+                        star</label>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -2026,13 +1550,12 @@
                             <i id="DowntimeIcon" class="fa fa-spinner fa-4x fa-fw"></i>
                         </div>
                         <div class="col-xs-11 text-right">
-                            <div id="Downtime" class="huge">Downtime: 00:01:00 / 48:56:38</div>
+                            <div id="Downtime" class="huge"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 
     <div class="panel-group" id="accordion">
@@ -2047,12 +1570,14 @@
             <div id="collapse4" class="panel-collapse collapse">
                 <div class="panel-body">
                     <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                        <!-- Indicators -->
                         <ol class="carousel-indicators">
                             <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
                             <li data-target="#myCarousel" data-slide-to="1"></li>
                             <li data-target="#myCarousel" data-slide-to="2"></li>
                         </ol>
 
+                        <!-- Wrapper for slides -->
                         <div class="carousel-inner">
                             <div class="item active">
                                 <div class="panel-body">
@@ -2125,15 +1650,12 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <!-- /.table-responsive -->
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Left and right controls -->
                         <a class="left carousel-control" href="#myCarousel" data-slide="prev">
                             <span class="glyphicon glyphicon-chevron-left"></span>
                             <span class="sr-only">Previous</span>
@@ -2146,6 +1668,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 
     <div class="row">
@@ -2154,9 +1677,9 @@
                 <div class="panel-heading">
                     Six Big Losses > Availability Loss > EQUIPMENT FAILURE
                 </div>
-                <div id="EQUIPMENTFAILURE" class="panel-body">
-                    <div id="loss0" class="col-sm-4"></div>
-                    <ul id="iloss0" class="col-sm-8" style="font-size: 16px">
+                <div id="EquipmentFailure" class="panel-body">
+                    <div id="chartEquipmentFailure" class="col-sm-4"></div>
+                    <ul id="rateEquipmentFailure" class="col-sm-8" style="font-size: 16px">
                         <li></li>
                         <li></li>
                     </ul>
@@ -2174,9 +1697,9 @@
                 <div class="panel-heading">
                     Six Big Losses > Availability Loss > SETUP AND ADJUSTMENTS
                 </div>
-                <div id="SETUPANDADJUSTMENTS" class="panel-body">
-                    <div id="loss1" class="col-sm-4"></div>
-                    <ul id="iloss1" class="col-sm-8" style="font-size: 16px">
+                <div id="SetupAndAdjustments" class="panel-body">
+                    <div id="chartSetupAndAdjustments" class="col-sm-4"></div>
+                    <ul id="rateSetupAndAdjustments" class="col-sm-8" style="font-size: 16px">
                         <li></li>
                         <li></li>
                     </ul>
@@ -2197,9 +1720,9 @@
                 <div class="panel-heading">
                     Six Big Losses > Performance Loss > IDLING AND MINOR STOPS
                 </div>
-                <div id="IDLINGANDMINORSTOPS" class="panel-body" style="list-style-type: square">
-                    <div id="loss2" class="col-sm-4"></div>
-                    <ul id="iloss2" class="col-sm-8" style="font-size: 16px">
+                <div id="IdlingAndMinorStops" class="panel-body" style="list-style-type: square">
+                    <div id="chartIdlingAndMinorStops" class="col-sm-4"></div>
+                    <ul id="rateIdlingAndMinorStops" class="col-sm-8" style="font-size: 16px">
                         <li></li>
                         <li></li>
                     </ul>
@@ -2217,9 +1740,9 @@
                 <div class="panel-heading">
                     Six Big Losses > Performance Loss > REDUCED SPEED
                 </div>
-                <div id="REDUCEDSPEED" class="panel-body">
-                    <div id="loss3" class="col-sm-4"></div>
-                    <ul id="iloss3" class="col-sm-8" style="font-size: 16px">
+                <div id="ReducedSpeed" class="panel-body">
+                    <div id="chartReducedSpeed" class="col-sm-4"></div>
+                    <ul id="rateReducedSpeed" class="col-sm-8" style="font-size: 16px">
                         <li></li>
                         <li></li>
                     </ul>
@@ -2238,9 +1761,9 @@
                 <div class="panel-heading">
                     Six Big Losses > Quality Loss > PROCESS DEFECTS
                 </div>
-                <div id="PROCESSDEFECTS" class="panel-body">
-                    <div id="loss4" class="col-sm-4"></div>
-                    <ul id="iloss4" class="col-sm-8" style="font-size: 16px">
+                <div id="ProcessDefects" class="panel-body">
+                    <div id="chartProcessDefects" class="col-sm-4"></div>
+                    <ul id="rateProcessDefects" class="col-sm-8" style="font-size: 16px">
                         <li></li>
                         <li></li>
                     </ul>
@@ -2257,9 +1780,9 @@
                 <div class="panel-heading">
                     Six Big Losses > Quality Loss > REDUCED YIELD
                 </div>
-                <div id="REDUCEDYIELD" class="panel-body">
-                    <div id="loss5" class="col-sm-4"></div>
-                    <ul id="iloss5" class="col-sm-8" style="font-size: 16px">
+                <div id="ReducedYield" class="panel-body">
+                    <div id="chartReducedYield" class="col-sm-4"></div>
+                    <ul id="rateReducedYield" class="col-sm-8" style="font-size: 16px">
                         <li></li>
                         <li></li>
                     </ul>
