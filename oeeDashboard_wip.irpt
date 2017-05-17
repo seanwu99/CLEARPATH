@@ -16,8 +16,9 @@
     <link href="Common/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet">
     <link href="Common/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <script src="Common/bootstrap/bootstrap.min.js"></script>
-    <link href="Common/rts/oeeDashboard.css" rel="stylesheet">
-    <script src="Common/rts/oeeDashboard.js"></script>
+    <link href="Common/rts/OEEM/oeeDashboard.css" rel="stylesheet">
+    <script src="Common/rts/OEEM/oeeDashboard.js"></script>
+
     <style>
         body {
             background-image: url("Common/img/logo.png");
@@ -553,9 +554,11 @@
                 }
             }
 
-            chartOeeTrendInit("Oee Trend", null);                   //title & series, random data if null
-            chartSixBigLossesInit("Six Big Losses", null);          //title & series, random data if null
-            chartChronologicalInit("Chronological Timeline", null); //title & series, random data if null
+
+            chartOeeTrendInit("Oee Trend", null);             //title & series, random data if null
+            chartSixBigLossesInit("Six Big Losses", null);    //title & series, random data if null
+            chartEventsInit("Chronological Timeline", null);  //title & series, random data if null
+            chartFloorMapInit('Floor Maps', null);            //title & series, random data if null
             sblChartsInit();
         }
         // ******************************************************************************************************************************************************************
@@ -1317,7 +1320,7 @@
 
         setInterval(function () {
             TICK++;
-            oeePanel(85 + Math.round((Math.random() * 14)), 85 + Math.round((Math.random() * 14)), 85 + Math.round((Math.random() * 14)));  //availability%, performance%, quality%
+            panelOEE(85 + Math.round((Math.random() * 14)), 85 + Math.round((Math.random() * 14)), 85 + Math.round((Math.random() * 14)));  //availability%, performance%, quality%
             simulateTarget();
             panelTarget(Math.round((Math.random() * 10)));  //new parts
             panelDowntime();
@@ -1329,6 +1332,7 @@
             sblReducedSpeed(5 + Math.round((Math.random() * 15)), Math.round(10 + (Math.random() * 100)), Math.random() * 5000);           //new rate%, Occurrences, Totalizer(sec)
             sblProcessDefects(5 + Math.round((Math.random() * 15)), Math.round(10 + (Math.random() * 100)), Math.random() * 5000);         //new rate%, Occurrences, Totalizer(sec)
             sblReducedYield(5 + Math.round((Math.random() * 15)), Math.round(10 + (Math.random() * 100)), Math.random() * 5000);           //new rate%, Occurrences, Totalizer(sec)
+            chartFloorMapReafresh();    //mock
         }, 3000);
 
 
@@ -1409,21 +1413,11 @@
                 </div>
                 <div class="panel-footer">
                     <div class="rating">
-                        <input type="radio" id="OEEstar5" name="OEErating" value="5"/><label for="OEEstar5"
-                                                                                             title="5 out of 5 stars">5
-                        stars</label>
-                        <input type="radio" id="OEEstar4" name="OEErating" value="4"/><label for="OEEstar4"
-                                                                                             title="4 out of 5 stars">4
-                        stars</label>
-                        <input type="radio" id="OEEstar3" name="OEErating" value="3"/><label for="OEEstar3"
-                                                                                             title="3 out of 5 stars">3
-                        stars</label>
-                        <input type="radio" id="OEEstar2" name="OEErating" value="2"/><label for="OEEstar2"
-                                                                                             title="2 out of 5 stars">2
-                        stars</label>
-                        <input type="radio" id="OEEstar1" name="OEErating" value="1"/><label for="OEEstar1"
-                                                                                             title="1 out of 5 stars">1
-                        star</label>
+                        <input type="radio" id="OEEstar5" name="OEErating" value="5"/><label for="OEEstar5" title="5 out of 5">5 stars</label>
+                        <input type="radio" id="OEEstar4" name="OEErating" value="4"/><label for="OEEstar4" title="4 out of 5">4 stars</label>
+                        <input type="radio" id="OEEstar3" name="OEErating" value="3"/><label for="OEEstar3" title="3 out of 5">3 stars</label>
+                        <input type="radio" id="OEEstar2" name="OEErating" value="2"/><label for="OEEstar2" title="2 out of 5">2 stars</label>
+                        <input type="radio" id="OEEstar1" name="OEErating" value="1"/><label for="OEEstar1" title="1 out of 5">1 star</label>
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -1445,15 +1439,15 @@
                 <div class="panel-footer">
                     <div class="rating">
                         <input type="radio" id="Availabilitystar5" name="Availabilityrating" value="5"/><label
-                            for="Availabilitystar5" title="5 out of 5 stars">5 stars</label>
+                            for="Availabilitystar5" title="5 out of 5">5 stars</label>
                         <input type="radio" id="Availabilitystar4" name="Availabilityrating" value="4"/><label
-                            for="Availabilitystar4" title="4 out of 5 stars">4 stars</label>
+                            for="Availabilitystar4" title="4 out of 5">4 stars</label>
                         <input type="radio" id="Availabilitystar3" name="Availabilityrating" value="3"/><label
-                            for="Availabilitystar3" title="3 out of 5 stars">3 stars</label>
+                            for="Availabilitystar3" title="3 out of 5">3 stars</label>
                         <input type="radio" id="Availabilitystar2" name="Availabilityrating" value="2"/><label
-                            for="Availabilitystar2" title="2 out of 5 stars">2 stars</label>
+                            for="Availabilitystar2" title="2 out of 5">2 stars</label>
                         <input type="radio" id="Availabilitystar1" name="Availabilityrating" value="1"/><label
-                            for="Availabilitystar1" title="1 out of 5 stars">1 star</label>
+                            for="Availabilitystar1" title="1 out of 5">1 star</label>
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -1475,15 +1469,15 @@
                 <div class="panel-footer">
                     <div class="rating">
                         <input type="radio" id="Performancestar5" name="Performancerating" value="5"/><label
-                            for="Performancestar5" title="5 out of 5 stars">5 stars</label>
+                            for="Performancestar5" title="5 out of 5">5 stars</label>
                         <input type="radio" id="Performancestar4" name="Performancerating" value="4"/><label
-                            for="Performancestar4" title="4 out of 5 stars">4 stars</label>
+                            for="Performancestar4" title="4 out of 5">4 stars</label>
                         <input type="radio" id="Performancestar3" name="Performancerating" value="3"/><label
-                            for="Performancestar3" title="3 out of 5 stars">3 stars</label>
+                            for="Performancestar3" title="3 out of 5">3 stars</label>
                         <input type="radio" id="Performancestar2" name="Performancerating" value="2"/><label
-                            for="Performancestar2" title="2 out of 5 stars">2 stars</label>
+                            for="Performancestar2" title="2 out of 5">2 stars</label>
                         <input type="radio" id="Performancestar1" name="Performancerating" value="1"/><label
-                            for="Performancestar1" title="1 out of 5 stars">1 star</label>
+                            for="Performancestar1" title="1 out of 5">1 star</label>
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -1504,21 +1498,11 @@
                 </div>
                 <div class="panel-footer">
                     <div class="rating">
-                        <input type="radio" id="Qualitystar5" name="Qualityrating" value="5"/><label for="Qualitystar5"
-                                                                                                     title="5 out of 5 stars">5
-                        stars</label>
-                        <input type="radio" id="Qualitystar4" name="Qualityrating" value="4"/><label for="Qualitystar4"
-                                                                                                     title="4 out of 5 stars">4
-                        stars</label>
-                        <input type="radio" id="Qualitystar3" name="Qualityrating" value="3"/><label for="Qualitystar3"
-                                                                                                     title="3 out of 5 stars">3
-                        stars</label>
-                        <input type="radio" id="Qualitystar2" name="Qualityrating" value="2"/><label for="Qualitystar2"
-                                                                                                     title="2 out of 5 stars">2
-                        stars</label>
-                        <input type="radio" id="Qualitystar1" name="Qualityrating" value="1"/><label for="Qualitystar1"
-                                                                                                     title="1 out of 5 stars">1
-                        star</label>
+                        <input type="radio" id="Qualitystar5" name="Qualityrating" value="5"/><label for="Qualitystar5" title="5 out of 5">5 stars</label>
+                        <input type="radio" id="Qualitystar4" name="Qualityrating" value="4"/><label for="Qualitystar4" title="4 out of 5">4 stars</label>
+                        <input type="radio" id="Qualitystar3" name="Qualityrating" value="3"/><label for="Qualitystar3" title="3 out of 5">3 stars</label>
+                        <input type="radio" id="Qualitystar2" name="Qualityrating" value="2"/><label for="Qualitystar2" title="2 out of 5">2 stars</label>
+                        <input type="radio" id="Qualitystar1" name="Qualityrating" value="1"/><label for="Qualitystar1" title="1 out of 5">1 star</label>
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -1575,10 +1559,11 @@
                             <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
                             <li data-target="#myCarousel" data-slide-to="1"></li>
                             <li data-target="#myCarousel" data-slide-to="2"></li>
+                            <li data-target="#myCarousel" data-slide-to="4"></li>
                         </ol>
 
-                        <!-- Wrapper for slides -->
                         <div class="carousel-inner">
+
                             <div class="item active">
                                 <div class="panel-body">
                                     <div id="chartOeeTrend"></div>
@@ -1594,60 +1579,11 @@
                             <div class="item">
                                 <div class="panel-body">
                                     <div class="row">
-                                        <div id="chartChronological" class="col-md-7"></div>
+                                        <div id="chartEvents" class="col-md-7"></div>
                                         <div class="col-md-5">
                                             <div class="panel-body">
-                                                <div class="table-responsive">
-                                                    <table class="table table-hover">
-                                                        <thead>
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th>Events</th>
-                                                            <th>Totalizers</th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        <tr>
-                                                            <td>1</td>
-                                                            <td>Tooling Failure</td>
-                                                            <td>01:12:00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>2</td>
-                                                            <td>Unplanned Maint</td>
-                                                            <td>00:45:30</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>3</td>
-                                                            <td>Equipment Failure</td>
-                                                            <td>00:30:45</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>4</td>
-                                                            <td>Setup</td>
-                                                            <td>00:33:45</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>5</td>
-                                                            <td>Changeover</td>
-                                                            <td>00:11:45</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>6</td>
-                                                            <td>WarmUp Time</td>
-                                                            <td>02:30:45</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>7</td>
-                                                            <td>Obstructed Flow</td>
-                                                            <td>00:55:45</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>8</td>
-                                                            <td>Misfeeds</td>
-                                                            <td>00:34:45</td>
-                                                        </tr>
-                                                        </tbody>
+                                                <div class="table">
+                                                    <table id="eventsTable" class="table table-hover">
                                                     </table>
                                                 </div>
                                             </div>
@@ -1655,7 +1591,15 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="item">
+                                <div class="panel-body">
+                                    <div id="chartFloorMap"></div>
+                                </div>
+                            </div>
                         </div>
+
+
                         <a class="left carousel-control" href="#myCarousel" data-slide="prev">
                             <span class="glyphicon glyphicon-chevron-left"></span>
                             <span class="sr-only">Previous</span>

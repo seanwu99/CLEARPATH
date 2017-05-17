@@ -1,0 +1,947 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>RTS NRG</title>
+    <link rel="stylesheet" type="text/css" href="Common/js/jquerydatetimepicker/jquery.datetimepicker.css"/>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0px;
+        }
+
+        body {
+        / / background-image: url("Common/img/logo.png");
+            background-size: 120px;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: right 40px top 25px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        #app_header {
+            padding: 10px;
+            padding-left: 40px;
+            padding-top: 15px;
+            padding-bottom: 0px;
+            height: 80px;
+            width: 400px;
+            text-align: center;
+        }
+
+        #app_title {
+            width: 400px;
+            text-align: center;
+            font-family: "Arial Black", Arial, Helvetica, sans-serif;
+            font-size: 32px;
+            color: #007dc0;
+            margin-bottom;
+            20px;
+        }
+
+        #app_menu {
+            width: 400px;
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        #page_title {
+            width: 400px;
+            text-align: center;
+            font-family: "Arial Black", Arial, Helvetica, sans-serif;
+            font-size: 28px;
+            color: #cfcfcf;
+        }
+
+        #nrgmap {
+            padding: 30px;
+            padding-top: 0px;
+            height: calc(100% - 165px);
+            height: -o-calc(100% - 165px); /* opera */
+            height: -webkit-calc(100% - 165px); /* google, safari */
+            height: -moz-calc(100% - 165px); /* firefox */
+            overflow: auto;
+        }
+
+        #__button0, #__button1, #__button2 {
+            margin-top: 10px;
+            margin-left: 5px;
+            margin-right: 5px;
+            width: 125px;
+        }
+
+        #MatrixCB {
+            border-bottom: 0px solid #333;
+        }
+
+        #TF-ValidFromM {
+            text-align: center;
+        }
+
+        #MatrixMail {
+            margin: 10px auto;
+        }
+
+        #L-MailInfo {
+            margin-top: 25px;
+            padding: 5px;
+            font-family: "Arial Black", Arial, Helvetica, sans-serif;
+            font-size: 32px;
+            height: 40px;
+            color: #007dc0;
+        }
+
+        #__cell7 {
+            height: 38px;
+            text-align: center;
+        }
+
+        #__cell8, #__cell9, #__cell14 {
+            text-align: center;
+        }
+
+        #__cell10 {
+            text-align: right;
+        }
+
+        #B-SendMail {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            width: 200px;
+            height: 35px;
+            font-size: 14px;
+        }
+
+        @media print {
+            .no-print, .no-print * {
+                display: none !important;
+            }
+
+            .do-print, .do-print * {
+                display: block !important;
+            }
+        }
+    </style>
+    <script id="sap-ui-bootstrap"
+            src="https://openui5.hana.ondemand.com/resources/sap-ui-core.js"
+            data-sap-ui-theme="sap_goldreflection"
+            data-sap-ui-libs="sap.ui.core,sap.ui.commons,sap.ui.table,sap.ui.ux3"
+            data-sap-ui-language="en">
+    </script>
+    <script type="text/javascript" src="Common/js/default.js"></script>
+    <script src="Common/js/jquerydatetimepicker/build/jquery.datetimepicker.full.js"></script>
+    <script type="text/javascript" id="app-init">
+        var oCore = sap.ui.getCore();
+        // ****************************************************************************************************************************************************
+        function roleSecurity() {
+            var myRoles = document.getElementById("user_roles").value;
+            var role2Access = "NRGM_" + document.getElementById("user_role").value;
+            // alert(role2Access + " -- " + myRoles.indexOf(role2Access));
+            if (myRoles.indexOf(role2Access) < 0) {
+                window.location.assign("Security.irpt");
+            } else {
+                // WHAT IF
+                document.getElementById("page_title").innerHTML = role2Access;
+                if (document.getElementById("user_role").value == "ADM_ALL") {
+                    //Attach the MenuButton to the page
+                    document.getElementById("page_title").innerHTML = "ADMINISTRATOR";
+                    oMenuButton1.placeAt("app_menu");
+                    // oMenuButton2.placeAt("app_menu");
+                    oMenuButton3.placeAt("app_menu");
+                    updateUOM();
+                } else {
+                    //Attach the MenuButton to the page
+                    if (document.getElementById("user_role").value == "ALL") {
+                        document.getElementById("page_title").innerHTML = "ALL UNITS ";
+                    } else {
+                        document.getElementById("page_title").innerHTML = "UNIT " + document.getElementById("user_role").value;
+                    }
+                    oMenuButton3.placeAt("app_menu");
+                }
+            }
+            // dispatch matrices
+            oMatrixMain.placeAt("nrg_content");
+        }
+        // ****************************************************************************************************************************************************
+        // Create a MenuButton Control
+        var oMenuButton1 = new sap.ui.commons.MenuButton({
+            text: "Settings",
+            icon: "Common/img/map.png",
+            tooltip: "Energy Tech Settings"
+        });
+        var oMenuButton2 = new sap.ui.commons.MenuButton({
+            text: "Actions",
+            icon: "Common/img/cloud.png",
+            tooltip: "Energy Tech Actions"
+        });
+        var oMenuButton3 = new sap.ui.commons.MenuButton({
+            text: "Reports",
+            icon: "Common/img/list.png",
+            tooltip: "Energy Reports"
+        });
+
+        // Create the menu
+        var oMenu1 = new sap.ui.commons.Menu("menu1", {
+            ariaDescription: "Application Setup",
+            tooltip: "Set Up Landscape"
+        });
+        // Create the items and add them to the menu
+        var oMenuItem1 = new sap.ui.commons.MenuItem("item1-1-1", {text: "Cost Centers"});
+        oMenu1.addItem(oMenuItem1);
+        var oMenuItem2 = new sap.ui.commons.MenuItem("item1-1-2", {text: "Utilities Data"});
+        oMenu1.addItem(oMenuItem2);
+        var oMenuItem7 = new sap.ui.commons.MenuItem("item1-1-7", {text: "HOEP Data"});
+        oMenu1.addItem(oMenuItem7);
+        var oMenuItem3 = new sap.ui.commons.MenuItem("item1-1-3", {text: "Weather Data"});
+        oMenu1.addItem(oMenuItem3);
+        var oMenuItem4 = new sap.ui.commons.MenuItem("item1-1-4", {text: "Meters & Data Points"});
+        oMenu1.addItem(oMenuItem4);
+        var oMenuItem5 = new sap.ui.commons.MenuItem("item1-1-5", {text: "Meter Readings"});
+        oMenu1.addItem(oMenuItem5);
+        var oMenuItem6 = new sap.ui.commons.MenuItem("item1-1-6", {text: "Units Of Measure"});
+        oMenu1.addItem(oMenuItem6);
+        var oMenuItem30 = new sap.ui.commons.MenuItem("item1-1-30", {text: "User Preferences", enabled: false});
+        // oMenu1.addItem(oMenuItem30);
+
+        // Create the menu
+        var oMenu4 = new sap.ui.commons.Menu("menu4", {ariaDescription: "NRG Actions", tooltip: "NRG Actions"});
+        // Create the items and add them to the menu
+        var oMenuItem41 = new sap.ui.commons.MenuItem("item2-0-1", {text: "Alert Subscriptions", enabled: false});
+        oMenu4.addItem(oMenuItem41);
+        var oMenuItem42 = new sap.ui.commons.MenuItem("item2-0-2", {text: "Report Subscriptions", enabled: false});
+        oMenu4.addItem(oMenuItem42);
+        var oMenuItem43 = new sap.ui.commons.MenuItem("item2-0-3", {text: "Price Forecast"});
+        oMenu4.addItem(oMenuItem43);
+        var oMenuItem44 = new sap.ui.commons.MenuItem("item2-0-4", {text: "Budget Forecast"});
+        oMenu4.addItem(oMenuItem44);
+        var oMenuItem45 = new sap.ui.commons.MenuItem("item2-0-5", {text: "Bill Data Import"});
+        oMenu4.addItem(oMenuItem45);
+        var oMenuItem46 = new sap.ui.commons.MenuItem("item2-0-6", {text: "Action History Log", enabled: false});
+        oMenu4.addItem(oMenuItem46);
+
+        // Create the menu
+        var oMenu5 = new sap.ui.commons.Menu("menu5", {ariaDescription: "NRG Reports", tooltip: "NRG Reports"});
+        // Create the items and add them to the menu
+        var oMenuItem51 = new sap.ui.commons.MenuItem("item3-0-1", {text: "Real Time Use"});
+        oMenu5.addItem(oMenuItem51);
+        var oMenuItem52 = new sap.ui.commons.MenuItem("item3-0-2", {text: "Daily Energy Report"});
+        oMenu5.addItem(oMenuItem52);
+        var oMenuItem53 = new sap.ui.commons.MenuItem("item3-0-3", {text: "Monthly Energy Report"});
+        oMenu5.addItem(oMenuItem53);
+        var oMenuItem54 = new sap.ui.commons.MenuItem("item3-0-4", {text: "Daily Production Report"});
+        oMenu5.addItem(oMenuItem54);
+        var oMenuItem55 = new sap.ui.commons.MenuItem("item3-0-5", {text: "Monthly Production Report"});
+        oMenu5.addItem(oMenuItem55);
+        var oMenuItem56 = new sap.ui.commons.MenuItem("item3-0-6", {text: "Daily Energy Intensity Report"});
+        oMenu5.addItem(oMenuItem56);
+        var oMenuItem57 = new sap.ui.commons.MenuItem("item3-0-7", {text: "Monthly Energy Intensity Report"});
+        oMenu5.addItem(oMenuItem57);
+
+        //Attach the Menu to the MenuButton
+        oMenuButton1.setMenu(oMenu1);
+        oMenuButton2.setMenu(oMenu4);
+        oMenuButton3.setMenu(oMenu5);
+
+        //Attach an event to raise an alert when an item is selected (Button 1)
+        oMenuButton1.attachItemSelected(function (oEvent) {
+            switch (oEvent.getParameter("itemId")) {
+                case "item1-1-1":
+                    document.location.href = 'Facilities.irpt?ROLE=' + document.getElementById("user_role").value;
+                    break;
+                case "item1-1-2":
+                    document.location.href = 'Utilities.irpt?ROLE=' + document.getElementById("user_role").value;
+                    break;
+                case "item1-1-3":
+                    document.location.href = 'WeatherDaily.irpt?ROLE=' + document.getElementById("user_role").value;
+                    break;
+                case "item1-1-4":
+                    document.location.href = 'Meters.irpt?ROLE=' + document.getElementById("user_role").value;
+                    break;
+                case "item1-1-5":
+                    document.location.href = 'MeterReadings.irpt?ROLE=' + document.getElementById("user_role").value;
+                    break;
+                case "item1-1-6":
+                    document.location.href = 'UnitsOfMeasure.irpt?ROLE=' + document.getElementById("user_role").value;
+                    break;
+                case "item1-1-7":
+                    document.location.href = 'HoepData.irpt?ROLE=' + document.getElementById("user_role").value;
+                    break;
+                default:
+                    // alert("Items \"" + oEvent.getParameter("itemId") + "\" was selected.");
+                    break;
+            }
+        });
+
+        //Attach an event to raise an alert when an item is selected. (Button 2)
+        oMenuButton2.attachItemSelected(function (oEvent) {
+            switch (oEvent.getParameter("itemId")) {
+                case "item2-0-3":
+                    document.location.href = 'PriceForecast.irpt?ROLE=' + document.getElementById("user_role").value;
+                    break;
+                case "item2-0-4":
+                    document.location.href = 'Budget.irpt?ROLE=' + document.getElementById("user_role").value;
+                    break;
+                case "item2-0-5":
+                    document.location.href = 'DataImport.irpt?ROLE=' + document.getElementById("user_role").value;
+                    break;
+                default:
+                    alert("Items \"" + oEvent.getParameter("itemId") + "\" was selected.");
+                    break;
+            }
+        });
+
+        //Attach an event to raise an alert when an item is selected. (Button 3)
+        oMenuButton3.attachItemSelected(function (oEvent) {
+            switch (oEvent.getParameter("itemId")) {
+                case "item3-0-1":
+                    document.location.href = 'NRGM.irpt?ROLE=' + document.getElementById("user_role").value;
+                    break;
+                case "item3-0-2":
+                    document.location.href = 'DailyReport.irpt?ROLE=' + document.getElementById("user_role").value;
+                    break;
+                case "item3-0-3":
+                    document.location.href = 'MonthlyReport.irpt?ROLE=' + document.getElementById("user_role").value;
+                    break;
+                case "item3-0-4":
+                    document.location.href = 'DailyProduction.irpt?ROLE=' + document.getElementById("user_role").value;
+                    break;
+                case "item3-0-5":
+                    document.location.href = 'MonthlyProduction.irpt?ROLE=' + document.getElementById("user_role").value;
+                    break;
+                case "item3-0-6":
+                    document.location.href = 'DailyIntensity.irpt?ROLE=' + document.getElementById("user_role").value;
+                    break;
+                case "item3-0-7":
+                    document.location.href = 'MonthlyIntensity.irpt?ROLE=' + document.getElementById("user_role").value;
+                    break;
+                default:
+                    alert("Items \"" + oEvent.getParameter("itemId") + "\" was selected.");
+                    break;
+            }
+        });
+        // ****************************************************************************************************************************************************
+        // define main matrix
+        var oMatrixMain = new sap.ui.commons.layout.MatrixLayout({
+            id: 'matrixMain',
+            layoutFixed: true,
+            columns: 1,
+            widths: ['1200px']
+        });
+        var oMatrixCB = new sap.ui.commons.layout.MatrixLayout({
+            id: 'MatrixCB',
+            layoutFixed: true,
+            columns: 6,
+            widths: ['600px', '100px', '100px', '100px', '180px', '100px']
+        });
+
+        var oLabelSpace1 = new sap.ui.commons.Label({
+            id: 'L-Space1',
+            visible: true,
+            text: ' '
+        });
+
+        var oBtnPrint = new sap.ui.commons.Button({
+            id: 'B-Print',
+            tooltip: 'Print Real Time Use Report',
+            width: '90px',
+            text: 'Print'
+        });
+        oBtnPrint.attachPress(doPrintReport);
+
+        var oBtnEmail = new sap.ui.commons.Button({
+            id: 'B-Email',
+            tooltip: 'eMail Real Time Use Report',
+            width: '90px',
+            text: 'eMail'
+        });
+        oBtnEmail.attachPress(doEmailReport);
+
+        var oDropdownBoxUOM = new sap.ui.commons.DropdownBox({
+            id: "cbUOM",
+            tooltip: 'UOM',
+            editable: true,
+            width: '90px',
+            change: function (oEvent) {
+                selectedUOM = oEvent.oSource.getSelectedKey();
+            }
+        });
+        // *****************************************************************************************************************************
+        function updateUOM() {
+            var timestamp = new Date().getTime();
+            getData("/XMII/Illuminator?QueryTemplate=NRGM/DIAGRAMS/QUERIES/getMeterUOM&ts=" + timestamp + "&Content-Type=text/xml", parseJsonUOM);
+
+            function parseJsonUOM(jsondata) {
+                oDropdownBoxUOM.destroyItems();
+                for (var i = 0; i < jsondata.length; i++) {
+                    //alert(jsondata[i]['idType'] + '   ' + jsondata[i]['Type']);
+                    item_key = jsondata[i]['idUOM'];
+                    item_text = jsondata[i]['UOMName'];
+                    oItem = new sap.ui.core.ListItem({
+                        key: item_key,
+                        text: item_text
+                    });
+                    oDropdownBoxUOM.addItem(oItem);
+                    if (i == 0) oDropdownBoxUOM.setSelectedKey(item_key);
+                }
+                updateTime();
+            }
+        }
+        // *****************************************************************************************************************************
+        var oTF_ValidFromM = new sap.ui.commons.TextField({
+            id: 'TF-ValidFromM',
+            tooltip: 'TIME STAMP',
+            editable: true,
+            visible: true,
+            width: '138px',
+            change: function (oEvent) {
+                //document.getElementById("nrg_map").innerHTML= "";
+                //strTime = oTF_ValidFromM.getValue();
+                // buildChart();
+            }
+        });
+
+        var oBtn_ValidFromM = new sap.ui.commons.Button({
+            id: 'B-ValidFromM',
+            tooltip: 'TIME STAMP',
+            text: ''
+        });
+
+        oBtn_ValidFromM.setIcon("img/asr_calendar.png");
+        oBtn_ValidFromM.attachPress(doOpenPickerM);
+        // *****************************************************************************************************************************
+        function doOpenPickerM(oControlEvent) {
+            $('#TF-ValidFromM').datetimepicker('show');
+        }
+        // *****************************************************************************************************************************
+        oBtn_ValidFromM.attachBrowserEvent("mouseover", function () {
+            $('#TF-ValidFromM').datetimepicker({
+                format: 'Y-m-d H:i:s',
+                step: 5,
+                onChangeDateTime: function () {
+                    var d = $('#TF-ValidFromM').val();
+                    oCore.byId('TF-ValidFromM').setValue(d);
+                }
+            });
+        });
+
+        oBtn_ValidFromM.attachBrowserEvent("blur", function () {
+            $('#TF-ValidFromM').datetimepicker({
+                format: 'Y-m-d H:i:s',
+                step: 5,
+                onChangeDateTime: function () {
+                    var d = $('#TF-ValidFromM').val();
+                    oCore.byId('TF-ValidFromM').setValue(d);
+                }
+            });
+        });
+
+        var oLayoutValidFromM = new sap.ui.layout.HorizontalLayout("LayoutValidFromM", {
+            content: [oTF_ValidFromM, oBtn_ValidFromM]
+        });
+
+        var oButtonSubmit = new sap.ui.commons.Button({
+            text: "Submit",
+            tooltip: "Submit",
+            width: '100px',
+            press: function () {
+                document.getElementById("nrg_map").innerHTML = "";
+                strTime = oTF_ValidFromM.getValue();
+                buildChart();
+            }
+        });
+
+        oMatrixCB.createRow(oLabelSpace1, oBtnPrint, oBtnEmail, oDropdownBoxUOM, oLayoutValidFromM, oButtonSubmit);
+        // set Main matrix rows
+        oMatrixMain.createRow(oMatrixCB);
+        // ****************************************************************************************************************************************************
+        function doPrintReport() {
+            window.print();
+        }
+        // ****************************************************************************************************************************************************
+        // create email overlay
+        var oMatrixMail = new sap.ui.commons.layout.MatrixLayout({
+            id: 'MatrixMail',
+            layoutFixed: true,
+            width: '490px',
+            columns: 1,
+            widths: ['500px']
+        });
+
+        var oMatrixMailF = new sap.ui.commons.layout.MatrixLayout({
+            id: 'MatrixMailF',
+            layoutFixed: true,
+            width: '490px',
+            columns: 3,
+            widths: ['180px', '140px', '170px']
+        });
+
+        var oTitleMail = new sap.ui.commons.Label({
+            id: 'L-MailInfo',
+            text: 'EMAIL INFORMATION'
+        });
+        oMatrixMail.createRow(oTitleMail);
+
+        var oLabelSystemMail = new sap.ui.commons.Label({
+            id: 'L-SysMail',
+            text: ' System Mail : '
+        });
+        oMatrixMail.createRow(oLabelSystemMail);
+
+
+        var oLabelSystemNote = new sap.ui.commons.Label({
+            id: 'L-SysNote',
+            text: ' Messages can be relayed to xxxxxxxxxxx@rtsperfectplant.com addresses only! '
+        });
+        oMatrixMail.createRow(oLabelSystemNote);
+
+        var oLabelRecipient = new sap.ui.commons.Label({
+            id: 'L-Recipient',
+            text: ' Send eMail To  '
+        });
+
+        var oInputRecipient = new sap.ui.commons.TextField('input_recipient');
+        oInputRecipient.setTextAlign(sap.ui.core.TextAlign.Right);
+
+        var oLabelDomain = new sap.ui.commons.Label({
+            id: 'L-Domain',
+            text: ' @rtsperfectplant.com '
+        });
+
+        oMatrixMailF.createRow(oLabelRecipient, oInputRecipient, oLabelDomain);
+        oMatrixMail.createRow(oMatrixMailF);
+
+        var oButtonMail = new sap.ui.commons.Button({
+            id: 'B-SendMail',
+            tooltip: "Send report data via eMail",
+            text: 'SUBMIT',
+            enabled: true
+        });
+        oButtonMail.attachPress(doSendEmail);
+        oMatrixMail.createRow(oButtonMail);
+
+        var oOverlayContainerMail = new sap.ui.ux3.OverlayDialog({openButtonVisible: false});
+        oOverlayContainerMail.setHeight('270px');
+        oOverlayContainerMail.setWidth('700px');
+        oOverlayContainerMail.addContent(oMatrixMail);
+        // ****************************************************************************************************************************************************
+        function doEmailReport() {
+            // collect email data
+            var recipient = document.getElementById("user_email").value;
+            recipient = recipient.toLowerCase();
+            var firstname = document.getElementById("user_firstname").value;
+            var lastname = document.getElementById("user_lastname").value;
+            var allname = firstname + "." + lastname;
+            // show email overlay
+            if (!oOverlayContainerMail.isOpen()) {
+                oCore.byId("L-SysMail").setText("System configured eMail address : " + recipient);
+                if (recipient.indexOf("@rtsperfectplant.com") > 0) {
+                    oCore.byId("input_recipient").setValue(recipient);
+                } else {
+                    oCore.byId("input_recipient").setValue(allname.toLowerCase());
+                }
+                oOverlayContainerMail.open();
+            }
+        }
+        // ****************************************************************************************************************************************************
+        function doSendEmail() {
+            var queryparam = Number(oCore.byId('cbUOM').getSelectedKey());
+            var queryTime = strTime;
+            var recipient = oCore.byId("input_recipient").getValue() + "@rtsperfectplant.com";
+            var queryTime = strTime;
+
+            // all good - call TRX
+            var oSendMail;
+            if (window.XMLHttpRequest) {
+                oSendMail = new XMLHttpRequest();
+            }
+            if (oSendMail != null) {
+                var timestamp = new Date().getTime();
+                var paramStr = "QueryTime=" + encodeURIComponent(queryTime) + "&QueryParam=" + encodeURIComponent(queryparam) + "&MailRecipient=" + encodeURIComponent(recipient);
+                // alert(paramStr);
+                var queryStr = "/XMII/Runner?Transaction=NRGM/REPORTS/TRANSACTIONS/mailDataRTU&OutputParameter=XML_RESULT&Content-Type=text/xml&" + paramStr + "&ts=" + timestamp;
+                // alert(queryStr);
+                oSendMail.open("GET", queryStr, true);
+                oSendMail.onreadystatechange = function () {
+                    if (oSendMail.readyState == 4)
+                        if (oSendMail.status == 200) {
+                            // Successful -- rebuild the screen
+                            var xmlDOC = oSendMail.responseXML;
+                            if (xmlDOC.getElementsByTagName("TRXRESULT")[0] && xmlDOC.getElementsByTagName("TRXRESULT")[0].childNodes[0]) {
+                                var trxMessage = xmlDOC.getElementsByTagName("TRXRESULT")[0].childNodes[0].nodeValue;
+                                alert(trxMessage);
+                                oOverlayContainerMail.close();
+                            } else {
+                                alert("Please do try again later .. ");
+                            }
+                        } else {
+                            alert("Error: " + oSendMail.statusText);
+                        }
+                }
+                oSendMail.send();
+            } else {
+                window.alert("Error creating XmlHttpRequest object.");
+            }
+        }
+        // ****************************************************************************************************************************************************
+    </script>
+    <script type="text/javascript" src="Common/js/default.js"></script>
+    <script type='text/javascript'>//<![CDATA[
+    // ****************************************************************************************************************************************************
+    // Globals
+    var strTime = "";
+    var jsonChartData = "";
+    var selectedUOM = "";
+    // ****************************************************************************************************************************************************
+    function updateTime() {
+        var theDate = new Date();
+        var t_year = theDate.getFullYear();
+        var t_mnth = theDate.getMonth() + 1;
+        if (t_mnth < 10) t_mnth = "0" + t_mnth;
+        var t_days = theDate.getDate();
+        if (t_days < 10) t_days = "0" + t_days;
+        var t_hrs = theDate.getHours();
+        if (t_hrs < 10) t_hrs = "0" + t_hrs;
+        var t_mins = theDate.getMinutes();
+        if (t_mins < 10) t_mins = "0" + t_mins;
+        var t_secs = theDate.getSeconds();
+        if (t_secs < 10) t_secs = "0" + t_secs;
+
+        strTime = t_year + "-" + t_mnth + "-" + t_days + " " + t_hrs + ":" + t_mins + ":" + t_secs;
+        oCore.byId('TF-ValidFromM').setValue(strTime);
+        buildChart();
+    }
+
+    // ****************************************************************************************************************************************************
+    function buildChart() {
+        // load meter data
+        var timestamp = new Date().getTime();
+        selectedUOM = Number(oCore.byId('cbUOM').getSelectedKey());
+        getData("/XMII/Illuminator?QueryTemplate=NRGM/DIAGRAMS/QUERIES/getMeterTrees&Param.1=" + encodeURIComponent(selectedUOM) + "&Param.2=" + encodeURIComponent(escapeSQLString(strTime)) + "&ts=" + timestamp + "&Content-Type=text/xml", parseJsonParent);
+        // Generic Coordinates - Data
+        var meterWidth = 220;
+        var meterHeight = 90;
+
+        // Positioning Variables - Coordinates
+        var chartWidth = 0;
+        var chartHeight = 0;
+        var item_x_coord = 0;
+        var item_y_coord = 0;
+        var item_colNumber = 0;
+        var item_xmax_coord = 0;
+        var item_ymax_coord = 0;
+        var item_max_Level = 0;
+
+        function parseJsonParent(jsondata) {
+            jsonChartData = jsondata;
+            for (var i = 0; i < jsondata.length; i++) {
+                item_idUnit = jsondata[i]['idUnit'];
+                item_Level = jsondata[i]['Level'];
+
+                if (item_Level == 0) {
+                    item_colNumber = item_colNumber + 1;
+                    if (item_colNumber == 1)
+                        item_x_coord = item_xmax_coord + item_max_Level * meterWidth / 4;
+                    else
+                        item_x_coord = item_xmax_coord + meterWidth + item_max_Level * meterWidth / 4;
+                    if (item_x_coord >= item_xmax_coord) item_xmax_coord = item_x_coord;
+                    item_y_coord = 30;
+                    item_max_Level = item_Level;
+                    if (item_ymax_coord <= item_y_coord) item_ymax_coord = item_y_coord;
+                } else {
+                    if (item_Level >= item_max_Level) item_max_Level = item_Level;
+                    item_x_coord = item_xmax_coord + item_Level * meterWidth / 4;
+                    item_y_coord = item_y_coord + 10 + meterHeight;
+                    if (item_ymax_coord <= item_y_coord) item_ymax_coord = item_y_coord;
+                }
+            }
+            // alert(jsondata.length);
+            // alert(maxNrCols + " -- " + maxNrRows + " -- " + maxColWidth);
+
+            chartWidth = item_xmax_coord + meterWidth;
+            chartHeight = item_ymax_coord + meterHeight + 40;
+            document.getElementById("nrg_map").style.width = chartWidth + "px";
+            document.getElementById("nrg_map").style.height = chartHeight + "px";
+            // draw diagram
+            var renderer;
+            $(function () {
+                renderer = new Highcharts.Renderer($('#nrg_map')[0], chartWidth, chartHeight);
+                var lblColor = "lightgreen";
+                var txtColor = "black";
+                var x_coord = 0;
+                var y_coord = 0;
+                var colNumber = 0;
+                var xmax_coord = 0;
+                var cmax_Level = 0;
+                var c_date = "";
+                var c_power = "";
+                var c_energy = "";
+
+                for (var i = 0; i < jsonChartData.length; i++) {
+
+                    c_UnitName = jsonChartData[i]['UnitName'];
+                    c_mtrStatus = jsonChartData[i]['mtrStatus'];
+                    if (c_mtrStatus == 'Disabled') {
+                        lblColor = "lightgray";
+                        txtColor = "white";
+                    } else {
+                        if (c_mtrStatus == 'Late') {
+                            lblColor = "#B40431";
+                            txtColor = "white";
+                        } else {
+                            lblColor = "#007dc0";
+                            txtColor = "white";
+                        }
+                    }
+                    c_Level = jsonChartData[i]['Level'];
+                    c_lastReading = jsonChartData[i]['lastReading'];
+                    c_date = "DATE: " + c_lastReading;
+                    c_lastDemandAvg_Man = jsonChartData[i]['lastDemandAvg_Man'];
+                    c_lastDemandAvg_Act = jsonChartData[i]['lastDemandAvg_Act'];
+                    c_lastDemandAvg_Est = jsonChartData[i]['lastDemandAvg_Est'];
+                    if (c_lastDemandAvg_Man != "N/A") {
+                        c_power = "[MAN] KW : " + c_lastDemandAvg_Man;
+                        c_type = "Manual";
+                    } else {
+                        if (c_lastDemandAvg_Act != "N/A") {
+                            c_power = "[AUT] KW : " + c_lastDemandAvg_Act;
+                            c_type = "Automatic";
+                        } else {
+                            if (c_lastDemandAvg_Act != "N/A") {
+                                c_power = "[EST] KW : " + c_lastDemandAvg_Est;
+                                c_type = "Estimated";
+                            } else {
+                                c_power = "[PWR] KW : NOT AVAILABLE ";
+                                c_type = "N/A";
+                            }
+                        }
+                    }
+                    c_lastConsIntkWh_Man = jsonChartData[i]['lastConsIntkWh_Man'];
+                    c_lastConsIntkWh_Act = jsonChartData[i]['lastConsIntkWh_Act'];
+                    c_lastConsIntkWh_Est = jsonChartData[i]['lastConsIntkWh_Est'];
+                    if (c_lastConsIntkWh_Man != "N/A") {
+                        c_energy = "[MAN] KWh : " + c_lastConsIntkWh_Man;
+                    } else {
+                        if (c_lastConsIntkWh_Act != "N/A") {
+                            c_energy = "[AUT] KWh : " + c_lastConsIntkWh_Act;
+                        } else {
+                            if (c_lastConsIntkWh_Act != "N/A") {
+                                c_energy = "[EST] KWh : " + c_lastConsIntkWh_Est;
+                            } else {
+                                c_energy = "[NRG] KWh : NOT AVAILABLE ";
+                            }
+                        }
+                    }
+
+                    if (c_mtrStatus == "Good" && c_type == "N/A") {
+                        lblColor = "#424242";
+                        txtColor = "white";
+                    }
+
+                    if (c_Level == 0) {
+                        colNumber = colNumber + 1;
+                        if (colNumber == 1)
+                            x_coord = xmax_coord + cmax_Level * meterWidth / 4;
+                        else
+                            x_coord = xmax_coord + meterWidth + cmax_Level * meterWidth / 4;
+                        if (x_coord >= xmax_coord) xmax_coord = x_coord;
+                        y_coord = 30;
+                        cmax_Level = c_Level;
+                    } else {
+                        if (c_Level >= cmax_Level) cmax_Level = c_Level;
+                        x_coord = xmax_coord + c_Level * meterWidth / 4;
+                        y_coord = y_coord + 10 + meterHeight;
+                    }
+                    // draw meter
+                    renderer.label(c_UnitName + '<br/>-------------------------<br/>' + c_date + '<br>' + c_power + '<br>' + c_energy, x_coord, y_coord)
+                        .attr({
+                            fill: lblColor, stroke: 'white', 'stroke-width': 2, padding: 5, r: 5
+                        })
+                        .css({
+                            color: txtColor
+                        })
+                        .add().shadow(true);
+                    // draw arrow
+                    if (c_Level != 0) {
+                        if (c_Level > c_LevelOld) {
+                            coord_x1 = x_coord - parseInt(meterWidth / 8);
+                            coord_y1 = y_coord - 10;
+                            coord_x2 = coord_x1 + parseInt(meterWidth / 8) - 3;
+                            coord_y2 = coord_y1 + 10 + parseInt(meterHeight / 2);
+                            coord_x3 = coord_x2 - 5;
+                            coord_y3 = coord_y2 - 5;
+                            coord_x4 = coord_x3;
+                            coord_y4 = coord_y3 + 10;
+                        } else {
+                            if (c_Level == c_LevelOld) {
+                                coord_x1 = x_coord - parseInt(meterWidth / 8);
+                                coord_y1 = y_coord - 60;
+                                coord_x2 = coord_x1 + parseInt(meterWidth / 8) - 3;
+                                coord_y2 = coord_y1 + 60 + parseInt(meterHeight / 2);
+                                coord_x3 = coord_x2 - 5;
+                                coord_y3 = coord_y2 - 5;
+                                coord_x4 = coord_x3;
+                                coord_y4 = coord_y3 + 10;
+                            } else {
+                                coord_x1 = x_coord - parseInt(meterWidth / 8);
+                                coord_y1 = y_coord - 170 - meterHeight;
+                                coord_x2 = coord_x1 + parseInt(meterWidth / 8) - 3;
+                                coord_y2 = coord_y1 + 170 + meterHeight + parseInt(meterHeight / 2);
+                                coord_x3 = coord_x2 - 5;
+                                coord_y3 = coord_y2 - 5;
+                                coord_x4 = coord_x3;
+                                coord_y4 = coord_y3 + 10;
+                            }
+                        }
+                        renderer.path(['M', coord_x1, coord_y1, 'L', coord_x1, coord_y2, 'L', coord_x2, coord_y2, 'L', coord_x3, coord_y3, 'M', coord_x2, coord_y2, 'L', coord_x4, coord_y4]).attr({
+                            'stroke-width': 4,
+                            stroke: 'darkgrey'
+                        }).add();
+                    }
+                    c_LevelOld = c_Level;
+                }
+            });
+            buildReport();
+        }
+    }
+    // ****************************************************************************************************************************************************
+    function buildReport() {
+        // Local Variables
+        var tableHTML = "";
+        var bgColor = "";
+        var previdUnit = "";
+
+        // Report Header
+        tableHTML = tableHTML + "<table id=\"data-hdr\" cellspacing=0 cellpadding=5 align=center width=1200 style=\"margin:0px;font-size:12px;border-top:2px solid #333; border-bottom: 2px solid #333;\">";
+        tableHTML = tableHTML + "<tr style=\"border-top:2px solid #dfdfdf;margin-top:0px;background-color:#dfdfdf;\"><td style=\"width:100px;text-align:center;\">Meter ID</td><td style=\"width:100px;text-align:center;\">Status</td><td style=\"width:150px;text-align:center;\">Last Reading</td><td style=\"width:100px;text-align:center;\">Reading Type</td><td style=\"width:200px;text-align:center;\">Totalizer Value [kWh]</td><td style=\"width:200px;text-align:center;\">Consumption Value [kWh]</td><td style=\"width:200px;text-align:center;\">Demand Value [kW]</td><td style=\"width:200px;text-align:center;\">Demand Avg. Value [kW]</td></tr>";
+        tableHTML = tableHTML + "</table>";
+        // update prev variable
+        bgColor = "#efefef";
+        // alert(jsonChartData.length);
+
+        for (var i = 0; i < jsonChartData.length; i++) {
+            r_idUnit = jsonChartData[i]['idUnit'];
+            r_UnitName = jsonChartData[i]['UnitName'];
+            r_mtrStatus = jsonChartData[i]['mtrStatus'];
+            r_lastReading = jsonChartData[i]['lastReading'];
+
+            r_lastConsTotalkWh_Man = jsonChartData[i]['lastConsTotalkWh_Man'];
+            r_lastConsTotalkWh_Act = jsonChartData[i]['lastConsTotalkWh_Act'];
+            r_lastConsTotalkWh_Est = jsonChartData[i]['lastConsTotalkWh_Est'];
+            if (r_lastConsTotalkWh_Man != "N/A") {
+                r_energyTot = r_lastConsTotalkWh_Man;
+            } else {
+                if (r_lastConsTotalkWh_Act != "N/A") {
+                    r_energyTot = r_lastConsTotalkWh_Act;
+                } else {
+                    if (r_lastConsTotalkWh_Est != "N/A") {
+                        r_energyTot = r_lastConsTotalkWh_Est;
+                    } else {
+                        r_energyTot = "NOT AVAILABLE ";
+                    }
+                }
+            }
+            r_lastConsIntkWh_Man = jsonChartData[i]['lastConsIntkWh_Man'];
+            r_lastConsIntkWh_Act = jsonChartData[i]['lastConsIntkWh_Act'];
+            r_lastConsIntkWh_Est = jsonChartData[i]['lastConsIntkWh_Est'];
+            if (r_lastConsIntkWh_Man != "N/A") {
+                r_energy = r_lastConsIntkWh_Man;
+            } else {
+                if (r_lastConsIntkWh_Act != "N/A") {
+                    r_energy = r_lastConsIntkWh_Act;
+                } else {
+                    if (r_lastConsIntkWh_Act != "N/A") {
+                        r_energy = r_lastConsIntkWh_Est;
+                    } else {
+                        r_energy = "NOT AVAILABLE ";
+                    }
+                }
+            }
+            r_lastDemand_Man = jsonChartData[i]['lastDemandAvg_Man'];
+            r_lastDemand_Act = jsonChartData[i]['lastDemandAvg_Act'];
+            r_lastDemand_Est = jsonChartData[i]['lastDemandAvg_Est'];
+            if (r_lastDemand_Man != "N/A") {
+                r_power = r_lastDemand_Man;
+            } else {
+                if (r_lastDemand_Act != "N/A") {
+                    r_power = r_lastDemand_Act;
+                } else {
+                    if (r_lastDemand_Act != "N/A") {
+                        r_power = r_lastDemand_Est;
+                    } else {
+                        r_power = "NOT AVAILABLE ";
+                    }
+                }
+            }
+            r_lastDemandAvg_Man = jsonChartData[i]['lastDemandAvg_Man'];
+            r_lastDemandAvg_Act = jsonChartData[i]['lastDemandAvg_Act'];
+            r_lastDemandAvg_Est = jsonChartData[i]['lastDemandAvg_Est'];
+            if (r_lastDemandAvg_Man != "N/A") {
+                r_powerAvg = r_lastDemandAvg_Man;
+                r_type = "Manual";
+            } else {
+                if (r_lastDemandAvg_Act != "N/A") {
+                    r_powerAvg = r_lastDemandAvg_Act;
+                    r_type = "Automatic";
+                } else {
+                    if (r_lastDemandAvg_Act != "N/A") {
+                        r_powerAvg = r_lastDemandAvg_Est;
+                        r_type = "Estimated";
+                    } else {
+                        r_powerAvg = "NOT AVAILABLE ";
+                        r_type = "N/A";
+                    }
+                }
+            }
+
+            if (r_mtrStatus == "Good" && r_type == "N/A") {
+                r_mtrStatus = "Error";
+                r_type = "Boundary Err.";
+            }
+
+            tableHTML = tableHTML + "<table id=\"data-row" + i + "\" cellspacing=0 cellpadding=5 border=0 align=center width=1200 style=\"margin:0px;font-size:12px;\">";
+            tableHTML = tableHTML + "<tr style=\"border-top:2px solid #dfdfdf;margin-top:0px;background-color:" + bgColor + ";\"><td style=\"width:100px;text-align:center;\">" + r_UnitName + "</td><td style=\"width:100px;text-align:center;\">" + r_mtrStatus + "</td><td style=\"width:150px;text-align:center;\">" + r_lastReading + "</td><td style=\"width:100px;text-align:center; \">" + r_type + "</td><td style=\"width:200px;text-align:center;\">" + r_energyTot + "</td><td style=\"width:200px;text-align:center; \">" + r_energy + "</td><td style=\"width:200px;text-align:center;\">" + r_power + "</td><td style=\"width:200px;text-align:center;\">" + r_powerAvg + "</td></tr>";
+            tableHTML = tableHTML + "</table>";
+            // if(bgColor=="#ffffff") { bgColor = "#efefef"; }  else  { bgColor = "#ffffff"; }
+            if (bgColor == "#efefef") {
+                bgColor = "#ffffff";
+            } else {
+                bgColor = "#efefef";
+            }
+        }
+
+        // Report Footer
+        tableHTML = tableHTML + "<table id=\"data-ftr\" cellspacing=0 cellpadding=5 align=center width=1200 style=\"margin:0px;font-size:12px;border-top:2px solid #333;\">";
+        tableHTML = tableHTML + "<tr style=\"border-top:2px solid #333;background-color:#fff;\"><td style=\"width:1200px;text-align:left;\">&nbsp; Report Date: &nbsp; " + strTime + "</td></tr>";
+        tableHTML = tableHTML + "</table>";
+        tableHTML = tableHTML + "<br><br>";
+        document.getElementById("nrg_report").innerHTML = tableHTML;
+    }
+    // ****************************************************************************************************************************************************
+    //]]>
+    </script>
+</head>
+<body onLoad="roleSecurity()">
+<input id="user_roles" type="hidden" value="{IllumLoginRoles}" style="display:block;width:800px;" readonly/>
+<input id="user_role" type="hidden" value="{ROLE}" style="display:block;width:800px;" readonly/>
+<input id="user_name" type="hidden" value="{IllumLoginName}" style="display: block;" readonly/>
+<input id="user_email" type="hidden" value="{email}" style="display:block;width:800px;" readonly/>
+<input id="user_firstname" type="hidden" value="{firstname}" style="display:block;width:800px;" readonly/>
+<input id="user_lastname" type="hidden" value="{lastname}" style="display:block;width:800px;" readonly/>
+<div id="app_header" class="no-print">
+    <div id="app_title">REAL TIME USE</div>
+    <div id="app_menu"></div>
+    <div id="page_title">DEFAULT SCREEN</div>
+</div>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<div id="nrg_content" style="width:1200px;margin:auto;margin-top:40px;" class="no-print"></div>
+<div id="nrg_title1"
+     style="width:100%;text-align: center;font-size:36px; color: #007dc0; margin-top; 20px; margin-bottom; 20px;font-weight:bold; display:none;"
+     class="do-print">REAL TIME ENERGY USE REPORT
+</div>
+<div id="nrg_map" style="width:1px; height:1px; margin:0 auto;background:#fff;text-align:center;"></div>
+<!-- <div id="nrg_title2"  style="width:100%;text-align: center;font-size:36px; color: #007dc0; margin-top; 20px; margin-bottom; 20px;font-weight:bold; display:none;" class="do-print"><p style="page-break-after:always;">&nbsp;</p> REAL TIME ENERGY  USE REPORT<br><br></div> -->
+<div id="nrg_report" style="width:1200px;margin:0 auto;background:#fff;margin-top; 40px;"> &nbsp;</div>
+</body>
+</html>
