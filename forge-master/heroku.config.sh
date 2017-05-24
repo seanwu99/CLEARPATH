@@ -1,0 +1,5 @@
+#!/bin/sh
+
+heroku config:set NODE_ENV=heroku
+heroku config:set FORGE_HEROKU_CONSUMERKEY=$FORGE_HEROKU_CONSUMERKEY
+heroku config:set FORGE_HEROKU_CONSUMERSECRET=$FORGE_HEROKU_CONSUMERSECRET

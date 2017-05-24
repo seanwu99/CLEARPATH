@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate"/>
+    <meta http-equiv="pragma" content="no-cache"/>
+    <meta http-equiv="expires" content="0"/>
+    <base href="viewer">
+    <link rel="shortcut icon" href="favicon.ico">
+    <title>A360 Viewer | Free Online File Viewer | Autodesk</title>
+    <meta name="description"
+          content="A360 Viewer is a free online viewer for 2D and 3D designs including AutoCAD DWG, DXF, Revit RVT and Inventor IPT, as well as STEP, SolidWorks, CATIA and others.">
+    <meta name="keywords" content="Viewer, Free, AutoCAD, DWG, DWF, 3D, Revit, Inventor, Solidworks, Catia, STP, Step, Autodesk">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+    <link rel="stylesheet" href="assets/styles/main.e7afdbea.css">
+</head>
+<body class="site-a360">
+<!-- Google Tag Manager -->
+<noscript>
+    <iframe src='//www.googletagmanager.com/ns.html?id=GTM-PLQLL5' height='0' width='0' style='display:none;visibility:hidden'></iframe>
+</noscript>
+<script>(function (w, d, s, l, i) {
+    w[l] = w[l] || [];
+    w[l].push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+    var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+    j.async = true;
+    j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
+    f.parentNode.insertBefore(j, f);
+})(window, document, 'script', 'dataLayer', 'GTM-PLQLL5');</script><!-- End Google Tag Manager -->
+<header id="header-region"></header>
+<div id="main-container"></div>
+<div id="modal-region"></div>
+<div id="flash-message-region"></div>
+<canvas id="screenshot-canvas" style="display: none;"></canvas>
+<img id="screenshot-image" src="">
+<div id="viewer-spinner" class="c-spinner__animation">
+    <div class="overlay"></div>
+    <div id="upload-modal">
+        <div class="rounded-border">
+            <span>LOADING</span>
+            <svg class="c-spinner__circle" viewBox="25 25 50 50">
+                <circle class="c-spinner__stroke" cx="50" cy="50" r="20" fill="none" stroke-width="0.6" stroke-miterlimit="10" stroke="#00bfff"/>
+            </svg>
+        </div>
+    </div>
+</div>
+<div class="c-feedback c-btn" id="feedback">
+    <span class="c-feedback__icon"></span>
+    <span class="c-feedback__text">Feedback</span>
+</div>
+<script type="application/javascript">
+    var require = {
+        waitSeconds: 0
+    };
+
+    window.rError = [];
+    require.onError = function (err, errback) {
+        window.rError && window.rError.push(err);
+        var ev = new Event("scriptError", {"bubbles": true, "cancelable": false});
+        ev.error = err;
+        document.dispatchEvent(ev);
+        if (errback) {
+            errback(err);
+        }
+    };
+</script>
+<script src="vendor/requirejs/require.js" data-main="main.16e9b0f6.js"></script>
+</body>
+</html>

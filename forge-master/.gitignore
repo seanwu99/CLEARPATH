@@ -1,0 +1,7 @@
+node_modules
+settings/
+.idea
+dist
+TMP
+
+
