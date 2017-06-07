@@ -68,7 +68,7 @@ Please read [CONTRIBUTING.md](https://github.com/seanwu99/myGarage) for details 
 
 ## Versioning
 
-We use [//](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).
+//
 
 ## Authors
 
@@ -78,7 +78,7 @@ See also the list of [//](https://github.com/seanwu99/myGarage) who participated
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md] file for details
 
 ## Acknowledgments
 
