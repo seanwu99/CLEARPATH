@@ -1,0 +1,362 @@
+[
+  {
+    "s_KEY": "OP180",
+    "s_NAME": "OP180",
+    "type": "rect",
+    "width": 80,
+    "height": 70,
+    "left": 131,
+    "top": 94.76616131844071,
+    "angle": 0
+  },
+  {
+    "s_KEY": "OP090",
+    "s_NAME": "OP090",
+    "type": "rect",
+    "width": 80.84753374354932,
+    "height": 70,
+    "left": 1032,
+    "top": 95.18927724954966,
+    "angle": 0
+  },
+  {
+    "s_KEY": "OP100",
+    "s_NAME": "OP100",
+    "type": "rect",
+    "width": 80,
+    "height": 70,
+    "left": 942.3542328304885,
+    "top": 93.72350601963173,
+    "angle": 0
+  },
+  {
+    "s_KEY": "OP110",
+    "s_NAME": "OP110",
+    "type": "rect",
+    "width": 80,
+    "height": 70,
+    "left": 853.3629664549427,
+    "top": 94.21454844563992,
+    "angle": 0
+  },
+  {
+    "s_KEY": "OP120",
+    "s_NAME": "OP120",
+    "type": "rect",
+    "width": 80,
+    "height": 70,
+    "left": 759.302625049623,
+    "top": 93.78964432368119,
+    "angle": 0
+  },
+  {
+    "s_KEY": "OP130",
+    "s_NAME": "OP130",
+    "type": "rect",
+    "width": 80,
+    "height": 70,
+    "left": 668.5623759428346,
+    "top": 94.60200960934444,
+    "angle": 0
+  },
+  {
+    "s_KEY": "OP135",
+    "s_NAME": "OP135",
+    "type": "rect",
+    "width": 80,
+    "height": 70,
+    "left": 579.0000000000001,
+    "top": 94.66590921892991,
+    "angle": 0
+  },
+  {
+    "s_KEY": "OP170",
+    "s_NAME": "OP170",
+    "type": "rect",
+    "width": 80,
+    "height": 70,
+    "left": 310.03383917337095,
+    "top": 94.76616131844071,
+    "angle": 0
+  },
+  {
+    "s_KEY": "OP175",
+    "s_NAME": "OP175",
+    "type": "rect",
+    "width": 80,
+    "height": 70,
+    "left": 220.42818469516152,
+    "top": 95.0669905543428,
+    "angle": 0
+  },
+  {
+    "s_KEY": "OP140",
+    "s_NAME": "OP140",
+    "type": "rect",
+    "width": 80,
+    "height": 70,
+    "left": 488,
+    "top": 94.98805342772889,
+    "angle": 0
+  },
+  {
+    "s_KEY": "OP150",
+    "s_NAME": "OP150",
+    "type": "rect",
+    "width": 80,
+    "height": 70,
+    "left": 487.65625,
+    "top": 177.03080984737176,
+    "angle": 0
+  },
+  {
+    "s_KEY": "OP220",
+    "s_NAME": "OP220",
+    "type": "rect",
+    "width": 80,
+    "height": 70,
+    "left": 130,
+    "top": 332.0789640609721,
+    "angle": 0
+  },
+  {
+    "s_KEY": "OP070",
+    "s_NAME": "OP070",
+    "type": "rect",
+    "width": 80,
+    "height": 70,
+    "left": 1033,
+    "top": 330.8409403584184,
+    "angle": 0
+  },
+  {
+    "s_KEY": "OP030",
+    "s_NAME": "OP030",
+    "type": "rect",
+    "width": 80,
+    "height": 70,
+    "left": 728.5077563479949,
+    "top": 332.48132628660096,
+    "angle": 0
+  },
+  {
+    "s_KEY": "OP010",
+    "s_NAME": "OP010",
+    "type": "rect",
+    "width": 80,
+    "height": 70,
+    "left": 610.4660191480505,
+    "top": 331.94580194727126,
+    "angle": 0
+  },
+  {
+    "s_KEY": "OP240",
+    "s_NAME": "OP240",
+    "type": "rect",
+    "width": 80,
+    "height": 70,
+    "left": 495.75526571388923,
+    "top": 331.4999983492294,
+    "angle": 0
+  },
+  {
+    "s_KEY": "OP235",
+    "s_NAME": "OP235",
+    "type": "rect",
+    "width": 80,
+    "height": 70,
+    "left": 403.69898709587903,
+    "top": 331.56368457752114,
+    "angle": 0
+  },
+  {
+    "s_KEY": "OP230",
+    "s_NAME": "OP230",
+    "type": "rect",
+    "width": 80,
+    "height": 70,
+    "left": 312.4092132648814,
+    "top": 332.0789640609721,
+    "angle": 0
+  },
+  {
+    "s_KEY": "OP225",
+    "s_NAME": "OP225",
+    "type": "rect",
+    "width": 80,
+    "height": 70,
+    "left": 221.10997641182183,
+    "top": 331.4768397207597,
+    "angle": 0
+  },
+  {
+    "s_KEY": "OP040",
+    "s_NAME": "OP040",
+    "type": "rect",
+    "width": 80,
+    "height": 70,
+    "left": 854,
+    "top": 252.83053125357054,
+    "angle": 0
+  },
+  {
+    "s_KEY": "OP190",
+    "s_NAME": "OP190",
+    "type": "rect",
+    "width": 80,
+    "height": 70,
+    "left": 130,
+    "top": 173.59365230522275,
+    "angle": 0
+  },
+  {
+    "s_KEY": "OP080",
+    "s_NAME": "OP080",
+    "type": "rect",
+    "width": 80,
+    "height": 70,
+    "left": 1033,
+    "top": 172.3057729289898,
+    "angle": 0
+  },
+  {
+    "s_KEY": "OP200",
+    "s_NAME": "OP200",
+    "type": "rect",
+    "width": 80,
+    "height": 70,
+    "left": 131,
+    "top": 254.2316490613306,
+    "angle": 0
+  },
+  {
+    "s_KEY": "OP060",
+    "s_NAME": "OP060",
+    "type": "rect",
+    "width": 80,
+    "height": 70,
+    "left": 1033.746666666667,
+    "top": 251.96004776873508,
+    "angle": 0
+  },
+  {
+    "s_KEY": "OP050",
+    "s_NAME": "OP050",
+    "type": "rect",
+    "width": 80,
+    "height": 70,
+    "left": 944,
+    "top": 252.90946838018448,
+    "angle": 0
+  },
+  {
+    "s_KEY": "OP155",
+    "s_NAME": "OP155",
+    "type": "rect",
+    "width": 80,
+    "height": 70,
+    "left": 400.0350000000001,
+    "top": 94.76475046959622,
+    "angle": 0
+  },
+  {
+    "s_KEY": "",
+    "s_NAME": "",
+    "type": "rect",
+    "width": 1038,
+    "height": 13.000000000000002,
+    "left": 103,
+    "top": 70,
+    "angle": 0
+  },
+  {
+    "s_KEY": "",
+    "s_NAME": "",
+    "type": "rect",
+    "width": 14,
+    "height": 335,
+    "left": 103,
+    "top": 84,
+    "angle": 0
+  },
+  {
+    "s_KEY": "",
+    "s_NAME": "",
+    "type": "rect",
+    "width": 14,
+    "height": 344,
+    "left": 1127,
+    "top": 80,
+    "angle": 0
+  },
+  {
+    "s_KEY": "",
+    "s_NAME": "",
+    "type": "rect",
+    "width": 253,
+    "height": 143,
+    "left": 222,
+    "top": 177,
+    "angle": 0
+  },
+  {
+    "s_KEY": "",
+    "s_NAME": "",
+    "type": "rect",
+    "width": 407,
+    "height": 61.00000000000001,
+    "left": 436,
+    "top": 259,
+    "angle": 0
+  },
+  {
+    "s_KEY": "",
+    "s_NAME": "",
+    "type": "rect",
+    "width": 262.99999999999994,
+    "height": 98.99999999999999,
+    "left": 580,
+    "top": 175,
+    "angle": 0
+  },
+  {
+    "s_KEY": "",
+    "s_NAME": "",
+    "type": "rect",
+    "width": 197.00000000000003,
+    "height": 62,
+    "left": 827,
+    "top": 175,
+    "angle": 0
+  },
+  {
+    "s_KEY": "",
+    "s_NAME": "",
+    "type": "rect",
+    "width": 203,
+    "height": 80,
+    "left": 821,
+    "top": 337,
+    "angle": 0
+  },
+  {
+    "s_KEY": "",
+    "s_NAME": "",
+    "type": "rect",
+    "width": 1038,
+    "height": 13.000000000000002,
+    "left": 103,
+    "top": 412,
+    "angle": 0
+  },
+  {
+    "s_KEY": "",
+    "s_NAME": "",
+    "type": "rect",
+    "width": 22,
+    "height": 200,
+    "left": 821,
+    "top": 217,
+    "angle": 0
+  }
+]
