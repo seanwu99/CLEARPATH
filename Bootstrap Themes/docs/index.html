@@ -1,0 +1,2048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+
+    <title>
+
+        Documentation &middot; Dashboard theme &middot; Official Bootstrap Themes
+
+    </title>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" rel="stylesheet">
+
+    <link href="../assets/css/toolkit-inverse.css" rel="stylesheet">
+
+
+    <link href="../assets/css/docs.css" rel="stylesheet">
+
+    <link href="../assets/css/application.css" rel="stylesheet">
+
+    <style>
+        /* note: this is a hack for ios iframe for bootstrap themes shopify page */
+        /* this chunk of css is not part of the toolkit :) */
+        body {
+            width: 1px;
+            min-width: 100%;
+            *width: 100%;
+        }
+    </style>
+</head>
+
+
+<body class="asx">
+
+<nav class="ci ma yw mh pw app-navbar">
+    <a class="lv" href="../index.html">
+        <span class="bv bch asy"></span>
+        Dashboard
+    </a>
+
+    <button
+            class="ly bmq rk"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarResponsive"
+            aria-controls="navbarResponsive"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="lz"></span>
+    </button>
+
+    <div class="collapse lx" id="navbarResponsive">
+        <ul class="nav navbar-nav act">
+            <li class="lp">
+                <a class="ln" href="../order-history/index.html">Order History</a>
+            </li>
+            <li class="lp">
+                <a class="ln" href="../fluid/index.html">Fluid layout</a>
+            </li>
+            <li class="lp">
+                <a class="ln" href="../icon-nav/index.html">Icon nav</a>
+            </li>
+            <li class="lp active">
+                <a class="ln" href="../docs/index.html">Docs</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+<div class="bt" id="content">
+    <div class="bw">
+        <h1>Documentation</h1>
+        <p>Find out what's included in your Bootstrap theme and how to compile source files. Includes live examples and
+            code snippets for every new component.</p>
+    </div>
+</div>
+<div class="bw docs-content">
+
+    <h1 id="contents">Contents</h1>
+
+    <ul id="markdown-toc">
+        <li><a href="#contents" id="markdown-toc-contents">Contents</a></li>
+        <li><a href="#intro" id="markdown-toc-intro">Intro</a></li>
+        <li><a href="#whats-included" id="markdown-toc-whats-included">What’s included</a>
+            <ul>
+                <li><a href="#getting-started" id="markdown-toc-getting-started">Getting started</a></li>
+                <li><a href="#gulpfilejs" id="markdown-toc-gulpfilejs">Gulpfile.js</a></li>
+                <li><a href="#theme-source-code" id="markdown-toc-theme-source-code">Theme source code</a></li>
+            </ul>
+        </li>
+        <li><a href="#custom-builds" id="markdown-toc-custom-builds">Custom builds</a></li>
+        <li><a href="#basic-template" id="markdown-toc-basic-template">Basic template</a></li>
+        <li><a href="#components" id="markdown-toc-components">Components</a>
+            <ul>
+                <li><a href="#entypo" id="markdown-toc-entypo">Entypo</a>
+                    <ul>
+                        <li><a href="#available-icons" id="markdown-toc-available-icons">Available icons</a></li>
+                        <li><a href="#examples" id="markdown-toc-examples">Examples</a></li>
+                    </ul>
+                </li>
+                <li><a href="#pill-buttons" id="markdown-toc-pill-buttons">Pill buttons</a></li>
+                <li><a href="#flex-table" id="markdown-toc-flex-table">Flex table</a></li>
+                <li><a href="#stat-cards" id="markdown-toc-stat-cards">Stat cards</a></li>
+                <li><a href="#divided-heading" id="markdown-toc-divided-heading">Divided heading</a></li>
+                <li><a href="#icon-input" id="markdown-toc-icon-input">Icon input</a></li>
+                <li><a href="#nav-bordered" id="markdown-toc-nav-bordered">Nav bordered</a></li>
+                <li><a href="#icon-nav" id="markdown-toc-icon-nav">Icon nav</a></li>
+                <li><a href="#dashhead" id="markdown-toc-dashhead">Dashhead</a></li>
+                <li><a href="#list-group" id="markdown-toc-list-group">List group</a>
+                    <ul>
+                        <li><a href="#list-group-header" id="markdown-toc-list-group-header">List group header</a></li>
+                        <li><a href="#list-group-progress" id="markdown-toc-list-group-progress">List group progress</a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="#custom-modals" id="markdown-toc-custom-modals">Custom Modals</a></li>
+            </ul>
+        </li>
+        <li><a href="#plugins" id="markdown-toc-plugins">Plugins</a>
+            <ul>
+                <li><a href="#tablesorter" id="markdown-toc-tablesorter">Tablesorter</a></li>
+                <li><a href="#datepicker" id="markdown-toc-datepicker">Datepicker</a></li>
+                <li><a href="#chartjs" id="markdown-toc-chartjs">Chart.js</a></li>
+            </ul>
+        </li>
+    </ul>
+
+    <h1 id="intro">Intro</h1>
+
+    <p>Hey there! You’re looking at the docs for an Official Bootstrap Theme—thanks for your purchase! This theme has
+        been lovingly crafted by Bootstrap’s founders and friends to help you build awesome projects on the web. Let’s
+        dive in.</p>
+
+    <p>Each theme is designed as it’s own toolkit—a series of well designed, intuitive, and cohesive components—built on
+        top of Bootstrap. If you’ve used Bootstrap itself, you’ll find this all super familiar, but with new aesthetics,
+        new components, beautiful and extensive examples, and easy-to-use build tools and documentation.</p>
+
+    <p>Since this theme is based on Bootstrap, and includes nearly everything Bootstrap itself does, you’ll want to give
+        the <a href="http://getbootstrap.com">official project documentation</a> a once over before continuing. There’s
+        also <a href="../bootstrap/index.html">the kitchen sink</a>—a one-page view of all Bootstrap’s components
+        restyled by this theme.</p>
+
+    <p>For everything else, including compiling and using this Bootstrap theme, read through the docs below.</p>
+
+    <p>Thanks, and enjoy!</p>
+
+    <h1 id="whats-included">What’s included</h1>
+
+    <p>Within your Bootstrap theme you’ll find the following directories and files, grouping common resources and
+        providing both compiled and minified distribution files, as well as raw source files.</p>
+
+    <figure class="br"><pre><code class="bou" data-lang="bash">theme/
+  ├── v3
+  └── v4
+      ├── gulpfile.js
+      ├── package.json
+      ├── README.md
+      ├── docs/
+      ├── scss/
+      │   ├── bootstrap/
+      │   ├── custom/
+      │   ├── variables.scss
+      │   └── toolkit.scss
+      ├── js/
+      │   ├── bootstrap/
+      │   └── custom/
+      ├── fonts/
+      │   ├── bootstrap-entypo.eot
+      │   ├── bootstrap-entypo.svg
+      │   ├── bootstrap-entypo.ttf
+      │   ├── bootstrap-entypo.woff
+      │   └── bootstrap-entypo.woff2
+      └── dist/
+          ├── toolkit.css
+          ├── toolkit.css.map
+          ├── toolkit.min.css
+          ├── toolkit.min.css.map
+          ├── toolkit.js
+          └── toolkit.min.js</code></pre>
+    </figure>
+
+    <h2 id="getting-started">Getting started</h2>
+
+    <p>At the top level of your bootstrap theme you’ll find a directory for each major Bootstrap version that’s
+        supported (currently both <code class="bov">v3</code> and <code class="bov">v4</code>). Within each directory
+        you have all the relevant files for that version.</p>
+
+    <p>To view your Bootstrap Theme documentation, simply find the docs directory and open index.html in your favorite
+        browser.</p>
+
+    <figure class="br">
+        <pre><code class="bou" data-lang="bash"><span class="x">$ </span>open docs/index.html</code></pre>
+    </figure>
+
+    <h2 id="gulpfilejs">Gulpfile.js</h2>
+
+    <p>If you’re after more customization we’ve also included a custom <a href="http://gulpjs.com">Gulp</a> file, which
+        can be used to quickly re-compile a theme’s CSS and JS. You’ll need to install both <a
+                href="https://nodejs.org/en/download/">Node</a> and Gulp before using our included <code class="bov">gulpfile.js</code>.
+    </p>
+
+    <p>Once node is installed, run the following npm command to install Gulp.</p>
+
+    <figure class="br">
+        <pre><code class="bou" data-lang="bash"><span class="x">$ </span>npm install gulp -g</code></pre>
+    </figure>
+
+    <p>When you’re done, make sure you’ve installed the rest of the theme’s dependencies:</p>
+
+    <figure class="br">
+        <pre><code class="bou" data-lang="bash"><span class="x">$ </span>npm install</code></pre>
+    </figure>
+
+    <p>Now, modify your source files and run <code class="bov">gulp</code> to generate new local <code
+            class="bov">dist/</code> files automatically. <strong>Be aware that this replaces existing <code
+            class="bov">dist/</code> files</strong>, so proceed with caution.</p>
+
+    <h2 id="theme-source-code">Theme source code</h2>
+
+    <p>The <code class="bov">scss/</code>, <code class="bov">js/</code>, and <code class="bov">fonts/</code> directories
+        contain the source code for our CSS, JS, and icon fonts (respectively). Within the <code
+                class="bov">scss/</code> and <code class="bov">js/</code> directories you’ll find two subdirectories:
+    </p>
+
+    <ul>
+        <li><code class="bov">bootstrap/</code>, which contains the most recently released version of Bootstrap
+            (v4.0.0-beta).
+        </li>
+        <li><code class="bov">custom/</code>, which contains all of the custom components and overrides authored
+            specifically for this theme.
+        </li>
+    </ul>
+
+    <p>The <code class="bov">dist/</code> folder includes everything above, built into single CSS and JS files that can
+        easily be integrated into your project.</p>
+
+    <p>The <code class="bov">docs/</code> folder includes the source code for our documentation, as well as a handful of
+        live examples.</p>
+
+    <p>The remaining files not specifically mentioned above provide support for packages, license information, and
+        development.</p>
+
+    <h1 id="custom-builds">Custom builds</h1>
+
+    <p>Leverage the included source files and <code class="bov">gulpfile.js</code> to customize your Bootstrap Theme for
+        your exact needs. Change variables, exclude components, and more.</p>
+
+    <ul>
+        <li><code class="bov">toolkit-*.scss</code> is the entry point for Sass files - to build your own custom build,
+            simply modify your local custom files or edit the includes listed here. Note: some themes also rely on a
+            shared <code class="bov">components.scss</code> file, which you can find imported in your <code class="bov">toolkit-*.scss</code>.
+        </li>
+        <li><code class="bov">variables.scss</code> is home to your theme’s variables. Note that your theme’s <code
+                class="bov">variables</code> file depends on and overrides an existing Bootstrap variable file (found in
+            <code class="bov">/scss/bootstrap/_variables.scss</code>).
+        </li>
+    </ul>
+
+    <h1 id="basic-template">Basic template</h1>
+
+    <p>The basic template is a guideline for how to structure your pages when building with a Bootstrap Theme. Included
+        below are all the necessary bits for using the theme’s CSS and JS, as well as some friendly reminders.</p>
+
+    <p>Copy the example below into a new HTML file to get started with it.</p>
+
+    <figure class="br"><pre><code class="bow" data-lang="html"><span class="o">&lt;!DOCTYPE html&gt;</span>
+<span class="as">&lt;html</span> <span class="ai">lang=</span><span class="ah">"en"</span><span class="as">&gt;</span>
+  <span class="as">&lt;head&gt;</span>
+    <span class="j">&lt;!-- These meta tags come first. --&gt;</span>
+    <span class="as">&lt;meta</span> <span class="ai">charset=</span><span class="ah">"utf-8"</span><span class="as">&gt;</span>
+    <span class="as">&lt;meta</span> <span class="ai">http-equiv=</span><span class="ah">"X-UA-Compatible"</span> <span
+                class="ai">content=</span><span class="ah">"IE=edge"</span><span class="as">&gt;</span>
+    <span class="as">&lt;meta</span> <span class="ai">name=</span><span class="ah">"viewport"</span> <span class="ai">content=</span><span
+                class="ah">"width=device-width, initial-scale=1"</span><span class="as">&gt;</span>
+
+    <span class="as">&lt;title&gt;</span>Bootstrap Theme Example<span class="as">&lt;/title&gt;</span>
+
+    <span class="j">&lt;!-- Include the CSS --&gt;</span>
+    <span class="as">&lt;link</span> <span class="ai">href=</span><span class="ah">"dist/toolkit.min.css"</span> <span
+                class="ai">rel=</span><span class="ah">"stylesheet"</span><span class="as">&gt;</span>
+
+  <span class="as">&lt;/head&gt;</span>
+  <span class="as">&lt;body&gt;</span>
+    <span class="as">&lt;h1&gt;</span>Hello, world!<span class="as">&lt;/h1&gt;</span>
+
+    <span class="j">&lt;!-- Include jQuery (required) and the JS --&gt;</span>
+    <span class="as">&lt;script </span><span class="ai">src=</span><span class="ah">"https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"</span><span
+                class="as">&gt;&lt;/script&gt;</span>
+    <span class="as">&lt;script </span><span class="ai">src=</span><span class="ah">"dist/toolkit.min.js"</span><span
+                class="as">&gt;&lt;/script&gt;</span>
+  <span class="as">&lt;/body&gt;</span>
+<span class="as">&lt;/html&gt;</span></code></pre>
+    </figure>
+
+    <h1 id="components">Components</h1>
+
+    <h2 id="entypo">Entypo</h2>
+
+    <p><a href="http://entypo.com">Entypo</a> is an awesome, high quality set of icon glyphs made by <a
+            href="http://www.danielbruce.se">Daniel Bruce</a>. We’ve replaced Bootstrap’s default icon font, <a
+            href="http://glyphicons.com">Glyhpicons</a>, with the complete Entypo set and Entypo social extension.</p>
+
+    <p>Simply use the new <code class="bov">icon</code> class and an <code class="bov">icon-{modifier}</code> on an
+        inline element. See the examples below for more details.</p>
+
+    <h3 id="available-icons">Available icons</h3>
+
+    <p>Below are all the original and social icons from Entypo that you can choose from:</p>
+
+    <div class="bu">
+        <span class="bv aub"></span>
+        <span class="bv auc"></span>
+        <span class="bv aud"></span>
+        <span class="bv aue"></span>
+        <span class="bv auf"></span>
+        <span class="bv aui"></span>
+        <span class="bv aug"></span>
+        <span class="bv auh"></span>
+        <span class="bv auj"></span>
+        <span class="bv auk"></span>
+        <span class="bv aul"></span>
+        <span class="bv aum"></span>
+        <span class="bv aun"></span>
+        <span class="bv auo"></span>
+        <span class="bv auq"></span>
+        <span class="bv aur"></span>
+        <span class="bv aus"></span>
+        <span class="bv aut"></span>
+        <span class="bv auu"></span>
+        <span class="bv auv"></span>
+        <span class="bv auw"></span>
+        <span class="bv aux"></span>
+        <span class="bv avc"></span>
+        <span class="bv avd"></span>
+        <span class="bv auy"></span>
+        <span class="bv auz"></span>
+        <span class="bv ava"></span>
+        <span class="bv avb"></span>
+        <span class="bv ave"></span>
+        <span class="bv avf"></span>
+        <span class="bv avg"></span>
+        <span class="bv avh"></span>
+        <span class="bv avi"></span>
+        <span class="bv avj"></span>
+        <span class="bv avk"></span>
+        <span class="bv avl"></span>
+        <span class="bv avn"></span>
+        <span class="bv avp"></span>
+        <span class="bv avq"></span>
+        <span class="bv avs"></span>
+        <span class="bv avt"></span>
+        <span class="bv avu"></span>
+        <span class="bv avv"></span>
+        <span class="bv avw"></span>
+        <span class="bv avx"></span>
+        <span class="bv avy"></span>
+        <span class="bv avz"></span>
+        <span class="bv awa"></span>
+        <span class="bv awb"></span>
+        <span class="bv awc"></span>
+        <span class="bv awd"></span>
+        <span class="bv awe"></span>
+        <span class="bv awf"></span>
+        <span class="bv awg"></span>
+        <span class="bv awh"></span>
+        <span class="bv awi"></span>
+        <span class="bv awj"></span>
+        <span class="bv ayn"></span>
+        <span class="bv awk"></span>
+        <span class="bv awl"></span>
+        <span class="bv awm"></span>
+        <span class="bv awn"></span>
+        <span class="bv awo"></span>
+        <span class="bv awv"></span>
+        <span class="bv awp"></span>
+        <span class="bv awq"></span>
+        <span class="bv awr"></span>
+        <span class="bv aws"></span>
+        <span class="bv awt"></span>
+        <span class="bv atx"></span>
+        <span class="bv aty"></span>
+        <span class="bv awu"></span>
+        <span class="bv aww"></span>
+        <span class="bv awx"></span>
+        <span class="bv awy"></span>
+        <span class="bv awz"></span>
+        <span class="bv axa"></span>
+        <span class="bv axb"></span>
+        <span class="bv axc"></span>
+        <span class="bv axd"></span>
+        <span class="bv axe"></span>
+        <span class="bv axf"></span>
+        <span class="bv axg"></span>
+        <span class="bv axh"></span>
+        <span class="bv axi"></span>
+        <span class="bv axj"></span>
+        <span class="bv axk"></span>
+        <span class="bv axl"></span>
+        <span class="bv axm"></span>
+        <span class="bv axn"></span>
+        <span class="bv axo"></span>
+        <span class="bv axp"></span>
+        <span class="bv axq"></span>
+        <span class="bv axr"></span>
+        <span class="bv axs"></span>
+        <span class="bv axt"></span>
+        <span class="bv axu"></span>
+        <span class="bv axv"></span>
+        <span class="bv axw"></span>
+        <span class="bv axx"></span>
+        <span class="bv ayh"></span>
+        <span class="bv axz"></span>
+        <span class="bv aya"></span>
+        <span class="bv ayb"></span>
+        <span class="bv ayc"></span>
+        <span class="bv ayd"></span>
+        <span class="bv aye"></span>
+        <span class="bv ayf"></span>
+        <span class="bv ayg"></span>
+        <span class="bv ayi"></span>
+        <span class="bv ayj"></span>
+        <span class="bv ayk"></span>
+        <span class="bv ayl"></span>
+        <span class="bv aym"></span>
+        <span class="bv ayo"></span>
+        <span class="bv ayp"></span>
+        <span class="bv ayq"></span>
+        <span class="bv ayr"></span>
+        <span class="bv ayt"></span>
+        <span class="bv ays"></span>
+        <span class="bv ayu"></span>
+        <span class="bv ayv"></span>
+        <span class="bv ayy"></span>
+        <span class="bv ayw"></span>
+        <span class="bv ayz"></span>
+        <span class="bv ayx"></span>
+        <span class="bv aza"></span>
+        <span class="bv azd"></span>
+        <span class="bv aze"></span>
+        <span class="bv azf"></span>
+        <span class="bv azh"></span>
+        <span class="bv azi"></span>
+        <span class="bv azj"></span>
+        <span class="bv azk"></span>
+        <span class="bv azl"></span>
+        <span class="bv azm"></span>
+        <span class="bv azn"></span>
+        <span class="bv azo"></span>
+        <span class="bv azq"></span>
+        <span class="bv azs"></span>
+        <span class="bv azr"></span>
+        <span class="bv azv"></span>
+        <span class="bv azw"></span>
+        <span class="bv azx"></span>
+        <span class="bv azy"></span>
+        <span class="bv azz"></span>
+        <span class="bv baa"></span>
+        <span class="bv bae"></span>
+        <span class="bv baf"></span>
+        <span class="bv bag"></span>
+        <span class="bv bah"></span>
+        <span class="bv bai"></span>
+        <span class="bv baj"></span>
+        <span class="bv ban"></span>
+        <span class="bv bak"></span>
+        <span class="bv bal"></span>
+        <span class="bv bam"></span>
+        <span class="bv bao"></span>
+        <span class="bv baq"></span>
+        <span class="bv bar"></span>
+        <span class="bv bas"></span>
+        <span class="bv bav"></span>
+        <span class="bv bbb"></span>
+        <span class="bv bbc"></span>
+        <span class="bv bbe"></span>
+        <span class="bv bbf"></span>
+        <span class="bv bbh"></span>
+        <span class="bv bbg"></span>
+        <span class="bv bbj"></span>
+        <span class="bv bbi"></span>
+        <span class="bv bbk"></span>
+        <span class="bv bbl"></span>
+        <span class="bv bbp"></span>
+        <span class="bv bbo"></span>
+        <span class="bv bbq"></span>
+        <span class="bv bbr"></span>
+        <span class="bv bbs"></span>
+        <span class="bv bbu"></span>
+        <span class="bv bbt"></span>
+        <span class="bv bbx"></span>
+        <span class="bv bby"></span>
+        <span class="bv bbz"></span>
+        <span class="bv bca"></span>
+        <span class="bv bcb"></span>
+        <span class="bv bcc"></span>
+        <span class="bv bcd"></span>
+        <span class="bv bcg"></span>
+        <span class="bv bch"></span>
+        <span class="bv bci"></span>
+        <span class="bv bcj"></span>
+        <span class="bv bck"></span>
+        <span class="bv bcl"></span>
+        <span class="bv bcm"></span>
+        <span class="bv bcn"></span>
+        <span class="bv bco"></span>
+        <span class="bv bcp"></span>
+        <span class="bv bcs"></span>
+        <span class="bv bct"></span>
+        <span class="bv bcu"></span>
+        <span class="bv bcw"></span>
+        <span class="bv bcv"></span>
+        <span class="bv bcy"></span>
+        <span class="bv bcx"></span>
+        <span class="bv bcz"></span>
+        <span class="bv bda"></span>
+        <span class="bv bdb"></span>
+        <span class="bv bdd"></span>
+        <span class="bv bde"></span>
+        <span class="bv bdf"></span>
+        <span class="bv bdg"></span>
+        <span class="bv bdh"></span>
+        <span class="bv bdk"></span>
+        <span class="bv bdm"></span>
+        <span class="bv bdn"></span>
+        <span class="bv bdo"></span>
+        <span class="bv bdp"></span>
+        <span class="bv bdq"></span>
+        <span class="bv bds"></span>
+        <span class="bv bdt"></span>
+        <span class="bv bdu"></span>
+        <span class="bv bdv"></span>
+        <span class="bv bdw"></span>
+        <span class="bv bdx"></span>
+        <span class="bv bdy"></span>
+        <span class="bv bdz"></span>
+        <span class="bv bea"></span>
+        <span class="bv beb"></span>
+        <span class="bv bec"></span>
+        <span class="bv bed"></span>
+        <span class="bv bee"></span>
+        <span class="bv bef"></span>
+        <span class="bv beg"></span>
+        <span class="bv beh"></span>
+        <span class="bv bej"></span>
+        <span class="bv bek"></span>
+        <span class="bv bel"></span>
+        <span class="bv ben"></span>
+        <span class="bv beo"></span>
+        <span class="bv beq"></span>
+        <span class="bv ber"></span>
+        <span class="bv beu"></span>
+        <span class="bv bev"></span>
+        <span class="bv bew"></span>
+        <span class="bv bex"></span>
+        <span class="bv bey"></span>
+        <span class="bv bez"></span>
+        <span class="bv bfa"></span>
+        <span class="bv bfc"></span>
+        <span class="bv bfd"></span>
+        <span class="bv bfb"></span>
+        <span class="bv bfe"></span>
+        <span class="bv bfh"></span>
+        <span class="bv bfi"></span>
+        <span class="bv bfl"></span>
+        <span class="bv bfo"></span>
+        <span class="bv bfq"></span>
+        <span class="bv bfr"></span>
+        <span class="bv bfs"></span>
+        <span class="bv bft"></span>
+        <span class="bv bfu"></span>
+        <span class="bv bfv"></span>
+        <span class="bv bfw"></span>
+        <span class="bv bfx"></span>
+        <span class="bv bfy"></span>
+        <span class="bv bfz"></span>
+        <span class="bv bga"></span>
+        <span class="bv bgc"></span>
+        <span class="bv bgd"></span>
+        <span class="bv bgf"></span>
+        <span class="bv bgg"></span>
+        <span class="bv bgh"></span>
+        <span class="bv bgi"></span>
+        <span class="bv bgj"></span>
+        <span class="bv bgk"></span>
+        <span class="bv bgl"></span>
+        <span class="bv bgm"></span>
+        <span class="bv bgn"></span>
+        <span class="bv bgt"></span>
+        <span class="bv bgv"></span>
+        <span class="bv bgu"></span>
+        <span class="bv bgx"></span>
+        <span class="bv bha"></span>
+        <span class="bv bhb"></span>
+        <span class="bv bhc"></span>
+        <span class="bv bhd"></span>
+        <span class="bv bhf"></span>
+        <span class="bv bhe"></span>
+        <span class="bv bhg"></span>
+        <span class="bv bhj"></span>
+        <span class="bv bhk"></span>
+        <span class="bv bhm"></span>
+        <span class="bv bhn"></span>
+        <span class="bv bhp"></span>
+        <span class="bv bho"></span>
+        <span class="bv bhq"></span>
+        <span class="bv bis"></span>
+        <span class="bv bhs"></span>
+        <span class="bv bhr"></span>
+        <span class="bv bht"></span>
+        <span class="bv bhu"></span>
+        <span class="bv bhw"></span>
+        <span class="bv bhv"></span>
+        <span class="bv bhx"></span>
+        <span class="bv bhy"></span>
+        <span class="bv bhz"></span>
+        <span class="bv bia"></span>
+        <span class="bv bib"></span>
+        <span class="bv bic"></span>
+        <span class="bv bid"></span>
+        <span class="bv bie"></span>
+        <span class="bv bif"></span>
+        <span class="bv big"></span>
+        <span class="bv bih"></span>
+        <span class="bv bij"></span>
+        <span class="bv bim"></span>
+        <span class="bv bip"></span>
+        <span class="bv biq"></span>
+        <span class="bv bir"></span>
+        <span class="bv bit"></span>
+        <span class="bv biu"></span>
+        <span class="bv biv"></span>
+        <span class="bv biw"></span>
+        <span class="bv bix"></span>
+        <span class="bv biy"></span>
+        <span class="bv biz"></span>
+        <span class="bv bje"></span>
+        <span class="bv bji"></span>
+        <span class="bv bjj"></span>
+        <span class="bv bjk"></span>
+        <span class="bv bjl"></span>
+    </div>
+
+    <div class="bu">
+        <span class="bv aua"></span>
+        <span class="bv atz"></span>
+        <span class="bv aup"></span>
+        <span class="bv avm"></span>
+        <span class="bv avo"></span>
+        <span class="bv avr"></span>
+        <span class="bv axy"></span>
+        <span class="bv azc"></span>
+        <span class="bv azb"></span>
+        <span class="bv azg"></span>
+        <span class="bv azp"></span>
+        <span class="bv azu"></span>
+        <span class="bv azt"></span>
+        <span class="bv bab"></span>
+        <span class="bv bad"></span>
+        <span class="bv bac"></span>
+        <span class="bv bap"></span>
+        <span class="bv bau"></span>
+        <span class="bv bat"></span>
+        <span class="bv bay"></span>
+        <span class="bv baz"></span>
+        <span class="bv bba"></span>
+        <span class="bv bax"></span>
+        <span class="bv baw"></span>
+        <span class="bv bbd"></span>
+        <span class="bv bbm"></span>
+        <span class="bv bbn"></span>
+        <span class="bv bbw"></span>
+        <span class="bv bbv"></span>
+        <span class="bv bcf"></span>
+        <span class="bv bce"></span>
+        <span class="bv bcr"></span>
+        <span class="bv bcq"></span>
+        <span class="bv bdc"></span>
+        <span class="bv bdj"></span>
+        <span class="bv bdi"></span>
+        <span class="bv bdr"></span>
+        <span class="bv bei"></span>
+        <span class="bv bem"></span>
+        <span class="bv bep"></span>
+        <span class="bv bet"></span>
+        <span class="bv bes"></span>
+        <span class="bv bfg"></span>
+        <span class="bv bff"></span>
+        <span class="bv bfk"></span>
+        <span class="bv bfj"></span>
+        <span class="bv bfn"></span>
+        <span class="bv bfm"></span>
+        <span class="bv bfp"></span>
+        <span class="bv bgb"></span>
+        <span class="bv bgo"></span>
+        <span class="bv bgq"></span>
+        <span class="bv bgp"></span>
+        <span class="bv bgr"></span>
+        <span class="bv bgs"></span>
+        <span class="bv bgw"></span>
+        <span class="bv bgz"></span>
+        <span class="bv bgy"></span>
+        <span class="bv bhi"></span>
+        <span class="bv bhh"></span>
+        <span class="bv bhl"></span>
+        <span class="bv bii"></span>
+        <span class="bv bil"></span>
+        <span class="bv bik"></span>
+        <span class="bv bio"></span>
+        <span class="bv bin"></span>
+        <span class="bv bjb"></span>
+        <span class="bv bja"></span>
+        <span class="bv bjd"></span>
+        <span class="bv bjc"></span>
+        <span class="bv bjh"></span>
+        <span class="bv bjg"></span>
+        <span class="bv bjf"></span>
+        <span class="bv bjm"></span>
+        <span class="bv bjo"></span>
+        <span class="bv bjn"></span>
+        <span class="bv bjp"></span>
+        <span class="bv bjr"></span>
+        <span class="bv bjq"></span>
+        <span class="bv bjt"></span>
+        <span class="bv bjs"></span>
+    </div>
+
+    <h3 id="examples">Examples</h3>
+
+    <p>Entypo icons can be placed in just about any other element, so long as they are a separate HTML element (e.g., a
+        <code class="bov">&lt;span&gt;</code>). See the examples below for how to put them to use.</p>
+
+    <div class="bs" data-example-id="">
+        <button class="ce box" type="button">
+            <span class="bv bhw"></span>
+            Like
+        </button>
+        <button class="ce kh" type="button">
+            <span class="bv bhw"></span>
+            Liked!
+        </button>
+    </div>
+    <div class="br"><pre><code class="bow" data-lang="html"><span class="as">&lt;button</span> <span
+            class="ai">class=</span><span class="ah">"btn btn-secondary"</span> <span class="ai">type=</span><span
+            class="ah">"button"</span><span class="as">&gt;</span>
+  <span class="as">&lt;span</span> <span class="ai">class=</span><span class="ah">"icon icon-thumbs-up"</span><span
+                class="as">&gt;&lt;/span&gt;</span>
+  Like
+<span class="as">&lt;/button&gt;</span>
+<span class="as">&lt;button</span> <span class="ai">class=</span><span class="ah">"btn btn-primary"</span> <span
+                class="ai">type=</span><span class="ah">"button"</span><span class="as">&gt;</span>
+  <span class="as">&lt;span</span> <span class="ai">class=</span><span class="ah">"icon icon-thumbs-up"</span><span
+                class="as">&gt;&lt;/span&gt;</span>
+  Liked!
+<span class="as">&lt;/button&gt;</span></code></pre>
+    </div>
+
+    <div class="bs" data-example-id="">
+        <ul class="nav lq">
+            <li class="lp">
+                <a class="ln active" href="#">
+                    <span class="bv awk"></span>
+                    Discussions
+                </a>
+            </li>
+            <li class="lp">
+                <a class="ln" href="#">
+                    <span class="bv avs"></span>
+                    Notifications
+                </a>
+            </li>
+            <li class="lp">
+                <a class="ln" href="#">
+                    <span class="bv biw"></span>
+                    Members
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="br"><pre><code class="bow" data-lang="html"><span class="as">&lt;ul</span> <span
+            class="ai">class=</span><span class="ah">"nav nav-pills"</span><span class="as">&gt;</span>
+  <span class="as">&lt;li</span> <span class="ai">class=</span><span class="ah">"nav-item"</span><span
+                class="as">&gt;</span>
+    <span class="as">&lt;a</span> <span class="ai">class=</span><span class="ah">"nav-link active"</span> <span
+                class="ai">href=</span><span class="ah">"#"</span><span class="as">&gt;</span>
+      <span class="as">&lt;span</span> <span class="ai">class=</span><span class="ah">"icon icon-chat"</span><span
+                class="as">&gt;&lt;/span&gt;</span>
+      Discussions
+    <span class="as">&lt;/a&gt;</span>
+  <span class="as">&lt;/li&gt;</span>
+  <span class="as">&lt;li</span> <span class="ai">class=</span><span class="ah">"nav-item"</span><span
+                class="as">&gt;</span>
+    <span class="as">&lt;a</span> <span class="ai">class=</span><span class="ah">"nav-link"</span> <span class="ai">href=</span><span
+                class="ah">"#"</span><span class="as">&gt;</span>
+      <span class="as">&lt;span</span> <span class="ai">class=</span><span class="ah">"icon icon-bell"</span><span
+                class="as">&gt;&lt;/span&gt;</span>
+      Notifications
+    <span class="as">&lt;/a&gt;</span>
+  <span class="as">&lt;/li&gt;</span>
+  <span class="as">&lt;li</span> <span class="ai">class=</span><span class="ah">"nav-item"</span><span
+                class="as">&gt;</span>
+    <span class="as">&lt;a</span> <span class="ai">class=</span><span class="ah">"nav-link"</span> <span class="ai">href=</span><span
+                class="ah">"#"</span><span class="as">&gt;</span>
+      <span class="as">&lt;span</span> <span class="ai">class=</span><span class="ah">"icon icon-users"</span><span
+                class="as">&gt;&lt;/span&gt;</span>
+      Members
+    <span class="as">&lt;/a&gt;</span>
+  <span class="as">&lt;/li&gt;</span>
+<span class="as">&lt;/ul&gt;</span></code></pre>
+    </div>
+
+    <h2 id="pill-buttons">Pill buttons</h2>
+
+    <p>Add <code class="bov">.btn-pill</code> to any button to make them more rounded.</p>
+
+    <div class="bs" data-example-id="">
+        <button type="button" class="ce kv bmc kh">Primary</button>
+        <button type="button" class="ce kv bmc box">Secondary</button>
+        <button type="button" class="ce kv bmc kj">Success</button>
+        <button type="button" class="ce kv bmc kk">Info</button>
+        <button type="button" class="ce kv bmc kl">Warning</button>
+        <button type="button" class="ce kv bmc km">Danger</button>
+        <button type="button" class="ce kv bmc ku">Link</button>
+    </div>
+    <div class="br"><pre><code class="bow" data-lang="html"><span class="as">&lt;button</span> <span
+            class="ai">type=</span><span class="ah">"button"</span> <span class="ai">class=</span><span class="ah">"btn btn-lg btn-pill btn-primary"</span><span
+            class="as">&gt;</span>Primary<span class="as">&lt;/button&gt;</span>
+<span class="as">&lt;button</span> <span class="ai">type=</span><span class="ah">"button"</span> <span
+                class="ai">class=</span><span class="ah">"btn btn-lg btn-pill btn-secondary"</span><span
+                class="as">&gt;</span>Secondary<span class="as">&lt;/button&gt;</span>
+<span class="as">&lt;button</span> <span class="ai">type=</span><span class="ah">"button"</span> <span
+                class="ai">class=</span><span class="ah">"btn btn-lg btn-pill btn-success"</span><span
+                class="as">&gt;</span>Success<span class="as">&lt;/button&gt;</span>
+<span class="as">&lt;button</span> <span class="ai">type=</span><span class="ah">"button"</span> <span
+                class="ai">class=</span><span class="ah">"btn btn-lg btn-pill btn-info"</span><span
+                class="as">&gt;</span>Info<span class="as">&lt;/button&gt;</span>
+<span class="as">&lt;button</span> <span class="ai">type=</span><span class="ah">"button"</span> <span
+                class="ai">class=</span><span class="ah">"btn btn-lg btn-pill btn-warning"</span><span
+                class="as">&gt;</span>Warning<span class="as">&lt;/button&gt;</span>
+<span class="as">&lt;button</span> <span class="ai">type=</span><span class="ah">"button"</span> <span
+                class="ai">class=</span><span class="ah">"btn btn-lg btn-pill btn-danger"</span><span
+                class="as">&gt;</span>Danger<span class="as">&lt;/button&gt;</span>
+<span class="as">&lt;button</span> <span class="ai">type=</span><span class="ah">"button"</span> <span
+                class="ai">class=</span><span class="ah">"btn btn-lg btn-pill btn-link"</span><span
+                class="as">&gt;</span>Link<span class="as">&lt;/button&gt;</span></code></pre>
+    </div>
+
+    <div class="bs" data-example-id="">
+        <button type="button" class="ce bmc kh">Primary</button>
+        <button type="button" class="ce bmc box">Secondary</button>
+        <button type="button" class="ce bmc kj">Success</button>
+        <button type="button" class="ce bmc kk">Info</button>
+        <button type="button" class="ce bmc kl">Warning</button>
+        <button type="button" class="ce bmc km">Danger</button>
+        <button type="button" class="ce bmc ku">Link</button>
+    </div>
+    <div class="br"><pre><code class="bow" data-lang="html"><span class="as">&lt;button</span> <span
+            class="ai">type=</span><span class="ah">"button"</span> <span class="ai">class=</span><span class="ah">"btn btn-pill btn-primary"</span><span
+            class="as">&gt;</span>Primary<span class="as">&lt;/button&gt;</span>
+<span class="as">&lt;button</span> <span class="ai">type=</span><span class="ah">"button"</span> <span
+                class="ai">class=</span><span class="ah">"btn btn-pill btn-secondary"</span><span class="as">&gt;</span>Secondary<span
+                class="as">&lt;/button&gt;</span>
+<span class="as">&lt;button</span> <span class="ai">type=</span><span class="ah">"button"</span> <span
+                class="ai">class=</span><span class="ah">"btn btn-pill btn-success"</span><span class="as">&gt;</span>Success<span
+                class="as">&lt;/button&gt;</span>
+<span class="as">&lt;button</span> <span class="ai">type=</span><span class="ah">"button"</span> <span
+                class="ai">class=</span><span class="ah">"btn btn-pill btn-info"</span><span
+                class="as">&gt;</span>Info<span class="as">&lt;/button&gt;</span>
+<span class="as">&lt;button</span> <span class="ai">type=</span><span class="ah">"button"</span> <span
+                class="ai">class=</span><span class="ah">"btn btn-pill btn-warning"</span><span class="as">&gt;</span>Warning<span
+                class="as">&lt;/button&gt;</span>
+<span class="as">&lt;button</span> <span class="ai">type=</span><span class="ah">"button"</span> <span
+                class="ai">class=</span><span class="ah">"btn btn-pill btn-danger"</span><span class="as">&gt;</span>Danger<span
+                class="as">&lt;/button&gt;</span>
+<span class="as">&lt;button</span> <span class="ai">type=</span><span class="ah">"button"</span> <span
+                class="ai">class=</span><span class="ah">"btn btn-pill btn-link"</span><span
+                class="as">&gt;</span>Link<span class="as">&lt;/button&gt;</span></code></pre>
+    </div>
+
+    <div class="bs" data-example-id="">
+        <button type="button" class="ce kx bmc kh">Primary</button>
+        <button type="button" class="ce kx bmc box">Secondary</button>
+        <button type="button" class="ce kx bmc kj">Success</button>
+        <button type="button" class="ce kx bmc kk">Info</button>
+        <button type="button" class="ce kx bmc kl">Warning</button>
+        <button type="button" class="ce kx bmc km">Danger</button>
+        <button type="button" class="ce kx bmc ku">Link</button>
+    </div>
+    <div class="br"><pre><code class="bow" data-lang="html"><span class="as">&lt;button</span> <span
+            class="ai">type=</span><span class="ah">"button"</span> <span class="ai">class=</span><span class="ah">"btn btn-sm btn-pill btn-primary"</span><span
+            class="as">&gt;</span>Primary<span class="as">&lt;/button&gt;</span>
+<span class="as">&lt;button</span> <span class="ai">type=</span><span class="ah">"button"</span> <span
+                class="ai">class=</span><span class="ah">"btn btn-sm btn-pill btn-secondary"</span><span
+                class="as">&gt;</span>Secondary<span class="as">&lt;/button&gt;</span>
+<span class="as">&lt;button</span> <span class="ai">type=</span><span class="ah">"button"</span> <span
+                class="ai">class=</span><span class="ah">"btn btn-sm btn-pill btn-success"</span><span
+                class="as">&gt;</span>Success<span class="as">&lt;/button&gt;</span>
+<span class="as">&lt;button</span> <span class="ai">type=</span><span class="ah">"button"</span> <span
+                class="ai">class=</span><span class="ah">"btn btn-sm btn-pill btn-info"</span><span
+                class="as">&gt;</span>Info<span class="as">&lt;/button&gt;</span>
+<span class="as">&lt;button</span> <span class="ai">type=</span><span class="ah">"button"</span> <span
+                class="ai">class=</span><span class="ah">"btn btn-sm btn-pill btn-warning"</span><span
+                class="as">&gt;</span>Warning<span class="as">&lt;/button&gt;</span>
+<span class="as">&lt;button</span> <span class="ai">type=</span><span class="ah">"button"</span> <span
+                class="ai">class=</span><span class="ah">"btn btn-sm btn-pill btn-danger"</span><span
+                class="as">&gt;</span>Danger<span class="as">&lt;/button&gt;</span>
+<span class="as">&lt;button</span> <span class="ai">type=</span><span class="ah">"button"</span> <span
+                class="ai">class=</span><span class="ah">"btn btn-sm btn-pill btn-link"</span><span
+                class="as">&gt;</span>Link<span class="as">&lt;/button&gt;</span></code></pre>
+    </div>
+
+    <div class="bs" data-example-id="">
+        <button type="button" class="ce asp bmc kh">Primary</button>
+        <button type="button" class="ce asp bmc box">Default</button>
+        <button type="button" class="ce asp bmc kj">Success</button>
+        <button type="button" class="ce asp bmc kk">Info</button>
+        <button type="button" class="ce asp bmc kl">Warning</button>
+        <button type="button" class="ce asp bmc km">Danger</button>
+        <button type="button" class="ce asp bmc ku">Link</button>
+    </div>
+    <div class="br"><pre><code class="bow" data-lang="html"><span class="as">&lt;button</span> <span
+            class="ai">type=</span><span class="ah">"button"</span> <span class="ai">class=</span><span class="ah">"btn btn-xs btn-pill btn-primary"</span><span
+            class="as">&gt;</span>Primary<span class="as">&lt;/button&gt;</span>
+<span class="as">&lt;button</span> <span class="ai">type=</span><span class="ah">"button"</span> <span
+                class="ai">class=</span><span class="ah">"btn btn-xs btn-pill btn-secondary"</span><span
+                class="as">&gt;</span>Default<span class="as">&lt;/button&gt;</span>
+<span class="as">&lt;button</span> <span class="ai">type=</span><span class="ah">"button"</span> <span
+                class="ai">class=</span><span class="ah">"btn btn-xs btn-pill btn-success"</span><span
+                class="as">&gt;</span>Success<span class="as">&lt;/button&gt;</span>
+<span class="as">&lt;button</span> <span class="ai">type=</span><span class="ah">"button"</span> <span
+                class="ai">class=</span><span class="ah">"btn btn-xs btn-pill btn-info"</span><span
+                class="as">&gt;</span>Info<span class="as">&lt;/button&gt;</span>
+<span class="as">&lt;button</span> <span class="ai">type=</span><span class="ah">"button"</span> <span
+                class="ai">class=</span><span class="ah">"btn btn-xs btn-pill btn-warning"</span><span
+                class="as">&gt;</span>Warning<span class="as">&lt;/button&gt;</span>
+<span class="as">&lt;button</span> <span class="ai">type=</span><span class="ah">"button"</span> <span
+                class="ai">class=</span><span class="ah">"btn btn-xs btn-pill btn-danger"</span><span
+                class="as">&gt;</span>Danger<span class="as">&lt;/button&gt;</span>
+<span class="as">&lt;button</span> <span class="ai">type=</span><span class="ah">"button"</span> <span
+                class="ai">class=</span><span class="ah">"btn btn-xs btn-pill btn-link"</span><span
+                class="as">&gt;</span>Link<span class="as">&lt;/button&gt;</span></code></pre>
+    </div>
+
+    <h2 id="flex-table">Flex table</h2>
+
+    <p>Use the flex table classes when you need to keep related elements on the same row, but with flexible individual
+        widths.</p>
+
+    <div class="bs" data-example-id="">
+        <div class="bju">
+            <div class="bjv bjw">
+                <input type="text" class="form-control" placeholder="Search orders"/>
+            </div>
+            <div class="bjv">
+                <div class="ld">
+                    <button type="button" class="ce ko">
+                        <span class="bv ben"></span>
+                    </button>
+                    <button type="button" class="ce ko">
+                        <span class="bv azn"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="br"><pre><code class="bow" data-lang="html"><span class="as">&lt;div</span> <span
+            class="ai">class=</span><span class="ah">"flextable"</span><span class="as">&gt;</span>
+  <span class="as">&lt;div</span> <span class="ai">class=</span><span
+                class="ah">"flextable-item flextable-primary"</span><span class="as">&gt;</span>
+    <span class="as">&lt;input</span> <span class="ai">type=</span><span class="ah">"text"</span> <span class="ai">class=</span><span
+                class="ah">"form-control"</span> <span class="ai">placeholder=</span><span
+                class="ah">"Search orders"</span><span class="as">&gt;</span>
+  <span class="as">&lt;/div&gt;</span>
+  <span class="as">&lt;div</span> <span class="ai">class=</span><span class="ah">"flextable-item"</span><span
+                class="as">&gt;</span>
+    <span class="as">&lt;div</span> <span class="ai">class=</span><span class="ah">"btn-group"</span><span class="as">&gt;</span>
+      <span class="as">&lt;button</span> <span class="ai">type=</span><span class="ah">"button"</span> <span class="ai">class=</span><span
+                class="ah">"btn btn-outline-primary"</span><span class="as">&gt;</span>
+        <span class="as">&lt;span</span> <span class="ai">class=</span><span class="ah">"icon icon-pencil"</span><span
+                class="as">&gt;&lt;/span&gt;</span>
+      <span class="as">&lt;/button&gt;</span>
+      <span class="as">&lt;button</span> <span class="ai">type=</span><span class="ah">"button"</span> <span class="ai">class=</span><span
+                class="ah">"btn btn-outline-primary"</span><span class="as">&gt;</span>
+        <span class="as">&lt;span</span> <span class="ai">class=</span><span class="ah">"icon icon-erase"</span><span
+                class="as">&gt;&lt;/span&gt;</span>
+      <span class="as">&lt;/button&gt;</span>
+    <span class="as">&lt;/div&gt;</span>
+  <span class="as">&lt;/div&gt;</span>
+<span class="as">&lt;/div&gt;</span></code></pre>
+    </div>
+
+    <h2 id="stat-cards">Stat cards</h2>
+
+    <p>Use stat cards to easily display large numbers, great for any kind of simple metrics and dashboard content.</p>
+
+    <div class="bs" data-example-id="">
+        <div class="bml abw">
+            <h3 class="bkm">12,938</h3>
+            <span class="bkn">Page views</span>
+        </div>
+        <div class="bml abw asm">
+            <h3 class="bkm">758</h3>
+            <span class="bkn">Downloads</span>
+        </div>
+        <div class="bml abw asl">
+            <h3 class="bkm">1,293</h3>
+            <span class="bkn">Sign-ups</span>
+        </div>
+    </div>
+    <div class="br"><pre><code class="bow" data-lang="html"><span class="as">&lt;div</span> <span
+            class="ai">class=</span><span class="ah">"statcard p-3"</span><span class="as">&gt;</span>
+  <span class="as">&lt;h3</span> <span class="ai">class=</span><span class="ah">"statcard-number"</span><span
+                class="as">&gt;</span>12,938<span class="as">&lt;/h3&gt;</span>
+  <span class="as">&lt;span</span> <span class="ai">class=</span><span class="ah">"statcard-desc"</span><span
+                class="as">&gt;</span>Page views<span class="as">&lt;/span&gt;</span>
+<span class="as">&lt;/div&gt;</span>
+<span class="as">&lt;div</span> <span class="ai">class=</span><span class="ah">"statcard p-3 text-xs-center"</span><span
+                class="as">&gt;</span>
+  <span class="as">&lt;h3</span> <span class="ai">class=</span><span class="ah">"statcard-number"</span><span
+                class="as">&gt;</span>758<span class="as">&lt;/h3&gt;</span>
+  <span class="as">&lt;span</span> <span class="ai">class=</span><span class="ah">"statcard-desc"</span><span
+                class="as">&gt;</span>Downloads<span class="as">&lt;/span&gt;</span>
+<span class="as">&lt;/div&gt;</span>
+<span class="as">&lt;div</span> <span class="ai">class=</span><span class="ah">"statcard p-3 text-xs-right"</span><span
+                class="as">&gt;</span>
+  <span class="as">&lt;h3</span> <span class="ai">class=</span><span class="ah">"statcard-number"</span><span
+                class="as">&gt;</span>1,293<span class="as">&lt;/h3&gt;</span>
+  <span class="as">&lt;span</span> <span class="ai">class=</span><span class="ah">"statcard-desc"</span><span
+                class="as">&gt;</span>Sign-ups<span class="as">&lt;/span&gt;</span>
+<span class="as">&lt;/div&gt;</span></code></pre>
+    </div>
+
+    <p>With optional carets:</p>
+
+    <div class="bs" data-example-id="">
+        <div class="bml abw">
+            <h3 class="bkm">
+                12,938
+                <small class="bko bkp">5%</small>
+            </h3>
+            <span class="bkn">Page views</span>
+        </div>
+        <div class="bml abw">
+            <h3 class="bkm">
+                758
+                <small class="bko bkq">1.3%</small>
+            </h3>
+            <span class="bkn">Downloads</span>
+        </div>
+    </div>
+    <div class="br"><pre><code class="bow" data-lang="html"><span class="as">&lt;div</span> <span
+            class="ai">class=</span><span class="ah">"statcard p-3"</span><span class="as">&gt;</span>
+  <span class="as">&lt;h3</span> <span class="ai">class=</span><span class="ah">"statcard-number"</span><span
+                class="as">&gt;</span>
+    12,938
+    <span class="as">&lt;small</span> <span class="ai">class=</span><span
+                class="ah">"delta-indicator delta-positive"</span><span class="as">&gt;</span>5%<span class="as">&lt;/small&gt;</span>
+  <span class="as">&lt;/h3&gt;</span>
+  <span class="as">&lt;span</span> <span class="ai">class=</span><span class="ah">"statcard-desc"</span><span
+                class="as">&gt;</span>Page views<span class="as">&lt;/span&gt;</span>
+<span class="as">&lt;/div&gt;</span>
+<span class="as">&lt;div</span> <span class="ai">class=</span><span class="ah">"statcard p-3"</span><span class="as">&gt;</span>
+  <span class="as">&lt;h3</span> <span class="ai">class=</span><span class="ah">"statcard-number"</span><span
+                class="as">&gt;</span>
+    758
+    <span class="as">&lt;small</span> <span class="ai">class=</span><span
+                class="ah">"delta-indicator delta-negative"</span><span class="as">&gt;</span>1.3%<span class="as">&lt;/small&gt;</span>
+  <span class="as">&lt;/h3&gt;</span>
+  <span class="as">&lt;span</span> <span class="ai">class=</span><span class="ah">"statcard-desc"</span><span
+                class="as">&gt;</span>Downloads<span class="as">&lt;/span&gt;</span>
+<span class="as">&lt;/div&gt;</span></code></pre>
+    </div>
+
+    <p>With background variations:</p>
+
+    <div class="bs" data-example-id="">
+        <div class="bml bkr acd aac">
+            <h3 class="bkm">
+                12,938
+                <small class="bko bkp">5%</small>
+            </h3>
+            <span class="bkn">Page views</span>
+        </div>
+        <div class="bml bks acd aac">
+            <h3 class="bkm">
+                758
+                <small class="bko bkq">1.3%</small>
+            </h3>
+            <span class="bkn">Downloads</span>
+        </div>
+        <div class="bml bkt acd aac">
+            <h3 class="bkm">
+                758
+                <small class="bko bkq">1.3%</small>
+            </h3>
+            <span class="bkn">Downloads</span>
+        </div>
+        <div class="bml bkv acd aac">
+            <h3 class="bkm">
+                1,293
+                <small class="bko bkp">6.75%</small>
+            </h3>
+            <span class="bkn">Sign-ups</span>
+        </div>
+        <div class="bml bku acd aac">
+            <h3 class="bkm">
+                1,293
+                <small class="bko bkp">6.75%</small>
+            </h3>
+            <span class="bkn">Sign-ups</span>
+        </div>
+    </div>
+    <div class="br"><pre><code class="bow" data-lang="html"><span class="as">&lt;div</span> <span
+            class="ai">class=</span><span class="ah">"statcard statcard-primary p-4 mb-2"</span><span
+            class="as">&gt;</span>
+  <span class="as">&lt;h3</span> <span class="ai">class=</span><span class="ah">"statcard-number"</span><span
+                class="as">&gt;</span>
+    12,938
+    <span class="as">&lt;small</span> <span class="ai">class=</span><span
+                class="ah">"delta-indicator delta-positive"</span><span class="as">&gt;</span>5%<span class="as">&lt;/small&gt;</span>
+  <span class="as">&lt;/h3&gt;</span>
+  <span class="as">&lt;span</span> <span class="ai">class=</span><span class="ah">"statcard-desc"</span><span
+                class="as">&gt;</span>Page views<span class="as">&lt;/span&gt;</span>
+<span class="as">&lt;/div&gt;</span>
+<span class="as">&lt;div</span> <span class="ai">class=</span><span
+                class="ah">"statcard statcard-success p-4 mb-2"</span><span class="as">&gt;</span>
+  <span class="as">&lt;h3</span> <span class="ai">class=</span><span class="ah">"statcard-number"</span><span
+                class="as">&gt;</span>
+    758
+    <span class="as">&lt;small</span> <span class="ai">class=</span><span
+                class="ah">"delta-indicator delta-negative"</span><span class="as">&gt;</span>1.3%<span class="as">&lt;/small&gt;</span>
+  <span class="as">&lt;/h3&gt;</span>
+  <span class="as">&lt;span</span> <span class="ai">class=</span><span class="ah">"statcard-desc"</span><span
+                class="as">&gt;</span>Downloads<span class="as">&lt;/span&gt;</span>
+<span class="as">&lt;/div&gt;</span>
+<span class="as">&lt;div</span> <span class="ai">class=</span><span
+                class="ah">"statcard statcard-info p-4 mb-2"</span><span class="as">&gt;</span>
+  <span class="as">&lt;h3</span> <span class="ai">class=</span><span class="ah">"statcard-number"</span><span
+                class="as">&gt;</span>
+    758
+    <span class="as">&lt;small</span> <span class="ai">class=</span><span
+                class="ah">"delta-indicator delta-negative"</span><span class="as">&gt;</span>1.3%<span class="as">&lt;/small&gt;</span>
+  <span class="as">&lt;/h3&gt;</span>
+  <span class="as">&lt;span</span> <span class="ai">class=</span><span class="ah">"statcard-desc"</span><span
+                class="as">&gt;</span>Downloads<span class="as">&lt;/span&gt;</span>
+<span class="as">&lt;/div&gt;</span>
+<span class="as">&lt;div</span> <span class="ai">class=</span><span
+                class="ah">"statcard statcard-danger p-4 mb-2"</span><span class="as">&gt;</span>
+  <span class="as">&lt;h3</span> <span class="ai">class=</span><span class="ah">"statcard-number"</span><span
+                class="as">&gt;</span>
+    1,293
+    <span class="as">&lt;small</span> <span class="ai">class=</span><span
+                class="ah">"delta-indicator delta-positive"</span><span class="as">&gt;</span>6.75%<span class="as">&lt;/small&gt;</span>
+  <span class="as">&lt;/h3&gt;</span>
+  <span class="as">&lt;span</span> <span class="ai">class=</span><span class="ah">"statcard-desc"</span><span
+                class="as">&gt;</span>Sign-ups<span class="as">&lt;/span&gt;</span>
+<span class="as">&lt;/div&gt;</span>
+<span class="as">&lt;div</span> <span class="ai">class=</span><span
+                class="ah">"statcard statcard-warning p-4 mb-2"</span><span class="as">&gt;</span>
+  <span class="as">&lt;h3</span> <span class="ai">class=</span><span class="ah">"statcard-number"</span><span
+                class="as">&gt;</span>
+    1,293
+    <span class="as">&lt;small</span> <span class="ai">class=</span><span
+                class="ah">"delta-indicator delta-positive"</span><span class="as">&gt;</span>6.75%<span class="as">&lt;/small&gt;</span>
+  <span class="as">&lt;/h3&gt;</span>
+  <span class="as">&lt;span</span> <span class="ai">class=</span><span class="ah">"statcard-desc"</span><span
+                class="as">&gt;</span>Sign-ups<span class="as">&lt;/span&gt;</span>
+<span class="as">&lt;/div&gt;</span></code></pre>
+    </div>
+
+    <p>And use the grid system to size and align them:</p>
+
+    <div class="bs" data-example-id="">
+        <div class="dh">
+            <div class="ec">
+                <div class="bml bkr acd">
+                    <h3 class="bkm">
+                        12,938
+                        <small class="bko bkp">5%</small>
+                    </h3>
+                    <span class="bkn">Page views</span>
+                </div>
+            </div>
+            <div class="ec">
+                <div class="bml bks acd">
+                    <h3 class="bkm">
+                        758
+                        <small class="bko bkq">1.3%</small>
+                    </h3>
+                    <span class="bkn">Downloads</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="br"><pre><code class="bow" data-lang="html"><span class="as">&lt;div</span> <span
+            class="ai">class=</span><span class="ah">"row"</span><span class="as">&gt;</span>
+  <span class="as">&lt;div</span> <span class="ai">class=</span><span class="ah">"col-sm-6"</span><span
+                class="as">&gt;</span>
+    <span class="as">&lt;div</span> <span class="ai">class=</span><span
+                class="ah">"statcard statcard-primary p-4"</span><span class="as">&gt;</span>
+      <span class="as">&lt;h3</span> <span class="ai">class=</span><span class="ah">"statcard-number"</span><span
+                class="as">&gt;</span>
+        12,938
+        <span class="as">&lt;small</span> <span class="ai">class=</span><span class="ah">"delta-indicator delta-positive"</span><span
+                class="as">&gt;</span>5%<span class="as">&lt;/small&gt;</span>
+      <span class="as">&lt;/h3&gt;</span>
+      <span class="as">&lt;span</span> <span class="ai">class=</span><span class="ah">"statcard-desc"</span><span
+                class="as">&gt;</span>Page views<span class="as">&lt;/span&gt;</span>
+    <span class="as">&lt;/div&gt;</span>
+  <span class="as">&lt;/div&gt;</span>
+  <span class="as">&lt;div</span> <span class="ai">class=</span><span class="ah">"col-sm-6"</span><span
+                class="as">&gt;</span>
+    <span class="as">&lt;div</span> <span class="ai">class=</span><span
+                class="ah">"statcard statcard-success p-4"</span><span class="as">&gt;</span>
+      <span class="as">&lt;h3</span> <span class="ai">class=</span><span class="ah">"statcard-number"</span><span
+                class="as">&gt;</span>
+        758
+        <span class="as">&lt;small</span> <span class="ai">class=</span><span class="ah">"delta-indicator delta-negative"</span><span
+                class="as">&gt;</span>1.3%<span class="as">&lt;/small&gt;</span>
+      <span class="as">&lt;/h3&gt;</span>
+      <span class="as">&lt;span</span> <span class="ai">class=</span><span class="ah">"statcard-desc"</span><span
+                class="as">&gt;</span>Downloads<span class="as">&lt;/span&gt;</span>
+    <span class="as">&lt;/div&gt;</span>
+  <span class="as">&lt;/div&gt;</span>
+<span class="as">&lt;/div&gt;</span></code></pre>
+    </div>
+
+    <h2 id="divided-heading">Divided heading</h2>
+
+    <p>Use a divided heading to call special attention to a separation of content in your pages.</p>
+
+    <div class="bs" data-example-id="">
+        <div class="bkz">
+            <h3 class="bla blb">
+                Divider heading
+            </h3>
+        </div>
+    </div>
+    <div class="br"><pre><code class="bow" data-lang="html"><span class="as">&lt;div</span> <span
+            class="ai">class=</span><span class="ah">"hr-divider"</span><span class="as">&gt;</span>
+  <span class="as">&lt;h3</span> <span class="ai">class=</span><span
+                class="ah">"hr-divider-content hr-divider-heading"</span><span class="as">&gt;</span>
+    Divider heading
+  <span class="as">&lt;/h3&gt;</span>
+<span class="as">&lt;/div&gt;</span></code></pre>
+    </div>
+
+    <p>You can also use it with pill navigation:</p>
+
+    <div class="bs" data-example-id="">
+        <div class="bkz">
+            <ul class="nav lq bla blc">
+                <li class="lp">
+                    <a class="ln active" href="#">Active tab</a>
+                </li>
+                <li class="lp">
+                    <a class="ln" href="#">Tab</a>
+                </li>
+                <li class="lp">
+                    <a class="ln" href="#">Tab</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="br"><pre><code class="bow" data-lang="html"><span class="as">&lt;div</span> <span
+            class="ai">class=</span><span class="ah">"hr-divider"</span><span class="as">&gt;</span>
+  <span class="as">&lt;ul</span> <span class="ai">class=</span><span class="ah">"nav nav-pills hr-divider-content hr-divider-nav"</span><span
+                class="as">&gt;</span>
+    <span class="as">&lt;li</span> <span class="ai">class=</span><span class="ah">"nav-item"</span><span
+                class="as">&gt;</span>
+      <span class="as">&lt;a</span> <span class="ai">class=</span><span class="ah">"nav-link active"</span> <span
+                class="ai">href=</span><span class="ah">"#"</span><span class="as">&gt;</span>Active tab<span
+                class="as">&lt;/a&gt;</span>
+    <span class="as">&lt;/li&gt;</span>
+    <span class="as">&lt;li</span> <span class="ai">class=</span><span class="ah">"nav-item"</span><span
+                class="as">&gt;</span>
+      <span class="as">&lt;a</span> <span class="ai">class=</span><span class="ah">"nav-link"</span> <span class="ai">href=</span><span
+                class="ah">"#"</span><span class="as">&gt;</span>Tab<span class="as">&lt;/a&gt;</span>
+    <span class="as">&lt;/li&gt;</span>
+    <span class="as">&lt;li</span> <span class="ai">class=</span><span class="ah">"nav-item"</span><span
+                class="as">&gt;</span>
+      <span class="as">&lt;a</span> <span class="ai">class=</span><span class="ah">"nav-link"</span> <span class="ai">href=</span><span
+                class="ah">"#"</span><span class="as">&gt;</span>Tab<span class="as">&lt;/a&gt;</span>
+    <span class="as">&lt;/li&gt;</span>
+  <span class="as">&lt;/ul&gt;</span>
+<span class="as">&lt;/div&gt;</span></code></pre>
+    </div>
+
+    <h2 id="icon-input">Icon input</h2>
+
+    <p>Easily overlay an icon on an input.</p>
+
+    <div class="bs" data-example-id="">
+        <div class="bld">
+            <input type="text" value="Example input" class="form-control"/>
+            <span class="bv awh"></span>
+        </div>
+    </div>
+    <div class="br"><pre><code class="bow" data-lang="html"><span class="as">&lt;div</span> <span
+            class="ai">class=</span><span class="ah">"input-with-icon"</span><span class="as">&gt;</span>
+  <span class="as">&lt;input</span> <span class="ai">type=</span><span class="ah">"text"</span> <span
+                class="ai">value=</span><span class="ah">"Example input"</span> <span class="ai">class=</span><span
+                class="ah">"form-control"</span><span class="as">&gt;</span>
+  <span class="as">&lt;span</span> <span class="ai">class=</span><span class="ah">"icon icon-calendar"</span><span
+                class="as">&gt;&lt;/span&gt;</span>
+<span class="as">&lt;/div&gt;</span></code></pre>
+    </div>
+
+    <h2 id="nav-bordered">Nav bordered</h2>
+
+    <p>The bordered nav builds on Bootstrap’s <code class="bov">.nav</code> base styles with a new, bolder variation to
+        nav links.</p>
+
+    <div class="bs" data-example-id="">
+        <ul class="nav asw">
+            <li class="lp">
+                <a class="ln active" href="#">Bold</a>
+            </li>
+            <li class="lp">
+                <a class="ln" href="#">Minimal</a>
+            </li>
+            <li class="lp">
+                <a class="ln" href="#">Components</a>
+            </li>
+            <li class="lp">
+                <a class="ln" href="#">Docs</a>
+            </li>
+        </ul>
+    </div>
+    <div class="br"><pre><code class="bow" data-lang="html"><span class="as">&lt;ul</span> <span
+            class="ai">class=</span><span class="ah">"nav nav-bordered"</span><span class="as">&gt;</span>
+  <span class="as">&lt;li</span> <span class="ai">class=</span><span class="ah">"nav-item"</span><span
+                class="as">&gt;</span>
+    <span class="as">&lt;a</span> <span class="ai">class=</span><span class="ah">"nav-link active"</span> <span
+                class="ai">href=</span><span class="ah">"#"</span><span class="as">&gt;</span>Bold<span class="as">&lt;/a&gt;</span>
+  <span class="as">&lt;/li&gt;</span>
+  <span class="as">&lt;li</span> <span class="ai">class=</span><span class="ah">"nav-item"</span><span
+                class="as">&gt;</span>
+    <span class="as">&lt;a</span> <span class="ai">class=</span><span class="ah">"nav-link"</span> <span class="ai">href=</span><span
+                class="ah">"#"</span><span class="as">&gt;</span>Minimal<span class="as">&lt;/a&gt;</span>
+  <span class="as">&lt;/li&gt;</span>
+  <span class="as">&lt;li</span> <span class="ai">class=</span><span class="ah">"nav-item"</span><span
+                class="as">&gt;</span>
+    <span class="as">&lt;a</span> <span class="ai">class=</span><span class="ah">"nav-link"</span> <span class="ai">href=</span><span
+                class="ah">"#"</span><span class="as">&gt;</span>Components<span class="as">&lt;/a&gt;</span>
+  <span class="as">&lt;/li&gt;</span>
+  <span class="as">&lt;li</span> <span class="ai">class=</span><span class="ah">"nav-item"</span><span
+                class="as">&gt;</span>
+    <span class="as">&lt;a</span> <span class="ai">class=</span><span class="ah">"nav-link"</span> <span class="ai">href=</span><span
+                class="ah">"#"</span><span class="as">&gt;</span>Docs<span class="as">&lt;/a&gt;</span>
+  <span class="as">&lt;/li&gt;</span>
+<span class="as">&lt;/ul&gt;</span></code></pre>
+    </div>
+
+    <p>Bordered nav links can also be stacked:</p>
+
+    <div class="bs" data-example-id="">
+        <ul class="nav asw nav-stacked uz">
+            <li class="asv">Examples</li>
+            <li class="lp">
+                <a class="ln active" href="#">Bold</a>
+            </li>
+            <li class="lp">
+                <a class="ln" href="#">Minimal</a>
+            </li>
+
+            <li class="asv">Sections</li>
+
+            <li class="lp">
+                <a class="ln" href="#">Grid</a>
+            </li>
+            <li class="lp">
+                <a class="ln" href="#">Pricing</a>
+            </li>
+            <li class="lp">
+                <a class="ln" href="#">About</a>
+            </li>
+        </ul>
+    </div>
+    <div class="br"><pre><code class="bow" data-lang="html"><span class="as">&lt;ul</span> <span
+            class="ai">class=</span><span class="ah">"nav nav-bordered nav-stacked flex-md-column"</span><span
+            class="as">&gt;</span>
+  <span class="as">&lt;li</span> <span class="ai">class=</span><span class="ah">"nav-header"</span><span
+                class="as">&gt;</span>Examples<span class="as">&lt;/li&gt;</span>
+  <span class="as">&lt;li</span> <span class="ai">class=</span><span class="ah">"nav-item"</span><span
+                class="as">&gt;</span>
+    <span class="as">&lt;a</span> <span class="ai">class=</span><span class="ah">"nav-link active"</span> <span
+                class="ai">href=</span><span class="ah">"#"</span><span class="as">&gt;</span>Bold<span class="as">&lt;/a&gt;</span>
+  <span class="as">&lt;/li&gt;</span>
+  <span class="as">&lt;li</span> <span class="ai">class=</span><span class="ah">"nav-item"</span><span
+                class="as">&gt;</span>
+    <span class="as">&lt;a</span> <span class="ai">class=</span><span class="ah">"nav-link"</span> <span class="ai">href=</span><span
+                class="ah">"#"</span><span class="as">&gt;</span>Minimal<span class="as">&lt;/a&gt;</span>
+  <span class="as">&lt;/li&gt;</span>
+
+  <span class="as">&lt;li</span> <span class="ai">class=</span><span class="ah">"nav-header"</span><span
+                class="as">&gt;</span>Sections<span class="as">&lt;/li&gt;</span>
+
+  <span class="as">&lt;li</span> <span class="ai">class=</span><span class="ah">"nav-item"</span><span
+                class="as">&gt;</span>
+    <span class="as">&lt;a</span> <span class="ai">class=</span><span class="ah">"nav-link"</span> <span class="ai">href=</span><span
+                class="ah">"#"</span><span class="as">&gt;</span>Grid<span class="as">&lt;/a&gt;</span>
+  <span class="as">&lt;/li&gt;</span>
+  <span class="as">&lt;li</span> <span class="ai">class=</span><span class="ah">"nav-item"</span><span
+                class="as">&gt;</span>
+    <span class="as">&lt;a</span> <span class="ai">class=</span><span class="ah">"nav-link"</span> <span class="ai">href=</span><span
+                class="ah">"#"</span><span class="as">&gt;</span>Pricing<span class="as">&lt;/a&gt;</span>
+  <span class="as">&lt;/li&gt;</span>
+  <span class="as">&lt;li</span> <span class="ai">class=</span><span class="ah">"nav-item"</span><span
+                class="as">&gt;</span>
+    <span class="as">&lt;a</span> <span class="ai">class=</span><span class="ah">"nav-link"</span> <span class="ai">href=</span><span
+                class="ah">"#"</span><span class="as">&gt;</span>About<span class="as">&lt;/a&gt;</span>
+  <span class="as">&lt;/li&gt;</span>
+<span class="as">&lt;/ul&gt;</span></code></pre>
+    </div>
+
+    <h2 id="icon-nav">Icon nav</h2>
+
+    <p>The icon nav is a special sidebar navigation for this toolkit. In mobile viewports, the icon nav is horizontal
+        with icons and textual labels. On larger devices the icon nav changes and becomes affixed to the side of the
+        viewport with tooltips instead of textual labels.</p>
+
+    <div class="bs" data-example-id="">
+        <nav class="ch">
+            <a class="bln" href="#">
+                <span class="bv bch blo"></span>
+            </a>
+            <div class="blr">
+                <ul class="nav lq blp uz">
+                    <li class="lp">
+                        <a class="ln" href="#" title="Overview" data-toggle="tooltip" data-placement="right"
+                           data-container="body">
+                            <span class="bv bbk"></span>
+                            <small class="blq rk">Overview</small>
+                        </a>
+                    </li>
+                    <li class="lp">
+                        <a class="ln" href="#" title="Order history" data-toggle="tooltip" data-placement="right"
+                           data-container="body">
+                            <span class="bv bhs"></span>
+                            <small class="blq rk">History</small>
+                        </a>
+                    </li>
+                    <li class="lp">
+                        <a class="ln" href="#" title="Fluid layout" data-toggle="tooltip" data-placement="right"
+                           data-container="body">
+                            <span class="bv bav"></span>
+                            <small class="blq rk">Fluid layout</small>
+                        </a>
+                    </li>
+                    <li class="lp">
+                        <a class="ln" href="#" title="Icon-nav layout" data-toggle="tooltip" data-placement="right"
+                           data-container="body">
+                            <span class="bv aur"></span>
+                            <small class="blq rk">Icon nav</small>
+                        </a>
+                    </li>
+                    <li class="lp">
+                        <a class="ln active" href="#" title="Docs" data-toggle="tooltip" data-placement="right"
+                           data-container="body">
+                            <span class="bv bcs"></span>
+                            <small class="blq rk">Docs</small>
+                        </a>
+                    </li>
+                    <li class="lp">
+                        <a class="ln" href="#" title="Light UI" data-toggle="tooltip" data-placement="right"
+                           data-container="body">
+                            <span class="bv azy"></span>
+                            <small class="blq rk">Light UI</small>
+                        </a>
+                    </li>
+                    <li class="lp">
+                        <a class="ln" href="#" title="Signed in as mdo" data-toggle="tooltip" data-placement="right"
+                           data-container="body">
+                            <img src="../assets/img/avatar-mdo.png" alt="" class="qr da"/>
+                            <small class="blq rk">@mdo</small>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="br"><pre><code class="bow" data-lang="html"><span class="as">&lt;nav</span> <span
+            class="ai">class=</span><span class="ah">"iconav"</span><span class="as">&gt;</span>
+    <span class="as">&lt;a</span> <span class="ai">class=</span><span class="ah">"iconav-brand"</span> <span class="ai">href=</span><span
+                class="ah">"#"</span><span class="as">&gt;</span>
+      <span class="as">&lt;span</span> <span class="ai">class=</span><span
+                class="ah">"icon icon-leaf iconav-brand-icon"</span><span class="as">&gt;&lt;/span&gt;</span>
+    <span class="as">&lt;/a&gt;</span>
+    <span class="as">&lt;div</span> <span class="ai">class=</span><span class="ah">"iconav-slider"</span><span
+                class="as">&gt;</span>
+      <span class="as">&lt;ul</span> <span class="ai">class=</span><span class="ah">"nav nav-pills iconav-nav flex-md-column"</span><span
+                class="as">&gt;</span>
+        <span class="as">&lt;li</span> <span class="ai">class=</span><span class="ah">"nav-item"</span><span class="as">&gt;</span>
+          <span class="as">&lt;a</span> <span class="ai">class=</span><span class="ah">"nav-link"</span> <span
+                class="ai">href=</span><span class="ah">"#"</span> <span class="ai">title=</span><span class="ah">"Overview"</span> <span
+                class="ai">data-toggle=</span><span class="ah">"tooltip"</span> <span
+                class="ai">data-placement=</span><span class="ah">"right"</span> <span class="ai">data-container=</span><span
+                class="ah">"body"</span><span class="as">&gt;</span>
+            <span class="as">&lt;span</span> <span class="ai">class=</span><span class="ah">"icon icon-home"</span><span
+                class="as">&gt;&lt;/span&gt;</span>
+            <span class="as">&lt;small</span> <span class="ai">class=</span><span class="ah">"iconav-nav-label d-md-none"</span><span
+                class="as">&gt;</span>Overview<span class="as">&lt;/small&gt;</span>
+          <span class="as">&lt;/a&gt;</span>
+        <span class="as">&lt;/li&gt;</span>
+        <span class="as">&lt;li</span> <span class="ai">class=</span><span class="ah">"nav-item"</span><span class="as">&gt;</span>
+          <span class="as">&lt;a</span> <span class="ai">class=</span><span class="ah">"nav-link"</span> <span
+                class="ai">href=</span><span class="ah">"#"</span> <span class="ai">title=</span><span class="ah">"Order history"</span> <span
+                class="ai">data-toggle=</span><span class="ah">"tooltip"</span> <span
+                class="ai">data-placement=</span><span class="ah">"right"</span> <span class="ai">data-container=</span><span
+                class="ah">"body"</span><span class="as">&gt;</span>
+            <span class="as">&lt;span</span> <span class="ai">class=</span><span
+                class="ah">"icon icon-text-document"</span><span class="as">&gt;&lt;/span&gt;</span>
+            <span class="as">&lt;small</span> <span class="ai">class=</span><span class="ah">"iconav-nav-label d-md-none"</span><span
+                class="as">&gt;</span>History<span class="as">&lt;/small&gt;</span>
+          <span class="as">&lt;/a&gt;</span>
+        <span class="as">&lt;/li&gt;</span>
+        <span class="as">&lt;li</span> <span class="ai">class=</span><span class="ah">"nav-item"</span><span class="as">&gt;</span>
+          <span class="as">&lt;a</span> <span class="ai">class=</span><span class="ah">"nav-link"</span> <span
+                class="ai">href=</span><span class="ah">"#"</span> <span class="ai">title=</span><span class="ah">"Fluid layout"</span> <span
+                class="ai">data-toggle=</span><span class="ah">"tooltip"</span> <span
+                class="ai">data-placement=</span><span class="ah">"right"</span> <span class="ai">data-container=</span><span
+                class="ah">"body"</span><span class="as">&gt;</span>
+            <span class="as">&lt;span</span> <span class="ai">class=</span><span
+                class="ah">"icon icon-globe"</span><span class="as">&gt;&lt;/span&gt;</span>
+            <span class="as">&lt;small</span> <span class="ai">class=</span><span class="ah">"iconav-nav-label d-md-none"</span><span
+                class="as">&gt;</span>Fluid layout<span class="as">&lt;/small&gt;</span>
+          <span class="as">&lt;/a&gt;</span>
+        <span class="as">&lt;/li&gt;</span>
+        <span class="as">&lt;li</span> <span class="ai">class=</span><span class="ah">"nav-item"</span><span class="as">&gt;</span>
+          <span class="as">&lt;a</span> <span class="ai">class=</span><span class="ah">"nav-link"</span> <span
+                class="ai">href=</span><span class="ah">"#"</span> <span class="ai">title=</span><span class="ah">"Icon-nav layout"</span> <span
+                class="ai">data-toggle=</span><span class="ah">"tooltip"</span> <span
+                class="ai">data-placement=</span><span class="ah">"right"</span> <span class="ai">data-container=</span><span
+                class="ah">"body"</span><span class="as">&gt;</span>
+            <span class="as">&lt;span</span> <span class="ai">class=</span><span
+                class="ah">"icon icon-area-graph"</span><span class="as">&gt;&lt;/span&gt;</span>
+            <span class="as">&lt;small</span> <span class="ai">class=</span><span class="ah">"iconav-nav-label d-md-none"</span><span
+                class="as">&gt;</span>Icon nav<span class="as">&lt;/small&gt;</span>
+          <span class="as">&lt;/a&gt;</span>
+        <span class="as">&lt;/li&gt;</span>
+        <span class="as">&lt;li</span> <span class="ai">class=</span><span class="ah">"nav-item"</span><span class="as">&gt;</span>
+          <span class="as">&lt;a</span> <span class="ai">class=</span><span class="ah">"nav-link active"</span> <span
+                class="ai">href=</span><span class="ah">"#"</span> <span class="ai">title=</span><span
+                class="ah">"Docs"</span> <span class="ai">data-toggle=</span><span class="ah">"tooltip"</span> <span
+                class="ai">data-placement=</span><span class="ah">"right"</span> <span class="ai">data-container=</span><span
+                class="ah">"body"</span><span class="as">&gt;</span>
+            <span class="as">&lt;span</span> <span class="ai">class=</span><span class="ah">"icon icon-list"</span><span
+                class="as">&gt;&lt;/span&gt;</span>
+            <span class="as">&lt;small</span> <span class="ai">class=</span><span class="ah">"iconav-nav-label d-md-none"</span><span
+                class="as">&gt;</span>Docs<span class="as">&lt;/small&gt;</span>
+          <span class="as">&lt;/a&gt;</span>
+        <span class="as">&lt;/li&gt;</span>
+        <span class="as">&lt;li</span> <span class="ai">class=</span><span class="ah">"nav-item"</span><span class="as">&gt;</span>
+          <span class="as">&lt;a</span> <span class="ai">class=</span><span class="ah">"nav-link"</span> <span
+                class="ai">href=</span><span class="ah">"#"</span> <span class="ai">title=</span><span class="ah">"Light UI"</span> <span
+                class="ai">data-toggle=</span><span class="ah">"tooltip"</span> <span
+                class="ai">data-placement=</span><span class="ah">"right"</span> <span class="ai">data-container=</span><span
+                class="ah">"body"</span><span class="as">&gt;</span>
+            <span class="as">&lt;span</span> <span class="ai">class=</span><span
+                class="ah">"icon icon-flash"</span><span class="as">&gt;&lt;/span&gt;</span>
+            <span class="as">&lt;small</span> <span class="ai">class=</span><span class="ah">"iconav-nav-label d-md-none"</span><span
+                class="as">&gt;</span>Light UI<span class="as">&lt;/small&gt;</span>
+          <span class="as">&lt;/a&gt;</span>
+        <span class="as">&lt;/li&gt;</span>
+        <span class="as">&lt;li</span> <span class="ai">class=</span><span class="ah">"nav-item"</span><span class="as">&gt;</span>
+          <span class="as">&lt;a</span> <span class="ai">class=</span><span class="ah">"nav-link"</span> <span
+                class="ai">href=</span><span class="ah">"#"</span> <span class="ai">title=</span><span class="ah">"Signed in as mdo"</span> <span
+                class="ai">data-toggle=</span><span class="ah">"tooltip"</span> <span
+                class="ai">data-placement=</span><span class="ah">"right"</span> <span class="ai">data-container=</span><span
+                class="ah">"body"</span><span class="as">&gt;</span>
+            <span class="as">&lt;img</span> <span class="ai">src=</span><span
+                class="ah">"../assets/img/avatar-mdo.png"</span> <span class="ai">alt=</span><span class="ah">""</span> <span
+                class="ai">class=</span><span class="ah">"rounded-circle img-fluid"</span><span class="as">&gt;</span>
+            <span class="as">&lt;small</span> <span class="ai">class=</span><span class="ah">"iconav-nav-label d-md-none"</span><span
+                class="as">&gt;</span>@mdo<span class="as">&lt;/small&gt;</span>
+          <span class="as">&lt;/a&gt;</span>
+        <span class="as">&lt;/li&gt;</span>
+      <span class="as">&lt;/ul&gt;</span>
+    <span class="as">&lt;/div&gt;</span>
+  <span class="as">&lt;/nav&gt;</span></code></pre>
+    </div>
+
+    <h2 id="dashhead">Dashhead</h2>
+
+    <p>The dashhead is a custom component built to house all the textual headings, form controls, buttons, and more that
+        are common for the top of dashboard page.</p>
+
+    <div class="bs" data-example-id="">
+        <div class="bls">
+            <div class="blt">
+                <h6 class="blv">Dashboards</h6>
+                <h3 class="blu">Overview</h3>
+            </div>
+
+            <div class="blw">
+                <div class="bld bly">
+                    <input type="text" value="01/01/15 - 01/08/15" class="form-control" data-provide="datepicker"/>
+                    <span class="bv awh"></span>
+                </div>
+                <span class="blx boy"></span>
+                <div class="ld bly bma">
+                    <button type="button" class="ce ko">Day</button>
+                    <button type="button" class="ce ko active">Week</button>
+                    <button type="button" class="ce ko">Month</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="br"><pre><code class="bow" data-lang="html"><span class="as">&lt;div</span> <span
+            class="ai">class=</span><span class="ah">"dashhead"</span><span class="as">&gt;</span>
+  <span class="as">&lt;div</span> <span class="ai">class=</span><span class="ah">"dashhead-titles"</span><span
+                class="as">&gt;</span>
+    <span class="as">&lt;h6</span> <span class="ai">class=</span><span class="ah">"dashhead-subtitle"</span><span
+                class="as">&gt;</span>Dashboards<span class="as">&lt;/h6&gt;</span>
+    <span class="as">&lt;h3</span> <span class="ai">class=</span><span class="ah">"dashhead-title"</span><span
+                class="as">&gt;</span>Overview<span class="as">&lt;/h3&gt;</span>
+  <span class="as">&lt;/div&gt;</span>
+
+  <span class="as">&lt;div</span> <span class="ai">class=</span><span class="ah">"dashhead-toolbar"</span><span
+                class="as">&gt;</span>
+    <span class="as">&lt;div</span> <span class="ai">class=</span><span class="ah">"input-with-icon dashhead-toolbar-item"</span><span
+                class="as">&gt;</span>
+      <span class="as">&lt;input</span> <span class="ai">type=</span><span class="ah">"text"</span> <span class="ai">value=</span><span
+                class="ah">"01/01/15 - 01/08/15"</span> <span class="ai">class=</span><span
+                class="ah">"form-control"</span> <span class="ai">data-provide=</span><span
+                class="ah">"datepicker"</span><span class="as">&gt;</span>
+      <span class="as">&lt;span</span> <span class="ai">class=</span><span class="ah">"icon icon-calendar"</span><span
+                class="as">&gt;&lt;/span&gt;</span>
+    <span class="as">&lt;/div&gt;</span>
+    <span class="as">&lt;span</span> <span class="ai">class=</span><span
+                class="ah">"dashhead-toolbar-divider hidden-xs"</span><span class="as">&gt;&lt;/span&gt;</span>
+    <span class="as">&lt;div</span> <span class="ai">class=</span><span class="ah">"btn-group dashhead-toolbar-item btn-group-thirds"</span><span
+                class="as">&gt;</span>
+      <span class="as">&lt;button</span> <span class="ai">type=</span><span class="ah">"button"</span> <span class="ai">class=</span><span
+                class="ah">"btn btn-outline-primary"</span><span class="as">&gt;</span>Day<span class="as">&lt;/button&gt;</span>
+      <span class="as">&lt;button</span> <span class="ai">type=</span><span class="ah">"button"</span> <span class="ai">class=</span><span
+                class="ah">"btn btn-outline-primary active"</span><span class="as">&gt;</span>Week<span class="as">&lt;/button&gt;</span>
+      <span class="as">&lt;button</span> <span class="ai">type=</span><span class="ah">"button"</span> <span class="ai">class=</span><span
+                class="ah">"btn btn-outline-primary"</span><span class="as">&gt;</span>Month<span class="as">&lt;/button&gt;</span>
+    <span class="as">&lt;/div&gt;</span>
+  <span class="as">&lt;/div&gt;</span>
+<span class="as">&lt;/div&gt;</span></code></pre>
+    </div>
+
+    <h2 id="list-group">List group</h2>
+
+    <p>Bootstrap’s default list group component is extended with a few additional features.</p>
+
+    <h3 id="list-group-header">List group header</h3>
+
+    <p>New to the theme is a header for list groups, similar to panels. use it for standalone lists as needed. This
+        should not be used with panels.</p>
+
+    <div class="bs" data-example-id="">
+        <ul class="by">
+            <li class="atf">List group header</li>
+            <li class="mo">Cras justo odio</li>
+            <li class="mo">Dapibus ac facilisis in</li>
+            <li class="mo">Morbi leo risus</li>
+            <li class="mo">Porta ac consectetur ac</li>
+            <li class="mo">Vestibulum at eros</li>
+        </ul>
+    </div>
+    <div class="br"><pre><code class="bow" data-lang="html"><span class="as">&lt;ul</span> <span
+            class="ai">class=</span><span class="ah">"list-group"</span><span class="as">&gt;</span>
+  <span class="as">&lt;li</span> <span class="ai">class=</span><span class="ah">"list-group-header"</span><span
+                class="as">&gt;</span>List group header<span class="as">&lt;/li&gt;</span>
+  <span class="as">&lt;li</span> <span class="ai">class=</span><span class="ah">"list-group-item"</span><span
+                class="as">&gt;</span>Cras justo odio<span class="as">&lt;/li&gt;</span>
+  <span class="as">&lt;li</span> <span class="ai">class=</span><span class="ah">"list-group-item"</span><span
+                class="as">&gt;</span>Dapibus ac facilisis in<span class="as">&lt;/li&gt;</span>
+  <span class="as">&lt;li</span> <span class="ai">class=</span><span class="ah">"list-group-item"</span><span
+                class="as">&gt;</span>Morbi leo risus<span class="as">&lt;/li&gt;</span>
+  <span class="as">&lt;li</span> <span class="ai">class=</span><span class="ah">"list-group-item"</span><span
+                class="as">&gt;</span>Porta ac consectetur ac<span class="as">&lt;/li&gt;</span>
+  <span class="as">&lt;li</span> <span class="ai">class=</span><span class="ah">"list-group-item"</span><span
+                class="as">&gt;</span>Vestibulum at eros<span class="as">&lt;/li&gt;</span>
+<span class="as">&lt;/ul&gt;</span></code></pre>
+    </div>
+
+    <h3 id="list-group-progress">List group progress</h3>
+
+    <p>Similar to stat lists, add a background progress indicator to any list group item.</p>
+
+    <div class="bs" data-example-id="">
+        <ul class="by">
+            <li class="mo">
+                Cras justo odio
+                <span class="atg" style="width: 75%;"></span>
+            </li>
+            <li class="mo">
+                Porta ac consectetur ac
+                <span class="atg" style="width: 50%;"></span>
+            </li>
+            <li class="mo">
+                Vestibulum at eros
+                <span class="atg" style="width: 25%;"></span>
+            </li>
+        </ul>
+    </div>
+    <div class="br"><pre><code class="bow" data-lang="html"><span class="as">&lt;ul</span> <span
+            class="ai">class=</span><span class="ah">"list-group"</span><span class="as">&gt;</span>
+  <span class="as">&lt;li</span> <span class="ai">class=</span><span class="ah">"list-group-item"</span><span
+                class="as">&gt;</span>
+    Cras justo odio
+    <span class="as">&lt;span</span> <span class="ai">class=</span><span class="ah">"list-group-progress"</span> <span
+                class="ai">style=</span><span class="ah">"width: 75%;"</span><span class="as">&gt;&lt;/span&gt;</span>
+  <span class="as">&lt;/li&gt;</span>
+  <span class="as">&lt;li</span> <span class="ai">class=</span><span class="ah">"list-group-item"</span><span
+                class="as">&gt;</span>
+    Porta ac consectetur ac
+    <span class="as">&lt;span</span> <span class="ai">class=</span><span class="ah">"list-group-progress"</span> <span
+                class="ai">style=</span><span class="ah">"width: 50%;"</span><span class="as">&gt;&lt;/span&gt;</span>
+  <span class="as">&lt;/li&gt;</span>
+  <span class="as">&lt;li</span> <span class="ai">class=</span><span class="ah">"list-group-item"</span><span
+                class="as">&gt;</span>
+    Vestibulum at eros
+    <span class="as">&lt;span</span> <span class="ai">class=</span><span class="ah">"list-group-progress"</span> <span
+                class="ai">style=</span><span class="ah">"width: 25%;"</span><span class="as">&gt;&lt;/span&gt;</span>
+  <span class="as">&lt;/li&gt;</span>
+<span class="as">&lt;/ul&gt;</span></code></pre>
+    </div>
+
+    <h2 id="custom-modals">Custom Modals</h2>
+
+    <p>Support for multiple, stackable modal bodies and scrolling bodies using the new <code class="bov">.modal-body-scroller</code>
+        modifier.</p>
+
+    <div class="bs" data-example-id="">
+        <div class="cb">
+            <div class="modal-dialog boz">
+                <div class="modal-content">
+                    <div class="ol">
+                        <h4 class="modal-title">Medium Modal</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body ath">
+                        <p>Maecenas faucibus mollis interdum. Nulla vitae elit libero, a pharetra augue. Aenean eu leo
+                            quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Maecenas faucibus mollis
+                            interdum. Donec ullamcorper nulla non metus auctor fringilla. Morbi leo risus, porta ac
+                            consectetur ac, vestibulum at eros.</p>
+
+                        <p>Nullam id dolor id nibh ultricies vehicula ut id elit. Sed posuere consectetur est at
+                            lobortis. Etiam porta sem malesuada magna mollis euismod. Nullam quis risus eget urna mollis
+                            ornare vel eu leo.</p>
+
+                        <p>Nullam quis risus eget urna mollis ornare vel eu leo. Sed posuere consectetur est at
+                            lobortis. Nullam quis risus eget urna mollis ornare vel eu leo. Integer posuere erat a ante
+                            venenatis dapibus posuere velit aliquet. Praesent commodo cursus magna, vel scelerisque nisl
+                            consectetur et. Donec sed odio dui.</p>
+
+                        <p>Sed posuere consectetur est at lobortis. Maecenas faucibus mollis interdum. Donec sed odio
+                            dui. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</p>
+
+                        <p>Nullam id dolor id nibh ultricies vehicula ut id elit. Integer posuere erat a ante venenatis
+                            dapibus posuere velit aliquet. Nullam id dolor id nibh ultricies vehicula ut id elit. Cum
+                            sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+
+                        <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam
+                            id dolor id nibh ultricies vehicula ut id elit. Curabitur blandit tempus porttitor.
+                            Curabitur blandit tempus porttitor. Maecenas faucibus mollis interdum. Nullam quis risus
+                            eget urna mollis ornare vel eu leo.</p>
+
+                        <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec
+                            elit. Nullam quis risus eget urna mollis ornare vel eu leo. Cras justo odio, dapibus ac
+                            facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris
+                            condimentum nibh, ut fermentum massa justo sit amet risus. Nullam quis risus eget urna
+                            mollis ornare vel eu leo.</p>
+
+                        <p>Nullam quis risus eget urna mollis ornare vel eu leo. Cras mattis consectetur purus sit amet
+                            fermentum. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus
+                            mus. Cras mattis consectetur purus sit amet fermentum.</p>
+                    </div>
+
+                    <div class="modal-body">
+                        <input type="text" class="form-control" placeholder="Message"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="br"><pre><code class="bow" data-lang="html"><span class="as">&lt;div</span> <span
+            class="ai">class=</span><span class="ah">"modal"</span><span class="as">&gt;</span>
+  <span class="as">&lt;div</span> <span class="ai">class=</span><span class="ah">"modal-dialog modal-md"</span><span
+                class="as">&gt;</span>
+    <span class="as">&lt;div</span> <span class="ai">class=</span><span class="ah">"modal-content"</span><span
+                class="as">&gt;</span>
+      <span class="as">&lt;div</span> <span class="ai">class=</span><span class="ah">"modal-header"</span><span
+                class="as">&gt;</span>
+        <span class="as">&lt;h4</span> <span class="ai">class=</span><span class="ah">"modal-title"</span><span
+                class="as">&gt;</span>Medium Modal<span class="as">&lt;/h4&gt;</span>
+        <span class="as">&lt;button</span> <span class="ai">type=</span><span class="ah">"button"</span> <span
+                class="ai">class=</span><span class="ah">"close"</span> <span class="ai">data-dismiss=</span><span
+                class="ah">"modal"</span> <span class="ai">aria-label=</span><span class="ah">"Close"</span><span
+                class="as">&gt;&lt;span</span> <span class="ai">aria-hidden=</span><span class="ah">"true"</span><span
+                class="as">&gt;</span><span class="an">&amp;times;</span><span
+                class="as">&lt;/span&gt;&lt;/button&gt;</span>
+      <span class="as">&lt;/div&gt;</span>
+      <span class="as">&lt;div</span> <span class="ai">class=</span><span
+                class="ah">"modal-body modal-body-scroller"</span><span class="as">&gt;</span>
+        <span class="as">&lt;p&gt;</span>Maecenas faucibus mollis interdum. Nulla vitae elit libero, a pharetra augue. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Maecenas faucibus mollis interdum. Donec ullamcorper nulla non metus auctor fringilla. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.<span
+                class="as">&lt;/p&gt;</span>
+
+        <span class="as">&lt;p&gt;</span>Nullam id dolor id nibh ultricies vehicula ut id elit. Sed posuere consectetur est at lobortis. Etiam porta sem malesuada magna mollis euismod. Nullam quis risus eget urna mollis ornare vel eu leo.<span
+                class="as">&lt;/p&gt;</span>
+
+        <span class="as">&lt;p&gt;</span>Nullam quis risus eget urna mollis ornare vel eu leo. Sed posuere consectetur est at lobortis. Nullam quis risus eget urna mollis ornare vel eu leo. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui.<span
+                class="as">&lt;/p&gt;</span>
+
+        <span class="as">&lt;p&gt;</span>Sed posuere consectetur est at lobortis. Maecenas faucibus mollis interdum. Donec sed odio dui. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.<span
+                class="as">&lt;/p&gt;</span>
+
+        <span class="as">&lt;p&gt;</span>Nullam id dolor id nibh ultricies vehicula ut id elit. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Nullam id dolor id nibh ultricies vehicula ut id elit. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.<span
+                class="as">&lt;/p&gt;</span>
+
+        <span class="as">&lt;p&gt;</span>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam id dolor id nibh ultricies vehicula ut id elit. Curabitur blandit tempus porttitor. Curabitur blandit tempus porttitor. Maecenas faucibus mollis interdum. Nullam quis risus eget urna mollis ornare vel eu leo.<span
+                class="as">&lt;/p&gt;</span>
+
+        <span class="as">&lt;p&gt;</span>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Nullam quis risus eget urna mollis ornare vel eu leo. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Nullam quis risus eget urna mollis ornare vel eu leo.<span
+                class="as">&lt;/p&gt;</span>
+
+        <span class="as">&lt;p&gt;</span>Nullam quis risus eget urna mollis ornare vel eu leo. Cras mattis consectetur purus sit amet fermentum. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras mattis consectetur purus sit amet fermentum.<span
+                class="as">&lt;/p&gt;</span>
+      <span class="as">&lt;/div&gt;</span>
+
+      <span class="as">&lt;div</span> <span class="ai">class=</span><span class="ah">"modal-body"</span><span
+                class="as">&gt;</span>
+        <span class="as">&lt;input</span> <span class="ai">type=</span><span class="ah">"text"</span> <span class="ai">class=</span><span
+                class="ah">"form-control"</span> <span class="ai">placeholder=</span><span
+                class="ah">"Message"</span><span class="as">&gt;</span>
+      <span class="as">&lt;/div&gt;</span>
+    <span class="as">&lt;/div&gt;</span>
+  <span class="as">&lt;/div&gt;</span>
+<span class="as">&lt;/div&gt;</span></code></pre>
+    </div>
+
+    <p>Also, drop the regular footer for a new two-up set of actions using the <code class="bov">.modal-actions</code>
+        component.</p>
+
+    <div class="bs" data-example-id="">
+        <div class="cb">
+            <div class="modal-dialog on">
+                <div class="modal-content">
+                    <div class="ol">
+                        <h4 class="modal-title">Small modal</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Modal body text...</p>
+                    </div>
+                    <div class="ati">
+                        <button type="button" class="ku atj" data-dismiss="modal">
+                            <strong>Continue</strong>
+                        </button>
+                        <button type="button" class="ku atj" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="br"><pre><code class="bow" data-lang="html"><span class="as">&lt;div</span> <span
+            class="ai">class=</span><span class="ah">"modal"</span><span class="as">&gt;</span>
+  <span class="as">&lt;div</span> <span class="ai">class=</span><span class="ah">"modal-dialog modal-sm"</span><span
+                class="as">&gt;</span>
+    <span class="as">&lt;div</span> <span class="ai">class=</span><span class="ah">"modal-content"</span><span
+                class="as">&gt;</span>
+      <span class="as">&lt;div</span> <span class="ai">class=</span><span class="ah">"modal-header"</span><span
+                class="as">&gt;</span>
+        <span class="as">&lt;h4</span> <span class="ai">class=</span><span class="ah">"modal-title"</span><span
+                class="as">&gt;</span>Small modal<span class="as">&lt;/h4&gt;</span>
+        <span class="as">&lt;button</span> <span class="ai">type=</span><span class="ah">"button"</span> <span
+                class="ai">class=</span><span class="ah">"close"</span> <span class="ai">data-dismiss=</span><span
+                class="ah">"modal"</span> <span class="ai">aria-label=</span><span class="ah">"Close"</span><span
+                class="as">&gt;&lt;span</span> <span class="ai">aria-hidden=</span><span class="ah">"true"</span><span
+                class="as">&gt;</span><span class="an">&amp;times;</span><span
+                class="as">&lt;/span&gt;&lt;/button&gt;</span>
+      <span class="as">&lt;/div&gt;</span>
+      <span class="as">&lt;div</span> <span class="ai">class=</span><span class="ah">"modal-body"</span><span
+                class="as">&gt;</span>
+        <span class="as">&lt;p&gt;</span>Modal body text...<span class="as">&lt;/p&gt;</span>
+      <span class="as">&lt;/div&gt;</span>
+      <span class="as">&lt;div</span> <span class="ai">class=</span><span class="ah">"modal-actions"</span><span
+                class="as">&gt;</span>
+        <span class="as">&lt;button</span> <span class="ai">type=</span><span class="ah">"button"</span> <span
+                class="ai">class=</span><span class="ah">"btn-link modal-action"</span> <span
+                class="ai">data-dismiss=</span><span class="ah">"modal"</span><span class="as">&gt;</span>
+          <span class="as">&lt;strong&gt;</span>Continue<span class="as">&lt;/strong&gt;</span>
+        <span class="as">&lt;/button&gt;</span>
+        <span class="as">&lt;button</span> <span class="ai">type=</span><span class="ah">"button"</span> <span
+                class="ai">class=</span><span class="ah">"btn-link modal-action"</span> <span
+                class="ai">data-dismiss=</span><span class="ah">"modal"</span><span class="as">&gt;</span>Cancel<span
+                class="as">&lt;/button&gt;</span>
+      <span class="as">&lt;/div&gt;</span>
+    <span class="as">&lt;/div&gt;</span>
+  <span class="as">&lt;/div&gt;</span>
+<span class="as">&lt;/div&gt;</span></code></pre>
+    </div>
+
+    <h1 id="plugins">Plugins</h1>
+
+    <h2 id="tablesorter">Tablesorter</h2>
+
+    <p>Including in this theme is <a href="http://tablesorter.com/">Tablesorter</a>, a jQuery plugin for easy column
+        sorting on tables. Basic styles for the directional arrows when sorting are included here for ease. Consult the
+        Tablesorter docs for usage and additional customizations.</p>
+
+    <div class="bs">
+        <div class="iw">
+            <table class="ck" data-sort="table">
+                <thead>
+                <tr>
+                    <th><input type="checkbox" class="bpa" id="selectAll"/></th>
+                    <th>Order</th>
+                    <th>Customer name</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><input type="checkbox" class="bpb"/></td>
+                    <td><a href="#">#10001</a></td>
+                    <td>First Last</td>
+                    <td>Admin theme, marketing theme</td>
+                    <td>01/01/2015</td>
+                    <td>$200.00</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" class="bpb"/></td>
+                    <td><a href="#">#10002</a></td>
+                    <td>Firstname Last</td>
+                    <td>Admin theme</td>
+                    <td>01/01/2015</td>
+                    <td>$100.00</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" class="bpb"/></td>
+                    <td><a href="#">#10003</a></td>
+                    <td>Name Another</td>
+                    <td>Personal blog theme</td>
+                    <td>01/01/2015</td>
+                    <td>$100.00</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" class="bpb"/></td>
+                    <td><a href="#">#10004</a></td>
+                    <td>One More</td>
+                    <td>Marketing theme, personal blog theme, admin theme</td>
+                    <td>01/01/2015</td>
+                    <td>$300.00</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" class="bpb"/></td>
+                    <td><a href="#">#10005</a></td>
+                    <td>Name Right Here</td>
+                    <td>Personal blog theme, admin theme</td>
+                    <td>01/02/2015</td>
+                    <td>$200.00</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <p>Enabling Tablesorter is easy with jQuery:</p>
+
+    <figure class="br"><pre><code class="bpc" data-lang="js"><span class="bpd">$</span><span class="bpe">(</span><span
+            class="aj">document</span><span class="bpe">).</span><span class="bpd">ready</span><span
+            class="bpe">(</span><span class="ab">function</span><span class="bpe">()</span> <span class="bpe">{</span>
+  <span class="p">// call the tablesorter plugin</span>
+  <span class="bpd">$</span><span class="bpe">(</span><span class="bd">"[data-sort=table]"</span><span
+                class="bpe">).</span><span class="bpd">tablesorter</span><span class="bpe">({</span>
+    <span class="p">// Sort on the second column, in ascending order</span>
+    <span class="ai">sortList</span><span class="bpe">:</span> <span class="bpe">[[</span><span class="ay">1</span><span
+                class="bpe">,</span><span class="ay">0</span><span class="bpe">]]</span>
+  <span class="bpe">});</span>
+<span class="bpe">});</span></code></pre>
+    </figure>
+
+    <h2 id="datepicker">Datepicker</h2>
+
+    <p>We’ve integrated the excellent <a href="https://bootstrap-datepicker.readthedocs.org/en/latest/">Bootstrap
+        Datepicker</a> plugin for your convenience. You can initiate this simply with data-attributes or for more
+        advanced applications use the javascript API. Refer to <a
+                href="https://bootstrap-datepicker.readthedocs.org/en/latest/">their docs for more information</a>.</p>
+
+    <div class="bs" data-example-id="">
+        <div class="input-group">
+  <span class="input-group-addon">
+    <span class="bv awh"></span>
+  </span>
+            <input type="text" value="01/01/2015" class="form-control" data-provide="datepicker" style="width: 200px;"/>
+        </div>
+    </div>
+    <div class="br"><pre><code class="bow" data-lang="html"><span class="as">&lt;div</span> <span
+            class="ai">class=</span><span class="ah">"input-group"</span><span class="as">&gt;</span>
+  <span class="as">&lt;span</span> <span class="ai">class=</span><span class="ah">"input-group-addon"</span><span
+                class="as">&gt;</span>
+    <span class="as">&lt;span</span> <span class="ai">class=</span><span class="ah">"icon icon-calendar"</span><span
+                class="as">&gt;&lt;/span&gt;</span>
+  <span class="as">&lt;/span&gt;</span>
+  <span class="as">&lt;input</span> <span class="ai">type=</span><span class="ah">"text"</span> <span
+                class="ai">value=</span><span class="ah">"01/01/2015"</span> <span class="ai">class=</span><span
+                class="ah">"form-control"</span> <span class="ai">data-provide=</span><span
+                class="ah">"datepicker"</span> <span class="ai">style=</span><span
+                class="ah">"width: 200px;"</span><span class="as">&gt;</span>
+<span class="as">&lt;/div&gt;</span></code></pre>
+    </div>
+
+    <h2 id="chartjs">Chart.js</h2>
+
+    <p>Charts and graphs are available through <a href="http://www.chartjs.org">Chart.js</a>, a clean and responsive
+        canvas-based chart rendering JavaScript library.</p>
+
+    <p>We recommend reviewing the full <a href="http://www.chartjs.org/docs/">Chart.js documentation</a> as you
+        implement or modify any charts here.</p>
+
+
+    <a class="docs-top" style="display: none" href="#">Back to top</a>
+</div>
+
+
+<script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/js/popper.min.js"></script>
+<script src="../assets/js/chart.js"></script>
+<script src="../assets/js/tablesorter.min.js"></script>
+<script src="../assets/js/toolkit.js"></script>
+<script src="../assets/js/application.js"></script>
+<script>
+    // execute/clear BS loaders for docs
+    $(function () {
+        while (window.BS && window.BS.loader && window.BS.loader.length) {
+            (window.BS.loader.pop())()
+        }
+    })
+</script>
+</body>
+</html>
+
